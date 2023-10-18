@@ -14,43 +14,71 @@ class DefaultButtonSoft extends DefaultStatelessWidget<ButtonData> {
   @override
   Widget build(BuildContext context)
   {
-    Color color = _color(context);
+    Color textColor = _textColor(context);
 
 
     return TextButton(
       onPressed: data.enabled ? data.onPrimaryAction : null,
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(color.withOpacity(0.2)),
+        overlayColor: MaterialStateProperty.all(textColor.withOpacity(0.2)),
         minimumSize: MaterialStateProperty.all(Size.zero),
-        padding: MaterialStateProperty.all(context.paddingM),
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
       ),
       child: Container(
-        // padding: context.paddingS,
-        child: TextBody.small(data.title?.toUpperCase(),
-          color: color,
-          letterSpacing: -0.8,
-          lineHeight: 1.3,
-        ),
+        padding: _contentPadding(context),
+        child: _buildText(context, textColor),
       ),
     );
   }
 
-
-
-  Color _color(BuildContext context)
+  EdgeInsets _contentPadding(BuildContext context)
   {
-    if (!data.enabled) throw UnimplementedError();
-    
-
-    if (data.type == kButtonType.regular) return context.colors.onBackground;
-    if (data.type == kButtonType.primary) return context.colors.primary;
-    if (data.type == kButtonType.secondary) return context.colors.secondary;
-    if (data.type == kButtonType.tertiary) return context.colors.tertiary;
-    if (data.type == kButtonType.success) return context.colors.success;
-    if (data.type == kButtonType.destructive) return context.colors.destructive;
-    if (data.type == kButtonType.lowFocus) return context.colors.onBackgroundLessFocus;
-
-    throw UnimplementedError();
+    return switch (data.size)
+    {
+      kSize3.S => context.paddingM_S,
+      kSize3.M => context.paddingL_M,
+      kSize3.L => context.paddingXL_L
+    };
   }
+
+  Color _textColor(BuildContext context)
+  {
+    return switch (data.type)
+    {
+      kButtonType.regular => context.colors.onBackground,
+      kButtonType.primary => context.colors.primary,
+      kButtonType.secondary => context.colors.secondary,
+      kButtonType.tertiary => context.colors.tertiary,
+      kButtonType.success => context.colors.success,
+      kButtonType.destructive => context.colors.destructive,
+      kButtonType.lowFocus => context.colors.onBackgroundLessFocus,
+    };
+  }
+
+
+  Widget _buildText(BuildContext context, Color color)
+  {
+    if (data.size == kSize3.S)
+    {
+      return TextBody.small(data.title?.toUpperCase(),
+        color: color,
+        letterSpacing: -0.8,
+      );
+    }
+
+    if (data.size == kSize3.M)
+    {
+      return TextBody.medium(data.title?.toUpperCase(),
+        color: color,
+        letterSpacing: -0.8,
+      );
+    }
+
+    return TextBody.large(data.title?.toUpperCase(),
+      color: color,
+      letterSpacing: -0.8,
+    );
+  }
+
 
 }

@@ -178,12 +178,9 @@ class StepsBar extends StatelessWidget {
 
 
 
-    return Container(
-      padding: context.paddingM_S,
-      child: Stack(
-        alignment: Alignment.center,
-        children: stackChildren,
-      ),
+    return Stack(
+      alignment: Alignment.center,
+      children: stackChildren,
     );
   }
 }

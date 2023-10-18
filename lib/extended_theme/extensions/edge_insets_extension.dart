@@ -72,4 +72,28 @@ extension ExtensionEdgeInsets on EdgeInsets {
     bottom: bottom + value,
   );
 
+  EdgeInsets excludeTop({bool condition = true }) => condition == false ? this : EdgeInsets.only(
+    left: left,
+    right: right,
+    bottom: bottom,
+  );
+
+  EdgeInsets excludeBottom({bool condition = true }) => condition == false ? this : EdgeInsets.only(
+    left: left,
+    top: top,
+    right: right,
+  );
+
+  EdgeInsets excludeLeft({bool condition = true }) => condition == false ? this : EdgeInsets.only(
+    top: top,
+    right: right,
+    bottom: bottom,
+  );
+
+  EdgeInsets excludeRight({bool condition = true }) => condition == false ? this : EdgeInsets.only(
+    left: left,
+    top: top,
+    bottom: bottom,
+  );
+
 }

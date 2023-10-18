@@ -3,6 +3,7 @@ library devspace;
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:measure_size/measure_size.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,7 @@ part 'blue_forms/input_validators.dart';
 
 part 'brixies/edge_shadow.dart';
 part 'brixies/hide_keyboard_on_tap.dart';
+part 'brixies/intrinsic_height_page_view.dart';
 part 'brixies/layout_builder.dart';
 part 'brixies/line_divider.dart';
 part 'brixies/smooth_swap.dart';

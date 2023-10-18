@@ -30,6 +30,41 @@ class DefaultInputDecoration extends ArchObject<InputDecoration, InputDecoration
     double focusedBorderWidth = context.dimensions.lineThicknessL;
     double errorBorderWidth = context.dimensions.lineThicknessL;
 
+
+    // return InputDecoration(
+    //   // contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+    //   hintText: data.hint,
+    //   labelText: data.label,
+    //   errorText: data.error,
+      
+    //   hintStyle: TextStyle(
+    //     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)
+    //   ),
+    //   border: OutlineInputBorder(
+    //     borderRadius: BorderRadius.circular(16),
+    //     borderSide: BorderSide.none,
+    //   ),
+    //   prefixIcon: Icon(
+    //     Icons.search,
+    //     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+    //   ),
+    //   focusColor: Theme.of(context).colorScheme.primary,
+    //   // suffixIcon: IconButton(
+    //   //   icon: Icon(
+    //   //     Icons.close,
+    //   //     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+    //   //   ),
+    //   //   onPressed: ()
+    //   //   {
+    //   //     _searchController.clear();
+    //   //     widget.search?.onCancel();
+    //   //   }
+    //   // )
+    // );
+
+
+
+
     return InputDecoration(
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
@@ -74,8 +109,11 @@ class DefaultInputDecoration extends ArchObject<InputDecoration, InputDecoration
       floatingLabelBehavior: FloatingLabelBehavior.always,
       errorMaxLines: 3,
       contentPadding: context.paddingM,
-  );
+    );
   }
+
+
+
   
 }
 

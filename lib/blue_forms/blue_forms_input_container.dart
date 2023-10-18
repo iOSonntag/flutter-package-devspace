@@ -25,7 +25,7 @@ class BlueFormsInputContainer extends StatelessWidget {
       children.addAll([
 
         TextBody.small(description!,
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.left,
         ),
 
         context.spaceL,

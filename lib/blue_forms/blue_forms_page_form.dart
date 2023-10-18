@@ -215,6 +215,6 @@ class _BlueFormsPageFormState extends State<BlueFormsPageForm> {
       );
     }
 
-    throw Exception('BlueForms input type unsuported $definition.');
+    throw Exception('BlueForms input type unsupported $definition.');
   }
 }

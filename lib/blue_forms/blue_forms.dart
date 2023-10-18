@@ -288,10 +288,11 @@ class BlueForms extends StatefulWidget {
   final OnCompleteBlueForms onComplete;
   final Color? processBarActiveColor;
   final int textFieldDecorationStyle;
-  final bool buttonSplitterEnabled;
+  final bool actionBarSeparation;
   final List<BlueFormsPageDefinition> pages;
   final BlueFormsController? controller;
   final String? customFinalButtonTitle;
+  final bool intrinsicHeight;
 
   const BlueForms({
     super.key,
@@ -300,8 +301,9 @@ class BlueForms extends StatefulWidget {
     required this.onComplete,
     this.processBarActiveColor,
     this.textFieldDecorationStyle = 0,
-    this.buttonSplitterEnabled = true,
+    this.actionBarSeparation = true,
     this.customFinalButtonTitle,
+    this.intrinsicHeight = false,
     required this.pages,
   }) :
     assert(pages.length > 0);
@@ -326,11 +328,11 @@ class _BlueFormsState extends State<BlueForms> {
     super.initState();
 
     // TODO: check
-    // if(widget.controller != null)
-    // {
-    //     widget.controller!.addListener(() {
-    //     });
-    // }
+    if(widget.controller != null)
+    {
+        widget.controller!.addListener(() {
+        });
+    }
   }
   
   @override
@@ -348,8 +350,9 @@ class _BlueFormsState extends State<BlueForms> {
         onCancel: widget.onCancel,
         activeColor: widget.processBarActiveColor,
         currentIndex: _currentIndex,
-        actionBarSplitterEnabled: widget.buttonSplitterEnabled,
+        actionBarSeparation: widget.actionBarSeparation,
         customFinalNextButtonTitle: widget.customFinalButtonTitle,
+        intrinsicHeight: widget.intrinsicHeight,
         onBack: _onBack,
         onNext: _onNext,
         pages: pages, 

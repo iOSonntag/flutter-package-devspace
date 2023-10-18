@@ -22,11 +22,16 @@ class StepIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
-    List<Widget> listSteps = [];
+    final double totalSize = context.dimensions.barHeightXS;
+    final double indicatorSize = totalSize - context.dimensions.spaceXSValue * 2;
+
+    List<Widget> listSteps = [
+      SizedBox(height: totalSize)
+    ];
 
     for (int i = 0; i < stepsCount; i++)
     {
-      listSteps.add(_buildStep(context, i, i == currentIndex));
+      listSteps.add(_buildStep(context, i, i == currentIndex, indicatorSize));
     }
 
     return Row(
@@ -36,11 +41,9 @@ class StepIndicator extends StatelessWidget {
   }
 
 
-  Widget _buildStep(BuildContext context, int index, bool active)
+  Widget _buildStep(BuildContext context, int index, bool active, double size)
   {
     Color col = active ? (color ?? context.colors.primary) : context.colors.onBackgroundLessFocus;
-
-    double size = context.dimensions.barHeightS;
 
     if (!active)
     {
@@ -52,7 +55,7 @@ class StepIndicator extends StatelessWidget {
       curve: animationCurve,
       width: size,
       height: size,
-      margin: context.paddingXS_0,
+      margin: context.paddingXS,
       decoration: BoxDecoration(
         color: col,
         borderRadius: BorderRadius.circular(100.0)
