@@ -1,9 +1,8 @@
 
 
-
-
-
 part of devspace;
+
+
 
 class BlueFormsPageFormController extends ChangeNotifier {
 
@@ -20,18 +19,17 @@ class BlueFormsPageFormController extends ChangeNotifier {
 
 }
 
-class BlueFormsPageForm extends StatefulWidget {
+class _FormPageWidget extends StatefulWidget {
 
-    final int textFieldDecorationStyle;
-    final BlueFormsPageFormDefinition definition;
+    final FormPage definition;
     final BlueFormsPageFormController controller;
     final Map<String, dynamic> currentSavedValues;
     final Map<String, String> badInputs;
     final void Function(String id, String? value) onSave;
 
-    const BlueFormsPageForm({
+    const _FormPageWidget({
+      // ignore: unused_element
       super.key,
-      required this.textFieldDecorationStyle,
       required this.definition,
       required this.controller,
       required this.currentSavedValues,
@@ -40,10 +38,10 @@ class BlueFormsPageForm extends StatefulWidget {
     });
 
     @override
-    State<BlueFormsPageForm> createState() => _BlueFormsPageFormState();
+    State<_FormPageWidget> createState() => _FormPageWidgetState();
 }
 
-class _BlueFormsPageFormState extends State<BlueFormsPageForm> {
+class _FormPageWidgetState extends State<_FormPageWidget> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _alwaysValidate = false;
@@ -57,7 +55,7 @@ class _BlueFormsPageFormState extends State<BlueFormsPageForm> {
   }
 
   @override
-  void didUpdateWidget(BlueFormsPageForm oldWidget)
+  void didUpdateWidget(_FormPageWidget oldWidget)
   {
     if (!widget.controller.hasListeners)
     {
@@ -122,21 +120,21 @@ class _BlueFormsPageFormState extends State<BlueFormsPageForm> {
 
     for (int i = 0; i < widget.definition.elements.length; i++)
     {
-      BlueFormsElementDefinition fiInputDefinition = widget.definition.elements[i];
+      FormElement fiInputDefinition = widget.definition.elements[i];
 
       if (fiInputDefinition.isActive == false)
       {
         continue;
       }
 
-      if (fiInputDefinition is BlueFormsInputDefinition)
+      if (fiInputDefinition is FormInput)
       {
         children.add(_buildInput(context, fiInputDefinition, i == 0, i == widget.definition.elements.length - 1));
       }
 
-      if (fiInputDefinition is BlueFormsCustomWidgetDefinition)
+      if (fiInputDefinition is FormCustomWidget)
       {
-        children.add(fiInputDefinition.child);
+        children.add(fiInputDefinition.widget);
       }
 
     }
@@ -157,17 +155,16 @@ class _BlueFormsPageFormState extends State<BlueFormsPageForm> {
     );
   }
 
-  Widget _buildInput(BuildContext context, BlueFormsInputDefinition definition, bool first, bool last)
+  Widget _buildInput(BuildContext context, FormInput definition, bool first, bool last)
   {
     // TODO: use first and last to setup return key logic and stuff, note that the last input might not be the last text input
     String? errorMsg = widget.badInputs[definition.id];
     
 
-    if (definition is BlueFormsInputTextDefinition)
+    if (definition is FormInputText)
     {
-      return BlueFormsInputText(
+      return _FormInputTextWidget(
         key: Key(definition.id),
-        decorationStyle: widget.textFieldDecorationStyle,
         definition: definition,
         currentSavedValue: widget.currentSavedValues[definition.id],
         errorMsg: errorMsg,
@@ -178,11 +175,10 @@ class _BlueFormsPageFormState extends State<BlueFormsPageForm> {
       );
     }
 
-    if (definition is BlueFormsInputOptionSelectionDefinition)
+    if (definition is FormInputPickOption)
     {
-      return BlueFormsInputOptionSelection(
+      return _FormInputPickOptionWidget(
         key: Key(definition.id),
-        decorationStyle: widget.textFieldDecorationStyle,
         definition: definition,
         currentSavedValue: widget.currentSavedValues[definition.id],
         errorMsg: errorMsg,
@@ -193,13 +189,13 @@ class _BlueFormsPageFormState extends State<BlueFormsPageForm> {
       );
     }
 
-    if (definition is BlueFormsInputGroup)
+    if (definition is FormInputGroup)
     {
       List<Widget> groupChildren = [];
 
       for (int i = 0; i < definition.inputs.length; i++)
       {
-        BlueFormsInputDefinition fiInputDefinition = definition.inputs[i];
+        FormInput fiInputDefinition = definition.inputs[i];
 
         if (fiInputDefinition.isActive == false)
         {

@@ -1,14 +1,13 @@
 
-
-
-
 part of devspace;
 
-class BlueFormsPageInfo extends StatelessWidget {
 
-    final BlueFormsPageInfoDefinition definition;
+class _FormPageInfoWidget extends StatelessWidget {
 
-    const BlueFormsPageInfo({
+    final FormPageInfo definition;
+
+    const _FormPageInfoWidget({
+      // ignore: unused_element
       super.key,
       required this.definition,
     });

@@ -6,290 +6,15 @@
 
 part of devspace;
 
-abstract class BlueFormsPageDefinition {
-
-  const BlueFormsPageDefinition();
-
-  bool allowsToContinue();
-
-}
-
-class BlueFormsPageInfoDefinition extends BlueFormsPageDefinition {
-
-  final String title;
-  final String description;
-
-  const BlueFormsPageInfoDefinition({
-    required this.title,
-    required this.description,
-  });
-  
-  @override
-  bool allowsToContinue()
-  {
-    return true;
-  }
-}
-
-class BlueFormsPageFormDefinition extends BlueFormsPageDefinition {
-
-  final String title;
-  final String? description;
-  final List<BlueFormsElementDefinition> elements;
-  BlueFormsPageFormController? _controller;
-
-  BlueFormsPageFormDefinition({
-    required this.title,
-    this.description,
-    required this.elements,
-  });
-
-
-  
-  @override
-  bool allowsToContinue()
-  {
-    if (_controller != null)
-    {
-      return _controller!.tryToContinue();
-    }
-
-    return false;
-  }
-
-}
-
-typedef BlueFormsInputChangeHandler = void Function(dynamic newValue);
-
-abstract class BlueFormsElementDefinition {
-  final String id;
-  final bool isActive;
-
-  const BlueFormsElementDefinition({
-    required this.id,
-    this.isActive = true,
-  });
-}
-
-class BlueFormsCustomWidgetDefinition extends BlueFormsElementDefinition {
-  final Widget child;
-
-  const BlueFormsCustomWidgetDefinition({
-    required super.id,
-    required this.child,
-    super.isActive = true,
-  });
-}
-
-abstract class BlueFormsInputDefinition extends BlueFormsElementDefinition {
-
-  final dynamic initialValue;
-  final bool isOptional;
-  final String? description;
-  final String? label;
-
-  const BlueFormsInputDefinition({
-    required super.id,
-    this.initialValue,
-    this.isOptional = false,
-    this.description,
-    this.label,
-    super.isActive = true,
-  });
-
-}
-
-// TODO: IMPROVEMENT add isOptional and label and description to group cascading the isOptional value down to the fields
-class BlueFormsInputGroup extends BlueFormsInputDefinition {
-
-  final List<BlueFormsInputDefinition> inputs;
-
-  const BlueFormsInputGroup({
-      required this.inputs,
-      super.isActive,
-  }) :
-    super(id: '');
-
-}
-
-class BlueFormsCommonInputs {
-
-  BlueFormsCommonInputs._();
-
-  // TODO: maybe add server name
-  /// Creates inputs with ids:
-  /// - AddressStreet
-  /// - AddressPostalCode
-  /// - AddressCity
-  /// - (AddressCountry)
-  static BlueFormsInputDefinition address({
-    required String idPrefix,
-    String? description,
-    bool isOptional = false,
-    bool isActive = true,
-    bool includeCountry = false,
-    String? initialStreet,
-    String? initialPostalCode,
-    String? initialCity,
-    String? initialCountry,
-  })
-  {
-    assert(includeCountry || initialCountry == null, 'You provided a initial country, but the widget ignores the country. Set [includeCountry] to true.');
-
-    if (includeCountry)
-    {
-      throw UnimplementedError('This feature has not been implemented yet.');
-    }
-
-
-    return BlueFormsInputGroup(
-      isActive: isActive,
-      inputs: [
-
-        BlueFormsInputTextDefinition(
-          id: '${idPrefix}AddressStreet',
-          description: description,
-          autocorrect: false,
-          isOptional: isOptional,
-          initialValue: initialStreet,
-          label: LibStrings.lib_blueFormsCommonInputs_address_streetLabel.tr(),
-          hint: LibStrings.lib_blueFormsCommonInputs_address_streetHint.tr(),
-          autofillHints: const [
-              // TODO: check if ts the correct value
-              AutofillHints.fullStreetAddress
-          ],
-          validationType: kBlueFormsInputTextValidationType.trimNotEmpty,
-        ),
-
-        BlueFormsInputTextDefinition(
-          id: '${idPrefix}AddressPostalCode',
-          description: description,
-          autocorrect: false,
-          isOptional: isOptional,
-          initialValue: initialPostalCode,
-          label: LibStrings.lib_blueFormsCommonInputs_address_postalCodeLabel.tr(),
-          hint: LibStrings.lib_blueFormsCommonInputs_address_postalCodeHint.tr(),
-          autofillHints: const [
-              AutofillHints.postalCode
-          ],
-          validationType: kBlueFormsInputTextValidationType.trimNotEmpty,
-        ),
-
-        BlueFormsInputTextDefinition(
-          id: '${idPrefix}AddressCity',
-          description: description,
-          autocorrect: false,
-          isOptional: isOptional,
-          initialValue: initialPostalCode,
-          label: LibStrings.lib_blueFormsCommonInputs_address_cityLabel.tr(),
-          hint: LibStrings.lib_blueFormsCommonInputs_address_cityHint.tr(),
-          autofillHints: const [
-              AutofillHints.addressCity
-          ],
-          validationType: kBlueFormsInputTextValidationType.trimNotEmpty,
-        ),
-
-      ],
-    );
-  }
-
-}
-
-// ignore: camel_case_types
-enum kBlueFormsInputTextValidationType
-{
-    none,
-    trimNotEmpty,
-    notEmpty,
-    phoneNumber,
-    custom
-}
-
-/// If the input is marked as [isOptional] and a validator is set,
-/// the field gets only validated if it contains input. White spaces 
-/// are only excluded from this check if [trimOnSave] is enabled.
-class BlueFormsInputTextDefinition extends BlueFormsInputDefinition {
-
-  final String? hint;
-  final bool trimOnSave;
-  final bool isTextArea;
-  final kBlueFormsInputTextValidationType validationType;
-  final InputValidator? customValidator;
-  final int? overwriteDecorationStyle;
-  final Iterable<String>? autofillHints;
-  final bool autocorrect;
-  final bool obscureText;
-  final bool enableSuggestions;
-  final TextInputType? keyboardType;
-  final void Function(String newValue)? onChange;
-
-  const BlueFormsInputTextDefinition({
-    required super.id,
-    super.initialValue,
-    super.description,
-    super.label,
-    this.hint,
-    this.validationType = kBlueFormsInputTextValidationType.trimNotEmpty,
-    this.customValidator,
-    this.trimOnSave = true,
-    this.isTextArea = false,
-    super.isOptional,
-    this.overwriteDecorationStyle,
-    this.autofillHints,
-    this.autocorrect = true,
-    this.obscureText = false,
-    this.enableSuggestions = true,
-    this.keyboardType,
-    this.onChange,
-    super.isActive,
-  }) :
-    assert((customValidator == null && validationType != kBlueFormsInputTextValidationType.custom) || (customValidator != null && validationType == kBlueFormsInputTextValidationType.custom)),
-    assert(isOptional == true || validationType != kBlueFormsInputTextValidationType.none);
-
-}
-
-class BlueFormsInputOptionSelectionDefinition extends BlueFormsInputDefinition {
-
-  final List<BlueFormsInputOptionSelectionItem> options;
-  final int? overwriteDecorationStyle;
-  final void Function(String? newValue)? onChange;
-
-  const BlueFormsInputOptionSelectionDefinition({
-    required super.id,
-    super.initialValue,
-    super.description,
-    super.label,
-    super.isActive,
-    required this.options,
-    super.isOptional,
-    this.overwriteDecorationStyle,
-    this.onChange,
-  });
-
-}
-
-class BlueFormsInputOptionSelectionItem {
-
-  final String id;
-  final String title;
-
-  const BlueFormsInputOptionSelectionItem({
-    required this.id,
-    required this.title,
-  });
-
-}
-
-typedef OnCompleteBlueForms = void Function(Map<String, dynamic> formValues);
 
 class BlueForms extends StatefulWidget {
 
   final VoidCallback? onCancel;
-  final OnCompleteBlueForms onComplete;
+  final OnCompleteForms onComplete;
   final Color? processBarActiveColor;
   final int textFieldDecorationStyle;
   final bool actionBarSeparation;
-  final List<BlueFormsPageDefinition> pages;
+  final List<FormPageBase> pages;
   final BlueFormsController? controller;
   final String? customFinalButtonTitle;
   final bool intrinsicHeight;
@@ -340,7 +65,7 @@ class _BlueFormsState extends State<BlueForms> {
   {
     List<Widget> pages = [];
 
-    for (BlueFormsPageDefinition fiPage in widget.pages)
+    for (FormPageBase fiPage in widget.pages)
     {
       pages.add(_buildPage(context, fiPage));
     }
@@ -380,7 +105,7 @@ class _BlueFormsState extends State<BlueForms> {
 
   void _onNext()
   {
-    BlueFormsPageDefinition page = widget.pages[_currentIndex];
+    FormPageBase page = widget.pages[_currentIndex];
 
     if (page.allowsToContinue())
     {
@@ -405,14 +130,14 @@ class _BlueFormsState extends State<BlueForms> {
     });
   }
 
-  Widget _buildPage(BuildContext context, BlueFormsPageDefinition page)
+  Widget _buildPage(BuildContext context, FormPageBase page)
   {
-    if (page is BlueFormsPageInfoDefinition)
+    if (page is FormPageInfo)
     {
-      return BlueFormsPageInfo(definition: page);
+      return _FormPageInfoWidget(definition: page);
     }
 
-    if (page is BlueFormsPageFormDefinition)
+    if (page is FormPage)
     {
       if (page._controller == null)
       {
@@ -423,9 +148,8 @@ class _BlueFormsState extends State<BlueForms> {
 
       }
 
-      return BlueFormsPageForm(
+      return _FormPageWidget(
         controller: page._controller!,
-        textFieldDecorationStyle: widget.textFieldDecorationStyle,
         definition: page,
         currentSavedValues: _savedInputs,
         badInputs: _badInputs,
@@ -461,9 +185,9 @@ class _BlueFormsState extends State<BlueForms> {
       fiController.dispose();
     }
 
-    for (BlueFormsPageDefinition fiPage in widget.pages)
+    for (FormPageBase fiPage in widget.pages)
     {
-      if (fiPage is BlueFormsPageFormDefinition)
+      if (fiPage is FormPage)
       {
         fiPage._controller = null;
       }

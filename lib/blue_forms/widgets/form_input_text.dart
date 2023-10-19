@@ -4,17 +4,15 @@
 
 part of devspace;
 
-class BlueFormsInputText extends StatelessWidget {
+class _FormInputTextWidget extends StatelessWidget {
 
-  final int decorationStyle;
-  final BlueFormsInputTextDefinition definition;
+  final FormInputText definition;
   final dynamic currentSavedValue;
   final String? errorMsg;
   final void Function(String? value) onSave;
 
-  const BlueFormsInputText({
+  const _FormInputTextWidget({
     super.key,
-    required this.decorationStyle,
     required this.definition,
     required this.currentSavedValue,
     required this.onSave,
@@ -25,19 +23,19 @@ class BlueFormsInputText extends StatelessWidget {
   {
     switch (definition.validationType)
     {
-      case kBlueFormsInputTextValidationType.none:
+      case kFormTextValidationType.none:
         return InputValidators.noValidation();
 
-      case kBlueFormsInputTextValidationType.trimNotEmpty:
+      case kFormTextValidationType.trimNotEmpty:
         return InputValidators.notEmpty(trimBeforeCheck: true);
 
-      case kBlueFormsInputTextValidationType.notEmpty:
+      case kFormTextValidationType.notEmpty:
         return InputValidators.notEmpty(trimBeforeCheck: false);
 
-      case kBlueFormsInputTextValidationType.phoneNumber:
+      case kFormTextValidationType.phoneNumber:
         return InputValidators.phoneNumber();
 
-      case kBlueFormsInputTextValidationType.custom:
+      case kFormTextValidationType.custom:
         return definition.customValidator ?? InputValidators.noValidation();
     }
 
@@ -49,14 +47,12 @@ class BlueFormsInputText extends StatelessWidget {
   Widget build(BuildContext context)
   {
     final InputDecoration decoration = ArchInputDecoration.create(context, InputDecorationData(
-      // TODO: implement
-      // style: widget.definition.overwriteDecorationStyle ?? widget.decorationStyle,
       hint: definition.hint,
       label: definition.label,
       error: errorMsg,
     ));
 
-    return BlueFormsInputContainer(
+    return _FormInputContainerWidget(
       description: definition.description,
       child: TextFormField(
         initialValue: currentSavedValue ?? definition.initialValue,

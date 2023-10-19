@@ -4,17 +4,15 @@
 
 part of devspace;
 
-class BlueFormsInputOptionSelection extends StatefulWidget {
+class _FormInputPickOptionWidget extends StatefulWidget {
 
-  final int decorationStyle;
-  final BlueFormsInputOptionSelectionDefinition definition;
+  final FormInputPickOption definition;
   final dynamic currentSavedValue;
   final String? errorMsg;
   final void Function(String? value) onSave;
 
-  const BlueFormsInputOptionSelection({
+  const _FormInputPickOptionWidget({
     super.key,
-    required this.decorationStyle,
     required this.definition,
     required this.currentSavedValue,
     required this.onSave,
@@ -22,14 +20,14 @@ class BlueFormsInputOptionSelection extends StatefulWidget {
   });
 
   @override
-  State<BlueFormsInputOptionSelection> createState() => _BlueFormsInputOptionSelectionState();
+  State<_FormInputPickOptionWidget> createState() => _FormInputPickOptionWidgetState();
 }
 
 
 // ignore: constant_identifier_names
 const String _OPTION_SELECTION_UNSET_VALUE = '__UNSET';
 
-class _BlueFormsInputOptionSelectionState extends State<BlueFormsInputOptionSelection> {
+class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> {
 
 
   String? _dropdownValue;
@@ -52,7 +50,6 @@ class _BlueFormsInputOptionSelectionState extends State<BlueFormsInputOptionSele
   {
     final InputDecoration decoration = ArchInputDecoration.create(context, InputDecorationData(
       // TODO: implement
-      // style: widget.definition.overwriteDecorationStyle ?? widget.decorationStyle,
       label: widget.definition.label,
       hint: LibStrings.lib_inputOptionSelection_pleaseChoose.tr(),
       error: widget.errorMsg,
@@ -95,7 +92,7 @@ class _BlueFormsInputOptionSelectionState extends State<BlueFormsInputOptionSele
       );
     }
 
-    return BlueFormsInputContainer(
+    return _FormInputContainerWidget(
       description: widget.definition.description,
       child: DropdownButtonFormField<String>(
         decoration: decoration,

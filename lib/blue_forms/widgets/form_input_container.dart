@@ -4,12 +4,13 @@
 
 part of devspace;
 
-class BlueFormsInputContainer extends StatelessWidget {
+class _FormInputContainerWidget extends StatelessWidget {
 
   final String? description;
   final Widget child;
 
-  const BlueFormsInputContainer({
+  const _FormInputContainerWidget({
+    // ignore: unused_element
     super.key,
     this.description,
     required this.child,
@@ -25,7 +26,7 @@ class BlueFormsInputContainer extends StatelessWidget {
       children.addAll([
 
         TextBody.small(description!,
-          textAlign: TextAlign.left,
+          textAlign: TextAlign.center,
         ),
 
         context.spaceL,

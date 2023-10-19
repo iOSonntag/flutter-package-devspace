@@ -47,14 +47,29 @@ part 'architect/architect.dart';
 
 // blue_forms
 
+part 'blue_forms/models/elements/base.dart';
+part 'blue_forms/models/elements/form_custom_widget.dart';
+part 'blue_forms/models/elements/form_input_group.dart';
+part 'blue_forms/models/elements/form_input_pick_option.dart';
+part 'blue_forms/models/elements/form_input_text.dart';
+
+part 'blue_forms/models/pages/base.dart';
+part 'blue_forms/models/pages/form_page_info.dart';
+part 'blue_forms/models/pages/form_page.dart';
+
+part 'blue_forms/models/general.dart';
+
+part 'blue_forms/util/common_form_inputs.dart';
+part 'blue_forms/util/input_validators.dart';
+
+part 'blue_forms/widgets/form_input_container.dart';
+part 'blue_forms/widgets/form_input_pick_option.dart';
+part 'blue_forms/widgets/form_input_text.dart';
+part 'blue_forms/widgets/form_page_info.dart';
+part 'blue_forms/widgets/form_page.dart';
+
 part 'blue_forms/blue_forms_controller.dart';
-part 'blue_forms/blue_forms_input_container.dart';
-part 'blue_forms/blue_forms_input_option_selection.dart';
-part 'blue_forms/blue_forms_input_text.dart';
-part 'blue_forms/blue_forms_page_form.dart';
-part 'blue_forms/blue_forms_page_info.dart';
 part 'blue_forms/blue_forms.dart';
-part 'blue_forms/input_validators.dart';
 
 
 // brixies
