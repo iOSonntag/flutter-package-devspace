@@ -14,17 +14,25 @@ abstract class LibStrings {
 
   static const String lib_imageNotAvailable_message = 'lib_imageNotAvailable_message';
 
-  static const String lib_inputValidators_failedOptionSelectionUntouched = 'lib_inputValidators_failedOptionSelectionUntouched';
-  static const String lib_inputValidators_failedNotEmptyCheck = 'lib_inputValidators_failedNotEmptyCheck';
-  static const String lib_inputValidators_failedPhoneNumberCheck = 'lib_inputValidators_failedPhoneNumberCheck';
-  static const String lib_inputOptionSelection_pleaseChoose = 'lib_inputOptionSelection_pleaseChoose';
+  static const String lib_blueForms_inputValidators_failedOptionSelectionUntouched = 'lib_blueForms_inputValidators_failedOptionSelectionUntouched';
+  static const String lib_blueForms_inputValidators_failedNotEmptyCheck = 'lib_blueForms_inputValidators_failedNotEmptyCheck';
+  static const String lib_blueForms_inputValidators_failedPhoneNumberCheck = 'lib_blueForms_inputValidators_failedPhoneNumberCheck';
 
-  static const String lib_blueFormsCommonInputs_address_streetLabel = 'lib_blueFormsCommonInputs_address_streetLabel';
-  static const String lib_blueFormsCommonInputs_address_streetHint = 'lib_blueFormsCommonInputs_address_streetHint';
-  static const String lib_blueFormsCommonInputs_address_postalCodeLabel = 'lib_blueFormsCommonInputs_address_postalCodeLabel';
-  static const String lib_blueFormsCommonInputs_address_postalCodeHint = 'lib_blueFormsCommonInputs_address_postalCodeHint';
-  static const String lib_blueFormsCommonInputs_address_cityLabel = 'lib_blueFormsCommonInputs_address_cityLabel';
-  static const String lib_blueFormsCommonInputs_address_cityHint = 'lib_blueFormsCommonInputs_address_cityHint';
+  static const String lib_blueForms_inputPickOption_pleaseChoose = 'lib_blueForms_inputPickOption_pleaseChoose';
+
+  static const String lib_blueForms_requiredFieldsNotice = 'lib_blueForms_requiredFieldsNotice';
+
+  static const String lib_blueForms_commonInputs_emailLabel = 'lib_blueForms_commonInputs_emailLabel';
+  static const String lib_blueForms_commonInputs_emailHint = 'lib_blueForms_commonInputs_emailHint';
+  static const String lib_blueForms_commonInputs_passwordLabel = 'lib_blueForms_commonInputs_passwordLabel';
+  static const String lib_blueForms_commonInputs_passwordHint = 'lib_blueForms_commonInputs_passwordHint';
+
+  static const String lib_blueForms_commonInputs_address_streetLabel = 'lib_blueForms_commonInputs_address_streetLabel';
+  static const String lib_blueForms_commonInputs_address_streetHint = 'lib_blueForms_commonInputs_address_streetHint';
+  static const String lib_blueForms_commonInputs_address_postalCodeLabel = 'lib_blueForms_commonInputs_address_postalCodeLabel';
+  static const String lib_blueForms_commonInputs_address_postalCodeHint = 'lib_blueForms_commonInputs_address_postalCodeHint';
+  static const String lib_blueForms_commonInputs_address_cityLabel = 'lib_blueForms_commonInputs_address_cityLabel';
+  static const String lib_blueForms_commonInputs_address_cityHint = 'lib_blueForms_commonInputs_address_cityHint';
 
 
   // NOT IN USE

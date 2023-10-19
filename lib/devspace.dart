@@ -3,6 +3,8 @@ library devspace;
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:measure_size/measure_size.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +15,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'lib_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart' as p_url_launcher;
+import 'dart:ui' as ui;
 
 // app_flow_systems
 
@@ -21,26 +24,31 @@ part 'app_flow_systems/steps_bar.dart';
 
 // architect
 
-part 'architect/defaults/buttons/button.dart';
-part 'architect/defaults/buttons/button.regular.dart';
-part 'architect/defaults/buttons/button.soft.dart';
-part 'architect/defaults/buttons/button.special.dart';
 
-part 'architect/defaults/input_decoration/input_decoration.dart';
 
-part 'architect/defaults/default_stateless_widget.dart';
-part 'architect/defaults/default_variant_switch.dart';
-
+part 'architect/materials/arch_base_stateless_widget.dart';
+part 'architect/materials/arch_base_variant_switch.dart';
+part 'architect/materials/arch_base.dart';
 part 'architect/materials/arch_object.dart';
 part 'architect/materials/dimensions.dart';
+part 'architect/materials/plan_data.dart';
 
-part 'architect/plans/button.dart';
-part 'architect/plans/input_decoration.dart';
-part 'architect/plans/plan_data.dart';
+part 'architect/plans/button/arch.dart';
+part 'architect/plans/button/data.dart';
+part 'architect/plans/button/default.dart';
+part 'architect/plans/button/default.regular.dart';
+part 'architect/plans/button/default.soft.dart';
+part 'architect/plans/button/default.special.dart';
 
-part 'architect/widgets/arch_button.dart';
-part 'architect/widgets/arch_input_decoration.dart';
-part 'architect/widgets/base.dart';
+part 'architect/plans/input_decoration/arch.dart';
+part 'architect/plans/input_decoration/data.dart';
+part 'architect/plans/input_decoration/default.dart';
+
+part 'architect/plans/text_field/arch.dart';
+part 'architect/plans/text_field/data.dart';
+part 'architect/plans/text_field/default.dart';
+part 'architect/plans/text_field/default.regular.dart';
+
 
 part 'architect/architect_plans.dart';
 part 'architect/architect.dart';
@@ -62,13 +70,13 @@ part 'blue_forms/models/general.dart';
 part 'blue_forms/util/common_form_inputs.dart';
 part 'blue_forms/util/input_validators.dart';
 
+part 'blue_forms/widgets/form_element.dart';
 part 'blue_forms/widgets/form_input_container.dart';
 part 'blue_forms/widgets/form_input_pick_option.dart';
 part 'blue_forms/widgets/form_input_text.dart';
 part 'blue_forms/widgets/form_page_info.dart';
 part 'blue_forms/widgets/form_page.dart';
 
-part 'blue_forms/blue_forms_controller.dart';
 part 'blue_forms/blue_forms.dart';
 
 

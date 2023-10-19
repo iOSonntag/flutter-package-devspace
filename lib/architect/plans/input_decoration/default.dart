@@ -22,7 +22,7 @@ class DefaultInputDecoration extends ArchObject<InputDecoration, InputDecoration
     Color defaultBorderColor = context.colors.onBackgroundLeastFocus;
     Color focusedBorderColor = context.colors.primary;
     Color errorBorderColor = context.colors.error;
-    Color hintColor = context.colors.onBackgroundLessFocus;
+    Color hintColor = context.colors.onBackgroundLeastFocus;
     Color labelColor = context.colors.onBackgroundLessFocus;
     Color errorColor = context.colors.error;
 

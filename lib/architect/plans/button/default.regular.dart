@@ -3,12 +3,30 @@
 
 part of devspace;
 
-class DefaultButtonRegular extends DefaultStatelessWidget<ButtonData> {
+// TODO: implement icon feature
+class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
 
-  const DefaultButtonRegular({
+  DefaultButtonRegular({
     super.key,
     required super.data
-  });
+  }) : super(allowCustomVariants: false);
+
+
+  @override
+  bool hasMinimumRequirements() =>
+    data.onPrimaryAction != null &&
+    (data.title != null || data.icon != null);
+    
+  
+  @override
+  void checkUnsupportedFields()
+  {
+    unsupportedIf(data.icon != null && data.title != null, 'icon and title', 'they can not be used together');
+    unsupported(data.child, 'child');
+    unsupported(data.subtitle, 'subtitle');
+    unsupported(data.onSecondaryAction, 'onSecondaryAction');
+    unsupported(data.onTertiaryAction, 'onTertiaryAction');
+  }
 
   @override
   Widget build(BuildContext context)

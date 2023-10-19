@@ -19,33 +19,24 @@ class _FormInputContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
-    List<Widget> children = [];
-
-    if (description != null)
-    {
-      children.addAll([
-
-        TextBody.small(description!,
-          textAlign: TextAlign.center,
-        ),
-
-        context.spaceL,
-
-      ]);
-    }
-
-    children.addAll([
-
-      child,
-
-      context.spaceL,
-
-    ]);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
-      children: children,
+      children: [
+
+        if (description != null) Padding(
+          padding: context.dimensions.paddingXLOnly(bottom: true),
+          child: TextBody.small(description!,
+            textAlign: TextAlign.center,
+          ),
+        ),
+
+        Padding(
+          padding: context.dimensions.paddingXLOnly(bottom: true),
+          child: child,
+        ),
+
+      ],
     );
   }
 }

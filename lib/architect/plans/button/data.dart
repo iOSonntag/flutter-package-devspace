@@ -35,7 +35,7 @@ class ButtonData extends PlanDataWithChild {
   final VoidCallback? onSecondaryAction;
   final VoidCallback? onTertiaryAction;
 
-  ButtonData({
+  const ButtonData({
     super.variationId,
     super.child,
     this.size = kSize3.M,

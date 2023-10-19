@@ -11,24 +11,22 @@ class BlueForms extends StatefulWidget {
 
   final VoidCallback? onCancel;
   final OnCompleteForms onComplete;
-  final Color? processBarActiveColor;
-  final int textFieldDecorationStyle;
+  final Map<String, String> externalErrors;
   final bool actionBarSeparation;
   final List<FormPageBase> pages;
-  final BlueFormsController? controller;
-  final String? customFinalButtonTitle;
+  final String? completeButtonTitle;
   final bool intrinsicHeight;
+  final bool visuallyMarkRequiredFields;
 
   const BlueForms({
     super.key,
     this.onCancel,
-    this.controller,
     required this.onComplete,
-    this.processBarActiveColor,
-    this.textFieldDecorationStyle = 0,
+    this.externalErrors = const {},
     this.actionBarSeparation = true,
-    this.customFinalButtonTitle,
+    this.completeButtonTitle,
     this.intrinsicHeight = false,
+    this.visuallyMarkRequiredFields = true,
     required this.pages,
   }) :
     assert(pages.length > 0);
@@ -41,25 +39,10 @@ class _BlueFormsState extends State<BlueForms> {
 
   int _currentIndex = 0;
 
-  final List<BlueFormsPageFormController> _formController = [];
+  final List<FormPageController> _formController = [];
   final Map<String, dynamic> _savedInputs = {};
 
-  Map<String, String> _badInputs = {};
 
-  
-  @override
-  void initState()
-  {
-    super.initState();
-
-    // TODO: check
-    if(widget.controller != null)
-    {
-        widget.controller!.addListener(() {
-        });
-    }
-  }
-  
   @override
   Widget build(BuildContext context)
   {
@@ -73,10 +56,9 @@ class _BlueFormsState extends State<BlueForms> {
     return HideKeyboardOnTap(
       child: AppFlowPagedSteps(
         onCancel: widget.onCancel,
-        activeColor: widget.processBarActiveColor,
         currentIndex: _currentIndex,
         actionBarSeparation: widget.actionBarSeparation,
-        customFinalNextButtonTitle: widget.customFinalButtonTitle,
+        customFinalNextButtonTitle: widget.completeButtonTitle,
         intrinsicHeight: widget.intrinsicHeight,
         onBack: _onBack,
         onNext: _onNext,
@@ -141,7 +123,7 @@ class _BlueFormsState extends State<BlueForms> {
     {
       if (page._controller == null)
       {
-        BlueFormsPageFormController controller = BlueFormsPageFormController();
+        FormPageController controller = FormPageController();
 
         _formController.add(controller);
         page._controller = controller;
@@ -151,8 +133,10 @@ class _BlueFormsState extends State<BlueForms> {
       return _FormPageWidget(
         controller: page._controller!,
         definition: page,
+        visuallyMarkRequiredFields: widget.visuallyMarkRequiredFields,
         currentSavedValues: _savedInputs,
-        badInputs: _badInputs,
+        externalErrors: widget.externalErrors,
+        onValidationFailed: () => setState(() {}),
         onSave: (id, value)
         {
           _savedInputs[id] = value;
@@ -163,24 +147,10 @@ class _BlueFormsState extends State<BlueForms> {
     throw Exception('BlueForms page type unsupported $page.');
   }
 
-  // TODO: check
-  // void _blueFormsControllerListener() {
-  //     switch (widget.controller?.currentEvent) {
-  //         case kBlueFormsControllerEvent.next:
-  //             _onNext();
-  //             break;
-  //         case kBlueFormsControllerEvent.badInputs:
-  //             setState(() {
-  //                 _badInputs = widget.controller!.getBadInputMessages();
-  //             });
-  //             break;
-  //     }
-  // }
-
   @override
   void dispose()
   {
-    for (BlueFormsPageFormController fiController in _formController)
+    for (FormPageController fiController in _formController)
     {
       fiController.dispose();
     }

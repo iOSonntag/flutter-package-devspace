@@ -28,6 +28,9 @@ class DimensionsThemeData {
     this.lineThicknessS = 0.5,
     this.lineThicknessM = 1.0,
     this.lineThicknessL = 2.0,
+    this.iconSizeS = 16.0,
+    this.iconSizeM = 24.0,
+    this.iconSizeL = 32.0,
   }) : 
     spaceXXSValue = spaceXXS,
     spaceXSValue = spaceXS,
@@ -60,6 +63,10 @@ class DimensionsThemeData {
   final double lineThicknessS;
   final double lineThicknessM;
   final double lineThicknessL;
+
+  final double iconSizeS;
+  final double iconSizeM;
+  final double iconSizeL;
 
   EdgeInsets get paddingXXS => EdgeInsets.all(spaceXXSValue);
   EdgeInsets get paddingXS => EdgeInsets.all(spaceXSValue);

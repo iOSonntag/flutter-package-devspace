@@ -11,7 +11,7 @@ class ArchInputDecoration extends ArchObjectBase<InputDecoration, kNoVariants, I
 
   static InputDecoration create(BuildContext context, [InputDecorationData? data])
   {
-    return ArchInputDecoration(data ?? InputDecorationData()).build(context);
+    return ArchInputDecoration(data ?? const InputDecorationData()).build(context);
   }
 
 }

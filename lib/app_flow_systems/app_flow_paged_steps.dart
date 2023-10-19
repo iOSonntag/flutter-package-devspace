@@ -138,7 +138,7 @@ class _AppFlowPagedStepsState extends State<AppFlowPagedSteps> {
 
     children.add(
       Padding(
-        padding: context.paddingL.excludeTop(condition: !widget.actionBarSeparation),
+        padding: context.paddingXL.excludeTop(condition: !widget.actionBarSeparation),
         child: StepsBar(
           stepsCount: widget.pages.length, 
           currentIndex: _currentIndex, 

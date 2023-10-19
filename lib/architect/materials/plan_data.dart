@@ -14,9 +14,9 @@ enum kNoVariants
 
 abstract class PlanData {
 
-  String? variationId;
+  final String? variationId;
 
-  PlanData({
+  const PlanData({
     required this.variationId,
   });
 
@@ -24,9 +24,9 @@ abstract class PlanData {
 
 abstract class PlanDataWithChild extends PlanData {
 
-  Widget? child;
+  final Widget? child;
 
-  PlanDataWithChild({
+  const PlanDataWithChild({
     required super.variationId,
     required this.child,
   });

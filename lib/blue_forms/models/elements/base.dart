@@ -9,6 +9,8 @@ abstract class FormElement {
     required this.id,
     this.isActive = true,
   });
+
+  bool get isRequired => false;
 }
 
 
@@ -27,5 +29,8 @@ abstract class FormInput extends FormElement {
     this.label,
     super.isActive = true,
   });
+
+  @override
+  bool get isRequired => isOptional == false;
 
 }

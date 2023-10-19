@@ -7,16 +7,18 @@ part of devspace;
 class _FormInputTextWidget extends StatelessWidget {
 
   final FormInputText definition;
+  final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
-  final String? errorMsg;
+  final String? externalError;
   final void Function(String? value) onSave;
 
   const _FormInputTextWidget({
     super.key,
     required this.definition,
+    required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
-    this.errorMsg,
+    this.externalError,
   });
 
   InputValidator _inputValidator()
@@ -46,25 +48,36 @@ class _FormInputTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
-    final InputDecoration decoration = ArchInputDecoration.create(context, InputDecorationData(
-      hint: definition.hint,
-      label: definition.label,
-      error: errorMsg,
-    ));
-
     return _FormInputContainerWidget(
       description: definition.description,
-      child: TextFormField(
+      child: ArchTextField(TextFieldData(
+        isFormField: true,
+        visuallyMarkAsRequired: visuallyMarkRequired && definition.isOptional == false,
+        isTextArea: definition.isTextArea,
+        label: definition.label,
+        hint: definition.hint,
+        externalError: externalError,
         initialValue: currentSavedValue ?? definition.initialValue,
-        decoration: decoration,
-        maxLines: definition.isTextArea ? 6 : 1,
-        scrollPadding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 500.0),
         autofillHints: definition.autofillHints,
         autocorrect: definition.autocorrect,
-        keyboardType: definition.keyboardType,
-        onChanged: definition.onChange,
         obscureText: definition.obscureText,
         enableSuggestions: definition.enableSuggestions,
+        textInputType: definition.textInputType,
+        onChanged: definition.onChange,
+        onSave: (value)
+        {
+          if (definition.trimOnSave)
+          {
+            value = value?.trim();
+          }
+    
+          if (value != null && value.isEmpty)
+          {
+            value = null;
+          }
+    
+          onSave(value);
+        },
         validator: (value)
         {
           if (definition.isOptional)
@@ -74,26 +87,14 @@ class _FormInputTextWidget extends StatelessWidget {
               return null;
             }
           }
-
+    
           InputValidator validator = _inputValidator();
-
+    
           return validator(value);
         },
-        onSaved: (value)
-        {
-          if (definition.trimOnSave)
-          {
-            value = value?.trim();
-          }
-
-          if (value != null && value.isEmpty)
-          {
-            value = null;
-          }
-
-          onSave(value);
-        },
-      )
+      )),
     );
+
+
   }
 }

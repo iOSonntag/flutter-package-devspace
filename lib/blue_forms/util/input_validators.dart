@@ -19,7 +19,7 @@ class InputValidators {
   {
     if (input == null || input.isEmpty)
     {
-      return LibStrings.lib_inputValidators_failedNotEmptyCheck.tr();
+      return LibStrings.lib_blueForms_inputValidators_failedNotEmptyCheck.tr();
     }
 
     return null;
@@ -29,7 +29,7 @@ class InputValidators {
   {
     if (input == null || input.trim().isEmpty)
     {
-      return LibStrings.lib_inputValidators_failedNotEmptyCheck.tr();
+      return LibStrings.lib_blueForms_inputValidators_failedNotEmptyCheck.tr();
     }
 
     return null;
@@ -39,7 +39,7 @@ class InputValidators {
   {
     if (input == null || input.trim().isValidPhoneNumber() == false)
     {
-      return LibStrings.lib_inputValidators_failedPhoneNumberCheck.tr();
+      return LibStrings.lib_blueForms_inputValidators_failedPhoneNumberCheck.tr();
     }
 
     return null;

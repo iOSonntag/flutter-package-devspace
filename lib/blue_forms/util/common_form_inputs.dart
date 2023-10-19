@@ -7,6 +7,57 @@ abstract class CommonFormInputs {
 
   CommonFormInputs._();
 
+
+  static FormInput emailPassword({
+    String idPrefix = '',
+    String? description,
+    bool isOptional = false,
+    bool isActive = true,
+    String? initialEmail,
+    String? initialPassword,
+  })
+  {
+    return FormInputGroup(
+      isActive: isActive,
+      elements: [
+
+        FormInputText(
+          id: '${idPrefix}email',
+          description: description,
+          initialValue: initialEmail,
+          label: LibStrings.lib_blueForms_commonInputs_emailLabel.tr(),
+          hint: LibStrings.lib_blueForms_commonInputs_emailHint.tr(),
+          autocorrect: false,
+          isOptional: isOptional,
+          autofillHints: [
+            AutofillHints.email,
+          ],
+          validationType: kFormTextValidationType.trimNotEmpty,
+        ),
+
+        FormInputText(
+          id: '${idPrefix}password',
+          initialValue: initialEmail,
+          label: LibStrings.lib_blueForms_commonInputs_passwordLabel.tr(),
+          hint: LibStrings.lib_blueForms_commonInputs_passwordHint.tr(),
+          autocorrect: false,
+          isOptional: isOptional,
+          autofillHints: [AutofillHints.password],
+          obscureText: true,
+          enableSuggestions: false,
+          validationType: kFormTextValidationType.notEmpty,
+        ),
+      ],
+    );
+  }
+
+
+
+
+
+
+
+
   // TODO: maybe add server name
   /// Creates inputs with ids:
   /// - AddressStreet
@@ -35,7 +86,7 @@ abstract class CommonFormInputs {
 
     return FormInputGroup(
       isActive: isActive,
-      inputs: [
+      elements: [
 
         FormInputText(
           id: '${idPrefix}AddressStreet',
@@ -43,8 +94,8 @@ abstract class CommonFormInputs {
           autocorrect: false,
           isOptional: isOptional,
           initialValue: initialStreet,
-          label: LibStrings.lib_blueFormsCommonInputs_address_streetLabel.tr(),
-          hint: LibStrings.lib_blueFormsCommonInputs_address_streetHint.tr(),
+          label: LibStrings.lib_blueForms_commonInputs_address_streetLabel.tr(),
+          hint: LibStrings.lib_blueForms_commonInputs_address_streetHint.tr(),
           autofillHints: const [
               // TODO: check if ts the correct value
               AutofillHints.fullStreetAddress
@@ -54,12 +105,11 @@ abstract class CommonFormInputs {
 
         FormInputText(
           id: '${idPrefix}AddressPostalCode',
-          description: description,
           autocorrect: false,
           isOptional: isOptional,
           initialValue: initialPostalCode,
-          label: LibStrings.lib_blueFormsCommonInputs_address_postalCodeLabel.tr(),
-          hint: LibStrings.lib_blueFormsCommonInputs_address_postalCodeHint.tr(),
+          label: LibStrings.lib_blueForms_commonInputs_address_postalCodeLabel.tr(),
+          hint: LibStrings.lib_blueForms_commonInputs_address_postalCodeHint.tr(),
           autofillHints: const [
               AutofillHints.postalCode
           ],
@@ -68,12 +118,11 @@ abstract class CommonFormInputs {
 
         FormInputText(
           id: '${idPrefix}AddressCity',
-          description: description,
           autocorrect: false,
           isOptional: isOptional,
           initialValue: initialPostalCode,
-          label: LibStrings.lib_blueFormsCommonInputs_address_cityLabel.tr(),
-          hint: LibStrings.lib_blueFormsCommonInputs_address_cityHint.tr(),
+          label: LibStrings.lib_blueForms_commonInputs_address_cityLabel.tr(),
+          hint: LibStrings.lib_blueForms_commonInputs_address_cityHint.tr(),
           autofillHints: const [
               AutofillHints.addressCity
           ],

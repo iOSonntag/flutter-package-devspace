@@ -4,19 +4,23 @@
 
 part of devspace;
 
+
+// TODO: refactor once onced once
 class _FormInputPickOptionWidget extends StatefulWidget {
 
   final FormInputPickOption definition;
+  final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
-  final String? errorMsg;
+  final String? externalError;
   final void Function(String? value) onSave;
 
   const _FormInputPickOptionWidget({
     super.key,
     required this.definition,
+    required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
-    this.errorMsg,
+    this.externalError,
   });
 
   @override
@@ -49,10 +53,9 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
   Widget build(BuildContext context)
   {
     final InputDecoration decoration = ArchInputDecoration.create(context, InputDecorationData(
-      // TODO: implement
       label: widget.definition.label,
-      hint: LibStrings.lib_inputOptionSelection_pleaseChoose.tr(),
-      error: widget.errorMsg,
+      hint: LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
+      error: widget.externalError,
     ));
 
 
@@ -75,7 +78,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
       items.add(
         DropdownMenuItem<String>(
           value: _OPTION_SELECTION_UNSET_VALUE,
-          child: TextBody.small(LibStrings.lib_inputOptionSelection_pleaseChoose.tr(),
+          child: TextBody.small(LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
             color: context.colors.onBackgroundLessFocus,
           ),
         ),
@@ -108,7 +111,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
           if (widget.definition.isOptional)
           {
             selectedItems.add(
-              TextBody.small(LibStrings.lib_inputOptionSelection_pleaseChoose.tr(),
+              TextBody.small(LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
                 color: context.colors.onBackgroundLessFocus,
               ),
             );
@@ -145,7 +148,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
 
           if (widget.definition.isOptional == false && (value == null || value.isEmpty))
           {
-            return LibStrings.lib_inputValidators_failedOptionSelectionUntouched.tr();
+            return LibStrings.lib_blueForms_inputValidators_failedOptionSelectionUntouched.tr();
           }
 
           return null;

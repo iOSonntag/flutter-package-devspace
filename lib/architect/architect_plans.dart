@@ -3,15 +3,16 @@
 part of devspace;
 
 Map<Type, WidgetPlan> _defaultWidgetPlans = <Type, WidgetPlan>{
-  ButtonData: WidgetPlan<kButtonVariant, ButtonData>(
-    builder: DefaultButton.builder,
-  ),
+
+  ButtonData: WidgetPlan<kButtonVariant, ButtonData>(builder: DefaultButton.builder),
+  TextFieldData: WidgetPlan<kTextFieldVariant, TextFieldData>(builder: DefaultTextField.builder),
+
 };
 
 Map<Type, ObjectPlan> _defaultObjectPlans = <Type, ObjectPlan>{
-  InputDecorationData: ObjectPlan<InputDecoration, kNoVariants, InputDecorationData>(
-    builder: DefaultInputDecoration.builder,
-  ),
+
+  InputDecorationData: ObjectPlan<InputDecoration, kNoVariants, InputDecorationData>(builder: DefaultInputDecoration.builder),
+  
 };
 
 class ArchitectPlans {

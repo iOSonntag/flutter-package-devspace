@@ -18,7 +18,7 @@ class InputDecorationData extends PlanData {
   final String? hint;
   final String? error;
 
-  InputDecorationData({
+  const InputDecorationData({
     super.variationId,
     this.size = kSize3.M,
     this.type = kInputDecorationType.regular,

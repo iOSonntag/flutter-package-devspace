@@ -8,7 +8,7 @@ class FormPage extends FormPageBase {
   final String title;
   final String? description;
   final List<FormElement> elements;
-  BlueFormsPageFormController? _controller;
+  FormPageController? _controller;
 
   FormPage({
     required this.title,

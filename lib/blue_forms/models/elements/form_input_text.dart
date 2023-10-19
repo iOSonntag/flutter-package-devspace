@@ -18,7 +18,7 @@ class FormInputText extends FormInput {
   final bool autocorrect;
   final bool obscureText;
   final bool enableSuggestions;
-  final TextInputType? keyboardType;
+  final TextInputType? textInputType;
   final void Function(String newValue)? onChange;
 
   const FormInputText({
@@ -37,7 +37,7 @@ class FormInputText extends FormInput {
     this.autocorrect = true,
     this.obscureText = false,
     this.enableSuggestions = true,
-    this.keyboardType,
+    this.textInputType,
     this.onChange,
     super.isActive,
   }) :
