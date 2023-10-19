@@ -6,6 +6,7 @@ Map<Type, WidgetPlan> _defaultWidgetPlans = <Type, WidgetPlan>{
 
   ButtonData: WidgetPlan<kButtonVariant, ButtonData>(builder: DefaultButton.builder),
   TextFieldData: WidgetPlan<kTextFieldVariant, TextFieldData>(builder: DefaultTextField.builder),
+  LoadingIndicatorData: WidgetPlan<kLoadingIndicatorVariant, LoadingIndicatorData>(builder: DefaultLoadingIndicator.builder),
 
 };
 

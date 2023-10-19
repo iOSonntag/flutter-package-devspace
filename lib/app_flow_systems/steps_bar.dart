@@ -93,25 +93,27 @@ class StepsBar extends StatelessWidget {
         value: _backButtonTitle(), 
         builder: (context, title)
         {
-          return ArchButton.soft(ButtonData.simpleText(
-            title: title, 
-            type: kButtonType.lowFocus,
-            onPressed: ()
-            {
-              if (currentIndex == 0)
+          return ArchButton.soft(
+            data: ButtonData.simpleText(
+              title: title, 
+              type: kButtonType.lowFocus,
+              onPressed: ()
               {
-                if (onCancel == null)
+                if (currentIndex == 0)
                 {
+                  if (onCancel == null)
+                  {
+                    return;
+                  }
+
+                  onCancel!();
                   return;
                 }
 
-                onCancel!();
-                return;
-              }
-
-              onBack();
-            },
-          ));
+                onBack();
+              },
+            )
+          );
         },
       ),
     ];
@@ -127,16 +129,20 @@ class StepsBar extends StatelessWidget {
             {
               String title = isFinalButton ? _finalNextButtonTitle() : _nextButtonTitle();
 
-              return ArchButton.soft(ButtonData.simpleText(
-                title: title,
-                onPressed: onNext,
-              ));
+              return ArchButton.soft(
+                data: ButtonData.simpleText(
+                  title: title,
+                  onPressed: onNext,
+                )
+              );
             }
 
-            return ArchButton(ButtonData.simpleText(
-              title: _finalNextButtonTitle(),
-              onPressed: onNext,
-            ));
+            return ArchButton(
+              data: ButtonData.simpleText(
+                title: _finalNextButtonTitle(),
+                onPressed: onNext,
+              )
+            );
           },
         ),
       );
@@ -146,10 +152,12 @@ class StepsBar extends StatelessWidget {
 
       Opacity(
         opacity: 0.0,
-        child: ArchButton(ButtonData.simpleText(
-          title: _finalNextButtonTitle(),
-          onPressed: () {},
-        )),
+        child: ArchButton(
+          data: ButtonData.simpleText(
+            title: _finalNextButtonTitle(),
+            onPressed: () {},
+          )
+        ),
       ),
 
     ];

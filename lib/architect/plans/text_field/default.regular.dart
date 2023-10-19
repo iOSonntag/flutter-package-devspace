@@ -49,9 +49,9 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
                     color: Colors.black.withOpacity(0.1),
                   ),
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.background,
-                    spreadRadius: -2.0,
-                    blurRadius: 2.0,
+                    color: Theme.of(context).colorScheme.surface,
+                    spreadRadius: -1.0,
+                    blurRadius: 3.0,
                   ),
                 ]
               ),

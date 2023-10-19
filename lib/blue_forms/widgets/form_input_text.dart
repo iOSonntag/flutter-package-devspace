@@ -50,49 +50,51 @@ class _FormInputTextWidget extends StatelessWidget {
   {
     return _FormInputContainerWidget(
       description: definition.description,
-      child: ArchTextField(TextFieldData(
-        isFormField: true,
-        visuallyMarkAsRequired: visuallyMarkRequired && definition.isOptional == false,
-        isTextArea: definition.isTextArea,
-        label: definition.label,
-        hint: definition.hint,
-        externalError: externalError,
-        initialValue: currentSavedValue ?? definition.initialValue,
-        autofillHints: definition.autofillHints,
-        autocorrect: definition.autocorrect,
-        obscureText: definition.obscureText,
-        enableSuggestions: definition.enableSuggestions,
-        textInputType: definition.textInputType,
-        onChanged: definition.onChange,
-        onSave: (value)
-        {
-          if (definition.trimOnSave)
+      child: ArchTextField(
+        data: TextFieldData(
+          isFormField: true,
+          visuallyMarkAsRequired: visuallyMarkRequired && definition.isOptional == false,
+          isTextArea: definition.isTextArea,
+          label: definition.label,
+          hint: definition.hint,
+          externalError: externalError,
+          initialValue: currentSavedValue ?? definition.initialValue,
+          autofillHints: definition.autofillHints,
+          autocorrect: definition.autocorrect,
+          obscureText: definition.obscureText,
+          enableSuggestions: definition.enableSuggestions,
+          textInputType: definition.textInputType,
+          onChanged: definition.onChange,
+          onSave: (value)
           {
-            value = value?.trim();
-          }
-    
-          if (value != null && value.isEmpty)
-          {
-            value = null;
-          }
-    
-          onSave(value);
-        },
-        validator: (value)
-        {
-          if (definition.isOptional)
-          {
-            if (value == null || value.isEmpty || (definition.trimOnSave && value.trim().isEmpty))
+            if (definition.trimOnSave)
             {
-              return null;
+              value = value?.trim();
             }
-          }
-    
-          InputValidator validator = _inputValidator();
-    
-          return validator(value);
-        },
-      )),
+      
+            if (value != null && value.isEmpty)
+            {
+              value = null;
+            }
+      
+            onSave(value);
+          },
+          validator: (value)
+          {
+            if (definition.isOptional)
+            {
+              if (value == null || value.isEmpty || (definition.trimOnSave && value.trim().isEmpty))
+              {
+                return null;
+              }
+            }
+      
+            InputValidator validator = _inputValidator();
+      
+            return validator(value);
+          },
+        )
+      ),
     );
 
 

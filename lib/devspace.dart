@@ -24,6 +24,10 @@ part 'app_flow_systems/steps_bar.dart';
 
 // architect
 
+// part 'architect/plans/XXX/arch.dart';
+// part 'architect/plans/XXX/data.dart';
+// part 'architect/plans/XXX/default.dart';
+// part 'architect/plans/XXX/default.regular.dart';
 
 
 part 'architect/materials/arch_base_stateless_widget.dart';
@@ -43,6 +47,11 @@ part 'architect/plans/button/default.special.dart';
 part 'architect/plans/input_decoration/arch.dart';
 part 'architect/plans/input_decoration/data.dart';
 part 'architect/plans/input_decoration/default.dart';
+
+part 'architect/plans/loading_indicator/arch.dart';
+part 'architect/plans/loading_indicator/data.dart';
+part 'architect/plans/loading_indicator/default.dart';
+part 'architect/plans/loading_indicator/default.regular.dart';
 
 part 'architect/plans/text_field/arch.dart';
 part 'architect/plans/text_field/data.dart';
@@ -87,6 +96,7 @@ part 'brixies/hide_keyboard_on_tap.dart';
 part 'brixies/intrinsic_height_page_view.dart';
 part 'brixies/layout_builder.dart';
 part 'brixies/line_divider.dart';
+part 'brixies/loadable_view.dart';
 part 'brixies/smooth_swap.dart';
 part 'brixies/steps_indicator.dart';
 

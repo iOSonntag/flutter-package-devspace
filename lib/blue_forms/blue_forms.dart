@@ -54,15 +54,18 @@ class _BlueFormsState extends State<BlueForms> {
     }
 
     return HideKeyboardOnTap(
-      child: AppFlowPagedSteps(
-        onCancel: widget.onCancel,
-        currentIndex: _currentIndex,
-        actionBarSeparation: widget.actionBarSeparation,
-        customFinalNextButtonTitle: widget.completeButtonTitle,
-        intrinsicHeight: widget.intrinsicHeight,
-        onBack: _onBack,
-        onNext: _onNext,
-        pages: pages, 
+      child: LoadableView(
+        isLoading: true,
+        child: AppFlowPagedSteps(
+          onCancel: widget.onCancel,
+          currentIndex: _currentIndex,
+          actionBarSeparation: widget.actionBarSeparation,
+          customFinalNextButtonTitle: widget.completeButtonTitle,
+          intrinsicHeight: widget.intrinsicHeight,
+          onBack: _onBack,
+          onNext: _onNext,
+          pages: pages, 
+        ),
       ),
     );
   }

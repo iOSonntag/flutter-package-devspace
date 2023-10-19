@@ -12,12 +12,12 @@
 
 //   const DefaultXXX({
 //     super.key,
-//     required super.variant,
+//     super.variant = kXXXVariant.regular,
 //     required super.data
 //   });
 
 //   @override
-//   Widget buildStyle(BuildContext context, kTextFieldVariant style)
+//   Widget buildStyle(BuildContext context, kXXXVariant style)
 //   {
 //     return switch (style)
 //     {

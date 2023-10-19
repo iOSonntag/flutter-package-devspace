@@ -9,8 +9,9 @@ class ArchBase<V extends Enum, T extends PlanData> extends StatelessWidget {
   final V variant;
   final T data;
 
-  const ArchBase(this.data, {
+  const ArchBase({
     super.key,
+    required this.data,
     required this.variant,
   });
 
@@ -28,7 +29,8 @@ class ArchObjectBase<R extends Object, V extends Enum, T extends PlanData> {
   final V variant;
   final T data;
 
-  const ArchObjectBase(this.data, {
+  const ArchObjectBase({
+    required this.data,
     required this.variant,
   });
 
