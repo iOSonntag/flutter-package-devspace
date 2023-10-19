@@ -11,12 +11,13 @@ class AppFlowPagedSteps extends StatefulWidget {
   final VoidCallback? onCancel;
   final VoidCallback onBack;
   final VoidCallback onNext;
-  final String? customCancelButtonTitle;
-  final String? customBackButtonTitle;
-  final String? customNextButtonTitle;
-  final String? customFinalNextButtonTitle;
+  final String? cancelButtonTitle;
+  final String? backButtonTitle;
+  final String? nextButtonTitle;
+  final String? lastNextButtonTitle;
   final Duration? animationDuration;
   final bool actionBarSeparation;
+  final Widget? actionBarHeader;
   final List<Widget> pages;
 
   const AppFlowPagedSteps({
@@ -29,12 +30,13 @@ class AppFlowPagedSteps extends StatefulWidget {
     this.onCancel,
     required this.onBack,
     required this.onNext,
-    this.customCancelButtonTitle,
-    this.customBackButtonTitle,
-    this.customNextButtonTitle,
-    this.customFinalNextButtonTitle,
+    this.cancelButtonTitle,
+    this.backButtonTitle,
+    this.nextButtonTitle,
+    this.lastNextButtonTitle,
     this.animationDuration,
     this.actionBarSeparation = false,
+    this.actionBarHeader,
     required this.pages,
   }) :
     assert(pages.length > 0);
@@ -136,9 +138,16 @@ class _AppFlowPagedStepsState extends State<AppFlowPagedSteps> {
       );
     }
 
+    if (widget.actionBarHeader != null)
+    {
+      children.add(
+        widget.actionBarHeader!,
+      );
+    }
+
     children.add(
       Padding(
-        padding: context.paddingXL.excludeTop(condition: !widget.actionBarSeparation),
+        padding: context.paddingXL.excludeTop(condition: !widget.actionBarSeparation || widget.actionBarHeader != null),
         child: StepsBar(
           stepsCount: widget.pages.length, 
           currentIndex: _currentIndex, 
@@ -148,10 +157,10 @@ class _AppFlowPagedStepsState extends State<AppFlowPagedSteps> {
           onCancel: widget.onCancel,
           onBack: widget.onBack, 
           onNext: widget.onNext,
-          customCancelButtonTitle: widget.customCancelButtonTitle,
-          customBackButtonTitle: widget.customBackButtonTitle,
-          customNextButtonTitle: widget.customNextButtonTitle,
-          customFinalNextButtonTitle: widget.customFinalNextButtonTitle,
+          customCancelButtonTitle: widget.cancelButtonTitle,
+          customBackButtonTitle: widget.backButtonTitle,
+          customNextButtonTitle: widget.nextButtonTitle,
+          customFinalNextButtonTitle: widget.lastNextButtonTitle,
         ),
       ),
     );

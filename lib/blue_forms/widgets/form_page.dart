@@ -115,6 +115,8 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
           lineHeight: 1.4,
         ),
       ),
+
+      context.spaceL,
     ];
 
     bool displayRequiredNotice = false;
@@ -151,7 +153,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
             children: [
               Icon(Icons.info_outline_rounded,
                 color: context.colors.onBackgroundLeastFocus,
-                size: context.dimensions.iconSizeS,
+                size: context.dimensions.iconSizeXS,
               ),
               context.spaceS,
               TextBody.small(LibStrings.lib_blueForms_requiredFieldsNotice.tr(args: ['*']),

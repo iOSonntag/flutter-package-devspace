@@ -114,8 +114,8 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
 
     if (hasError)
     {
-      enabledBorder = _buildBorder(context, errorColor, context.dimensions.lineThicknessL);
-      focusedBorder = _buildBorder(context, errorColor.brighten(0.1), context.dimensions.lineThicknessL);
+      enabledBorder = _buildBorder(context, errorColor, context.dimensions.lineThicknessM);
+      focusedBorder = _buildBorder(context, errorColor, context.dimensions.lineThicknessL);
     }
 
     return InputDecoration(

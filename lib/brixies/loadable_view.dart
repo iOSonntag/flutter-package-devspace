@@ -21,9 +21,11 @@ class LoadableView extends StatelessWidget {
     return Stack(
       children: [
 
-        Opacity(
-          opacity: isLoading ? 0.0 : 1.0,
-          child: child
+        Visibility(
+          maintainState: true,
+          maintainAnimation: true,
+          maintainSize: true,
+          child: child,
         ),
 
         if (isLoading) const Positioned(

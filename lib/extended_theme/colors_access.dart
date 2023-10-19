@@ -16,6 +16,11 @@ class ColorsAccess  {
   Color get onBackgroundLeastFocus => Theme.of(context).extension<AdditionalColorsThemeData>()?.onBackgroundLeastFocus ?? AdditionalColorsDefaults.onBackgroundLeastFocus;
   Color get success => Theme.of(context).extension<AdditionalColorsThemeData>()?.success ?? AdditionalColorsDefaults.success;
   Color get onSuccess => Theme.of(context).extension<AdditionalColorsThemeData>()?.onSuccess ?? AdditionalColorsDefaults.onSuccess;
+  Color get warning => Theme.of(context).extension<AdditionalColorsThemeData>()?.warning ?? AdditionalColorsDefaults.warning;
+  Color get onWarning => Theme.of(context).extension<AdditionalColorsThemeData>()?.onWarning ?? AdditionalColorsDefaults.onWarning;
+  Color get congratulations => Theme.of(context).extension<AdditionalColorsThemeData>()?.congratulations ?? AdditionalColorsDefaults.congratulations;
+  Color get onCongratulations => Theme.of(context).extension<AdditionalColorsThemeData>()?.onCongratulations ?? AdditionalColorsDefaults.onCongratulations;
+
   Color get destructive => error;
   Color get onDestructive => onError;
 

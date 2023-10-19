@@ -44,6 +44,11 @@ part 'architect/plans/button/default.regular.dart';
 part 'architect/plans/button/default.soft.dart';
 part 'architect/plans/button/default.special.dart';
 
+part 'architect/plans/info_box/arch.dart';
+part 'architect/plans/info_box/data.dart';
+part 'architect/plans/info_box/default.dart';
+part 'architect/plans/info_box/default.regular.dart';
+
 part 'architect/plans/input_decoration/arch.dart';
 part 'architect/plans/input_decoration/data.dart';
 part 'architect/plans/input_decoration/default.dart';

@@ -11,6 +11,9 @@ class BlueForms extends StatefulWidget {
 
   final VoidCallback? onCancel;
   final OnCompleteForms onComplete;
+  final bool isLoading;
+  final String? errorMessage;
+  final FormError? error;
   final Map<String, String> externalErrors;
   final bool actionBarSeparation;
   final List<FormPageBase> pages;
@@ -22,6 +25,9 @@ class BlueForms extends StatefulWidget {
     super.key,
     this.onCancel,
     required this.onComplete,
+    this.isLoading = false,
+    this.error,
+    this.errorMessage,
     this.externalErrors = const {},
     this.actionBarSeparation = true,
     this.completeButtonTitle,
@@ -29,7 +35,9 @@ class BlueForms extends StatefulWidget {
     this.visuallyMarkRequiredFields = true,
     required this.pages,
   }) :
-    assert(pages.length > 0);
+    assert(pages.length > 0),
+    assert(errorMessage == null || error == null, 'You cannot use both errorMessage and error at the same time. errorMessage is just a shorthand for error. Use error if you need more customization.')
+    ;
 
   @override
   State<BlueForms> createState() => _BlueFormsState();
@@ -55,17 +63,46 @@ class _BlueFormsState extends State<BlueForms> {
 
     return HideKeyboardOnTap(
       child: LoadableView(
-        isLoading: true,
+        isLoading: widget.isLoading,
         child: AppFlowPagedSteps(
           onCancel: widget.onCancel,
           currentIndex: _currentIndex,
           actionBarSeparation: widget.actionBarSeparation,
-          customFinalNextButtonTitle: widget.completeButtonTitle,
+          actionBarHeader: _buildErrorWidget(context),
+          lastNextButtonTitle: widget.completeButtonTitle,
           intrinsicHeight: widget.intrinsicHeight,
           onBack: _onBack,
           onNext: _onNext,
           pages: pages, 
         ),
+      ),
+    );
+  }
+
+  Widget? _buildErrorWidget(BuildContext context)
+  {
+    if (widget.errorMessage == null && widget.error == null)
+    {
+      return null;
+    }
+
+    if (widget.error != null)
+    {
+      return Padding(
+        padding: context.paddingXL,
+        child: ArchInfoBox.error(
+          title: widget.error?.title,
+          subtitle: widget.error?.subtitle,
+          icon: widget.error?.icon,
+          message: widget.error?.message,
+        ),
+      );
+    }
+
+    return Padding(
+      padding: context.paddingXL,
+      child: ArchInfoBox.error(
+        message: widget.errorMessage,
       ),
     );
   }

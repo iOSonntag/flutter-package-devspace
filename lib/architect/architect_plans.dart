@@ -5,8 +5,9 @@ part of devspace;
 Map<Type, WidgetPlan> _defaultWidgetPlans = <Type, WidgetPlan>{
 
   ButtonData: WidgetPlan<kButtonVariant, ButtonData>(builder: DefaultButton.builder),
-  TextFieldData: WidgetPlan<kTextFieldVariant, TextFieldData>(builder: DefaultTextField.builder),
+  InfoBoxData: WidgetPlan<kInfoBoxVariant, InfoBoxData>(builder: DefaultInfoBox.builder),
   LoadingIndicatorData: WidgetPlan<kLoadingIndicatorVariant, LoadingIndicatorData>(builder: DefaultLoadingIndicator.builder),
+  TextFieldData: WidgetPlan<kTextFieldVariant, TextFieldData>(builder: DefaultTextField.builder),
 
 };
 
