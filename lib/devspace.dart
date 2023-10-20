@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 import 'package:measure_size/measure_size.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/widgets.dart';
@@ -139,6 +140,10 @@ part 'glue_provider/glue_component.dart';
 part 'glue_provider/glue.dart';
 part 'glue_provider/insert_glues.dart';
 
+// my_service
+
+part 'my_service/my_service.dart';
+
 // // phenomenal_grid
 
 // part '../_excluded/phenomenal_grid/animated_phenomenal_grid.dart';
@@ -154,6 +159,7 @@ part 'type_extensions/bool.dart';
 part 'type_extensions/color.dart';
 part 'type_extensions/curve.dart';
 part 'type_extensions/double.dart';
+part 'type_extensions/enum.dart';
 part 'type_extensions/int.dart';
 part 'type_extensions/list.dart';
 part 'type_extensions/offset.dart';

@@ -1,38 +1,147 @@
 
 part of devspace;
 
-class CognitoAuthenticationService {
+// ignore: camel_case_types
+enum kSignInResult
+{
+  success,
+  successButChangePassword,
+  invalidCredentials,
+  unknownError,
+}
+abstract class AuthService extends CustomService {
+
+  Future<kSignInResult> signIn(String email, String password);
+  Future<kSignInResult> changeInitialPassword(String newPassword);
+  Future<void> signOut();
+  Future<bool> isSignedIn();
+  Future<String> getJWTAccessToken();
+
+}
 
 
-  Future<void> initialize(String stringConfiguration) async
+class CognitoAuthenticationService extends AuthService {
+
+  final String config;
+
+  CognitoAuthenticationService(this.config);
+
+
+  @override
+  Future<void> initialize() async
   {
     await Amplify.addPlugin(AmplifyAuthCognito());
-    await Amplify.configure(stringConfiguration);
+    await Amplify.configure(config);
   }
 
-  Future<bool> signIn(String email, String password) async
+  @override
+  Future<kSignInResult> signIn(String email, String password) async
   {
-    await signOut();
+    try
+    {
+      await signOut();
+    }
+    catch (e)
+    {
+      safePrint('Error signing out: ${e.toString()}');
+    }
 
-    SignInResult result = await Amplify.Auth.signIn(
-      username: email, 
-      password: password,
-      // options: CognitoS()
-    );
-  
-    return result.isSignedIn;
+    try
+    {
+
+      SignInResult result = await Amplify.Auth.signIn(
+        username: email, 
+        password: password,
+      );
+
+      if (result.isSignedIn)
+      {
+        return kSignInResult.success;
+      }
+      
+      if (result.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword)
+      {
+        return kSignInResult.successButChangePassword;
+      }
+
+      return kSignInResult.unknownError;
+    }
+    on InvalidPasswordException catch (e)
+    {
+      safePrint('Error retrieving auth session: ${e.message}');
+      
+      return kSignInResult.invalidCredentials;
+    }
+    on UserNotFoundException catch (e)
+    {
+      safePrint('Error retrieving auth session: ${e.message}');
+      
+      return kSignInResult.invalidCredentials;
+    }
+    on NotAuthorizedServiceException catch (e)
+    {
+      safePrint('Error retrieving auth session: ${e.message}');
+      
+      return kSignInResult.invalidCredentials;
+    }
+    on Exception catch (e)
+    {
+      safePrint('Error retrieving auth session: ${e.toString()}');
+      return kSignInResult.unknownError;
+    }
   }
 
-  Future<void> changeInitialPassword(String newPassword) async
+  @override
+  Future<kSignInResult> changeInitialPassword(String newPassword) async
   {
-    await Amplify.Auth.confirmSignIn(confirmationValue: newPassword);
+    try
+    {
+      SignInResult result = await Amplify.Auth.confirmSignIn(confirmationValue: newPassword);
+
+      if (result.isSignedIn)
+      {
+        return kSignInResult.success;
+      }
+      
+      if (result.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword)
+      {
+        return kSignInResult.successButChangePassword;
+      }
+
+      return kSignInResult.unknownError;
+    }
+    on InvalidPasswordException catch (e)
+    {
+      safePrint('Error retrieving auth session: ${e.message}');
+      
+      return kSignInResult.invalidCredentials;
+    }
+    on UserNotFoundException catch (e)
+    {
+      safePrint('Error retrieving auth session: ${e.message}');
+      
+      return kSignInResult.invalidCredentials;
+    }
+    on NotAuthorizedServiceException catch (e)
+    {
+      safePrint('Error retrieving auth session: ${e.message}');
+      
+      return kSignInResult.invalidCredentials;
+    }
+    on Exception catch (e)
+    {
+      safePrint('Error retrieving auth session: ${e.toString()}');
+      return kSignInResult.unknownError;
+    }
   }
 
+  @override
   Future<void> signOut() async
   {
     await Amplify.Auth.signOut();
   }
 
+  @override
   Future<bool> isSignedIn() async
   {
     try
@@ -48,6 +157,7 @@ class CognitoAuthenticationService {
     }
   }
 
+  @override
   Future<String> getJWTAccessToken() async
   {
     final result = await Amplify.Auth.fetchAuthSession(
@@ -60,6 +170,7 @@ class CognitoAuthenticationService {
   }
 
 
+  @override
   Future<void> dispose() async
   {
 

@@ -22,6 +22,7 @@ class LoadableView extends StatelessWidget {
       children: [
 
         Visibility(
+          visible: !isLoading,
           maintainState: true,
           maintainAnimation: true,
           maintainSize: true,

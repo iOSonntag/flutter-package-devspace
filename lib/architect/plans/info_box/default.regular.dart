@@ -66,6 +66,7 @@ class DefaultInfoBoxRegular extends ArchBaseStatelessWidget<InfoBoxData> {
 
               if (data.message != null) TextBody.medium(data.message!,
                 color: textColor,
+                textAlign: TextAlign.center,
               ),
             ],
           ),

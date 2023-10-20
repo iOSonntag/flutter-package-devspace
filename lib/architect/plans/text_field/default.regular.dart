@@ -63,7 +63,11 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
                 autofillHints: data.autofillHints,
                 autocorrect: data.autocorrect,
                 keyboardType: data.textInputType,
-                onChanged: data.onChanged,
+                onChanged: (value)
+                {
+                  state.didChange(value);
+                  data.onChanged?.call(value);
+                },
                 obscureText: data.obscureText,
                 enableSuggestions: data.enableSuggestions,
               ),
