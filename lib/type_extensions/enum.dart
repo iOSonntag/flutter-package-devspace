@@ -51,6 +51,8 @@ extension ExtensionOnEnum on Enum {
     return 'ENUM_${enumKey}_description'.tr();
   }
 
+  // TODO: move as mixin or something becuase this is a unsecure way to rely on the localization files
+
   /// Returns the localized error message that the enum value represents. Note
   /// that if there should be no error, localize to the value 'NO_ERROR'.
   /// 

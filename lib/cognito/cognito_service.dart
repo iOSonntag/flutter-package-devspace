@@ -9,10 +9,11 @@ enum kSignInResult
   invalidCredentials,
   unknownError,
 }
+
 abstract class AuthService extends CustomService {
 
-  Future<kSignInResult> signIn(String email, String password);
-  Future<kSignInResult> changeInitialPassword(String newPassword);
+  Future<CognitoSignInResult> signIn(String email, String password);
+  Future<CognitoChangeInitialPasswordResult> changeInitialPassword(String newPassword);
   Future<void> signOut();
   Future<bool> isSignedIn();
   Future<String> getJWTAccessToken();
@@ -35,103 +36,37 @@ class CognitoAuthenticationService extends AuthService {
   }
 
   @override
-  Future<kSignInResult> signIn(String email, String password) async
+  Future<CognitoSignInResult> signIn(String email, String password) async
   {
     try
     {
       await signOut();
-    }
-    catch (e)
-    {
-      safePrint('Error signing out: ${e.toString()}');
-    }
-
-    try
-    {
 
       SignInResult result = await Amplify.Auth.signIn(
         username: email, 
         password: password,
       );
 
-      if (result.isSignedIn)
-      {
-        return kSignInResult.success;
-      }
-      
-      if (result.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword)
-      {
-        return kSignInResult.successButChangePassword;
-      }
-
-      return kSignInResult.unknownError;
-    }
-    on InvalidPasswordException catch (e)
-    {
-      safePrint('Error retrieving auth session: ${e.message}');
-      
-      return kSignInResult.invalidCredentials;
-    }
-    on UserNotFoundException catch (e)
-    {
-      safePrint('Error retrieving auth session: ${e.message}');
-      
-      return kSignInResult.invalidCredentials;
-    }
-    on NotAuthorizedServiceException catch (e)
-    {
-      safePrint('Error retrieving auth session: ${e.message}');
-      
-      return kSignInResult.invalidCredentials;
+      return CognitoSignInResult(data: result);
     }
     on Exception catch (e)
     {
-      safePrint('Error retrieving auth session: ${e.toString()}');
-      return kSignInResult.unknownError;
+      return CognitoSignInResult(exception: e);
     }
   }
 
   @override
-  Future<kSignInResult> changeInitialPassword(String newPassword) async
+  Future<CognitoChangeInitialPasswordResult> changeInitialPassword(String newPassword) async
   {
     try
     {
       SignInResult result = await Amplify.Auth.confirmSignIn(confirmationValue: newPassword);
 
-      if (result.isSignedIn)
-      {
-        return kSignInResult.success;
-      }
-      
-      if (result.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword)
-      {
-        return kSignInResult.successButChangePassword;
-      }
-
-      return kSignInResult.unknownError;
-    }
-    on InvalidPasswordException catch (e)
-    {
-      safePrint('Error retrieving auth session: ${e.message}');
-      
-      return kSignInResult.invalidCredentials;
-    }
-    on UserNotFoundException catch (e)
-    {
-      safePrint('Error retrieving auth session: ${e.message}');
-      
-      return kSignInResult.invalidCredentials;
-    }
-    on NotAuthorizedServiceException catch (e)
-    {
-      safePrint('Error retrieving auth session: ${e.message}');
-      
-      return kSignInResult.invalidCredentials;
+      return CognitoChangeInitialPasswordResult(data: result);
     }
     on Exception catch (e)
     {
-      safePrint('Error retrieving auth session: ${e.toString()}');
-      return kSignInResult.unknownError;
+      return CognitoChangeInitialPasswordResult(exception: e);
     }
   }
 

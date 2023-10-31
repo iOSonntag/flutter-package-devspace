@@ -140,6 +140,14 @@ part 'glue_provider/glue_component.dart';
 part 'glue_provider/glue.dart';
 part 'glue_provider/insert_glues.dart';
 
+// models
+
+part 'models/result/common/cognito.dart';
+part 'models/result/result.dart';
+part 'models/result/service_result.dart';
+
+part 'models/action_result.dart';
+
 // my_service
 
 part 'my_service/my_service.dart';

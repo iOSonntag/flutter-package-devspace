@@ -12,7 +12,20 @@ abstract class LibStrings {
   static const String lib_general_complete = 'lib_general_complete';
   static const String lib_general_cancel = 'lib_general_cancel';
 
+  static const String lib_general_errorUnknown = 'lib_general_errorUnknown';
+
   static const String lib_imageNotAvailable_message = 'lib_imageNotAvailable_message';
+
+  static const String lib_models_cognitoSignIn_invalidCredentials_message = 'lib_models_cognitoSignIn_invalidCredentials_message';
+  static const String lib_models_cognitoSignIn_passwordChangeRequired_message = 'lib_models_cognitoSignIn_passwordChangeRequired_message';
+  static const String lib_models_cognitoChangeInitialPassword_unauthorized_message = 'lib_models_cognitoChangeInitialPassword_unauthorized_message';
+  static const String lib_models_cognitoChangeInitialPassword_passwordTooShort_message = 'lib_models_cognitoChangeInitialPassword_passwordTooShort_message';
+  static const String lib_models_cognitoChangeInitialPassword_passwordUpperMissing_message = 'lib_models_cognitoChangeInitialPassword_passwordUpperMissing_message';
+  static const String lib_models_cognitoChangeInitialPassword_passwordLowerMissing_message = 'lib_models_cognitoChangeInitialPassword_passwordLowerMissing_message';
+  static const String lib_models_cognitoChangeInitialPassword_passwordNumberMissing_message = 'lib_models_cognitoChangeInitialPassword_passwordNumberMissing_message';
+  static const String lib_models_cognitoChangeInitialPassword_passwordSymbolMissing_message = 'lib_models_cognitoChangeInitialPassword_passwordSymbolMissing_message';
+
+
 
   static const String lib_blueForms_inputValidators_failedOptionSelectionUntouched = 'lib_blueForms_inputValidators_failedOptionSelectionUntouched';
   static const String lib_blueForms_inputValidators_failedNotEmptyCheck = 'lib_blueForms_inputValidators_failedNotEmptyCheck';
