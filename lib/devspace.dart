@@ -1,11 +1,13 @@
 library devspace;
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:measure_size/measure_size.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/widgets.dart';
@@ -22,6 +24,14 @@ import 'dart:ui' as ui;
 
 part 'app_flow_systems/app_flow_paged_steps.dart';
 part 'app_flow_systems/steps_bar.dart';
+
+// app_scaffolds
+
+part 'app_scaffolds/app_loader.dart';
+part 'app_scaffolds/app_router.dart';
+part 'app_scaffolds/app.dart';
+
+
 
 // architect
 
@@ -147,6 +157,7 @@ part 'models/result/result.dart';
 part 'models/result/service_result.dart';
 
 part 'models/action_result.dart';
+part 'models/builder.dart';
 
 // my_service
 

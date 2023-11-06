@@ -84,6 +84,7 @@ extension ContextExtension on BuildContext {
   EdgeInsets get paddingXXL_S => Theme.of(this).dimensions.paddingXXL_S;
   EdgeInsets get paddingXXL_M => Theme.of(this).dimensions.paddingXXL_M;
   EdgeInsets get paddingXXL_L => Theme.of(this).dimensions.paddingXXL_L;
+  EdgeInsets get paddingXXL_XL => Theme.of(this).dimensions.paddingXXL_XL;
 
   Widget get spaceXXS => Theme.of(this).dimensions.spaceXXS();
   Widget get spaceXS => Theme.of(this).dimensions.spaceXS();

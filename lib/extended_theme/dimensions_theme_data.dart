@@ -144,6 +144,7 @@ class DimensionsThemeData {
   EdgeInsets get paddingXXL_S => EdgeInsets.symmetric(horizontal: spaceXXLValue, vertical: spaceSValue);
   EdgeInsets get paddingXXL_M => EdgeInsets.symmetric(horizontal: spaceXXLValue, vertical: spaceMValue);
   EdgeInsets get paddingXXL_L => EdgeInsets.symmetric(horizontal: spaceXXLValue, vertical: spaceLValue);
+  EdgeInsets get paddingXXL_XL => EdgeInsets.symmetric(horizontal: spaceXXLValue, vertical: spaceXLValue);
 
 
 

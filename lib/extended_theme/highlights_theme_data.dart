@@ -16,28 +16,28 @@ abstract class _HighlightsDefaults {
 
   static const BoxShadow boxShadowS = BoxShadow(
     color: Color.fromRGBO(0, 0, 0, 0.05),
-    blurRadius: 6,
+    blurRadius: 5,
     offset: Offset.zero,
     // blurStyle: BlurStyle.outer,
   );
 
   static const BoxShadow boxShadowM = BoxShadow(
-    color: Color.fromRGBO(0, 0, 0, 0.10),
-    blurRadius: 12,
+    color: Color.fromRGBO(0, 0, 0, 0.08),
+    blurRadius: 8,
     offset: Offset.zero,
     // blurStyle: BlurStyle.outer,
   );
 
   static const BoxShadow boxShadowL = BoxShadow(
-    color: Color.fromRGBO(0, 0, 0, 0.18),
-    blurRadius: 24,
+    color: Color.fromRGBO(0, 0, 0, 0.13),
+    blurRadius: 13,
     offset: Offset.zero,
     // blurStyle: BlurStyle.outer,
   );
 
   static const BoxShadow boxShadowXL = BoxShadow(
-    color: Color.fromRGBO(0, 0, 0, 0.22),
-    blurRadius: 48,
+    color: Color.fromRGBO(0, 0, 0, 0.21),
+    blurRadius: 21,
     offset: Offset.zero,
     // blurStyle: BlurStyle.outer,
   );
