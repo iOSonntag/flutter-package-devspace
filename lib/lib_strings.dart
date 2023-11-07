@@ -7,11 +7,35 @@ abstract class LibStrings {
 
   LibStrings._();
 
-  static const String lib_general_next = 'lib_general_next';
-  static const String lib_general_back = 'lib_general_back';
-  static const String lib_general_complete = 'lib_general_complete';
-  static const String lib_general_cancel = 'lib_general_cancel';
+  static const String lib_general_actionNext = 'lib_general_actionNext';
+  static const String lib_general_actionBack = 'lib_general_actionBack';
+  static const String lib_general_actionComplete = 'lib_general_actionComplete';
+  static const String lib_general_actionCancel = 'lib_general_actionCancel';
+  static const String lib_general_actionSave = 'lib_general_actionSave';
+  static const String lib_general_actionRetry = 'lib_general_actionRetry';
+  static const String lib_general_actionConfirm = 'lib_general_actionConfirm';
+  static const String lib_general_actionDismiss = 'lib_general_actionDismiss';
+  static const String lib_general_actionClose = 'lib_general_actionClose';
+  static const String lib_general_actionOkay = 'lib_general_actionOk';
+  static const String lib_general_actionYes = 'lib_general_actionYes';
+  static const String lib_general_actionNo = 'lib_general_actionNo';
+  static const String lib_general_actionSend = 'lib_general_actionSend';
+  static const String lib_general_actionDelete = 'lib_general_actionDelete';
+  static const String lib_general_actionEdit = 'lib_general_actionEdit';
+  static const String lib_general_actionAdd = 'lib_general_actionAdd';
+  static const String lib_general_actionRemove = 'lib_general_actionRemove';
+  static const String lib_general_actionSelect = 'lib_general_actionSelect';
+  static const String lib_general_actionChoose = 'lib_general_actionChoose';
 
+  static const String lib_general_titleError = 'lib_general_titleError';
+  static const String lib_general_titleInfo = 'lib_general_titleInfo';
+  static const String lib_general_titleWarning = 'lib_general_titleWarning';
+  static const String lib_general_titleSuccess = 'lib_general_titleSuccess';
+  static const String lib_general_titleConfirm = 'lib_general_titleConfirm';
+
+  static const String lib_general_infoNoItemsFound = 'lib_general_infoNoItemsFound';
+
+  static const String lib_general_errorNetwork = 'lib_general_errorNetwork';
   static const String lib_general_errorUnknown = 'lib_general_errorUnknown';
 
   static const String lib_imageNotAvailable_message = 'lib_imageNotAvailable_message';

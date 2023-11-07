@@ -28,11 +28,12 @@ class DimensionsThemeData {
     this.lineThicknessS = 0.5,
     this.lineThicknessM = 1.0,
     this.lineThicknessL = 2.0,
-    this.iconSizeXS = 16.0,
-    this.iconSizeS = 24.0,
-    this.iconSizeM = 32.0,
-    this.iconSizeL = 48.0,
-    this.iconSizeXL = 64.0,
+    this.iconSizeXS = 13.0,
+    this.iconSizeS = 21.0,
+    this.iconSizeM = 34.0,
+    this.iconSizeL = 55.0,
+    this.iconSizeXL = 89.0,
+    this.iconSizeXXL = 144.0,
   }) : 
     spaceXXSValue = spaceXXS,
     spaceXSValue = spaceXS,
@@ -71,6 +72,7 @@ class DimensionsThemeData {
   final double iconSizeM;
   final double iconSizeL;
   final double iconSizeXL;
+  final double iconSizeXXL;
 
   EdgeInsets get paddingXXS => EdgeInsets.all(spaceXXSValue);
   EdgeInsets get paddingXS => EdgeInsets.all(spaceXSValue);

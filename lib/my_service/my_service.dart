@@ -3,7 +3,26 @@
 part of devspace;
 
 
+extension ExtensionMyServiceOnContext on BuildContext {
 
+  T getService<T extends Object>({
+    String? instanceName,
+    dynamic param1,
+    dynamic param2,
+    Type? type,
+  })
+  {
+    return MyService.get<T>(
+      instanceName: instanceName,
+      param1: param1,
+      param2: param2,
+      type: type,
+    );
+  }
+
+
+
+}
 
 class MyService {
 

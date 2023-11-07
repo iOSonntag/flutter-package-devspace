@@ -12,23 +12,23 @@ extension DoubleExtension on double {
   {
     assert(this >= 0.0 && this <= 1.0);
     
-    return Random().nextDouble() < this;
+    return math.Random().nextDouble() < this;
   }
 
   double toRadian()
   {
-    return this / 180 * pi;
+    return this / 180 * math.pi;
   }
 
   double toDegree()
   {
-    return this / pi * 180;
+    return this / math.pi * 180;
   }
 
   double clampAngleWithin()
   {
-    if (this > pi) return this - 2 * pi;
-    if (this < -pi) return this + 2 * pi;
+    if (this > math.pi) return this - 2 * math.pi;
+    if (this < -math.pi) return this + 2 * math.pi;
     return this;
   }
 }

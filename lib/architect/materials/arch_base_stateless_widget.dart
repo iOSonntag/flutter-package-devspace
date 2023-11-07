@@ -5,6 +5,18 @@
 
 part of devspace;
 
+abstract class ArchBaseChildfulStatelessWidget<T extends PlanData, C> extends ArchBaseStatelessWidget<T> {
+
+  final C child;
+
+  ArchBaseChildfulStatelessWidget({
+    super.key,
+    required super.data,
+    required this.child,
+    super.allowCustomVariants,
+  });
+}
+
 abstract class ArchBaseStatelessWidget<T extends PlanData> extends StatelessWidget {
 
   final T data;
@@ -44,14 +56,14 @@ abstract class ArchBaseStatelessWidget<T extends PlanData> extends StatelessWidg
       return;
     }
 
-    debugPrint('The following fields are not supported by the widget:\n');
+    debugPrint('[WARNING]\nArchitect Grumbles - Not constructed as planned!\nThe following fields are not supported by the widget $this:\n|\n');
 
     for (var element in _unsupportedFields)
     {
-      debugPrint('- $element');
+      debugPrint('\t- $element');
     }
 
-    debugPrint('\nIf you want to use these fields, you have to create create your own widget or and make sure it is not marked as unsupported.');
+    debugPrint('\n|\nIf you want to use these fields, you have to create create your own widget and/or and make sure it is not marked as unsupported.');
   }
 
 

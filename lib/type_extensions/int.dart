@@ -12,7 +12,7 @@ extension IntExtension on int {
   /// [startValue] defaults to 0. Can be negative.
   int randomize({int startValue = 0})
   {
-    return Random().nextInt(this + 1 - startValue) + startValue;
+    return math.Random().nextInt(this + 1 - startValue) + startValue;
   }
 
 
@@ -22,4 +22,10 @@ extension IntExtension on int {
   // ignore: non_constant_identifier_names
   /// Returns a [Duration] with the value of this integer in milliseconds.
   Duration get asDuration => Duration(milliseconds: this);
+
+
+  List<T> generateItems<T>(T Function(int index) generator)
+  {
+    return List.generate(this, generator);
+  }
 }

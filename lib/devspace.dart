@@ -1,16 +1,15 @@
 library devspace;
 
 import 'dart:async';
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:measure_size/measure_size.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/widgets.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -20,9 +19,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart' as p_url_launcher;
 import 'dart:ui' as ui;
 
+// animations
+
+part 'animations/helpers.dart';
+
 // app_flow_systems
 
 part 'app_flow_systems/app_flow_paged_steps.dart';
+part 'app_flow_systems/paginated_list_view.dart';
 part 'app_flow_systems/steps_bar.dart';
 
 // app_scaffolds
@@ -55,8 +59,15 @@ part 'architect/plans/button/default.regular.dart';
 part 'architect/plans/button/default.soft.dart';
 part 'architect/plans/button/default.special.dart';
 
+part 'architect/plans/card/arch.dart';
+part 'architect/plans/card/data.dart';
+part 'architect/plans/card/default.background.dart';
+part 'architect/plans/card/default.dart';
+part 'architect/plans/card/default.regular.dart';
+
 part 'architect/plans/info_box/arch.dart';
 part 'architect/plans/info_box/data.dart';
+part 'architect/plans/info_box/default.content_placeholder.dart';
 part 'architect/plans/info_box/default.dart';
 part 'architect/plans/info_box/default.regular.dart';
 
@@ -68,6 +79,7 @@ part 'architect/plans/loading_indicator/arch.dart';
 part 'architect/plans/loading_indicator/data.dart';
 part 'architect/plans/loading_indicator/default.dart';
 part 'architect/plans/loading_indicator/default.regular.dart';
+part 'architect/plans/loading_indicator/default.special.dart';
 
 part 'architect/plans/text_field/arch.dart';
 part 'architect/plans/text_field/data.dart';
@@ -108,7 +120,9 @@ part 'blue_forms/blue_forms.dart';
 // brixies
 
 part 'brixies/edge_shadow.dart';
+part 'brixies/empty_widget.dart';
 part 'brixies/hide_keyboard_on_tap.dart';
+part 'brixies/hover_builder.dart';
 part 'brixies/intrinsic_height_page_view.dart';
 part 'brixies/layout_builder.dart';
 part 'brixies/line_divider.dart';
@@ -152,6 +166,8 @@ part 'glue_provider/insert_glues.dart';
 
 // models
 
+part 'models/network/paginated_list.dart';
+
 part 'models/result/common/cognito.dart';
 part 'models/result/result.dart';
 part 'models/result/service_result.dart';
@@ -183,4 +199,8 @@ part 'type_extensions/int.dart';
 part 'type_extensions/list.dart';
 part 'type_extensions/offset.dart';
 part 'type_extensions/string.dart';
+
+// utils
+
+part 'utils/random.dart';
 

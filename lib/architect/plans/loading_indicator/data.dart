@@ -5,6 +5,7 @@ part of devspace;
 enum kLoadingIndicatorVariant
 {
   regular,
+  special,
 }
 
 

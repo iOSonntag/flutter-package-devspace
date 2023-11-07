@@ -5,6 +5,7 @@ part of devspace;
 enum kInfoBoxVariant
 {
   regular,
+  contentPlaceholder
 }
 
 // ignore: camel_case_types
@@ -24,6 +25,8 @@ class InfoBoxData extends PlanData {
   final String? title;
   final String? subtitle;
   final String? message;
+  final String? actionTitle;
+  final VoidCallback? onAction;
 
 
   const InfoBoxData({
@@ -33,6 +36,8 @@ class InfoBoxData extends PlanData {
     this.title,
     this.subtitle,
     this.message,
+    this.actionTitle,
+    this.onAction,
   });
 
 }

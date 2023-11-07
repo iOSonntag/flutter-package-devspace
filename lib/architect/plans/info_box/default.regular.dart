@@ -18,7 +18,8 @@ class DefaultInfoBoxRegular extends ArchBaseStatelessWidget<InfoBoxData> {
   @override
   void checkUnsupportedFields()
   {
-    unsupported(data.subtitle, 'subtitle');
+    unsupported(data.actionTitle, 'actionTitle');
+    unsupported(data.onAction, 'onAction');
   }
 
   @override

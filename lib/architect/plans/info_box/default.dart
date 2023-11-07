@@ -5,7 +5,7 @@ part of devspace;
 
 class DefaultInfoBox extends ArchBaseVariantSwitch<kInfoBoxVariant, InfoBoxData> {
 
-  static PlanBuilder<Widget, kInfoBoxVariant, InfoBoxData> builder = (context, variant, data)
+  static PlanBuilderChildless<Widget, kInfoBoxVariant, InfoBoxData> builder = (context, variant, data)
   {
     return DefaultInfoBox(variant: variant, data: data);
   };
@@ -22,6 +22,7 @@ class DefaultInfoBox extends ArchBaseVariantSwitch<kInfoBoxVariant, InfoBoxData>
     return switch (style)
     {
       kInfoBoxVariant.regular => DefaultInfoBoxRegular(data: data),
+      kInfoBoxVariant.contentPlaceholder => DefaultInfoBoxContentPlaceholder(data: data),
     };
   }
   

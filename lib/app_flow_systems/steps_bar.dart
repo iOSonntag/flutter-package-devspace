@@ -44,7 +44,7 @@ class StepsBar extends StatelessWidget {
 
     if (specialFinalNextButton)
     {
-      return LibStrings.lib_general_complete.tr();
+      return LibStrings.lib_general_actionComplete.tr();
     }
 
     return _nextButtonTitle();
@@ -52,7 +52,7 @@ class StepsBar extends StatelessWidget {
 
   String _nextButtonTitle()
   {
-    return customNextButtonTitle ?? LibStrings.lib_general_next.tr();
+    return customNextButtonTitle ?? LibStrings.lib_general_actionNext.tr();
   }
 
   String _backButtonTitle()
@@ -64,10 +64,10 @@ class StepsBar extends StatelessWidget {
           return '';
       }
 
-      return customCancelButtonTitle ?? LibStrings.lib_general_cancel.tr();
+      return customCancelButtonTitle ?? LibStrings.lib_general_actionCancel.tr();
     }
 
-    return customBackButtonTitle ?? LibStrings.lib_general_back.tr();
+    return customBackButtonTitle ?? LibStrings.lib_general_actionBack.tr();
   }
 
   bool _finalNextButtonDiffersInAnyWay()

@@ -11,12 +11,35 @@ class ArchInfoBox extends ArchBase<kInfoBoxVariant, InfoBoxData> {
     super.variant = kInfoBoxVariant.regular,
   });
 
+  ArchInfoBox.info({
+    super.key,
+    IconData? icon,
+    String? title,
+    String? subtitle,
+    String? message,
+    String? actionTitle,
+    VoidCallback? onAction,
+    super.variant = kInfoBoxVariant.regular,
+  }) : super(
+    data: InfoBoxData(
+      type: kInfoBoxType.info,
+      icon: icon,
+      title: title,
+      subtitle: subtitle,
+      message: message,
+      actionTitle: actionTitle,
+      onAction: onAction,
+    )
+  );
+
   ArchInfoBox.error({
     super.key,
     IconData? icon,
     String? title,
     String? subtitle,
     String? message,
+    String? actionTitle,
+    VoidCallback? onAction,
     super.variant = kInfoBoxVariant.regular,
   }) : super(
     data: InfoBoxData(
@@ -25,6 +48,8 @@ class ArchInfoBox extends ArchBase<kInfoBoxVariant, InfoBoxData> {
       title: title,
       subtitle: subtitle,
       message: message,
+      actionTitle: actionTitle,
+      onAction: onAction,
     )
   );
   
