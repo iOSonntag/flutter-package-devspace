@@ -3,12 +3,11 @@
 part of devspace;
 
 
-class DefaultCardRegular extends ArchBaseChildfulStatelessWidget<CardData, Widget> {
+class DefaultCardRegular extends ArchBaseStatelessWidget<CardData> {
 
   DefaultCardRegular({
     super.key,
     required super.data,
-    required super.child,
   }) : super(allowCustomVariants: false);
 
 
@@ -20,7 +19,6 @@ class DefaultCardRegular extends ArchBaseChildfulStatelessWidget<CardData, Widge
   void checkUnsupportedFields()
   {
     
-    
   }
 
   @override
@@ -29,12 +27,12 @@ class DefaultCardRegular extends ArchBaseChildfulStatelessWidget<CardData, Widge
     return Container(
       decoration: BoxDecoration(
         color: data.color ?? context.colors.surface,
-        borderRadius: context.dimensions.borderRadiusM,
+        borderRadius: context.dimensions.borderRadiusL,
         boxShadow: [
           context.highlights.boxShadowM
         ]
       ),
-      child: child
+      child: data.child
     );
   }
 

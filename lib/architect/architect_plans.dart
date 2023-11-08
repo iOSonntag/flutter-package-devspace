@@ -4,11 +4,13 @@ part of devspace;
 
 Map<Type, WidgetPlan> _defaultWidgetPlans = <Type, WidgetPlan>{
 
-  ButtonData: WidgetPlanChildless<kButtonVariant, ButtonData>(builder: DefaultButton.builder),
-  CardData: WidgetPlanChildful<kCardVariant, CardData, Widget>(builder: DefaultCard.builder),
-  InfoBoxData: WidgetPlanChildless<kInfoBoxVariant, InfoBoxData>(builder: DefaultInfoBox.builder),
-  LoadingIndicatorData: WidgetPlanChildless<kLoadingIndicatorVariant, LoadingIndicatorData>(builder: DefaultLoadingIndicator.builder),
-  TextFieldData: WidgetPlanChildless<kTextFieldVariant, TextFieldData>(builder: DefaultTextField.builder),
+  ButtonData: WidgetPlan<kButtonVariant, ButtonData>(builder: DefaultButton.builder),
+  CardData: WidgetPlan<kCardVariant, CardData>(builder: DefaultCard.builder),
+  ImageData: WidgetPlan<kImageVariant, ImageData>(builder: DefaultImage.builder),
+  InfoBoxData: WidgetPlan<kInfoBoxVariant, InfoBoxData>(builder: DefaultInfoBox.builder),
+  ListItemData: WidgetPlan<kListItemVariant, ListItemData>(builder: DefaultListItem.builder),
+  LoadingIndicatorData: WidgetPlan<kLoadingIndicatorVariant, LoadingIndicatorData>(builder: DefaultLoadingIndicator.builder),
+  TextFieldData: WidgetPlan<kTextFieldVariant, TextFieldData>(builder: DefaultTextField.builder),
 
 };
 
@@ -26,11 +28,11 @@ class ArchitectPlans {
     return const ArchitectPlans();
   }
 
-  final Map<Type, WidgetPlanChildless> _widgets;
+  final Map<Type, WidgetPlan> _widgets;
   final Map<Type, ObjectPlan> _objects;
 
   const ArchitectPlans({
-    Map<Type, WidgetPlanChildless>? widgets,
+    Map<Type, WidgetPlan>? widgets,
     Map<Type, ObjectPlan>? objects,
   }) : 
     _widgets = widgets ?? const {},

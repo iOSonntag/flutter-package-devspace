@@ -3,12 +3,11 @@
 part of devspace;
 
 
-class DefaultCardBackground extends ArchBaseChildfulStatelessWidget<CardData, Widget> {
+class DefaultCardBackground extends ArchBaseStatelessWidget<CardData> {
 
   DefaultCardBackground({
     super.key,
     required super.data,
-    required super.child,
   }) : super(allowCustomVariants: false);
 
 
@@ -34,7 +33,7 @@ class DefaultCardBackground extends ArchBaseChildfulStatelessWidget<CardData, Wi
           context.highlights.boxShadowXS
         ]
       ),
-      child: child
+      child: data.child
     );
   }
 

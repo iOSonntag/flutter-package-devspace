@@ -2,22 +2,36 @@
 
 part of devspace;
 
-class ArchCard extends ArchBaseWithChild<kCardVariant, CardData> {
+class ArchCard extends ArchBase<kCardVariant, CardData> {
 
 
-  const ArchCard({
+  ArchCard({
     super.key,
-    super.data = const CardData(),
-    // required super.data,
     super.variant = kCardVariant.regular,
-    required super.child,
-  });
+    String? variationId,
+    Color? color,
+    required Widget child,
+  }) : super(
+    data: CardData(
+      variationId: variationId,
+      color: color,
+      child: child,
+    ),
+  );
 
 
-  const ArchCard.background({
+  ArchCard.background({
     super.key,
-    super.data = const CardData(),
-    required super.child,
-  }) : super(variant: kCardVariant.background);
+    String? variationId,
+    Color? color,
+    required Widget child,
+  }) : super(
+    variant: kCardVariant.background,
+    data: CardData(
+      variationId: variationId,
+      color: color,
+      child: child,
+    ),
+  );
   
 }

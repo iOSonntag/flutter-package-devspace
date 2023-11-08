@@ -118,6 +118,7 @@ class _AppWidget extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             routerConfig: generatedData?.routerConfig,
+            scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
             title: buildTitle(context),
             // showPerformanceOverlay: true,
             theme: buildTheme(context),
@@ -126,4 +127,15 @@ class _AppWidget extends StatelessWidget {
     );
   }
 
+}
+
+class NoThumbScrollBehavior extends ScrollBehavior {
+
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.stylus,
+    PointerDeviceKind.trackpad,
+  };
 }

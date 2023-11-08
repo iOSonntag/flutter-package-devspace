@@ -9,13 +9,14 @@ enum kCardVariant
 }
 
 
-class CardData extends PlanData {
+class CardData extends PlanDataWithChild {
 
   final Color? color;
 
   const CardData({
     super.variationId,
-    this.color
+    this.color,
+    required super.child,
   });
 
 }

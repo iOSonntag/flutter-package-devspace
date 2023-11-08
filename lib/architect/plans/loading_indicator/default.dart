@@ -5,7 +5,7 @@ part of devspace;
 
 class DefaultLoadingIndicator extends ArchBaseVariantSwitch<kLoadingIndicatorVariant, LoadingIndicatorData> {
 
-  static PlanBuilderChildless<Widget, kLoadingIndicatorVariant, LoadingIndicatorData> builder = (context, variant, data)
+  static PlanBuilder<Widget, kLoadingIndicatorVariant, LoadingIndicatorData> builder = (context, variant, data)
   {
     return DefaultLoadingIndicator(variant: variant, data: data);
   };

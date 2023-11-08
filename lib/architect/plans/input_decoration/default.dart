@@ -5,7 +5,7 @@ part of devspace;
 
 class DefaultInputDecoration extends ArchObject<InputDecoration, InputDecorationData> {
 
-  static PlanBuilderChildless<InputDecoration, kNoVariants, InputDecorationData> builder = (context, variant, data)
+  static PlanBuilder<InputDecoration, kNoVariants, InputDecorationData> builder = (context, variant, data)
   {
     return DefaultInputDecoration(data: data).build(context);
   };

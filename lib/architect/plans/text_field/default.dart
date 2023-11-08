@@ -5,7 +5,7 @@ part of devspace;
 
 class DefaultTextField extends ArchBaseVariantSwitch<kTextFieldVariant, TextFieldData> {
 
-  static PlanBuilderChildless<Widget, kTextFieldVariant, TextFieldData> builder = (context, variant, data)
+  static PlanBuilder<Widget, kTextFieldVariant, TextFieldData> builder = (context, variant, data)
   {
     return DefaultTextField(variant: variant, data: data);
   };

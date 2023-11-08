@@ -35,29 +35,13 @@ abstract class PlanDataWithChild extends PlanData {
 
 typedef ChildOption<T> = T;
 
-typedef PlanBuilderChildless<R, V extends Enum, T extends PlanData> = R Function(BuildContext, V variant, T data);
-typedef PlanBuilderChildful<R, V extends Enum, T extends PlanData, C> = R Function(BuildContext, V variant, T data, ChildOption<C> child);
+typedef PlanBuilder<R, V extends Enum, T extends PlanData> = R Function(BuildContext, V variant, T data);
 
-class WidgetPlan {
+class WidgetPlan<V extends Enum, T extends PlanData> {
 
+  final PlanBuilder<Widget, V, T> builder;
 
-}
-
-class WidgetPlanChildless<V extends Enum, T extends PlanData> extends WidgetPlan {
-
-  final PlanBuilderChildless<Widget, V, T> builder;
-
-  WidgetPlanChildless({
-    required this.builder,
-  });
-
-}
-
-class WidgetPlanChildful<V extends Enum, T extends PlanData, C> extends WidgetPlan {
-
-  final PlanBuilderChildful<Widget, V, T, C> builder;
-
-  WidgetPlanChildful({
+  WidgetPlan({
     required this.builder,
   });
 
@@ -66,7 +50,7 @@ class WidgetPlanChildful<V extends Enum, T extends PlanData, C> extends WidgetPl
 
 class ObjectPlan<R extends Object, V extends Enum, T extends PlanData> {
 
-  final PlanBuilderChildless<R, V, T> builder;
+  final PlanBuilder<R, V, T> builder;
 
   ObjectPlan({
     required this.builder,

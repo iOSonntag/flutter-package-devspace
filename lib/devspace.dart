@@ -2,6 +2,7 @@ library devspace;
 
 import 'dart:async';
 import 'dart:math' as math;
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -65,6 +66,11 @@ part 'architect/plans/card/default.background.dart';
 part 'architect/plans/card/default.dart';
 part 'architect/plans/card/default.regular.dart';
 
+part 'architect/plans/image/arch.dart';
+part 'architect/plans/image/data.dart';
+part 'architect/plans/image/default.dart';
+part 'architect/plans/image/default.regular.dart';
+
 part 'architect/plans/info_box/arch.dart';
 part 'architect/plans/info_box/data.dart';
 part 'architect/plans/info_box/default.content_placeholder.dart';
@@ -74,6 +80,12 @@ part 'architect/plans/info_box/default.regular.dart';
 part 'architect/plans/input_decoration/arch.dart';
 part 'architect/plans/input_decoration/data.dart';
 part 'architect/plans/input_decoration/default.dart';
+
+part 'architect/plans/list_item/arch.dart';
+part 'architect/plans/list_item/data.dart';
+part 'architect/plans/list_item/default.dart';
+part 'architect/plans/list_item/default.regular.dart';
+part 'architect/plans/list_item/default.standalone.dart';
 
 part 'architect/plans/loading_indicator/arch.dart';
 part 'architect/plans/loading_indicator/data.dart';

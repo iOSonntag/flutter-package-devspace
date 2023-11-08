@@ -20,6 +20,9 @@ class DimensionsThemeData {
     this.radiusM = 8.0,
     this.radiusL = 16.0,
     this.radiusXL = 32.0,
+    this.listItemHeightS = 55.0,
+    this.listItemHeightM = 89.0,
+    this.listItemHeightL = 144.0,
     this.barHeightXS = 24.0,
     this.barHeightS = 40.0,
     this.barHeightM = 60.0,
@@ -56,6 +59,10 @@ class DimensionsThemeData {
   final double radiusM;
   final double radiusL;
   final double radiusXL;
+
+  final listItemHeightS;
+  final listItemHeightM;
+  final listItemHeightL;
 
   final double barHeightXS;
   final double barHeightS;

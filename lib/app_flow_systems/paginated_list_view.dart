@@ -8,17 +8,19 @@ typedef FetchPageItems<T> = Future<PageFetchResult<T>> Function(int pageSize, St
 
 class PaginatedListView<T> extends StatefulWidget {
 
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsets? padding;
   final IndexedWidgetBuilder? separatorBuilder;
   final int pageSize;
   final FetchPageItems<T> fetchPageItems;
   final IndexItemBuilder<T> buildItem;
+  final double? horizontalOverdraw;
 
   const PaginatedListView({
     super.key,
     this.pageSize = 20,
     this.padding,
     this.separatorBuilder,
+    this.horizontalOverdraw = 12.0,
     required this.fetchPageItems,
     required this.buildItem
   });
@@ -68,10 +70,36 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>> {
   @override
   Widget build(BuildContext context)
   {
+    if (widget.horizontalOverdraw == null)
+    {
+      return _buildPaginationWidget(context, widget.padding);
+    }
+
+    EdgeInsets fixedPadding = widget.padding ?? EdgeInsets.zero;
+
+    fixedPadding = fixedPadding.fine(left: widget.horizontalOverdraw, right: widget.horizontalOverdraw);
+
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Positioned(
+          left: -widget.horizontalOverdraw!,
+          right: -widget.horizontalOverdraw!,
+          top: 0,
+          bottom: 0,
+          child: _buildPaginationWidget(context, fixedPadding)
+        )
+      ],
+    );
+  }
+
+  Widget _buildPaginationWidget(BuildContext context, EdgeInsets? padding)
+  {
     return PagedListView<String, T>.separated(
       pagingController: _controller,
       physics: context.animations.scrollPhysics,
-      padding: widget.padding,
+      padding: padding,
       separatorBuilder: (context, index) => widget.separatorBuilder?.call(context, index) ?? const SizedBox.shrink(),
       builderDelegate: PagedChildBuilderDelegate<T>(
         itemBuilder: widget.buildItem,

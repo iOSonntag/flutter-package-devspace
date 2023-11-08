@@ -5,17 +5,6 @@
 
 part of devspace;
 
-abstract class ArchBaseChildfulStatelessWidget<T extends PlanData, C> extends ArchBaseStatelessWidget<T> {
-
-  final C child;
-
-  ArchBaseChildfulStatelessWidget({
-    super.key,
-    required super.data,
-    required this.child,
-    super.allowCustomVariants,
-  });
-}
 
 abstract class ArchBaseStatelessWidget<T extends PlanData> extends StatelessWidget {
 

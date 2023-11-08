@@ -3,27 +3,26 @@
 part of devspace;
 
 
-class DefaultCard extends ArchBaseChildfulVariantSwitch<kCardVariant, CardData, Widget> {
+class DefaultCard extends ArchBaseVariantSwitch<kCardVariant, CardData> {
 
-  static PlanBuilderChildful<Widget, kCardVariant, CardData, Widget> builder = (context, variant, data, child)
+  static PlanBuilder<Widget, kCardVariant, CardData> builder = (context, variant, data)
   {
-    return DefaultCard(variant: variant, data: data, child: child);
+    return DefaultCard(variant: variant, data: data);
   };
 
   const DefaultCard({
     super.key,
     super.variant = kCardVariant.regular,
     required super.data,
-    required super.child,
   });
 
   @override
-  Widget buildStyle(BuildContext context, kCardVariant style, Widget child)
+  Widget buildStyle(BuildContext context, kCardVariant style)
   {
     return switch (style)
     {
-      kCardVariant.regular => DefaultCardRegular(data: data, child: child),
-      kCardVariant.background => DefaultCardBackground(data: data, child: child),
+      kCardVariant.regular => DefaultCardRegular(data: data),
+      kCardVariant.background => DefaultCardBackground(data: data),
     };
   }
   

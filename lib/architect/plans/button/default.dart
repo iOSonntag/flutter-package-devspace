@@ -4,7 +4,7 @@ part of devspace;
 
 class DefaultButton extends ArchBaseVariantSwitch<kButtonVariant, ButtonData> {
 
-  static PlanBuilderChildless<Widget, kButtonVariant, ButtonData> builder = (context, variant, data)
+  static PlanBuilder<Widget, kButtonVariant, ButtonData> builder = (context, variant, data)
   {
     return DefaultButton(variant: variant, data: data);
   };

@@ -7,36 +7,38 @@ part of devspace;
 
 abstract class _HighlightsDefaults {
 
+  static const bool debug = false;
+
   static const BoxShadow boxShadowXS = BoxShadow(
-    color: Color.fromRGBO(0, 0, 0, 0.05),
+    color: debug ? Color.fromRGBO(255, 0, 0, 1.0) : Color.fromRGBO(0, 0, 0, 0.05),
     blurRadius: 3,
     offset: Offset.zero,
     // blurStyle: BlurStyle.outer,
   );
 
   static const BoxShadow boxShadowS = BoxShadow(
-    color: Color.fromRGBO(0, 0, 0, 0.05),
+    color: debug ? Color.fromRGBO(255, 0, 0, 1.0) : Color.fromRGBO(0, 0, 0, 0.05),
     blurRadius: 5,
     offset: Offset.zero,
     // blurStyle: BlurStyle.outer,
   );
 
   static const BoxShadow boxShadowM = BoxShadow(
-    color: Color.fromRGBO(0, 0, 0, 0.08),
+    color: debug ? Color.fromRGBO(255, 0, 0, 1.0) : Color.fromRGBO(0, 0, 0, 0.08),
     blurRadius: 8,
     offset: Offset.zero,
     // blurStyle: BlurStyle.outer,
   );
 
   static const BoxShadow boxShadowL = BoxShadow(
-    color: Color.fromRGBO(0, 0, 0, 0.13),
+    color: debug ? Color.fromRGBO(255, 0, 0, 1.0) : Color.fromRGBO(0, 0, 0, 0.13),
     blurRadius: 13,
     offset: Offset.zero,
     // blurStyle: BlurStyle.outer,
   );
 
   static const BoxShadow boxShadowXL = BoxShadow(
-    color: Color.fromRGBO(0, 0, 0, 0.21),
+    color: debug ? Color.fromRGBO(255, 0, 0, 1.0) : Color.fromRGBO(0, 0, 0, 0.21),
     blurRadius: 21,
     offset: Offset.zero,
     // blurStyle: BlurStyle.outer,
