@@ -6,20 +6,97 @@ part of devspace;
 
 class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
 
-  const ArchButton({
+  ArchButton({
     super.key,
-    super.data = const ButtonData(),
+    kButtonType type = kButtonType.regular,
+    kSize3 size = kSize3.M,
+    bool enabled = true,
+    String? title,
+    String? subtitle,
+    IconData? icon,
+    VoidCallback? onPressed,
+    VoidCallback? onSecondaryAction,
+    VoidCallback? onTertiaryAction,
     super.variant = kButtonVariant.regular,
-  });
+    String? variationId,
+    Widget? child,
+  }) : 
+    super(
+      data: ButtonData(
+        variationId: variationId,
+        type: type,
+        size: size,
+        enabled: enabled,
+        title: title,
+        subtitle: subtitle,
+        icon: icon,
+        onPrimaryAction: onPressed,
+        onSecondaryAction: onSecondaryAction,
+        onTertiaryAction: onTertiaryAction,
+        child: child,
+      ),
+    );
 
-  const ArchButton.soft({
+  ArchButton.soft({
     super.key,
-    super.data = const ButtonData(),
-  }) : super(variant: kButtonVariant.soft);
+    kButtonType type = kButtonType.regular,
+    kSize3 size = kSize3.M,
+    bool enabled = true,
+    String? title,
+    String? subtitle,
+    IconData? icon,
+    VoidCallback? onPressed,
+    VoidCallback? onSecondaryAction,
+    VoidCallback? onTertiaryAction,
+    String? variationId,
+    Widget? child,
+  }) : 
+    super(
+      variant: kButtonVariant.regular,
+      data: ButtonData(
+        variationId: variationId,
+        type: type,
+        size: size,
+        enabled: enabled,
+        title: title,
+        subtitle: subtitle,
+        icon: icon,
+        onPrimaryAction: onPressed,
+        onSecondaryAction: onSecondaryAction,
+        onTertiaryAction: onTertiaryAction,
+        child: child,
+      ),
+    );
 
-  const ArchButton.special({
+  ArchButton.special({
     super.key,
-    super.data = const ButtonData(),
-  }) : super(variant: kButtonVariant.special);
+    kButtonType type = kButtonType.regular,
+    kSize3 size = kSize3.M,
+    bool enabled = true,
+    String? title,
+    String? subtitle,
+    IconData? icon,
+    VoidCallback? onPressed,
+    VoidCallback? onSecondaryAction,
+    VoidCallback? onTertiaryAction,
+    String? variationId,
+    Widget? child,
+  }) : 
+    super(
+      variant: kButtonVariant.special,
+      data: ButtonData(
+        variationId: variationId,
+        type: type,
+        size: size,
+        enabled: enabled,
+        title: title,
+        subtitle: subtitle,
+        icon: icon,
+        onPrimaryAction: onPressed,
+        onSecondaryAction: onSecondaryAction,
+        onTertiaryAction: onTertiaryAction,
+        child: child,
+      ),
+    );
 
 }

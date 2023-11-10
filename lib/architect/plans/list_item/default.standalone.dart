@@ -31,33 +31,37 @@ class DefaultListItemStandalone extends ArchBaseStatelessWidget<ListItemData> {
 
     return SizedBox(
       height: height,
-      child: ArchCard(
-        child: Padding(
-          padding: context.paddingL,
-          child: Row(
-            children: [
-
-              if (data.image != null) ArchImage(
-                image: data.image!,
-                style: const ImageDisplayStyle(
-                  edgeType: kImageEdgeType.rounded,
-                  aspectRatio: 1.0,
+      child: HoverBuilder(
+        onTap: data.onPrimaryAction,
+        builder: (context, hovered) => ArchCard(
+          color: hovered.then(Color.lerp(context.colors.surface, context.colors.onSurface, 0.03)!),
+          child: Padding(
+            padding: context.paddingL,
+            child: Row(
+              children: [
+      
+                if (data.image != null) ArchImage(
+                  image: data.image!,
+                  style: const ImageDisplayStyle(
+                    edgeType: kImageEdgeType.rounded,
+                    aspectRatio: 1.0,
+                  ),
                 ),
-              ),
-
-              if (data.image != null) context.spaceL,
-        
-              Expanded(
-                child: _buildTitle(context),
-              ),
-
-              Icon(
-                Icons.arrow_forward_ios_rounded, 
-                size: height * 0.5,
-                color: context.colors.onBackground.withOpacity(0.03)
-              )
-        
-            ],
+      
+                if (data.image != null) context.spaceL,
+          
+                Expanded(
+                  child: _buildTitle(context),
+                ),
+      
+                Icon(
+                  Icons.arrow_forward_ios_rounded, 
+                  size: height * 0.5,
+                  color: context.colors.onBackground.withOpacity(0.03)
+                )
+          
+              ],
+            ),
           ),
         ),
       ),

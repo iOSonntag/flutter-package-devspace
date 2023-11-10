@@ -94,25 +94,23 @@ class StepsBar extends StatelessWidget {
         builder: (context, title)
         {
           return ArchButton.soft(
-            data: ButtonData.simpleText(
-              title: title, 
-              type: kButtonType.lowFocus,
-              onPressed: ()
+            title: title, 
+            type: kButtonType.lowFocus,
+            onPressed: ()
+            {
+              if (currentIndex == 0)
               {
-                if (currentIndex == 0)
+                if (onCancel == null)
                 {
-                  if (onCancel == null)
-                  {
-                    return;
-                  }
-
-                  onCancel!();
                   return;
                 }
 
-                onBack();
-              },
-            )
+                onCancel!();
+                return;
+              }
+
+              onBack();
+            },
           );
         },
       ),
@@ -130,18 +128,14 @@ class StepsBar extends StatelessWidget {
               String title = isFinalButton ? _finalNextButtonTitle() : _nextButtonTitle();
 
               return ArchButton.soft(
-                data: ButtonData.simpleText(
-                  title: title,
-                  onPressed: onNext,
-                )
+                title: title,
+                onPressed: onNext,
               );
             }
 
             return ArchButton(
-              data: ButtonData.simpleText(
-                title: _finalNextButtonTitle(),
-                onPressed: onNext,
-              )
+              title: _finalNextButtonTitle(),
+              onPressed: onNext,
             );
           },
         ),
@@ -153,10 +147,8 @@ class StepsBar extends StatelessWidget {
       Opacity(
         opacity: 0.0,
         child: ArchButton(
-          data: ButtonData.simpleText(
-            title: _finalNextButtonTitle(),
-            onPressed: () {},
-          )
+          title: _finalNextButtonTitle(),
+          onPressed: () {},
         ),
       ),
 

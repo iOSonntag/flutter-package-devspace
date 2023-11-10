@@ -116,7 +116,7 @@ abstract class ServiceResult<T> extends Result {
 
     if (message == null)
     {
-      return LibStrings.lib_general_errorUnknown.tr();
+      return LibStrings.lib_error_unknown.tr();
     }
     
     return message;

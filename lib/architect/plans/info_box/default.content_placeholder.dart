@@ -71,11 +71,9 @@ class DefaultInfoBoxContentPlaceholder extends ArchBaseStatelessWidget<InfoBoxDa
           if (data.onAction != null) Padding(
             padding: context.dimensions.paddingXLOnly(top: true),
             child: ArchButton(
-              data: ButtonData(
-                title: data.actionTitle ?? LibStrings.lib_general_actionRetry.tr(),
-                type: kButtonType.primary,
-                onPrimaryAction: data.onAction,
-              ),
+              title: data.actionTitle ?? LibStrings.lib_general_actionRetry.tr(),
+              type: kButtonType.primary,
+              onPressed: data.onAction,
             ),
           )
         ],

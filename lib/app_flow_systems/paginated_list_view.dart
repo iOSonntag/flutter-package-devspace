@@ -6,6 +6,42 @@ part of devspace;
 
 typedef FetchPageItems<T> = Future<PageFetchResult<T>> Function(int pageSize, String? pageCursor);
 
+class LoadErrorConfig {
+
+  final IconData? icon;
+  final String? title;
+  final String? message;
+  final String? actionTitle;
+  final VoidCallback? onResolve;
+
+  const LoadErrorConfig({
+    this.icon,
+    this.title,
+    this.message,
+    this.actionTitle,
+    this.onResolve,
+  });
+
+}
+
+class NoItemsConfig {
+
+  final IconData? icon;
+  final String? title;
+  final String? message;
+  final String? actionTitle;
+  final VoidCallback? onResolve;
+
+  const NoItemsConfig({
+    this.icon,
+    this.title,
+    this.message,
+    this.actionTitle,
+    this.onResolve,
+  });
+
+}
+
 class PaginatedListView<T> extends StatefulWidget {
 
   final EdgeInsets? padding;
@@ -14,6 +50,8 @@ class PaginatedListView<T> extends StatefulWidget {
   final FetchPageItems<T> fetchPageItems;
   final IndexItemBuilder<T> buildItem;
   final double? horizontalOverdraw;
+  final LoadErrorConfig? loadErrorConfig;
+  final NoItemsConfig? noItemsConfig;
 
   const PaginatedListView({
     super.key,
@@ -21,6 +59,8 @@ class PaginatedListView<T> extends StatefulWidget {
     this.padding,
     this.separatorBuilder,
     this.horizontalOverdraw = 12.0,
+    this.loadErrorConfig,
+    this.noItemsConfig,
     required this.fetchPageItems,
     required this.buildItem
   });
@@ -106,29 +146,63 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>> {
         firstPageErrorIndicatorBuilder: (_) => Center(
           child: ArchInfoBox.error(
             variant: kInfoBoxVariant.contentPlaceholder,
-            icon: Symbols.error_rounded,
-            title: LibStrings.lib_general_titleError.tr(),
-            message: LibStrings.lib_general_errorUnknown.tr(),
-            onAction: () => _controller.refresh(),
+            icon: widget.loadErrorConfig?.icon ?? Symbols.error_rounded,
+            title: widget.loadErrorConfig?.title ?? LibStrings.lib_general_titleError.tr(),
+            message: widget.loadErrorConfig?.message ?? LibStrings.lib_error_unknown.tr(),
+            onAction: widget.loadErrorConfig?.onResolve ?? () => _controller.refresh(),
+            actionTitle: widget.loadErrorConfig?.actionTitle ?? LibStrings.lib_general_actionRetry.tr(),
           ),
         ),
         noItemsFoundIndicatorBuilder: (_) => Center(
           child: ArchInfoBox.info(
             variant: kInfoBoxVariant.contentPlaceholder,
-            icon: Symbols.format_list_bulleted_rounded,
-            title: LibStrings.lib_general_titleInfo.tr(),
-            message: LibStrings.lib_general_infoNoItemsFound.tr(),
-            onAction: () => _controller.refresh(),
+            icon: widget.noItemsConfig?.icon ?? Symbols.format_list_bulleted_rounded,
+            title: widget.noItemsConfig?.title ?? LibStrings.lib_general_titleInfo.tr(),
+            message: widget.noItemsConfig?.message ?? LibStrings.lib_lists_noItemsFound.tr(),
+            onAction: widget.noItemsConfig?.onResolve ?? () => _controller.refresh(),
+            actionTitle: widget.noItemsConfig?.actionTitle ?? LibStrings.lib_general_actionRetry.tr(),
           ),
         ),
-        firstPageProgressIndicatorBuilder: (_) => const Center(child: ArchLoadingIndicator(variant: kLoadingIndicatorVariant.special)),
-        newPageProgressIndicatorBuilder: (_) => const Center(child: ArchLoadingIndicator()),
-        // TODO: add all 3 
-        // newPageErrorIndicatorBuilder: (_) => NewPageErrorIndicator(
-        //   error: _controller.error,
-        //   onTryAgain: () => _controller.retryLastFailedRequest(),
-        // ),
-        // noMoreItemsIndicatorBuilder: (_) => NoMoreItemsIndicator(),
+        firstPageProgressIndicatorBuilder: (_) => const Center(
+          child: ArchLoadingIndicator(
+            variant: kLoadingIndicatorVariant.special
+          )
+        ),
+        newPageProgressIndicatorBuilder: (_) => Center(
+          child: Padding(
+            padding: context.paddingM,
+            child: const ArchLoadingIndicator(),
+          )
+        ),
+        newPageErrorIndicatorBuilder: (_) => Center(
+          child: Padding(
+            padding: context.paddingM,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextBody.small(
+                  LibStrings.lib_lists_loadingMoreItemsFailed.tr()
+                ),
+
+                context.spaceM,
+
+                ArchButton(
+                  type: kButtonType.primary,
+                  title: LibStrings.lib_general_actionRetry.tr(),
+                  onPressed: () => _controller.retryLastFailedRequest(),
+                )
+              ],
+            ),
+          ),
+        ),
+        noMoreItemsIndicatorBuilder: (_) => Center(
+          child: Padding(
+            padding: context.paddingM,
+            child: TextBody.small(
+              LibStrings.lib_lists_noMoreItems.tr()
+            ),
+          ),
+        ),
       ),
     );
   }

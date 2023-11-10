@@ -33,10 +33,12 @@ abstract class LibStrings {
   static const String lib_general_titleSuccess = 'lib_general_titleSuccess';
   static const String lib_general_titleConfirm = 'lib_general_titleConfirm';
 
-  static const String lib_general_infoNoItemsFound = 'lib_general_infoNoItemsFound';
-
-  static const String lib_general_errorNetwork = 'lib_general_errorNetwork';
-  static const String lib_general_errorUnknown = 'lib_general_errorUnknown';
+  static const String lib_lists_noItemsFound = 'lib_lists_noItemsFound';
+  static const String lib_lists_noMoreItems = 'lib_lists_noMoreItems';
+  static const String lib_lists_loadingMoreItemsFailed = 'lib_lists_loadingMoreItemsFailed';
+  
+  static const String lib_error_network = 'lib_error_network';
+  static const String lib_error_unknown = 'lib_error_unknown';
 
   static const String lib_imageNotAvailable_message = 'lib_imageNotAvailable_message';
 
