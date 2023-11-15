@@ -39,7 +39,7 @@ class ButtonData extends PlanDataWithChild {
     super.variationId,
     super.child,
     this.size = kSize3.M,
-    this.type = kButtonType.regular,
+    this.type = kButtonType.primary,
     this.enabled = true,
     this.title,
     this.subtitle,

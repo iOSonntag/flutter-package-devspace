@@ -8,7 +8,7 @@ class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
 
   ArchButton({
     super.key,
-    kButtonType type = kButtonType.regular,
+    kButtonType type = kButtonType.primary,
     kSize3 size = kSize3.M,
     bool enabled = true,
     String? title,
@@ -39,7 +39,7 @@ class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
 
   ArchButton.soft({
     super.key,
-    kButtonType type = kButtonType.regular,
+    kButtonType type = kButtonType.primary,
     kSize3 size = kSize3.M,
     bool enabled = true,
     String? title,
@@ -70,7 +70,7 @@ class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
 
   ArchButton.special({
     super.key,
-    kButtonType type = kButtonType.regular,
+    kButtonType type = kButtonType.primary,
     kSize3 size = kSize3.M,
     bool enabled = true,
     String? title,

@@ -4,20 +4,23 @@ part of devspace;
 
 Map<Type, WidgetPlan> _defaultWidgetPlans = <Type, WidgetPlan>{
 
-  ButtonData: WidgetPlan<kButtonVariant, ButtonData>(builder: DefaultButton.builder),
-  CardData: WidgetPlan<kCardVariant, CardData>(builder: DefaultCard.builder),
-  ImageData: WidgetPlan<kImageVariant, ImageData>(builder: DefaultImage.builder),
-  InfoBoxData: WidgetPlan<kInfoBoxVariant, InfoBoxData>(builder: DefaultInfoBox.builder),
-  ListItemData: WidgetPlan<kListItemVariant, ListItemData>(builder: DefaultListItem.builder),
-  LoadingIndicatorData: WidgetPlan<kLoadingIndicatorVariant, LoadingIndicatorData>(builder: DefaultLoadingIndicator.builder),
-  TextFieldData: WidgetPlan<kTextFieldVariant, TextFieldData>(builder: DefaultTextField.builder),
+  BonusInfoData:          WidgetPlan<kBonusInfoVariant, BonusInfoData>(builder: DefaultBonusInfo.builder),
+  ButtonData:             WidgetPlan<kButtonVariant, ButtonData>(builder: DefaultButton.builder),
+  CardData:               WidgetPlan<kCardVariant, CardData>(builder: DefaultCard.builder),
+  LabelData:              WidgetPlan<kLabelVariant, LabelData>(builder: DefaultLabel.builder),
+  LabeledContentData:     WidgetPlan<kLabeledContentVariant, LabeledContentData>(builder: DefaultLabeledContent.builder),
+  ImageData:              WidgetPlan<kImageVariant, ImageData>(builder: DefaultImage.builder),
+  InfoBoxData:            WidgetPlan<kInfoBoxVariant, InfoBoxData>(builder: DefaultInfoBox.builder),
+  ListItemData:           WidgetPlan<kListItemVariant, ListItemData>(builder: DefaultListItem.builder),
+  LoadingIndicatorData:   WidgetPlan<kLoadingIndicatorVariant, LoadingIndicatorData>(builder: DefaultLoadingIndicator.builder),
+  TextFieldData:          WidgetPlan<kTextFieldVariant, TextFieldData>(builder: DefaultTextField.builder),
 
 };
 
 
 Map<Type, ObjectPlan> _defaultObjectPlans = <Type, ObjectPlan>{
 
-  InputDecorationData: ObjectPlan<InputDecoration, kNoVariants, InputDecorationData>(builder: DefaultInputDecoration.builder),
+  InputDecorationData:    ObjectPlan<InputDecoration, kNoVariants, InputDecorationData>(builder: DefaultInputDecoration.builder),
   
 };
 

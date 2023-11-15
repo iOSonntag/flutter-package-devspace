@@ -31,6 +31,7 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   @override
   Widget build(BuildContext context)
   {
+    Color borderColor = _borderColor(context);
     Color backgroundColor = _backgroundColor(context);
     Color textColor = _textColor(context);
 
@@ -41,12 +42,14 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: _borderRadius(context),
-          side: BorderSide(color: backgroundColor.brighten(0.1)),
+          side: BorderSide(color: borderColor),
         ),
       ),
       child: Padding(
         padding: _contentPadding(context),
-        child: _buildText(context, textColor),
+        child: TextBody.size3(data.size, data.title,
+          color: textColor,
+        )
       ),
     );
   }
@@ -75,7 +78,7 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   {
     return switch (data.type)
     {
-      kButtonType.regular => context.colors.onBackground,
+      kButtonType.regular => context.colors.surface,
       kButtonType.primary => context.colors.primary,
       kButtonType.secondary => context.colors.secondary,
       kButtonType.tertiary => context.colors.tertiary,
@@ -85,11 +88,25 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
     };
   }
 
+  Color _borderColor(BuildContext context)
+  {
+    return switch (data.type)
+    {
+      kButtonType.regular => context.colors.primary,
+      kButtonType.primary => context.colors.primary.brighten(0.1),
+      kButtonType.secondary => context.colors.secondary.brighten(0.1),
+      kButtonType.tertiary => context.colors.tertiary.brighten(0.1),
+      kButtonType.success => context.colors.success.brighten(0.1),
+      kButtonType.destructive => context.colors.destructive.brighten(0.1),
+      kButtonType.lowFocus => context.colors.onBackgroundLessFocus.brighten(0.1),
+    };
+  }
+
   Color _textColor(BuildContext context)
   {
     return switch (data.type)
     {
-      kButtonType.regular => context.colors.background,
+      kButtonType.regular => context.colors.primary,
       kButtonType.primary => context.colors.onPrimary,
       kButtonType.secondary => context.colors.onSecondary,
       kButtonType.tertiary => context.colors.onTertiary,
@@ -99,24 +116,5 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
     };
   }
 
-  Widget _buildText(BuildContext context, Color color)
-  {
-    if (data.size == kSize3.S)
-    {
-      return TextBody.small(data.title,
-        color: color,
-      );
-    }
 
-    if (data.size == kSize3.M)
-    {
-      return TextBody.medium(data.title,
-        color: color,
-      );
-    }
-
-    return TextBody.large(data.title,
-      color: color,
-    );
-  }
 }

@@ -7,6 +7,13 @@ part of devspace;
 
 extension ListExtension<E> on List<E> {
 
+  Map<T, E> toMap<T>(T Function(E e) f)
+  {
+    Map<T, E> map = {};
+    forEach((e) => map[f(e)] = e);
+    return map;
+  }
+
   List<T> mapToList<T>(T Function(E e, int i) f)
   {
     return mapIndexed<T>(f).toList();

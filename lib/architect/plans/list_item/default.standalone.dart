@@ -40,16 +40,20 @@ class DefaultListItemStandalone extends ArchBaseStatelessWidget<ListItemData> {
             child: Row(
               children: [
       
-                if (data.image != null) ArchImage(
-                  image: data.image!,
-                  style: const ImageDisplayStyle(
-                    edgeType: kImageEdgeType.rounded,
-                    aspectRatio: 1.0,
+                if (data.image != null) ...[
+
+                  ArchImage(
+                    image: data.image!,
+                    style: const ImageDisplayStyle(
+                      edgeType: kImageEdgeType.rounded,
+                      aspectRatio: 1.0,
+                    ),
                   ),
-                ),
+
+                  context.spaceL,
+
+                ],
       
-                if (data.image != null) context.spaceL,
-          
                 Expanded(
                   child: _buildTitle(context),
                 ),
@@ -86,12 +90,16 @@ class DefaultListItemStandalone extends ArchBaseStatelessWidget<ListItemData> {
       children: [
         TextTitle.medium(data.title),
 
-        if (data.subtitle != null) context.spaceS,
+        if (data.subtitle != null) ...[
 
-        if (data.subtitle != null) TextBody.medium(data.subtitle!,
-          italic: true,
-          color: context.colors.onBackgroundLessFocus,
-        ),
+          context.spaceS,
+
+          TextBody.medium(data.subtitle!,
+            italic: true,
+            color: context.colors.onBackgroundLessFocus,
+          ),
+
+        ]
       ],
     );
   }

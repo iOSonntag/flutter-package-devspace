@@ -6,3 +6,6 @@ typedef ThemeBuilder = ThemeData Function(BuildContext context);
 
 
 typedef IndexItemBuilder<T> = Widget Function(BuildContext context, T item, int index);
+
+
+typedef ResourceWidgetBuilder<T> = Widget Function(BuildContext context, T resource);

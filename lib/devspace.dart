@@ -14,6 +14,7 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:super_tooltip/super_tooltip.dart';
 
 import 'lib_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -53,6 +54,11 @@ part 'architect/materials/arch_object.dart';
 part 'architect/materials/dimensions.dart';
 part 'architect/materials/plan_data.dart';
 
+part 'architect/plans/bonus_info/arch.dart';
+part 'architect/plans/bonus_info/data.dart';
+part 'architect/plans/bonus_info/default.dart';
+part 'architect/plans/bonus_info/default.regular.dart';
+
 part 'architect/plans/button/arch.dart';
 part 'architect/plans/button/data.dart';
 part 'architect/plans/button/default.dart';
@@ -80,6 +86,16 @@ part 'architect/plans/info_box/default.regular.dart';
 part 'architect/plans/input_decoration/arch.dart';
 part 'architect/plans/input_decoration/data.dart';
 part 'architect/plans/input_decoration/default.dart';
+
+part 'architect/plans/label/arch.dart';
+part 'architect/plans/label/data.dart';
+part 'architect/plans/label/default.dart';
+part 'architect/plans/label/default.regular.dart';
+
+part 'architect/plans/labeled_content/arch.dart';
+part 'architect/plans/labeled_content/data.dart';
+part 'architect/plans/labeled_content/default.dart';
+part 'architect/plans/labeled_content/default.regular.dart';
 
 part 'architect/plans/list_item/arch.dart';
 part 'architect/plans/list_item/data.dart';
@@ -131,6 +147,7 @@ part 'blue_forms/blue_forms.dart';
 
 // brixies
 
+part 'brixies/controller_holder.dart';
 part 'brixies/edge_shadow.dart';
 part 'brixies/empty_widget.dart';
 part 'brixies/hide_keyboard_on_tap.dart';
@@ -186,6 +203,7 @@ part 'models/result/service_result.dart';
 
 part 'models/action_result.dart';
 part 'models/builder.dart';
+part 'models/futures.dart';
 
 // my_service
 
