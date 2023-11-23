@@ -55,21 +55,25 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
                   ),
                 ]
               ),
-              child: TextField(
-                enabled: data.enabled,
-                decoration: _buildInputDecoration(context, hasError),
-                maxLines: data.maxLines ?? (data.isTextArea ? 6 : 1),
-                scrollPadding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 500.0),
-                autofillHints: data.autofillHints,
-                autocorrect: data.autocorrect,
-                keyboardType: data.textInputType,
-                onChanged: (value)
-                {
-                  state.didChange(value);
-                  data.onChanged?.call(value);
-                },
-                obscureText: data.obscureText,
-                enableSuggestions: data.enableSuggestions,
+              child: ControllerHolder<TextEditingController>(
+                create: () => TextEditingController(text: state.value),
+                builder: (context, controller) => TextField(
+                  controller: controller,
+                  enabled: data.enabled,
+                  decoration: _buildInputDecoration(context, hasError),
+                  maxLines: data.maxLines ?? (data.isTextArea ? 6 : 1),
+                  scrollPadding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 500.0),
+                  autofillHints: data.autofillHints,
+                  autocorrect: data.autocorrect,
+                  keyboardType: data.textInputType,
+                  onChanged: (value)
+                  {
+                    state.didChange(value);
+                    data.onChanged?.call(value);
+                  },
+                  obscureText: data.obscureText,
+                  enableSuggestions: data.enableSuggestions,
+                ),
               ),
             ),
 
@@ -99,7 +103,7 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
 
           if (data.visuallyMarkAsRequired) TextLabel.medium(
             ' *',
-            color: context.colors.onBackgroundLeastFocus,
+            color: context.colors.primary,
           )
         ],
       ),

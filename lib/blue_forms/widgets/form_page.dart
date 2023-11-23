@@ -110,7 +110,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
 
       if (widget.definition.description != null) Padding(
         padding: context.dimensions.paddingXLOnly(bottom: true),
-        child: TextBody.small(widget.definition.description,
+        child: TextBody.medium(widget.definition.description,
           textAlign: TextAlign.center,
           lineHeight: 1.4,
         ),

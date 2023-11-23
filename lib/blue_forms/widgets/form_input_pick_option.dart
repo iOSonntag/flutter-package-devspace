@@ -43,7 +43,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
 
     _dropdownValue = widget.currentSavedValue ?? widget.definition.initialValue;
 
-    if (_dropdownValue == null && widget.definition.isOptional)
+    if (_dropdownValue.isNullOrEmpty && widget.definition.isOptional == false)
     {
       _dropdownValue = _OPTION_SELECTION_UNSET_VALUE;
     }
@@ -73,7 +73,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
 
     List<DropdownMenuItem<String>> items = [];
 
-    if (widget.definition.isOptional)
+    if (!widget.definition.isOptional)
     {
       items.add(
         DropdownMenuItem<String>(
@@ -85,7 +85,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
       );
     }
 
-    for (BlueFormsInputOptionSelectionItem fiItem in widget.definition.options)
+    for (FormsInputPickOptionItem fiItem in widget.definition.options)
     {
       items.add(
         DropdownMenuItem<String>(
@@ -97,71 +97,102 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
 
     return _FormInputContainerWidget(
       description: widget.definition.description,
-      child: DropdownButtonFormField<String>(
-        decoration: decoration,
-        iconEnabledColor: borderColor,
-        iconDisabledColor: borderColor,
-        dropdownColor: context.colors.onBackground,
-        value: _dropdownValue,
-        borderRadius: borderRadius,
-        selectedItemBuilder: (context)
-        {
-          List<Widget> selectedItems = [];
+      child: Column(
+        children: [
 
-          if (widget.definition.isOptional)
-          {
-            selectedItems.add(
-              TextBody.small(LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
-                color: context.colors.onBackgroundLessFocus,
-              ),
-            );
-          }
+          // TODO: this is actually wrong an internal error through validatyion
+          // could still accour and thus the label should still be colored red
+          // see archtextfield for reference (there it is done correctly)
+          _buildLabel(context, widget.externalError != null),
 
-          for (BlueFormsInputOptionSelectionItem fiItem in widget.definition.options)
-          {
-            selectedItems.add(
-              TextBody.small(fiItem.title),
-            );
-          }
+          DropdownButtonFormField<String>(
+            decoration: decoration,
+            iconEnabledColor: borderColor,
+            iconDisabledColor: borderColor,
+            dropdownColor: context.colors.onBackground,
+            value: _dropdownValue,
+            borderRadius: borderRadius,
+            selectedItemBuilder: (context)
+            {
+              List<Widget> selectedItems = [];
 
-          return selectedItems;
-        },
-        onChanged: (String? value)
-        {
-          setState(()
-          {
-            _dropdownValue = value;
-          });
+              if (!widget.definition.isOptional)
+              {
+                selectedItems.add(
+                  TextBody.small(LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
+                    color: context.colors.onBackgroundLessFocus,
+                  ),
+                );
+              }
 
-          if (widget.definition.onChange != null)
-          {
-            widget.definition.onChange!(value);
-          }
-        },
-        items: items,
-        validator: (value)
-        {
-          if (value == _OPTION_SELECTION_UNSET_VALUE)
-          {
-            value = null;
-          }
+              for (FormsInputPickOptionItem fiItem in widget.definition.options)
+              {
+                selectedItems.add(
+                  TextBody.small(fiItem.title),
+                );
+              }
 
-          if (widget.definition.isOptional == false && (value == null || value.isEmpty))
-          {
-            return LibStrings.lib_blueForms_inputValidators_failedOptionSelectionUntouched.tr();
-          }
+              return selectedItems;
+            },
+            onChanged: (String? value)
+            {
+              setState(()
+              {
+                _dropdownValue = value;
+              });
 
-          return null;
-        },
-        onSaved: (String? value)
-        {
-          if (value == _OPTION_SELECTION_UNSET_VALUE)
-          {
-            value = null;
-          }
+              if (widget.definition.onChange != null)
+              {
+                widget.definition.onChange!(value);
+              }
+            },
+            items: items,
+            validator: (value)
+            {
+              if (value == _OPTION_SELECTION_UNSET_VALUE)
+              {
+                value = null;
+              }
 
-          widget.onSave(value);
-        }
+              if (widget.definition.isOptional == false && (value == null || value.isEmpty))
+              {
+                return LibStrings.lib_blueForms_inputValidators_failedOptionSelectionUntouched.tr();
+              }
+
+              return null;
+            },
+            onSaved: (String? value)
+            {
+              if (value == _OPTION_SELECTION_UNSET_VALUE)
+              {
+                value = null;
+              }
+
+              widget.onSave(value);
+            }
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  Widget _buildLabel(BuildContext context, bool hasError)
+  {
+    return Padding(
+      padding: context.dimensions.paddingMOnly(left: true, bottom: true),
+      child: Row(
+        children: [
+          TextLabel.medium(
+            widget.definition.label,
+            color: hasError ? context.colors.error : context.colors.onBackgroundLessFocus,
+          ),
+
+          if (widget.visuallyMarkRequired && widget.definition.isRequired) TextLabel.medium(
+            ' *',
+            color: context.colors.primary,
+          )
+        ],
       ),
     );
   }

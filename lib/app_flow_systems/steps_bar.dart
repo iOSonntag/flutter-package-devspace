@@ -89,31 +89,7 @@ class StepsBar extends StatelessWidget {
   Widget build(BuildContext context)
   {
     List<Widget> rowChildren = [
-      SmoothSwap<String>(
-        value: _backButtonTitle(), 
-        builder: (context, title)
-        {
-          return ArchButton.soft(
-            title: title, 
-            type: kButtonType.lowFocus,
-            onPressed: ()
-            {
-              if (currentIndex == 0)
-              {
-                if (onCancel == null)
-                {
-                  return;
-                }
-
-                onCancel!();
-                return;
-              }
-
-              onBack();
-            },
-          );
-        },
-      ),
+      _buildBackButton(context),
     ];
 
     if (_finalNextButtonDiffersInAnyWay())
@@ -181,6 +157,42 @@ class StepsBar extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: stackChildren,
+    );
+  }
+
+
+  Widget _buildBackButton(BuildContext context)
+  {
+    return SmoothSwap<String>(
+      value: _backButtonTitle(), 
+      duration: animationDuration ?? context.animations.durationPageSlide,
+      builder: (context, title)
+      {
+        if (title.isEmpty)
+        {
+          return EmptyWidget();
+        }
+
+        return ArchButton.soft(
+          title: title, 
+          type: kButtonType.lowFocus,
+          onPressed: ()
+          {
+            if (currentIndex == 0)
+            {
+              if (onCancel == null)
+              {
+                return;
+              }
+
+              onCancel!();
+              return;
+            }
+
+            onBack();
+          },
+        );
+      },
     );
   }
 }

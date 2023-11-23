@@ -18,6 +18,7 @@ class AppFlowPagedSteps extends StatefulWidget {
   final Duration? animationDuration;
   final bool actionBarSeparation;
   final Widget? actionBarHeader;
+  final Clip clip;
   final List<Widget> pages;
 
   const AppFlowPagedSteps({
@@ -37,6 +38,7 @@ class AppFlowPagedSteps extends StatefulWidget {
     this.animationDuration,
     this.actionBarSeparation = false,
     this.actionBarHeader,
+    this.clip = Clip.none,
     required this.pages,
   }) :
     assert(pages.length > 0);
@@ -165,11 +167,21 @@ class _AppFlowPagedStepsState extends State<AppFlowPagedSteps> {
       ),
     );
 
-    return Column(
+    Widget child = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: children,
     );
+
+    if (widget.clip != Clip.none)
+    {
+      child = ClipRect(
+        clipBehavior: widget.clip,
+        child: child,
+      );
+    }
+    
+    return child;
   }
 
   @override

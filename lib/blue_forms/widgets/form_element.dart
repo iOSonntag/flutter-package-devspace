@@ -64,38 +64,14 @@ class _FormElementWidget extends StatelessWidget {
 
     if (definition is FormInputGroup)
     {
-      FormInputGroup groupDefinition = definition as FormInputGroup;
-
-      List<Widget> groupChildren = [];
-
-      for (int i = 0; i < groupDefinition.elements.length; i++)
-      {
-        FormInput fiInputDefinition = groupDefinition.elements[i];
-
-        if (fiInputDefinition.isActive == false)
-        {
-          continue;
-        }
-
-        bool isFirst = i == 0 && isFirstElement;
-        bool isLast = i == groupDefinition.elements.length - 1 && isLastElement;
-
-        groupChildren.add(
-          _FormElementWidget(
-            definition: fiInputDefinition, 
-            isFirstElement: isFirst, 
-            isLastElement: isLast, 
-            visuallyMarkRequired: visuallyMarkRequired,
-            currentSavedValues: currentSavedValues, 
-            externalErrors: externalErrors, 
-            onSave: onSave
-          )
-        );
-      }
-
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: groupChildren,
+      return _FormInputGroup(
+        definition: definition as FormInputGroup,
+        isFirstElement: isFirstElement,
+        isLastElement: isLastElement,
+        visuallyMarkRequired: visuallyMarkRequired,
+        currentSavedValues: currentSavedValues, 
+        externalErrors: externalErrors, 
+        onSave: onSave
       );
     }
 

@@ -23,26 +23,26 @@ extension NullableStringExtension on String? {
       other = other.substring(1);
     }
 
-    if (isEmpty || (isEmptyTrim && !preserveExplicitEmptyLines))
+    if (isNullOrEmpty || (isNullOrTrimEmpty && !preserveExplicitEmptyLines))
     {
       return other;
     }
 
     String lastLine = _getThisOrEmpty().split('\n').last;
 
-    if (lastLine.isEmptyTrim && !preserveExplicitEmptyLines)
+    if (lastLine.isNullOrTrimEmpty && !preserveExplicitEmptyLines)
     {
       return _getThisOrEmpty() + other;
     }
 
-    return _getThisOrEmpty() + '\n' + other;
+    return '${_getThisOrEmpty()}\n$other';
   }
 
-  bool get isEmpty => this == null || this!.trim().isEmpty;
+  bool get isNullOrEmpty => this == null || this!.trim().isEmpty;
 
-  bool get isEmptyTrim => this == null || this!.trim().isEmpty;
+  bool get isNullOrTrimEmpty => this == null || this!.trim().isEmpty;
 
-  bool get isNotEmptyTrim => !isEmptyTrim;
+  bool get isNotNullOrTrimEmpty => !isNullOrTrimEmpty;
 
   String _getThisOrEmpty() => this ?? '';
 

@@ -6,8 +6,7 @@ part of devspace;
 
 class FormInputPickOption extends FormInput {
 
-  final List<BlueFormsInputOptionSelectionItem> options;
-  final int? overwriteDecorationStyle;
+  final List<FormsInputPickOptionItem> options;
   final void Function(String? newValue)? onChange;
 
   const FormInputPickOption({
@@ -18,18 +17,17 @@ class FormInputPickOption extends FormInput {
     super.isActive,
     required this.options,
     super.isOptional,
-    this.overwriteDecorationStyle,
     this.onChange,
   });
 
 }
 
-class BlueFormsInputOptionSelectionItem {
+class FormsInputPickOptionItem {
 
   final String id;
   final String title;
 
-  const BlueFormsInputOptionSelectionItem({
+  const FormsInputPickOptionItem({
     required this.id,
     required this.title,
   });

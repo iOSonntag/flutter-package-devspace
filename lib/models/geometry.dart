@@ -25,3 +25,12 @@ enum kSize5
   L,
   XL,
 }
+
+
+enum kDirection
+{
+  top,
+  right,
+  bottom,
+  left,
+}

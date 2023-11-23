@@ -26,7 +26,7 @@ class _FormInputContainerWidget extends StatelessWidget {
 
         if (description != null) Padding(
           padding: context.dimensions.paddingXLOnly(bottom: true),
-          child: TextBody.small(description!,
+          child: TextBody.medium(description!,
             textAlign: TextAlign.center,
           ),
         ),

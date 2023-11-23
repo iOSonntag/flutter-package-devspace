@@ -20,6 +20,7 @@ class BlueForms extends StatefulWidget {
   final String? completeButtonTitle;
   final bool intrinsicHeight;
   final bool visuallyMarkRequiredFields;
+  final clipPagination;
 
   const BlueForms({
     super.key,
@@ -33,6 +34,7 @@ class BlueForms extends StatefulWidget {
     this.completeButtonTitle,
     this.intrinsicHeight = false,
     this.visuallyMarkRequiredFields = true,
+    this.clipPagination = true,
     required this.pages,
   }) :
     assert(pages.length > 0),
@@ -65,6 +67,7 @@ class _BlueFormsState extends State<BlueForms> {
       child: LoadableView(
         isLoading: widget.isLoading,
         child: AppFlowPagedSteps(
+          clip: widget.clipPagination ? Clip.hardEdge : Clip.none,
           onCancel: widget.onCancel,
           currentIndex: _currentIndex,
           actionBarSeparation: widget.actionBarSeparation,

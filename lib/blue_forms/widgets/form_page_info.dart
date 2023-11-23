@@ -31,7 +31,7 @@ class _FormPageInfoWidget extends StatelessWidget {
 
               context.spaceL,
               
-              TextBody.small(definition.description,
+              TextBody.medium(definition.description,
                 textAlign: TextAlign.center,
                 lineHeight: 1.4,
               ),
