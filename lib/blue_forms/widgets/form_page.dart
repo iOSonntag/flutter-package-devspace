@@ -21,28 +21,28 @@ class FormPageController extends ChangeNotifier {
 
 class _FormPageWidget extends StatefulWidget {
 
-    final FormPage definition;
-    final FormPageController controller;
-    final bool visuallyMarkRequiredFields;
-    final Map<String, dynamic> currentSavedValues;
-    final Map<String, String> externalErrors;
-    final void Function(String id, String? value) onSave;
-    final VoidCallback onValidationFailed;
+  final FormPage definition;
+  final FormPageController controller;
+  final bool visuallyMarkRequiredFields;
+  final Map<String, dynamic> currentSavedValues;
+  final Map<String, String> externalErrors;
+  final void Function(String id, dynamic value) onSave;
+  final VoidCallback onValidationFailed;
 
-    const _FormPageWidget({
-      // ignore: unused_element
-      super.key,
-      required this.definition,
-      required this.controller,
-      required this.visuallyMarkRequiredFields,
-      required this.currentSavedValues,
-      required this.externalErrors,
-      required this.onSave,
-      required this.onValidationFailed,
-    });
+  const _FormPageWidget({
+    // ignore: unused_element
+    super.key,
+    required this.definition,
+    required this.controller,
+    required this.visuallyMarkRequiredFields,
+    required this.currentSavedValues,
+    required this.externalErrors,
+    required this.onSave,
+    required this.onValidationFailed,
+  });
 
-    @override
-    State<_FormPageWidget> createState() => _FormPageWidgetState();
+  @override
+  State<_FormPageWidget> createState() => _FormPageWidgetState();
 }
 
 class _FormPageWidgetState extends State<_FormPageWidget> {

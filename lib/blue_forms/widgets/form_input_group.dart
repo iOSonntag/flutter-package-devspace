@@ -13,7 +13,7 @@ class _FormInputGroup extends StatelessWidget {
   final bool visuallyMarkRequired;
   final Map<String, dynamic> currentSavedValues;
   final Map<String, String> externalErrors;
-  final void Function(String id, String? value) onSave;
+  final void Function(String id, dynamic value) onSave;
 
   const _FormInputGroup({
     // ignore: unused_element

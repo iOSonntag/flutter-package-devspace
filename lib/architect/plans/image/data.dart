@@ -8,8 +8,9 @@ enum kImageVariant
 }
 
 // ignore: camel_case_types
-enum kImageEdgeType
+enum kImageBorderPreset
 {
+  none,
   rectangle,
   circle,
   rounded,
@@ -19,13 +20,15 @@ class ImageDisplayStyle {
 
   final double? aspectRatio;
   final BoxFit fit;
-  final kImageEdgeType edgeType;
+  final kImageBorderPreset borderPreset;
+  final BorderRadiusGeometry? borderRadius;
 
   const ImageDisplayStyle({
     this.aspectRatio,
     this.fit = BoxFit.cover,
-    this.edgeType = kImageEdgeType.rounded,
-  });
+    this.borderPreset = kImageBorderPreset.rounded,
+    this.borderRadius,
+  }) : assert(borderPreset == kImageBorderPreset.none || borderRadius == null);
 
 }
 

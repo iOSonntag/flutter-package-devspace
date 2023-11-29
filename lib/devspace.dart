@@ -1,17 +1,24 @@
 library devspace;
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui';
+import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' as foundation;
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as material;
+import 'package:flutter/widgets.dart' as widgets;
+
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:measure_size/measure_size.dart';
 import 'package:provider/provider.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:super_tooltip/super_tooltip.dart';
@@ -122,6 +129,7 @@ part 'architect/architect.dart';
 part 'blue_forms/models/elements/base.dart';
 part 'blue_forms/models/elements/form_custom_widget.dart';
 part 'blue_forms/models/elements/form_input_group.dart';
+part 'blue_forms/models/elements/form_input_images.dart';
 part 'blue_forms/models/elements/form_input_pick_option.dart';
 part 'blue_forms/models/elements/form_input_text.dart';
 
@@ -137,6 +145,7 @@ part 'blue_forms/util/input_validators.dart';
 part 'blue_forms/widgets/form_element.dart';
 part 'blue_forms/widgets/form_input_container.dart';
 part 'blue_forms/widgets/form_input_group.dart';
+part 'blue_forms/widgets/form_input_images.dart';
 part 'blue_forms/widgets/form_input_pick_option.dart';
 part 'blue_forms/widgets/form_input_text.dart';
 part 'blue_forms/widgets/form_page_info.dart';
@@ -158,6 +167,7 @@ part 'brixies/layout_builder.dart';
 part 'brixies/line_divider.dart';
 part 'brixies/loadable_view.dart';
 part 'brixies/smooth_swap.dart';
+part 'brixies/spaced_flex.dart';
 part 'brixies/steps_indicator.dart';
 
 // cognito
@@ -171,6 +181,13 @@ part 'config/env.dart';
 // context_steroids
 
 part 'context_steroids/context_extension_url_launcher.dart';
+
+// core
+
+part 'core/dialog/default_dialog.dart';
+part 'core/dialog/dialog.dart';
+part 'core/dialog/text_dialog.dart';
+part 'core/dialog/dialog_action.dart';
 
 // extended_theme
 
@@ -212,6 +229,10 @@ part 'models/geometry.dart';
 
 part 'my_service/my_service.dart';
 
+// test_data
+
+part 'test_data/test_data.dart';
+
 // // phenomenal_grid
 
 // part '../_excluded/phenomenal_grid/animated_phenomenal_grid.dart';
@@ -224,7 +245,9 @@ part 'my_service/my_service.dart';
 part 'type_extensions/alignment.dart';
 part 'type_extensions/any.dart';
 part 'type_extensions/bool.dart';
+part 'type_extensions/border_radius.dart';
 part 'type_extensions/color.dart';
+part 'type_extensions/controller.dart';
 part 'type_extensions/curve.dart';
 part 'type_extensions/double.dart';
 part 'type_extensions/enum.dart';

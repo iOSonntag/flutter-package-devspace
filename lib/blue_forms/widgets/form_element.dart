@@ -11,7 +11,7 @@ class _FormElementWidget extends StatelessWidget {
   final bool visuallyMarkRequired;
   final Map<String, dynamic> currentSavedValues;
   final Map<String, String> externalErrors;
-  final void Function(String id, String? value) onSave;
+  final void Function(String id, dynamic value) onSave;
 
   const _FormElementWidget({
     // ignore: unused_element
@@ -43,6 +43,18 @@ class _FormElementWidget extends StatelessWidget {
       return _FormInputTextWidget(
         key: Key(definition.id),
         definition: definition as FormInputText,
+        visuallyMarkRequired: visuallyMarkRequired,
+        currentSavedValue: currentSavedValues[definition.id],
+        externalError: externalErrors[definition.id],
+        onSave: (value) => onSave(definition.id, value),
+      );
+    }
+
+    if (definition is FormInputImages)
+    {
+      return _FormInputImagesWidget(
+        key: Key(definition.id),
+        definition: definition as FormInputImages,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedValues[definition.id],
         externalError: externalErrors[definition.id],

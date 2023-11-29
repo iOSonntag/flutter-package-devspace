@@ -16,7 +16,7 @@ abstract class LibStrings {
   static const String lib_general_actionConfirm = 'lib_general_actionConfirm';
   static const String lib_general_actionDismiss = 'lib_general_actionDismiss';
   static const String lib_general_actionClose = 'lib_general_actionClose';
-  static const String lib_general_actionOkay = 'lib_general_actionOk';
+  static const String lib_general_actionOkay = 'lib_general_actionOkay';
   static const String lib_general_actionYes = 'lib_general_actionYes';
   static const String lib_general_actionNo = 'lib_general_actionNo';
   static const String lib_general_actionSend = 'lib_general_actionSend';

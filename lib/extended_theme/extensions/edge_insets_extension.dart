@@ -16,6 +16,34 @@ extension ExtensionEdgeInsets on EdgeInsets {
     bottom: bottom,
   );
 
+  EdgeInsets setLeft(double value) => EdgeInsets.only(
+    left: value,
+    top: top,
+    right: right,
+    bottom: bottom,
+  );
+
+  EdgeInsets setTop(double value) => EdgeInsets.only(
+    left: left,
+    top: value,
+    right: right,
+    bottom: bottom,
+  );
+
+  EdgeInsets setRight(double value) => EdgeInsets.only(
+    left: left,
+    top: top,
+    right: value,
+    bottom: bottom,
+  );
+
+  EdgeInsets setBottom(double value) => EdgeInsets.only(
+    left: left,
+    top: top,
+    right: right,
+    bottom: value,
+  );
+
   EdgeInsets fineLeft(double value) => EdgeInsets.only(
     left: left + value,
     top: top,

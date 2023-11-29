@@ -44,10 +44,7 @@ class DefaultListItemStandalone extends ArchBaseStatelessWidget<ListItemData> {
 
                   ArchImage(
                     image: data.image!,
-                    style: const ImageDisplayStyle(
-                      edgeType: kImageEdgeType.rounded,
-                      aspectRatio: 1.0,
-                    ),
+                    aspectRatio: 1.0,
                   ),
 
                   context.spaceL,

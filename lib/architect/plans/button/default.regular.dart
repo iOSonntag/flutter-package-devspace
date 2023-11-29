@@ -33,7 +33,6 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   {
     Color borderColor = _borderColor(context);
     Color backgroundColor = _backgroundColor(context);
-    Color textColor = _textColor(context);
 
     return ElevatedButton(
       onPressed: data.enabled ? data.onPrimaryAction : null,
@@ -47,15 +46,83 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
       ),
       child: Padding(
         padding: _contentPadding(context),
-        child: TextBody.size3(data.size, data.title,
-          color: textColor,
-        )
+        child: _buildContent(context)
       ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context)
+  {
+    Color contentColor = _contentColor(context);
+
+    if (data.icon == null && data.title != null)
+    {
+      return _buildTextContent(context, contentColor);
+    }
+
+    if (_isIconOnlyButton())
+    {
+      return _buildIconContent(context, contentColor);
+    }
+  
+
+    return SpacedRow(
+      crossAxisSpacing: CrossAxisSpacing.none,
+      mainAxisSpacing: MainAxisSpacing.between,
+      spacing: switch (data.size)
+      {
+        kSize3.S => context.dimensions.spaceXXSValue,
+        kSize3.M => context.dimensions.spaceXSValue,
+        kSize3.L => context.dimensions.spaceSValue
+      },
+      children: [
+        _buildIconContent(context, contentColor),
+        _buildTextContent(context, contentColor),
+      ],
+    );
+  }
+
+  bool _isIconOnlyButton()
+  {
+    return data.icon != null && data.title == null;
+  }
+
+  Widget _buildIconContent(BuildContext context, Color contentColor)
+  {
+    bool isIconOnlyButton = _isIconOnlyButton();
+
+    return Icon(data.icon,
+      color: contentColor,
+      size: switch (data.size)
+      {
+        kSize3.S => isIconOnlyButton ? context.dimensions.iconSizeM : context.dimensions.iconSizeS,
+        kSize3.M => isIconOnlyButton ? context.dimensions.iconSizeL : context.dimensions.iconSizeM,
+        kSize3.L => isIconOnlyButton ? context.dimensions.iconSizeXL : context.dimensions.iconSizeL
+      },
+    );
+  }
+
+  Widget _buildTextContent(BuildContext context, Color contentColor)
+  {
+    return TextBody.size3(data.size, data.title,
+      color: contentColor,
     );
   }
 
   EdgeInsets _contentPadding(BuildContext context)
   {
+    bool isIconOnlyButton = _isIconOnlyButton();
+
+    if (data.icon != null)
+    {
+      return switch (data.size)
+      {
+        kSize3.S => isIconOnlyButton ? context.paddingXXS : context.paddingM_XS.setLeft(context.dimensions.spaceXSValue),
+        kSize3.M => isIconOnlyButton ? context.paddingXS : context.paddingL_S.setLeft(context.dimensions.spaceSValue),
+        kSize3.L => isIconOnlyButton ? context.paddingS : context.paddingXL_M.setLeft(context.dimensions.spaceMValue)
+      };
+    }
+
     return switch (data.size)
     {
       kSize3.S => context.paddingM_S,
@@ -102,7 +169,7 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
     };
   }
 
-  Color _textColor(BuildContext context)
+  Color _contentColor(BuildContext context)
   {
     return switch (data.type)
     {

@@ -5,6 +5,12 @@
 
 part of devspace;
 
+// TODO: check correct value
+// const double _mobileThreshold = 600.0;
+const double _mobileThreshold = 850.0;
+
+// const double _tabletThreshold = 950.0;
+const double _tabletThreshold = 1100.0;
 extension ContextExtension on BuildContext {
 
   HighlightsThemeData get highlights => Theme.of(this).highlights;
@@ -94,5 +100,87 @@ extension ContextExtension on BuildContext {
   Widget get spaceXL => Theme.of(this).dimensions.spaceXL();
   Widget get spaceXXL => Theme.of(this).dimensions.spaceXXL();
 
+  bool get isPortrait => MediaQuery.of(this).orientation == Orientation.portrait;
+  bool get isLandscape => MediaQuery.of(this).orientation == Orientation.landscape;
+
+  bool get isPhone
+  {
+    MediaQueryData mediaQuery = MediaQuery.of(this);
+    double width = mediaQuery.size.width;
+    double height = mediaQuery.size.height;
+
+    if (isPortrait)
+    {
+      if (width < _mobileThreshold) 
+      {
+        return true;
+      }
+    } 
+    
+    if (height < _mobileThreshold) 
+    {
+      return true;
+    }
+    
+    return false;
+  }
+
+  bool get isTablet
+  {
+    MediaQueryData mediaQuery = MediaQuery.of(this);
+    double width = mediaQuery.size.width;
+    double height = mediaQuery.size.height;
+
+    if (isPortrait)
+    {
+      if (width >= _mobileThreshold && width < _tabletThreshold) 
+      {
+        return true;
+      }
+    } 
+    
+    if (height >= _mobileThreshold && height < _tabletThreshold) 
+    {
+      return true;
+    }
+    
+    return false;
+  }
+
+  bool get isPhoneApp
+  {
+    return !kIsWeb && isPhone;
+  }
+
+  bool get isPhoneWeb
+  {
+    return kIsWeb && isPhone;
+  }
+  
+  bool get isTabletApp
+  {
+    return !kIsWeb && isTablet;
+  }
+
+  bool get isTabletWeb
+  {
+    return kIsWeb && isTablet;
+  }
+
+  bool get isWeb
+  {
+    return kIsWeb;
+  }
+  
+  bool get isDesktop
+  {
+    return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
+  }
+
+
+
+
+
+  
 
 }

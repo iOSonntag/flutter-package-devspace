@@ -31,6 +31,9 @@ class DimensionsThemeData {
     this.lineThicknessS = 0.5,
     this.lineThicknessM = 1.0,
     this.lineThicknessL = 2.0,
+    this.borderThicknessS = 2.0,
+    this.borderThicknessM = 3.0,
+    this.borderThicknessL = 5.0,
     this.iconSizeXS = 13.0,
     this.iconSizeS = 21.0,
     this.iconSizeM = 34.0,
@@ -60,15 +63,19 @@ class DimensionsThemeData {
   final double radiusL;
   final double radiusXL;
 
-  final listItemHeightS;
-  final listItemHeightM;
-  final listItemHeightL;
+  final double listItemHeightS;
+  final double listItemHeightM;
+  final double listItemHeightL;
 
   final double barHeightXS;
   final double barHeightS;
   final double barHeightM;
   final double barHeightL;
   final double barHeightXL;
+
+  final double borderThicknessS;
+  final double borderThicknessM;
+  final double borderThicknessL;
 
   final double lineThicknessS;
   final double lineThicknessM;
@@ -215,4 +222,24 @@ class DimensionsThemeData {
     bottomRight: Radius.circular(bottomRight ? value : 0.0),
     bottomLeft: Radius.circular(bottomLeft ? value : 0.0),
   );
+
+
+
+
+
+
+
+
+  // CONTEXT BASED DIMENSIONS
+
+  double reasonableButtonWidth(BuildContext context)
+  {
+    if (context.isPhone) return MediaQuery.of(context).size.width * 0.4;
+    if (context.isTablet) return MediaQuery.of(context).size.width * 0.2;
+    if (context.isDesktop) return 400.0;
+
+    throw Exception("Unknown device type");
+  }
+
+
 }

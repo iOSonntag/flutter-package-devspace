@@ -101,6 +101,7 @@ class _IntrinsicHeightPageViewState extends State<IntrinsicHeightPageView> with 
   void _onSizeChanged(int index, Size size)
   {
     safePrint('size: $size');
+    
     setState(() => _heights[index] = size.height);
   }
 
