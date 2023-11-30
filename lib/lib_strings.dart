@@ -3,6 +3,8 @@
 
 // ignore_for_file: constant_identifier_names
 
+// TODO: check if every string is set for every language during dev builds
+
 abstract class LibStrings {
 
   LibStrings._();
