@@ -210,6 +210,8 @@ class DimensionsThemeData {
   BorderRadius get borderRadiusL => BorderRadius.circular(radiusL);
   BorderRadius get borderRadiusXL => BorderRadius.circular(radiusXL);
 
+  BorderRadius get borderRadiusCircle => BorderRadius.circular(10000);  
+
   BorderRadius borderRadiusXSOnly({bool topLeft = false, bool topRight = false, bool bottomRight = false, bool bottomLeft = false}) => _borderRadiusValueOnly(radiusXS, topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft);
   BorderRadius borderRadiusSOnly({bool topLeft = false, bool topRight = false, bool bottomRight = false, bool bottomLeft = false}) => _borderRadiusValueOnly(radiusS, topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft);
   BorderRadius borderRadiusMOnly({bool topLeft = false, bool topRight = false, bool bottomRight = false, bool bottomLeft = false}) => _borderRadiusValueOnly(radiusM, topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft);

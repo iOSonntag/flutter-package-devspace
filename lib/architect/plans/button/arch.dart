@@ -11,6 +11,7 @@ class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
     kButtonType type = kButtonType.primary,
     kSize3 size = kSize3.M,
     bool enabled = true,
+    bool underline = false,
     String? title,
     String? subtitle,
     IconData? icon,
@@ -27,6 +28,7 @@ class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
         type: type,
         size: size,
         enabled: enabled,
+        underline: underline,
         title: title,
         subtitle: subtitle,
         icon: icon,
@@ -37,11 +39,12 @@ class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
       ),
     );
 
-  ArchButton.soft({
+  ArchButton.link({
     super.key,
     kButtonType type = kButtonType.primary,
     kSize3 size = kSize3.M,
     bool enabled = true,
+    bool underline = true,
     String? title,
     String? subtitle,
     IconData? icon,
@@ -52,12 +55,47 @@ class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
     Widget? child,
   }) : 
     super(
-      variant: kButtonVariant.regular,
+      variant: kButtonVariant.link,
       data: ButtonData(
         variationId: variationId,
         type: type,
         size: size,
         enabled: enabled,
+        underline: underline,
+        title: title,
+        subtitle: subtitle,
+        icon: icon,
+        onPrimaryAction: onPressed,
+        onSecondaryAction: onSecondaryAction,
+        onTertiaryAction: onTertiaryAction,
+        child: child,
+      ),
+    );
+
+
+  ArchButton.soft({
+    super.key,
+    kButtonType type = kButtonType.primary,
+    kSize3 size = kSize3.M,
+    bool enabled = true,
+    bool underline = false,
+    String? title,
+    String? subtitle,
+    IconData? icon,
+    VoidCallback? onPressed,
+    VoidCallback? onSecondaryAction,
+    VoidCallback? onTertiaryAction,
+    String? variationId,
+    Widget? child,
+  }) : 
+    super(
+      variant: kButtonVariant.soft,
+      data: ButtonData(
+        variationId: variationId,
+        type: type,
+        size: size,
+        enabled: enabled,
+        underline: underline,
         title: title,
         subtitle: subtitle,
         icon: icon,
@@ -73,6 +111,7 @@ class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
     kButtonType type = kButtonType.primary,
     kSize3 size = kSize3.M,
     bool enabled = true,
+    bool underline = false,
     String? title,
     String? subtitle,
     IconData? icon,
@@ -89,6 +128,7 @@ class ArchButton extends ArchBase<kButtonVariant, ButtonData> {
         type: type,
         size: size,
         enabled: enabled,
+        underline: underline,
         title: title,
         subtitle: subtitle,
         icon: icon,

@@ -20,6 +20,7 @@ class DefaultButton extends ArchBaseVariantSwitch<kButtonVariant, ButtonData> {
   {
     return switch (style)
     {
+      kButtonVariant.link => DefaultButtonLink(data: data),
       kButtonVariant.soft => DefaultButtonSoft(data: data),
       kButtonVariant.regular => DefaultButtonRegular(data: data),
       kButtonVariant.special => DefaultButtonSpecial(data: data),

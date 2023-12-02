@@ -5,9 +5,9 @@ part of devspace;
 
 
 // TODO: implement icon feature
-class DefaultButtonSoft extends ArchBaseStatelessWidget<ButtonData> {
+class DefaultButtonLink extends ArchBaseStatelessWidget<ButtonData> {
 
-  DefaultButtonSoft({
+  DefaultButtonLink({
     super.key,
     required super.data
   }) : super(allowCustomVariants: false);
@@ -53,9 +53,9 @@ class DefaultButtonSoft extends ArchBaseStatelessWidget<ButtonData> {
   {
     return switch (data.size)
     {
-      kSize3.S => context.paddingM_S,
-      kSize3.M => context.paddingL_M,
-      kSize3.L => context.paddingXL_L
+      kSize3.S => context.paddingS_0,
+      kSize3.M => context.paddingM_XS,
+      kSize3.L => context.paddingL_S
     };
   }
 
@@ -76,9 +76,10 @@ class DefaultButtonSoft extends ArchBaseStatelessWidget<ButtonData> {
 
   Widget _buildText(BuildContext context, Color color)
   {
-    return TextBody.size3(data.size, data.title?.toUpperCase(),
+    return TextBody.size3(data.size, data.title,
       color: color,
       letterSpacing: -0.8,
+      lineHeight: 1.8,
       style: TextStyle(
         decoration: data.underline ? TextDecoration.underline : TextDecoration.none
       ),

@@ -68,6 +68,7 @@ part 'architect/plans/bonus_info/default.regular.dart';
 part 'architect/plans/button/arch.dart';
 part 'architect/plans/button/data.dart';
 part 'architect/plans/button/default.dart';
+part 'architect/plans/button/default.link.dart';
 part 'architect/plans/button/default.regular.dart';
 part 'architect/plans/button/default.soft.dart';
 part 'architect/plans/button/default.special.dart';

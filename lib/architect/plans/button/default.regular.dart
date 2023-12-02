@@ -106,6 +106,9 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   {
     return TextBody.size3(data.size, data.title,
       color: contentColor,
+      style: TextStyle(
+        decoration: data.underline ? TextDecoration.underline : TextDecoration.none
+      ),
     );
   }
 

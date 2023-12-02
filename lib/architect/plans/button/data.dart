@@ -8,7 +8,8 @@ enum kButtonVariant
 {
   soft,
   regular,
-  special
+  special,
+  link
 }
 
 // ignore: camel_case_types
@@ -30,6 +31,7 @@ class ButtonData extends PlanDataWithChild {
   final bool enabled;
   final String? title;
   final String? subtitle;
+  final bool underline;
   final IconData? icon;
   final VoidCallback? onPrimaryAction;
   final VoidCallback? onSecondaryAction;
@@ -41,6 +43,7 @@ class ButtonData extends PlanDataWithChild {
     this.size = kSize3.M,
     this.type = kButtonType.primary,
     this.enabled = true,
+    this.underline = false,
     this.title,
     this.subtitle,
     this.icon,
