@@ -1,6 +1,7 @@
 library devspace;
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui';
@@ -185,10 +186,16 @@ part 'context_steroids/context_extension_url_launcher.dart';
 
 // core
 
+part 'core/config/galaxy_config.dart';
+
+part 'core/diagnostics/dev.dart';
+
 part 'core/dialog/default_dialog.dart';
 part 'core/dialog/dialog.dart';
 part 'core/dialog/text_dialog.dart';
 part 'core/dialog/dialog_action.dart';
+
+part 'core/images/image_provider_smart.dart';
 
 // extended_theme
 

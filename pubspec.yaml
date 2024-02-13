@@ -8,8 +8,8 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  amplify_auth_cognito: ^1.4.2
-  amplify_flutter: ^1.4.1
+  amplify_auth_cognito: ^1.6.2
+  amplify_flutter: ^1.6.1
   easy_localization: ^3.0.3
   flutter:
     sdk: flutter

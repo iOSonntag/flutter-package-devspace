@@ -18,6 +18,10 @@ class _GeneratedAppData {
 
 class App extends StatelessWidget {
 
+  static GalaxyConfig? _config;
+  static GalaxyConfig get config => App._config ?? (throw Exception('App.config is not set. Are you accessing it before the App is built?'));
+
+  final GalaxyConfig configuration;
   final StringBuilder buildTitle;
   final ThemeBuilder buildTheme;
   final String translationsFolder;
@@ -27,8 +31,9 @@ class App extends StatelessWidget {
   final ContextLoader loadApp;
   final CreateRouterConfig createRouterConfig;
 
-  const App({
+  App({
     super.key,
+    required this.configuration,
     required this.buildTitle,
     required this.buildTheme,
     this.translationsFolder = 'assets/translations',
@@ -37,7 +42,10 @@ class App extends StatelessWidget {
     required this.globalGlues,
     required this.loadApp,
     required this.createRouterConfig,
-  });
+  })
+  {
+    App._config = configuration;
+  }
 
   @override
   Widget build(BuildContext context)

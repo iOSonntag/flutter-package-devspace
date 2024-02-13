@@ -147,7 +147,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
 
       if (!isLastElement || displayRequiredNotice)
       {
-        children.add(context.spaceXL);
+        children.add(context.spaceL);
       }
     }
 

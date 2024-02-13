@@ -78,6 +78,13 @@ class _FormInputGroup extends StatelessWidget {
             )
           );
 
+          if (i != definition.elements.length - 1)
+          {
+            groupChildren.add(
+              context.spaceL
+            );
+          }
+
           rowChildren = [];
         }
 
@@ -95,6 +102,13 @@ class _FormInputGroup extends StatelessWidget {
           onSave: onSave
         )
       );
+
+      if (i != definition.elements.length - 1)
+      {
+        groupChildren.add(
+          context.spaceL
+        );
+      }
     }
 
     return Column(
