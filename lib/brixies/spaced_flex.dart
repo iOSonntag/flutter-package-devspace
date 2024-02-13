@@ -7,6 +7,8 @@ enum MainAxisSpacing
 {
   evenly,
   between,
+  betweenAndEnd,
+  betweenAndStart,
   around,
 }
 
@@ -416,6 +418,10 @@ class SpacedFlex extends StatelessWidget {
         return isFirst ? spaceValue : spaceValue / 2;
       case MainAxisSpacing.between:
         return isFirst ? 0 : spaceValue / 2;
+      case MainAxisSpacing.betweenAndEnd:
+        return isFirst ? 0 : spaceValue / 2;
+      case MainAxisSpacing.betweenAndStart:
+        return isFirst ? spaceValue : spaceValue / 2;
       case MainAxisSpacing.around:
         return isFirst ? spaceValue : 0;
     }
@@ -428,6 +434,10 @@ class SpacedFlex extends StatelessWidget {
       case MainAxisSpacing.evenly:
         return isLast ? spaceValue : spaceValue / 2;
       case MainAxisSpacing.between:
+        return isLast ? 0 : spaceValue / 2;
+      case MainAxisSpacing.betweenAndEnd:
+        return isLast ? spaceValue : spaceValue / 2;
+      case MainAxisSpacing.betweenAndStart:
         return isLast ? 0 : spaceValue / 2;
       case MainAxisSpacing.around:
         return isLast ? spaceValue : 0;

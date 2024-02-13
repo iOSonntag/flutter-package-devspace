@@ -52,9 +52,10 @@ abstract class LibStrings {
   static const String lib_models_cognitoChangeInitialPassword_passwordLowerMissing_message = 'lib_models_cognitoChangeInitialPassword_passwordLowerMissing_message';
   static const String lib_models_cognitoChangeInitialPassword_passwordNumberMissing_message = 'lib_models_cognitoChangeInitialPassword_passwordNumberMissing_message';
   static const String lib_models_cognitoChangeInitialPassword_passwordSymbolMissing_message = 'lib_models_cognitoChangeInitialPassword_passwordSymbolMissing_message';
-
-
-
+  static const String lib_models_cognitoForgotPasswordRequest_userNotFound_message = 'lib_models_cognitoForgotPasswordRequest_userNotFound_message';
+  static const String lib_models_cognitoForgotPasswordRequest_sendLimitExceeded_message = 'lib_models_cognitoForgotPasswordRequest_sendLimitExceeded_message';
+  static const String lib_models_cognitoResetPassword_codeInvalid_message = 'lib_models_cognitoResetPassword_codeInvalid_message';
+  
   static const String lib_blueForms_inputValidators_failedOptionSelectionUntouched = 'lib_blueForms_inputValidators_failedOptionSelectionUntouched';
   static const String lib_blueForms_inputValidators_failedNotEmptyCheck = 'lib_blueForms_inputValidators_failedNotEmptyCheck';
   static const String lib_blueForms_inputValidators_failedPhoneNumberCheck = 'lib_blueForms_inputValidators_failedPhoneNumberCheck';

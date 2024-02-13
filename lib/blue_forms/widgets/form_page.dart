@@ -142,6 +142,13 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
           displayRequiredNotice = true;
         }
       }
+
+      bool isLastElement = i == widget.definition.elements.length - 1;
+
+      if (!isLastElement || displayRequiredNotice)
+      {
+        children.add(context.spaceXL);
+      }
     }
 
     if (displayRequiredNotice)

@@ -37,7 +37,7 @@ abstract class CommonFormInputs {
 
         FormInputText(
           id: '${idPrefix}password',
-          initialValue: initialEmail,
+          initialValue: initialPassword,
           label: LibStrings.lib_blueForms_commonInputs_passwordLabel.tr(),
           hint: LibStrings.lib_blueForms_commonInputs_passwordHint.tr(),
           autocorrect: false,

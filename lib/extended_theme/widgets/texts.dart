@@ -3,7 +3,7 @@ part of devspace;
 
 
 // ignore: constant_identifier_names
-const double CONTENT_DEFAULT_LINE_HEIGHT = 1.3;
+const double CONTENT_DEFAULT_LINE_HEIGHT = 1.1;
 
 abstract class TextLabel {
 

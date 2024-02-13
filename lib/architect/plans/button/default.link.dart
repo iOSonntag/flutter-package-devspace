@@ -53,9 +53,9 @@ class DefaultButtonLink extends ArchBaseStatelessWidget<ButtonData> {
   {
     return switch (data.size)
     {
-      kSize3.S => context.paddingS_0,
-      kSize3.M => context.paddingM_XS,
-      kSize3.L => context.paddingL_S
+      kSize3.S => context.paddingM_S,
+      kSize3.M => context.paddingL_M,
+      kSize3.L => context.paddingXL_L,
     };
   }
 
@@ -78,10 +78,10 @@ class DefaultButtonLink extends ArchBaseStatelessWidget<ButtonData> {
   {
     return TextBody.size3(data.size, data.title,
       color: color,
-      letterSpacing: -0.8,
-      lineHeight: 1.8,
+      letterSpacing: -0.5,
       style: TextStyle(
-        decoration: data.underline ? TextDecoration.underline : TextDecoration.none
+        decoration: data.underline ? TextDecoration.underline : TextDecoration.none,
+        decorationColor: color,
       ),
     );
   }

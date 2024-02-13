@@ -20,6 +20,7 @@ class BlueForms extends StatefulWidget {
   final String? completeButtonTitle;
   final bool intrinsicHeight;
   final bool visuallyMarkRequiredFields;
+  final Widget? bottomContent;
   final clipPagination;
 
   const BlueForms({
@@ -35,6 +36,7 @@ class BlueForms extends StatefulWidget {
     this.intrinsicHeight = false,
     this.visuallyMarkRequiredFields = true,
     this.clipPagination = true,
+    this.bottomContent,
     required this.pages,
   }) :
     assert(pages.length > 0),
@@ -63,21 +65,33 @@ class _BlueFormsState extends State<BlueForms> {
       pages.add(_buildPage(context, fiPage));
     }
 
+    Widget child = AppFlowPagedSteps(
+      clip: widget.clipPagination ? Clip.hardEdge : Clip.none,
+      onCancel: widget.onCancel,
+      currentIndex: _currentIndex,
+      actionBarSeparation: widget.actionBarSeparation,
+      actionBarHeader: _buildErrorWidget(context),
+      lastNextButtonTitle: widget.completeButtonTitle,
+      intrinsicHeight: widget.intrinsicHeight,
+      onBack: _onBack,
+      onNext: _onNext,
+      pages: pages, 
+    );
+    
+    if (widget.bottomContent != null)
+    {
+      child = Column(
+        children: [
+          child,
+          widget.bottomContent!,
+        ],
+      );
+    }
+
     return HideKeyboardOnTap(
       child: LoadableView(
         isLoading: widget.isLoading,
-        child: AppFlowPagedSteps(
-          clip: widget.clipPagination ? Clip.hardEdge : Clip.none,
-          onCancel: widget.onCancel,
-          currentIndex: _currentIndex,
-          actionBarSeparation: widget.actionBarSeparation,
-          actionBarHeader: _buildErrorWidget(context),
-          lastNextButtonTitle: widget.completeButtonTitle,
-          intrinsicHeight: widget.intrinsicHeight,
-          onBack: _onBack,
-          onNext: _onNext,
-          pages: pages, 
-        ),
+        child: child,
       ),
     );
   }
@@ -92,7 +106,7 @@ class _BlueFormsState extends State<BlueForms> {
     if (widget.error != null)
     {
       return Padding(
-        padding: context.paddingXL,
+        padding: context.paddingXL.setTop(0),
         child: ArchInfoBox.error(
           title: widget.error?.title,
           subtitle: widget.error?.subtitle,
@@ -103,7 +117,7 @@ class _BlueFormsState extends State<BlueForms> {
     }
 
     return Padding(
-      padding: context.paddingXL,
+        padding: context.paddingXL.setTop(0),
       child: ArchInfoBox.error(
         message: widget.errorMessage,
       ),

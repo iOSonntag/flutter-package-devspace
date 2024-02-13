@@ -100,6 +100,15 @@ extension ContextExtension on BuildContext {
   Widget get spaceXL => Theme.of(this).dimensions.spaceXL();
   Widget get spaceXXL => Theme.of(this).dimensions.spaceXXL();
 
+
+
+  String? getQueryParam(String key)
+  {
+    return GoRouterState.of(this).uri.queryParameters[key];
+  }
+
+
+
   bool get isPortrait => MediaQuery.of(this).orientation == Orientation.portrait;
   bool get isLandscape => MediaQuery.of(this).orientation == Orientation.landscape;
 

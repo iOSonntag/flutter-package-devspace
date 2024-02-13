@@ -13,6 +13,8 @@ enum kSignInResult
 abstract class AuthService extends CustomService {
 
   Future<CognitoSignInResult> signIn(String email, String password);
+  Future<CognitoForgotPasswordRequestResult> forgotPasswordRequest(String email);
+  Future<CognitoResetPasswordResult> resetPasswordRequest(String email, String newPassword, String confirmationCode);
   Future<CognitoChangeInitialPasswordResult> changeInitialPassword(String newPassword);
   Future<void> signOut();
   Future<bool> isSignedIn();
@@ -52,6 +54,40 @@ class CognitoAuthenticationService extends AuthService {
     on Exception catch (e)
     {
       return CognitoSignInResult(exception: e);
+    }
+  }
+
+  @override
+  Future<CognitoForgotPasswordRequestResult> forgotPasswordRequest(String email) async
+  {
+    try
+    {
+      ResetPasswordResult result = await Amplify.Auth.resetPassword(username: email);
+
+      return CognitoForgotPasswordRequestResult(data: result);
+    }
+    on Exception catch (e)
+    {
+      return CognitoForgotPasswordRequestResult(exception: e);
+    }
+  }
+
+  @override
+  Future<CognitoResetPasswordResult> resetPasswordRequest(String email, String newPassword, String confirmationCode) async
+  {
+    try
+    {
+      ResetPasswordResult result = await Amplify.Auth.confirmResetPassword(
+        username: email,
+        newPassword: newPassword,
+        confirmationCode: confirmationCode,
+      );
+
+      return CognitoResetPasswordResult(data: result);
+    }
+    on Exception catch (e)
+    {
+      return CognitoResetPasswordResult(exception: e);
     }
   }
 

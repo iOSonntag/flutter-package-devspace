@@ -31,10 +31,7 @@ class _FormInputContainerWidget extends StatelessWidget {
           ),
         ),
 
-        Padding(
-          padding: context.dimensions.paddingXLOnly(bottom: true),
-          child: child,
-        ),
+        child
 
       ],
     );
