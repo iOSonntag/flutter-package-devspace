@@ -2,6 +2,14 @@
 
 part of devspace;
 
+
+// ignore: camel_case_types
+enum kStringPlaceholder
+{
+  notSet,
+  notYetSet,
+  notAvailable,
+}
 extension NullableStringExtension on String? {
 
   /// Adds a new line to the end of this string except for the first line.
@@ -45,6 +53,12 @@ extension NullableStringExtension on String? {
   bool get isNotNullOrTrimEmpty => !isNullOrTrimEmpty;
 
   String _getThisOrEmpty() => this ?? '';
+
+
+  String orPlaceholderNotSet() => isNullOrEmpty ? LibStrings.lib_general_valueNotSet.tr() : this!;
+  String orPlaceholderNotYetSet() => isNullOrEmpty ? LibStrings.lib_general_valueNotYetSet.tr() : this!;
+  String orPlaceholderNotAvailable() => isNullOrEmpty ? LibStrings.lib_general_valueNotAvailable.tr() : this!;
+
 
 }
 

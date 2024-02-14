@@ -10,13 +10,17 @@ typedef CreateRouterConfig = RouterConfig<Object> Function(BuildContext context)
 class _GeneratedAppData {
 
   final RouterConfig<Object> routerConfig;
+  final List<Glue<GlueComponent>> globalGlues;
 
   const _GeneratedAppData({
     required this.routerConfig,
+    required this.globalGlues,
   });
 }
 
-class App extends StatelessWidget {
+typedef CreateGlobalGluesFunction<T> = List<Glue<GlueComponent>> Function(T loadedData);
+
+class App<T> extends StatelessWidget {
 
   static GalaxyConfig? _config;
   static GalaxyConfig get config => App._config ?? (throw Exception('App.config is not set. Are you accessing it before the App is built?'));
@@ -27,8 +31,9 @@ class App extends StatelessWidget {
   final String translationsFolder;
   final Locale fallbackLocale;
   final List<Locale> supportedLocales;
-  final List<Glue<GlueComponent>> globalGlues;
-  final ContextLoader loadApp;
+  // ignore: non_constant_identifier_names
+  final CreateGlobalGluesFunction<T> onPostLoad_createGlobalGlues;
+  final AppLoadFunction<T> loadApp;
   final CreateRouterConfig createRouterConfig;
 
   App({
@@ -39,7 +44,8 @@ class App extends StatelessWidget {
     this.translationsFolder = 'assets/translations',
     this.fallbackLocale = const Locale('en', 'US'),
     required this.supportedLocales,
-    required this.globalGlues,
+    // ignore: non_constant_identifier_names
+    required this.onPostLoad_createGlobalGlues,
     required this.loadApp,
     required this.createRouterConfig,
   })
@@ -59,19 +65,24 @@ class App extends StatelessWidget {
         translationsFolder: translationsFolder,
         fallbackLocale: fallbackLocale,
         supportedLocales: supportedLocales,
-        globalGlues: globalGlues,
+        globalGlues: data!.globalGlues,
       ),
     );
   }
 
   Future<_GeneratedAppData?> _loadApp(BuildContext context) async
   {
+
+
     WidgetsFlutterBinding.ensureInitialized();
+
+
+
     await EasyLocalization.ensureInitialized();
 
     if (!context.mounted) return null;
 
-    await loadApp(context);
+    final appLoadResult = await loadApp(context);
 
     await MyService.ensureAllReady();
 
@@ -79,6 +90,7 @@ class App extends StatelessWidget {
 
     return _GeneratedAppData(
       routerConfig: createRouterConfig(context),
+      globalGlues: onPostLoad_createGlobalGlues(appLoadResult),
     );
     
   }

@@ -9,18 +9,26 @@ class ArchImage extends ArchBase<kImageVariant, ImageData> {
     super.variant = kImageVariant.regular,
     required ImageProvider image,
     BorderRadiusGeometry? borderRadius,
-    kImageBorderPreset borderPreset = kImageBorderPreset.rounded,
+    kImageShapePreset shapePreset = kImageShapePreset.rounded,
+    kImageEdgePreset edgePreset = kImageEdgePreset.outerShadowS,
     double? aspectRatio,
     BoxFit fit = BoxFit.cover,
+    EdgeInsetsGeometry? padding,
+    Color? backgroundColor,
+    ColorFilter? colorFilter,
   }) : 
     super(
       data: ImageData(
         image: image,
         style: ImageDisplayStyle(
           borderRadius: borderRadius,
-          borderPreset: borderRadius != null ? kImageBorderPreset.none : borderPreset,
+          shapePreset: borderRadius != null ? kImageShapePreset.none : shapePreset,
+          edgePreset: edgePreset,
           aspectRatio: aspectRatio,
           fit: fit,
+          padding: padding,
+          backgroundColor: backgroundColor,
+          colorFilter: colorFilter,
         ),
       ),
     );

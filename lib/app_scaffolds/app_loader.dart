@@ -1,14 +1,14 @@
 part of devspace;
 
-typedef ContextLoader = Future<void> Function(BuildContext context);
-typedef LoadApp<T> = Future<T?> Function(BuildContext context);
+typedef AppLoadFunction<T> = Future<T> Function(BuildContext context);
+typedef InternalAppLoadFunction<T> = Future<T?> Function(BuildContext context);
 typedef AppBuilder<T> = Widget Function(BuildContext context, T? data);
 
 class AppLoader<T> extends StatefulWidget {
 
   final WidgetBuilder? buildLoading;
   final AppBuilder<T> buildApp;
-  final LoadApp<T> loadApp;
+  final InternalAppLoadFunction<T> loadApp;
 
   const AppLoader({
     super.key,

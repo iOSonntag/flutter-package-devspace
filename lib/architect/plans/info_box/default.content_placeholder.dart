@@ -37,9 +37,8 @@ class DefaultInfoBoxContentPlaceholder extends ArchBaseStatelessWidget<InfoBoxDa
         mainAxisSize: MainAxisSize.min,
         children: [
 
-          if (data.icon != null) Positioned(
-            top: 0,
-            left: 0,
+          if (data.icon != null) Align(
+            alignment: Alignment.topLeft,
             child: Padding(
               padding: context.paddingXS,
               child: Icon(data.icon!,

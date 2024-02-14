@@ -399,7 +399,15 @@ class SpacedFlex extends StatelessWidget {
     double mainAxisPaddingEnd = _getMainAxisPaddingEnd(context, spaceValue, isFirst, isLast);
     double crossAxisPadding = crossAxisSpacing == CrossAxisSpacing.around ? spaceValue : 0;
 
-    return Padding(
+    int? expanded;
+
+    if (child is Expanded)
+    {
+      expanded = child.flex;
+      child = child.child;
+    }
+
+    child = Padding(
       padding: EdgeInsets.only(
         top: direction == Axis.vertical ? mainAxisPaddingStart : crossAxisPadding,
         bottom: direction == Axis.vertical ? mainAxisPaddingEnd : crossAxisPadding,
@@ -408,6 +416,16 @@ class SpacedFlex extends StatelessWidget {
       ),
       child: child,
     );
+
+    if (expanded != null)
+    {
+      child = Expanded(
+        flex: expanded,
+        child: child,
+      );
+    }
+
+    return child;
   }
 
   double _getMainAxisPaddingStart(BuildContext context, double spaceValue, bool isFirst, bool isLast)

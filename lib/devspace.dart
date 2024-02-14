@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart' as widgets;
 
 import 'package:get_it/get_it.dart';
@@ -263,6 +264,7 @@ part 'type_extensions/int.dart';
 part 'type_extensions/list.dart';
 part 'type_extensions/offset.dart';
 part 'type_extensions/string.dart';
+part 'type_extensions/widget.dart';
 
 // utils
 

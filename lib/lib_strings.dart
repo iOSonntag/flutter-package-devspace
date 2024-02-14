@@ -9,6 +9,9 @@ abstract class LibStrings {
 
   LibStrings._();
 
+  static const String lib_general_valueNotSet = 'lib_general_valueNotSet';
+  static const String lib_general_valueNotYetSet = 'lib_general_valueNotYetSet';
+  static const String lib_general_valueNotAvailable = 'lib_general_valueNotAvailable';
   static const String lib_general_actionNext = 'lib_general_actionNext';
   static const String lib_general_actionBack = 'lib_general_actionBack';
   static const String lib_general_actionComplete = 'lib_general_actionComplete';
