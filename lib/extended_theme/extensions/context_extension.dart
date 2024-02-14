@@ -107,6 +107,11 @@ extension ContextExtension on BuildContext {
     return GoRouterState.of(this).uri.queryParameters[key];
   }
 
+  String? getPathParam(String key)
+  {
+    return GoRouterState.of(this).pathParameters[key];
+  }
+
 
 
   bool get isPortrait => MediaQuery.of(this).orientation == Orientation.portrait;
