@@ -5,13 +5,13 @@ part of devspace;
 
 class FormPage extends FormPageBase {
 
-  final String title;
+  final String? title;
   final String? description;
   final List<FormElement> elements;
   FormPageController? _controller;
 
   FormPage({
-    required this.title,
+    this.title,
     this.description,
     required this.elements,
   });

@@ -52,6 +52,104 @@ abstract class CommonFormInputs {
   }
 
 
+  static FormInput email({
+    String idPrefix = '',
+    String? description,
+    bool isOptional = false,
+    bool isActive = true,
+    String? initialEmail,
+  })
+  {
+    return FormInputText(
+      isActive: isActive,
+      id: '${idPrefix}email',
+      description: description,
+      initialValue: initialEmail,
+      label: LibStrings.lib_blueForms_commonInputs_emailLabel.tr(),
+      hint: LibStrings.lib_blueForms_commonInputs_emailHint.tr(),
+      autocorrect: false,
+      isOptional: isOptional,
+      autofillHints: [
+        AutofillHints.email,
+      ],
+      validationType: kFormTextValidationType.trimNotEmpty,
+    );
+  }
+
+  static FormInput phoneNumber({
+    String idPrefix = '',
+    String? description,
+    bool isOptional = false,
+    bool isActive = true,
+    String? initialPhoneNumber,
+  })
+  {
+    return FormInputText(
+      isActive: isActive,
+      id: '${idPrefix}phoneNumber',
+      description: description,
+      initialValue: initialPhoneNumber,
+      label: LibStrings.lib_blueForms_commonInputs_phoneNumberLabel.tr(),
+      hint: LibStrings.lib_blueForms_commonInputs_phoneNumberHint.tr(),
+      autocorrect: false,
+      isOptional: isOptional,
+      autofillHints: [
+        AutofillHints.telephoneNumber,
+      ],
+      validationType: kFormTextValidationType.trimNotEmpty,
+    );
+  }
+
+
+  static FormInput fullName({
+    String idPrefix = '',
+    String? description,
+    bool isOptional = false,
+    bool isActive = true,
+    String? initialGivenName,
+    String? initialFamilyName,
+    int elementsPerRow = 2,
+  })
+  {
+    return FormInputGroup(
+      isActive: isActive,
+      elementsPerRow: elementsPerRow,
+      elements: [
+
+        FormInputText(
+          id: '${idPrefix}givenName',
+          description: description,
+          initialValue: initialGivenName,
+          label: LibStrings.lib_blueForms_commonInputs_givenNameLabel.tr(),
+          hint: LibStrings.lib_blueForms_commonInputs_givenNameHint.tr(),
+          autocorrect: false,
+          isOptional: isOptional,
+          autofillHints: [
+            AutofillHints.givenName,
+          ],
+          validationType: kFormTextValidationType.trimNotEmpty,
+        ),
+
+
+        FormInputText(
+          id: '${idPrefix}familyName',
+          description: description,
+          initialValue: initialFamilyName,
+          label: LibStrings.lib_blueForms_commonInputs_familyNameLabel.tr(),
+          hint: LibStrings.lib_blueForms_commonInputs_familyNameHint.tr(),
+          autocorrect: false,
+          isOptional: isOptional,
+          autofillHints: [
+            AutofillHints.familyName,
+          ],
+          validationType: kFormTextValidationType.trimNotEmpty,
+        ),
+
+      ],
+    );
+  }
+
+
 
 
 

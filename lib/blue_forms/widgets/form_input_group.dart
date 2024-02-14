@@ -33,6 +33,7 @@ class _FormInputGroup extends StatelessWidget {
   {
     List<Widget> groupChildren = [];
     List<Widget> rowChildren = [];
+    int rowElementsCount = 0;
 
     for (int i = 0; i < definition.elements.length; i++)
     {
@@ -62,6 +63,7 @@ class _FormInputGroup extends StatelessWidget {
             ),
           )
         );
+        rowElementsCount++;
 
         if (i % definition.elementsPerRow != definition.elementsPerRow - 1 && i != definition.elements.length - 1)
         {
@@ -72,11 +74,27 @@ class _FormInputGroup extends StatelessWidget {
 
         if (rowChildren.length == definition.elementsPerRow * 2 - 1 || i == definition.elements.length - 1)
         {
+          int mod = rowElementsCount % definition.elementsPerRow;
+          
+          if (mod > 0)
+          {
+            for (int j = 0; j < mod; j++)
+            {
+              rowChildren.add(
+                Expanded(
+                  child: Container(),
+                )
+              );
+            }
+          }
+
           groupChildren.add(
             Row(
               children: rowChildren,
             )
           );
+          rowChildren = [];
+
 
           if (i != definition.elements.length - 1)
           {
@@ -85,7 +103,6 @@ class _FormInputGroup extends StatelessWidget {
             );
           }
 
-          rowChildren = [];
         }
 
         continue;

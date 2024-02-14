@@ -72,6 +72,14 @@ abstract class LibStrings {
   static const String lib_blueForms_commonInputs_passwordLabel = 'lib_blueForms_commonInputs_passwordLabel';
   static const String lib_blueForms_commonInputs_passwordHint = 'lib_blueForms_commonInputs_passwordHint';
 
+  static const String lib_blueForms_commonInputs_phoneNumberLabel = 'lib_blueForms_commonInputs_phoneNumberLabel';
+  static const String lib_blueForms_commonInputs_phoneNumberHint = 'lib_blueForms_commonInputs_phoneNumberHint';
+
+  static const String lib_blueForms_commonInputs_givenNameLabel = 'lib_blueForms_commonInputs_givenNameLabel';
+  static const String lib_blueForms_commonInputs_givenNameHint = 'lib_blueForms_commonInputs_givenNameHint';
+  static const String lib_blueForms_commonInputs_familyNameLabel = 'lib_blueForms_commonInputs_familyNameLabel';
+  static const String lib_blueForms_commonInputs_familyNameHint = 'lib_blueForms_commonInputs_familyNameHint';
+
   static const String lib_blueForms_commonInputs_address_streetLabel = 'lib_blueForms_commonInputs_address_streetLabel';
   static const String lib_blueForms_commonInputs_address_streetHint = 'lib_blueForms_commonInputs_address_streetHint';
   static const String lib_blueForms_commonInputs_address_postalCodeLabel = 'lib_blueForms_commonInputs_address_postalCodeLabel';

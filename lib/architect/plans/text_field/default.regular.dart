@@ -135,13 +135,14 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       errorMaxLines: 3,
-      contentPadding: context.paddingM,
+      contentPadding: context.paddingL_M,
     );
   }
 
   InputBorder _buildBorder(BuildContext context, Color color, double width)
   {
     return OutlineInputBorder(
+      // gapPadding: context.dimensions.spaceMValue,
       borderSide: BorderSide(
         width: width,
         color: color

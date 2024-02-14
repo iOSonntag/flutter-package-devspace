@@ -14,6 +14,7 @@ class ColorsAccess  {
 
   Color get onBackgroundLessFocus => Theme.of(context).extension<AdditionalColorsThemeData>()?.onBackgroundLessFocus ?? AdditionalColorsDefaults.onBackgroundLessFocus;
   Color get onBackgroundLeastFocus => Theme.of(context).extension<AdditionalColorsThemeData>()?.onBackgroundLeastFocus ?? AdditionalColorsDefaults.onBackgroundLeastFocus;
+  Color get onPrimaryLessFocus => Theme.of(context).extension<AdditionalColorsThemeData>()?.onPrimaryLessFocus ?? AdditionalColorsDefaults.onPrimaryLessFocus;
   Color get success => Theme.of(context).extension<AdditionalColorsThemeData>()?.success ?? AdditionalColorsDefaults.success;
   Color get onSuccess => Theme.of(context).extension<AdditionalColorsThemeData>()?.onSuccess ?? AdditionalColorsDefaults.onSuccess;
   Color get warning => Theme.of(context).extension<AdditionalColorsThemeData>()?.warning ?? AdditionalColorsDefaults.warning;

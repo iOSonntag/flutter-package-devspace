@@ -101,7 +101,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
   Widget build(BuildContext context)
   {
     List<Widget> children = [
-      Padding(
+      if (widget.definition.title != null) Padding(
         padding: context.padding0_XL,
         child: TextTitle.medium(widget.definition.title,
           textAlign: TextAlign.center,
@@ -115,9 +115,12 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
           lineHeight: 1.4,
         ),
       ),
-
-      context.spaceL,
     ];
+
+    if (children.isNotEmpty)
+    {
+      children.add(context.spaceL);
+    }
 
     bool displayRequiredNotice = false;
 
@@ -147,27 +150,24 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
 
       if (!isLastElement || displayRequiredNotice)
       {
-        children.add(context.spaceL);
+        children.add(context.spaceXXL);
       }
     }
 
     if (displayRequiredNotice)
     {
       children.add(
-        Padding(
-          padding: context.dimensions.paddingXLOnly(bottom: true),
-          child: Row(
-            children: [
-              Icon(Icons.info_outline_rounded,
-                color: context.colors.onBackgroundLeastFocus,
-                size: context.dimensions.iconSizeXS,
-              ),
-              context.spaceS,
-              TextBody.small(LibStrings.lib_blueForms_requiredFieldsNotice.tr(args: ['*']),
-                color: context.colors.onBackgroundLeastFocus,
-              ),
-            ],
-          ),
+        Row(
+          children: [
+            Icon(Icons.info_outline_rounded,
+              color: context.colors.onBackgroundLeastFocus,
+              size: context.dimensions.iconSizeXS,
+            ),
+            context.spaceS,
+            TextBody.small(LibStrings.lib_blueForms_requiredFieldsNotice.tr(args: ['*']),
+              color: context.colors.onBackgroundLeastFocus,
+            ),
+          ],
         ),
       );
     }
