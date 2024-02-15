@@ -9,6 +9,11 @@ extension ExtensionOnWidget on Widget {
     child: this
   );
 
+  Widget toCenter() => Align(
+    alignment: Alignment.center,
+    child: this
+  );
+
   Widget toTopLeft() => Align(
     alignment: Alignment.topLeft,
     child: this

@@ -39,6 +39,7 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         padding: EdgeInsets.zero,
+        minimumSize: Size.zero,
         shape: RoundedRectangleBorder(
           borderRadius: _borderRadius(context),
           side: BorderSide(color: borderColor),

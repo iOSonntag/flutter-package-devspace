@@ -26,7 +26,7 @@ class _InsertGluesState extends State<InsertGlues> {
   {
     super.initState();
 
-    resolvedDependencies = DependencyResolver.resolve(widget.glues);
+    resolvedDependencies = widget.glues.isEmpty ? [] : DependencyResolver.resolve(widget.glues);
   }
 
   
