@@ -12,10 +12,11 @@ class FormInputImagesFileSettings {
 
 class FormInputImages extends FormInput {
 
+  final double imagePreviewAspectRatio;
   final int min;
   final int max;
   final FormInputImagesFileSettings fileSettings;
-  final void Function(List<File> images)? onChange;
+  final void Function(List<XFile> images)? onChange;
 
   const FormInputImages({
     required super.id,
@@ -23,6 +24,7 @@ class FormInputImages extends FormInput {
     super.description,
     super.label,
     super.isActive,
+    this.imagePreviewAspectRatio = 16 / 9,
     this.min = 1,
     this.max = 1,
     this.fileSettings = const FormInputImagesFileSettings(),

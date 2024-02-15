@@ -2,6 +2,7 @@ part of devspace;
 
 // ignore: camel_case_types
 enum kImageClass {
+  profile,
   avatar,
   other
 }
@@ -14,17 +15,21 @@ abstract class ImageProviderSmart {
     required kImageClass classification
   })
   {
-    if (classification != kImageClass.avatar) 
-    {
-      throw UnimplementedError('ImageProviderSmart.network: classification $classification not implemented');
-    }
-
-
     if (url != null) 
     {
       return NetworkImage(url);
     } 
     
-    return AssetImage(App.config.assets.imagePlaceholderNoAvatar);
+    if (classification == kImageClass.avatar)
+    {
+      return AssetImage(App.config.assets.imagePlaceholderNoAvatar);
+    }
+
+    if (classification == kImageClass.profile)
+    {
+      return AssetImage(App.config.assets.imagePlaceholderNoProfile);
+    }
+
+    throw UnimplementedError('ImageProviderSmart.network: classification $classification not implemented');
   }
 }

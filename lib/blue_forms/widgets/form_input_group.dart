@@ -90,6 +90,7 @@ class _FormInputGroup extends StatelessWidget {
 
           groupChildren.add(
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: rowChildren,
             )
           );
@@ -99,7 +100,7 @@ class _FormInputGroup extends StatelessWidget {
           if (i != definition.elements.length - 1)
           {
             groupChildren.add(
-              context.spaceL
+              context.spaceXL
             );
           }
 
@@ -123,7 +124,7 @@ class _FormInputGroup extends StatelessWidget {
       if (i != definition.elements.length - 1)
       {
         groupChildren.add(
-          context.spaceL
+          context.spaceXL
         );
       }
     }

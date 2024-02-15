@@ -181,6 +181,21 @@ extension ContextExtension on BuildContext {
     return kIsWeb && isTablet;
   }
 
+  bool get isPortableDevice
+  {
+    return isPhone || isTablet;
+  }
+
+  bool get isPortableDeviceApp
+  {
+    return !kIsWeb && isPortableDevice;
+  }
+
+  bool get isPortableDeviceWeb
+  {
+    return kIsWeb && isPortableDevice;
+  }
+
   bool get isWeb
   {
     return kIsWeb;

@@ -14,9 +14,11 @@ class GalaxyConfig {
 class GalaxyAssets {
 
   final String imagePlaceholderNoAvatar;
+  final String imagePlaceholderNoProfile;
 
   const GalaxyAssets({
     required this.imagePlaceholderNoAvatar,
+    required this.imagePlaceholderNoProfile,
   });
 
 }

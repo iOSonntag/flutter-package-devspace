@@ -116,36 +116,71 @@ abstract class CommonFormInputs {
       elementsPerRow: elementsPerRow,
       elements: [
 
-        FormInputText(
-          id: '${idPrefix}givenName',
+        CommonFormInputs.givenName(
+          idPrefix: idPrefix,
           description: description,
-          initialValue: initialGivenName,
-          label: LibStrings.lib_blueForms_commonInputs_givenNameLabel.tr(),
-          hint: LibStrings.lib_blueForms_commonInputs_givenNameHint.tr(),
-          autocorrect: false,
           isOptional: isOptional,
-          autofillHints: [
-            AutofillHints.givenName,
-          ],
-          validationType: kFormTextValidationType.trimNotEmpty,
+          initialGivenName: initialGivenName,
         ),
 
-
-        FormInputText(
-          id: '${idPrefix}familyName',
+        CommonFormInputs.familyName(
+          idPrefix: idPrefix,
           description: description,
-          initialValue: initialFamilyName,
-          label: LibStrings.lib_blueForms_commonInputs_familyNameLabel.tr(),
-          hint: LibStrings.lib_blueForms_commonInputs_familyNameHint.tr(),
-          autocorrect: false,
           isOptional: isOptional,
-          autofillHints: [
-            AutofillHints.familyName,
-          ],
-          validationType: kFormTextValidationType.trimNotEmpty,
+          initialFamilyName: initialFamilyName,
         ),
 
       ],
+    );
+  }
+
+
+  static FormInput givenName({
+    String idPrefix = '',
+    String? description,
+    bool isOptional = false,
+    bool isActive = true,
+    String? initialGivenName,
+  })
+  {
+    return FormInputText(
+      id: '${idPrefix}givenName',
+      isActive: isActive,
+      description: description,
+      initialValue: initialGivenName,
+      label: LibStrings.lib_blueForms_commonInputs_givenNameLabel.tr(),
+      hint: LibStrings.lib_blueForms_commonInputs_givenNameHint.tr(),
+      autocorrect: false,
+      isOptional: isOptional,
+      autofillHints: [
+        AutofillHints.givenName,
+      ],
+      validationType: kFormTextValidationType.trimNotEmpty,
+    );
+  }
+
+
+  static FormInput familyName({
+    String idPrefix = '',
+    String? description,
+    bool isOptional = false,
+    bool isActive = true,
+    String? initialFamilyName,
+  })
+  {
+    return FormInputText(
+      id: '${idPrefix}familyName',
+      isActive: isActive,
+      description: description,
+      initialValue: initialFamilyName,
+      label: LibStrings.lib_blueForms_commonInputs_familyNameLabel.tr(),
+      hint: LibStrings.lib_blueForms_commonInputs_familyNameHint.tr(),
+      autocorrect: false,
+      isOptional: isOptional,
+      autofillHints: [
+        AutofillHints.familyName,
+      ],
+      validationType: kFormTextValidationType.trimNotEmpty,
     );
   }
 

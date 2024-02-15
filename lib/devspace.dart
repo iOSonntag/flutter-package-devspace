@@ -159,6 +159,7 @@ part 'blue_forms/blue_forms.dart';
 
 // brixies
 
+part 'brixies/circle_button_close.dart';
 part 'brixies/controller_holder.dart';
 part 'brixies/edge_shadow.dart';
 part 'brixies/empty_widget.dart';
@@ -176,6 +177,10 @@ part 'brixies/steps_indicator.dart';
 // cognito
 
 part 'cognito/cognito_service.dart';
+
+// common
+
+part 'common/common_content_placeholder.dart';
 
 // config
 

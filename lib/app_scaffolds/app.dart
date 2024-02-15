@@ -139,7 +139,7 @@ class _AppWidget extends StatelessWidget {
             locale: context.locale,
             routerConfig: generatedData?.routerConfig,
             scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
-            title: buildTitle(context),
+            onGenerateTitle: buildTitle,
             // showPerformanceOverlay: true,
             theme: buildTheme(context),
         )),

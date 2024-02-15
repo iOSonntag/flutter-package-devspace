@@ -24,14 +24,18 @@ class _FormInputContainerWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
 
+
+        child,
+
+
         if (description != null) Padding(
-          padding: context.paddingM_0.setBottom(context.dimensions.spaceXLValue),
+          padding: context.paddingM_0.setTop(context.dimensions.spaceLValue),
           child: TextBody.medium(description!,
             textAlign: TextAlign.justify,
+            italic: true,
+            color: context.colors.onBackgroundLessFocus,
           ),
         ),
-
-        child
 
       ],
     );

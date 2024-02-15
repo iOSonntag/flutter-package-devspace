@@ -4,13 +4,13 @@
 
 part of devspace;
 
-class _FormInputImagesWidget extends StatefulWidget {
+class _FormInputImagesWidget extends StatelessWidget {
 
   final FormInputImages definition;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
-  final void Function(List<File> images) onSave;
+  final void Function(List<XFile> images) onSave;
 
   const _FormInputImagesWidget({
     super.key,
@@ -22,19 +22,71 @@ class _FormInputImagesWidget extends StatefulWidget {
   });
 
   @override
-  State<_FormInputImagesWidget> createState() => _FormInputImagesWidgetState();
+  Widget build(BuildContext context)
+  {
+    if (definition.max == 1)
+    {
+      XFile? currentSavedFile;
+
+      if (currentSavedValue != null && currentSavedValue is List<XFile> && currentSavedValue.isNotEmpty)
+      {
+        currentSavedFile = currentSavedValue[0];
+      }
+
+      return _FormInputImagesWidgetSingle(
+        definition: definition,
+        visuallyMarkRequired: visuallyMarkRequired,
+        currentSavedValue: currentSavedFile,
+        onSave: (image) => onSave(image == null ? [] : [image]),
+        externalError: externalError,
+      );
+    }
+
+    return _FormInputImagesWidgetMulti(
+      definition: definition,
+      visuallyMarkRequired: visuallyMarkRequired,
+      currentSavedValue: currentSavedValue,
+      onSave: onSave,
+      externalError: externalError,
+    );
+  }
+
 }
 
-class _FormInputImagesWidgetState extends State<_FormInputImagesWidget> {
+
+
+
+class _FormInputImagesWidgetMulti extends StatefulWidget {
+
+  final FormInputImages definition;
+  final bool visuallyMarkRequired;
+  final dynamic currentSavedValue;
+  final String? externalError;
+  final void Function(List<XFile> images) onSave;
+
+  const _FormInputImagesWidgetMulti({
+    super.key,
+    required this.definition,
+    required this.visuallyMarkRequired,
+    required this.currentSavedValue,
+    required this.onSave,
+    this.externalError,
+  });
+
+  @override
+  State<_FormInputImagesWidgetMulti> createState() => _FormInputImagesWidgetMultiState();
+}
+
+class _FormInputImagesWidgetMultiState extends State<_FormInputImagesWidgetMulti> {
 
   final PageController _pageController = PageController();
   final ImagePicker _picker = ImagePicker();
   final List<XFile> _images = [
 
-    XFile(TestData.urls.randomImage(keywords: ['event', 'art'])),
-    XFile(TestData.urls.randomImage(keywords: ['event', 'art'])),
-    XFile(TestData.urls.randomImage(keywords: ['event', 'art'])),
-    XFile(TestData.urls.randomImage(keywords: ['event', 'art'])),
+    // XFile(TestData.urls.randomImage(keywords: ['event', 'art'])),
+    // XFile(TestData.urls.randomImage(keywords: ['event', 'art'])),
+    // XFile(TestData.urls.randomImage(keywords: ['event', 'art'])),
+    // XFile(TestData.urls.randomImage(keywords: ['event', 'art'])),
   ];
 
   @override
@@ -75,22 +127,14 @@ class _FormInputImagesWidgetState extends State<_FormInputImagesWidget> {
                 ),
               ]
             ),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Column(
-                children: [
-          
-                  Expanded(
-                    flex: 3,
-                    child: _buildContentRow(context),
-                  ),
-          
-                  Expanded(
-                    child: _buildThumbnailRow(context),
-                  ),
-                  
-                ],
-              ),
+            child: Column(
+              children: [
+
+                _buildContentRow(context),
+
+                _buildThumbnailRow(context),
+                
+              ],
             ),
           ),
         ],
@@ -106,7 +150,7 @@ class _FormInputImagesWidgetState extends State<_FormInputImagesWidget> {
         Expanded(
           child: _buildPreview(context),
         ),
-
+        
         _buildActionColumn(context),
 
       ],
@@ -115,25 +159,29 @@ class _FormInputImagesWidgetState extends State<_FormInputImagesWidget> {
 
   Widget _buildPreview(BuildContext context)
   {
-    return Stack(
-      children: [
-        PageView.builder(
-          controller: _pageController,
-          itemCount: _images.length,
-          itemBuilder: (context, index)
-          {
-            return Container(
-              decoration: BoxDecoration(  
-                boxShadow: [context.highlights.boxShadowM],
-              ),
-              margin: context.paddingL,
-              child: ArchImage(
-                image: _getImageFromFile(_images[index]),
-              ),
-            );
-          },
-        ),
-      ],
+    return AspectRatio(
+      aspectRatio: widget.definition.imagePreviewAspectRatio,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          PageView.builder(
+            controller: _pageController,
+            itemCount: _images.length,
+            itemBuilder: (context, index)
+            {
+              return Container(
+                decoration: BoxDecoration(  
+                  boxShadow: [context.highlights.boxShadowM],
+                ),
+                margin: context.paddingL,
+                child: ArchImage(
+                  image: _getImageFromFile(_images[index]),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -335,4 +383,235 @@ class _FormInputImagesWidgetState extends State<_FormInputImagesWidget> {
 
     super.dispose();
   }
+}
+
+
+
+
+
+
+
+
+class _FormInputImagesWidgetSingle extends StatefulWidget {
+
+  final FormInputImages definition;
+  final bool visuallyMarkRequired;
+  final dynamic currentSavedValue;
+  final String? externalError;
+  final void Function(XFile? image) onSave;
+
+  const _FormInputImagesWidgetSingle({
+    super.key,
+    required this.definition,
+    required this.visuallyMarkRequired,
+    required this.currentSavedValue,
+    required this.onSave,
+    this.externalError,
+  });
+
+  @override
+  State<_FormInputImagesWidgetSingle> createState() => _FormInputImagesWidgetSingleState();
+}
+
+class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSingle> {
+
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  Widget build(BuildContext context)
+  {
+
+    return _FormInputContainerWidget(
+      description: widget.definition.description,
+      child: FormField<XFile?>(
+        initialValue: widget.currentSavedValue ?? widget.definition.initialValue,
+        onSaved: widget.onSave,
+        validator: (file)
+        {
+          if (file == null)
+          {
+            return widget.definition.isRequired ? LibStrings.lib_blueForms_formInputImagesSingle_errorRequired.tr() : null;
+          }
+
+          return null;
+        
+        },
+        builder: (state)
+        { 
+          bool hasError = state.hasError || widget.externalError != null;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+          
+              // TODO: this is actually wrong an internal error through validatyion
+              // could still accour and thus the label should still be colored red
+              // see archtextfield for reference (there it is done correctly)
+              _buildLabel(context, hasError),
+          
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: context.dimensions.borderRadiusL,
+                  border: hasError.then(Border.all(
+                    color: context.colors.error,
+                    width: context.dimensions.lineThicknessM,
+                  )),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                    ),
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.surface,
+                      spreadRadius: -1.0,
+                      blurRadius: 3.0,
+                    ),
+                  ]
+                ),
+                child: AspectRatio(
+                  aspectRatio: widget.definition.imagePreviewAspectRatio,
+                  child: _buildPreview(context, state),
+                ),
+              ),
+
+              if (hasError) Padding(
+                padding: context.dimensions.paddingMOnly(left: true, top: true),
+                child: TextLabel.medium(
+                  state.errorText ?? widget.externalError,
+                  color: context.colors.error,
+                ),
+              ),
+            ],
+          );
+        }
+      ),
+    );
+  }
+
+
+  Widget _buildPreview(BuildContext context, FormFieldState<XFile?> state)
+  {
+    XFile? image = state.value;
+
+    if (image == null)
+    {
+      return Container(
+        margin: context.paddingL,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+              TextBody.medium(LibStrings.lib_blueForms_formInputImages_noImageSelected.tr(),
+                color: context.colors.onBackgroundLessFocus,
+              ),
+
+              context.spaceM,
+
+              ArchButton(
+                title: LibStrings.lib_blueForms_formInputImages_selectImage.tr(),
+                onPressed: () => _addImage(ImageSource.gallery, state),
+              ),
+
+              // TODO: add take photo button
+              // if (context.isPortableDevice) context.spaceM,
+
+            ],
+          ),
+        ),
+      ).toCenter();
+    }
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Container(
+          margin: context.paddingL,
+          child: ArchImage(
+            edgePreset: kImageEdgePreset.outerShadowM,
+            image: _getImageFromFile(image),
+          ),
+        ),
+        Padding(
+          padding: context.paddingXXL,
+          child: ArchButton(
+            title: LibStrings.lib_blueForms_formInputImages_changeImage.tr(),
+            onPressed: () => _addImage(ImageSource.gallery, state),
+          ).toBottom(),
+        ),
+
+        Padding(
+          padding: context.paddingS,
+          child: CircleButtonClose(
+            onPressed: () => _deleteCurrentImage(state),
+          ).toTopRight(),
+        ),
+      ],
+    );
+  }
+
+
+
+
+  Widget _buildLabel(BuildContext context, bool hasError)
+  {
+    return Padding(
+      padding: context.dimensions.paddingMOnly(left: true, bottom: true),
+      child: Row(
+        children: [
+          TextLabel.medium(
+            widget.definition.label,
+            color: hasError ? context.colors.error : context.colors.onBackgroundLessFocus,
+          ),
+
+          if (widget.visuallyMarkRequired && widget.definition.isRequired) TextLabel.medium(
+            ' *',
+            color: context.colors.primary,
+          )
+        ],
+      ),
+    );
+  }
+
+  ImageProvider _getImageFromFile(XFile file)
+  {
+    if (kIsWeb)
+    {
+      return NetworkImage(file.path);
+    }
+
+    return FileImage(File(file.path));
+  }
+
+  Future<void> _addImage(ImageSource source, FormFieldState<XFile?> state) async
+  {
+    XFile? image = await _picker.pickImage(source: source);
+
+
+    if (!context.mounted) return;
+    if (image != null)
+    {
+      setState(()
+      {
+        state.didChange(image);
+        widget.definition.onChange?.call([image]);
+      });
+    }
+  }
+
+
+  void _deleteCurrentImage(FormFieldState<XFile?> state)
+  {
+    if (state.value == null)
+    {
+      return;
+    }
+
+    // TODO: check if onSvae or something needs to be called
+    setState(()
+    {
+      state.didChange(null);
+      widget.definition.onChange?.call([]);
+    });
+  }
+
 }

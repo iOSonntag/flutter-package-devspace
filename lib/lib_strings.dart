@@ -59,6 +59,14 @@ abstract class LibStrings {
   static const String lib_models_cognitoForgotPasswordRequest_sendLimitExceeded_message = 'lib_models_cognitoForgotPasswordRequest_sendLimitExceeded_message';
   static const String lib_models_cognitoResetPassword_codeInvalid_message = 'lib_models_cognitoResetPassword_codeInvalid_message';
   
+  static const String lib_commonContentPlaceholder_featureInDevelopment_title = 'lib_commonContentPlaceholder_featureInDevelopment_title';
+  static const String lib_commonContentPlaceholder_featureInDevelopment_message = 'lib_commonContentPlaceholder_featureInDevelopment_message';
+  static const String lib_blueForms_formInputImages_noImageSelected = 'lib_blueForms_formInputImages_noImageSelected';
+  static const String lib_blueForms_formInputImages_selectImage = 'lib_blueForms_formInputImages_selectImage';
+  static const String lib_blueForms_formInputImages_takePhoto = 'lib_blueForms_formInputImages_takePhoto';
+  static const String lib_blueForms_formInputImages_changeImage = 'lib_blueForms_formInputImages_changeImage';
+  static const String lib_blueForms_formInputImagesSingle_errorRequired = 'lib_blueForms_formInputImagesSingle_errorRequired';
+
   static const String lib_blueForms_inputValidators_failedOptionSelectionUntouched = 'lib_blueForms_inputValidators_failedOptionSelectionUntouched';
   static const String lib_blueForms_inputValidators_failedNotEmptyCheck = 'lib_blueForms_inputValidators_failedNotEmptyCheck';
   static const String lib_blueForms_inputValidators_failedPhoneNumberCheck = 'lib_blueForms_inputValidators_failedPhoneNumberCheck';
