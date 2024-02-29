@@ -1,7 +1,7 @@
 library devspace;
 
 import 'dart:async';
-import 'dart:developer';
+import 'dart:developer' as developer;
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui';
@@ -11,8 +11,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart' as widgets;
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'dart:convert'; 
+import 'package:path/path.dart' as path;
 
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -176,6 +179,7 @@ part 'brixies/steps_indicator.dart';
 
 // cognito
 
+part 'cognito/auth_api_http_client.dart';
 part 'cognito/cognito_service.dart';
 
 // common
