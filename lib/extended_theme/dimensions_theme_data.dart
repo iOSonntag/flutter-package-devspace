@@ -31,9 +31,11 @@ class DimensionsThemeData {
     this.lineThicknessS = 0.5,
     this.lineThicknessM = 1.0,
     this.lineThicknessL = 2.0,
+    this.borderThicknessXS = 1.0,
     this.borderThicknessS = 2.0,
     this.borderThicknessM = 3.0,
     this.borderThicknessL = 5.0,
+    this.borderThicknessXL = 8.0,
     this.iconSizeXS = 13.0,
     this.iconSizeS = 21.0,
     this.iconSizeM = 34.0,
@@ -73,9 +75,11 @@ class DimensionsThemeData {
   final double barHeightL;
   final double barHeightXL;
 
+  final double borderThicknessXS;
   final double borderThicknessS;
   final double borderThicknessM;
   final double borderThicknessL;
+  final double borderThicknessXL;
 
   final double lineThicknessS;
   final double lineThicknessM;

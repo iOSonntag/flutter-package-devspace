@@ -15,11 +15,13 @@ extension DoubleExtension on double {
     return math.Random().nextDouble() < this;
   }
 
+  /// Converts the double from degrees to radians.
   double toRadian()
   {
     return this / 180 * math.pi;
   }
 
+  /// Converts the double from radians to degrees.
   double toDegree()
   {
     return this / math.pi * 180;

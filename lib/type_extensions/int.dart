@@ -28,4 +28,11 @@ extension IntExtension on int {
   {
     return List.generate(this, generator);
   }
+
+
+  /// Converts the int from degrees to radians.
+  double toRadian()
+  {
+    return toDouble().toRadian();
+  }
 }

@@ -247,6 +247,10 @@ part 'models/geometry.dart';
 
 part 'my_service/my_service.dart';
 
+// shapes
+
+part 'shapes/circle.dart';
+
 // test_data
 
 part 'test_data/test_data.dart';
