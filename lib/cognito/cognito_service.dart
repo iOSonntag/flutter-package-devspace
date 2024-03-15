@@ -18,7 +18,7 @@ abstract class AuthService extends CustomService {
   Future<CognitoChangeInitialPasswordResult> changeInitialPassword(String newPassword);
   Future<void> signOut();
   Future<bool> isSignedIn();
-  Future<String> getJWTAccessToken();
+  Future<String?> getJWTAccessToken();
 
 }
 
@@ -129,7 +129,7 @@ class CognitoAuthenticationService extends AuthService {
   }
 
   @override
-  Future<String> getJWTAccessToken() async
+  Future<String?> getJWTAccessToken() async
   {
     final result = await Amplify.Auth.fetchAuthSession(
       // ignore: deprecated_member_use
@@ -137,7 +137,7 @@ class CognitoAuthenticationService extends AuthService {
     ) as CognitoAuthSession;
 
     // ignore: deprecated_member_use
-    return result.userPoolTokens!.idToken.raw;
+    return result.userPoolTokens?.idToken.raw;
   }
 
 
