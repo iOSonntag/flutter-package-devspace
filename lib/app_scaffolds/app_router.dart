@@ -73,7 +73,7 @@ class AppRouter {
   static AppRouter? _instance;
 
   late final GoRouter router;
-  late final GlobalKey<NavigatorState> rootNavigatorKey;
+  final GlobalKey<NavigatorState> rootNavigatorKey;
 
   final String initialLocation;
   final String homeLocation;
@@ -81,6 +81,7 @@ class AppRouter {
 
 
   factory AppRouter({
+    required GlobalKey<NavigatorState> rootNavigatorKey,
     AppRouterAuthConfig? auth,
     String initialLocation = '/',
     String homeLocation = '/',
@@ -88,11 +89,12 @@ class AppRouter {
   })
   {
     _instance ??= AppRouter._internal(
-        auth: auth,
-        initialLocation: initialLocation,
-        homeLocation: homeLocation,
-        routes: routes,
-      );
+      rootNavigatorKey: rootNavigatorKey,
+      auth: auth,
+      initialLocation: initialLocation,
+      homeLocation: homeLocation,
+      routes: routes,
+    );
     
     return _instance!;
   }
@@ -108,15 +110,13 @@ class AppRouter {
   }
 
   AppRouter._internal({
+    required this.rootNavigatorKey,
     required this.auth,
     required this.initialLocation,
     required this.homeLocation,
     required List<RouteBase> routes,
   })
   {
-
-
-    final rootNavigatorKey = GlobalKey<NavigatorState>();
 
     List<RouteBase> finalRoutes = [];
 

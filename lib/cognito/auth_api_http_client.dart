@@ -48,6 +48,7 @@ class AuthApiResponse extends HttpStatusCodeInterpreter {
 
 
 typedef GetAuthToken = Future<String?> Function();
+typedef GetBaseUrl = Future<String> Function();
 
 class UserNotAuthorizedException implements Exception {
   final dynamic message;
@@ -60,11 +61,11 @@ class UserNotAuthorizedException implements Exception {
 
 class AuthApiHttpClient {
 
-  final String baseUrl;
+  final GetBaseUrl onGetBaseUrl;
   final GetAuthToken onGetAuthToken;
 
   AuthApiHttpClient({
-    required this.baseUrl,
+    required this.onGetBaseUrl,
     required this.onGetAuthToken,
   });
 
@@ -152,7 +153,15 @@ class AuthApiHttpClient {
         authRequirement: authRequirement
       );
 
+      final baseUrl = await onGetBaseUrl();
+
       String? jsonBody = body != null ? json.encode(body) : null;
+
+      if (apiPath.startsWith('/'))
+      {
+        apiPath = apiPath.substring(1);
+      }
+
       final finalUrl = path.join(baseUrl, apiPath);
       final uri = Uri.parse(finalUrl);
 

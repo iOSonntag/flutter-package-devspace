@@ -3,7 +3,7 @@ part of devspace;
 
 
 
-typedef CreateRouterConfig = RouterConfig<Object> Function(BuildContext context);
+typedef CreateRouterConfig = RouterConfig<Object> Function(BuildContext context, GlobalKey<NavigatorState> rootNavigatorKey);
 
 
 
@@ -35,6 +35,20 @@ class App<T> extends StatelessWidget {
   final CreateGlobalGluesFunction<T> onPostLoad_createGlobalGlues;
   final AppLoadFunction<T> loadApp;
   final CreateRouterConfig createRouterConfig;
+
+  static final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+
+  static Locale get currentLocale
+  {
+    final BuildContext? context = rootNavigatorKey.currentContext;
+
+    if (context == null)
+    {
+      throw Exception('rootNavigatorKey.currentContext is null. Are you accessing App.currentLocale before the App is built?');
+    }
+
+    return Localizations.localeOf(context);
+  }
 
   App({
     super.key,
@@ -89,7 +103,7 @@ class App<T> extends StatelessWidget {
     if (!context.mounted) return null;
 
     return _GeneratedAppData(
-      routerConfig: createRouterConfig(context),
+      routerConfig: createRouterConfig(context, rootNavigatorKey),
       globalGlues: onPostLoad_createGlobalGlues(appLoadResult),
     );
     
