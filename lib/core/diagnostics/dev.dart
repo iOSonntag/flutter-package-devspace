@@ -4,6 +4,17 @@ abstract class Dev
 {
   Dev._();
 
+  static void logOnlyLocalEnv(dynamic issuer, String message, [Object? object])
+  {
+    if (!Env.isLocal)
+    {
+      return;
+    }
+
+    final finalMessage = object != null ? '$message\n$object' : message;
+    String className = (issuer is String) ? issuer : issuer.runtimeType.toString();
+    debugPrint('local env [$className]: $finalMessage');
+  }
 
   static void logException(dynamic issuer, Object exception, String? message)
   {

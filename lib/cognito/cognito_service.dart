@@ -123,7 +123,7 @@ class CognitoAuthenticationService extends AuthService {
     }
     on AuthException catch (e)
     {
-      safePrint('Error retrieving auth session: ${e.message}');
+      Dev.logException(this, e, 'Error retrieving auth session in isSignedIn()');
       rethrow;
     }
   }
@@ -137,7 +137,11 @@ class CognitoAuthenticationService extends AuthService {
     ) as CognitoAuthSession;
 
     // ignore: deprecated_member_use
-    return result.userPoolTokens?.idToken.raw;
+    final token = result.userPoolTokens?.idToken.raw;
+
+    Dev.logOnlyLocalEnv(this, 'JWT Token: $token');
+
+    return token;
   }
 
 
