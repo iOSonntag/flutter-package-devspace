@@ -49,6 +49,7 @@ class AuthApiResponse extends HttpStatusCodeInterpreter {
 
 typedef GetAuthToken = Future<String?> Function();
 typedef GetBaseUrl = Future<String> Function();
+typedef CreateResponseObject<T> = T Function(int statusCode, Map<String, dynamic>? jsonPayload);
 
 class UserNotAuthorizedException implements Exception {
   final dynamic message;
@@ -59,17 +60,19 @@ class UserNotAuthorizedException implements Exception {
 
 }
 
-class AuthApiHttpClient {
+class AuthApiHttpClient<TResponse> {
 
   final GetBaseUrl onGetBaseUrl;
   final GetAuthToken onGetAuthToken;
+  final CreateResponseObject<TResponse> onCreateResponse;
 
   AuthApiHttpClient({
     required this.onGetBaseUrl,
     required this.onGetAuthToken,
+    required this.onCreateResponse,
   });
 
-  Future<AuthApiResponse> post({
+  Future<TResponse> post({
     required String apiPath,
     required Map<String, dynamic> body,
     Map<String, String> additionaHeaders = const {},
@@ -85,7 +88,7 @@ class AuthApiHttpClient {
     );
   }
 
-  Future<AuthApiResponse> get({
+  Future<TResponse> get({
     required String apiPath,
     Map<String, String> additionaHeaders = const {},
     kAuthRequirement authRequirement = kAuthRequirement.required,
@@ -100,7 +103,7 @@ class AuthApiHttpClient {
     );
   }
 
-  Future<AuthApiResponse> put({
+  Future<TResponse> put({
     required String apiPath,
     required Map<String, dynamic> body,
     Map<String, String> additionaHeaders = const {},
@@ -116,7 +119,7 @@ class AuthApiHttpClient {
     );
   }
 
-  Future<AuthApiResponse> delete({
+  Future<TResponse> delete({
     required String apiPath,
     required Map<String, dynamic> body,
     Map<String, String> additionaHeaders = const {},
@@ -136,7 +139,7 @@ class AuthApiHttpClient {
 
 
 
-  Future<AuthApiResponse> makeRequest({
+  Future<TResponse> makeRequest({
     required String apiPath,
     required Map<String, dynamic>? body,
     Map<String, String> additionaHeaders = const {},
@@ -198,26 +201,11 @@ class AuthApiHttpClient {
           break;
       }
 
-      if (response.statusCode >= 200 && response.statusCode < 300)
-      {
-        final jsonResponse = response.body.isNotEmpty && response.headers['content-type']?.contains('application/json') == true
-          ? json.decode(response.body)
-          : null;
-        
-        return AuthApiResponse(
-          statusCode: response.statusCode,
-          body: jsonResponse,
-        );
-      }
-      else
-      {
-        Dev.logError(this, 'Request failed with status: ${response.statusCode}.', response);
-        
-        return AuthApiResponse(
-          statusCode: response.statusCode,
-          body: null,
-        );
-      }
+      final jsonResponse = response.body.isNotEmpty && response.headers['content-type']?.contains('application/json') == true
+        ? json.decode(response.body)
+        : null;
+
+      return onCreateResponse(response.statusCode, jsonResponse);
     }
     catch (e)
     {
@@ -225,16 +213,10 @@ class AuthApiHttpClient {
 
       if (e is UserNotAuthorizedException)
       {
-        return AuthApiResponse(
-          statusCode: 401,
-          body: null,
-        );
+        return onCreateResponse(401, null);
       }
-      
-      return AuthApiResponse(
-        statusCode: 500,
-        body: null,
-      );
+
+      return onCreateResponse(500, null);
     }
   }
 

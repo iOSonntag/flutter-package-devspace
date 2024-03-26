@@ -231,6 +231,8 @@ part 'glue_provider/insert_glues.dart';
 
 // models
 
+part 'models/api/api_responses.dart';
+
 part 'models/network/paginated_list.dart';
 
 part 'models/result/common/cognito.dart';
