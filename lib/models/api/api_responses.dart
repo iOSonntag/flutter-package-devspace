@@ -57,7 +57,7 @@ class ApiResponse {
     {
       return ApiZodErrorRes(
         zodVersion: jsonPayload['zod']['version'],
-        zodIssues: jsonPayload['zod']['issues'],
+        zodIssues: (jsonPayload['zod']['issues'] as List<dynamic>).cast<ZodIssue>(),
         errorCode: jsonPayload['error']['code'],
         errorMessage: jsonPayload['error']['message'],
         errorDetails: jsonPayload['error']['details'],
@@ -149,6 +149,7 @@ class ApiZodErrorRes extends ApiErrorRes {
           if (p is String)
           {
             _addErrorMessageForPath(p, message);
+            continue;
           }
           throw Exception('Zod issue path is not a string');
         }
