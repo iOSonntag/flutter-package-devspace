@@ -206,7 +206,11 @@ extension ContextExtension on BuildContext {
     return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
   }
 
-
+  bool get isDarkMode
+  {
+    final brightness = MediaQuery.of(this).platformBrightness;
+    return brightness == Brightness.dark;
+  }
 
 
 

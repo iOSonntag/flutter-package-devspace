@@ -53,7 +53,7 @@ abstract class CommonFormInputs {
 
 
   static FormInput email({
-    String idPrefix = '',
+    String id = 'email',
     String? description,
     bool isOptional = false,
     bool isActive = true,
@@ -62,7 +62,7 @@ abstract class CommonFormInputs {
   {
     return FormInputText(
       isActive: isActive,
-      id: '${idPrefix}email',
+      id: id,
       description: description,
       initialValue: initialEmail,
       label: LibStrings.lib_blueForms_commonInputs_emailLabel.tr(),
@@ -77,7 +77,7 @@ abstract class CommonFormInputs {
   }
 
   static FormInput phoneNumber({
-    String idPrefix = '',
+    String id = 'phone',
     String? description,
     bool isOptional = false,
     bool isActive = true,
@@ -86,7 +86,7 @@ abstract class CommonFormInputs {
   {
     return FormInputText(
       isActive: isActive,
-      id: '${idPrefix}phoneNumber',
+      id: id,
       description: description,
       initialValue: initialPhoneNumber,
       label: LibStrings.lib_blueForms_commonInputs_phoneNumberLabel.tr(),
@@ -117,14 +117,14 @@ abstract class CommonFormInputs {
       elements: [
 
         CommonFormInputs.givenName(
-          idPrefix: idPrefix,
+          id: idPrefix,
           description: description,
           isOptional: isOptional,
           initialGivenName: initialGivenName,
         ),
 
         CommonFormInputs.familyName(
-          idPrefix: idPrefix,
+          id: idPrefix,
           description: description,
           isOptional: isOptional,
           initialFamilyName: initialFamilyName,
@@ -136,7 +136,7 @@ abstract class CommonFormInputs {
 
 
   static FormInput givenName({
-    String idPrefix = '',
+    String id = 'givenName',
     String? description,
     bool isOptional = false,
     bool isActive = true,
@@ -144,7 +144,7 @@ abstract class CommonFormInputs {
   })
   {
     return FormInputText(
-      id: '${idPrefix}givenName',
+      id: id,
       isActive: isActive,
       description: description,
       initialValue: initialGivenName,
@@ -161,7 +161,7 @@ abstract class CommonFormInputs {
 
 
   static FormInput familyName({
-    String idPrefix = '',
+    String id = 'familyName',
     String? description,
     bool isOptional = false,
     bool isActive = true,
@@ -169,7 +169,7 @@ abstract class CommonFormInputs {
   })
   {
     return FormInputText(
-      id: '${idPrefix}familyName',
+      id: id,
       isActive: isActive,
       description: description,
       initialValue: initialFamilyName,

@@ -153,13 +153,13 @@ class ApiZodErrorRes extends ApiErrorRes {
           }
           throw Exception('Zod issue path is not a string');
         }
-        return;
+        continue;
       }
 
       if (path is String)
       {
         _addErrorMessageForPath(path, message);
-        return;
+        continue;
       }
 
       throw Exception('Zod issue path is not a string');

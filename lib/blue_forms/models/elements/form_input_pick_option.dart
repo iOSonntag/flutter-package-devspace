@@ -24,11 +24,11 @@ class FormInputPickOption extends FormInput {
 
 class FormsInputPickOptionItem {
 
-  final String id;
+  final String key;
   final String title;
 
   const FormsInputPickOptionItem({
-    required this.id,
+    required this.key,
     required this.title,
   });
 
