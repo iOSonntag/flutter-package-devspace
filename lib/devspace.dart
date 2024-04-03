@@ -277,6 +277,7 @@ part 'type_extensions/double.dart';
 part 'type_extensions/enum.dart';
 part 'type_extensions/int.dart';
 part 'type_extensions/list.dart';
+part 'type_extensions/map.dart';
 part 'type_extensions/offset.dart';
 part 'type_extensions/string.dart';
 part 'type_extensions/widget.dart';

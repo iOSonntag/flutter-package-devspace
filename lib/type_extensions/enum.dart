@@ -2,7 +2,17 @@
 
 part of devspace;
 
+abstract class EnumTool {
 
+  EnumTool._();
+
+  static T fromString<T extends Enum>(List<T> enumValues, String value)
+  {
+    return enumValues.firstWhere((type) => type.toString().split('.').last == value, 
+      orElse: () => throw Exception('Unknown enum value: $value')
+    );
+  }
+}
 
 extension ExtensionOnEnum on Enum {
 
