@@ -10,7 +10,22 @@ extension ColorExtension on Color {
 
   Color brighten(double amount)
   {
-    assert(amount >= 0 && amount <= 1);
+    return _addBrigthnessAmount(amount);
+  }
+
+  Color darken(double amount)
+  {
+    return _addBrigthnessAmount(-amount);
+  }
+
+  Color _addBrigthnessAmount(double amount)
+  {
+    assert(amount >= -1 && amount <= 1);
+
+    if (amount == 0)
+    {
+      return this;
+    }
 
     final hsl = HSLColor.fromColor(this);
     final hslLighter = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
@@ -18,29 +33,90 @@ extension ColorExtension on Color {
     return hslLighter.toColor();
   }
 
-  Color darken(double amount)
+
+  static const List<double> _naturalIlluminationAdjustmentValues = [
+    0.07,
+    0.05,
+    0.0,
+    -0.05,
+    -0.07,
+  ];
+
+  /// Returns a [LinearGradient] that goes from a slightly brighter version of
+  /// this color to a slightly darker version of this color with an angle that
+  /// mimics natural illumination.
+  /// 
+  /// If the color is already bright, the gradient will be from the original
+  /// color to a slightly even darker version of the color.
+  // ignore: non_constant_identifier_names
+  Gradient toGradient_NaturalIlluminationS()
   {
-    assert(amount >= 0 && amount <= 1);
-
-    final hsl = HSLColor.fromColor(this);
-    final hslDarker = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
-
-    return hslDarker.toColor();
+    return toGradient_NaturalIlluminationWithStrength(0.25);
   }
 
-  Gradient toLightGradient()
+  /// Returns a [LinearGradient] that goes from a slightly brighter version of
+  /// this color to a slightly darker version of this color with an angle that
+  /// mimics natural illumination.
+  /// 
+  /// If the color is already bright, the gradient will be from the original
+  /// color to a slightly even darker version of the color.
+  // ignore: non_constant_identifier_names
+  Gradient toGradient_NaturalIlluminationM()
   {
+    return toGradient_NaturalIlluminationWithStrength(0.5);
+  }
+
+  /// Returns a [LinearGradient] that goes from a slightly brighter version of
+  /// this color to a slightly darker version of this color with an angle that
+  /// mimics natural illumination.
+  /// 
+  /// If the color is already bright, the gradient will be from the original
+  /// color to a slightly even darker version of the color.
+  // ignore: non_constant_identifier_names
+  Gradient toGradient_NaturalIlluminationL()
+  {
+    return toGradient_NaturalIlluminationWithStrength(1.0);
+  }
+
+  /// Returns a [LinearGradient] that goes from a slightly brighter version of
+  /// this color to a slightly darker version of this color with an angle that
+  /// mimics natural illumination.
+  /// 
+  /// If the color is already bright, the gradient will be from the original
+  /// color to a slightly even darker version of the color.
+  // ignore: non_constant_identifier_names
+  Gradient toGradient_NaturalIlluminationWithStrength([double strength = 1.0])
+  {
+    final hsl = HSLColor.fromColor(this);
+
+    List<Color>? colors;
+
+    if (hsl.lightness >= 1.0 - _naturalIlluminationAdjustmentValues[0])
+    {
+      colors = [
+        this,
+        _addBrigthnessAmount(_naturalIlluminationAdjustmentValues[1] * strength - _naturalIlluminationAdjustmentValues[0]),
+        _addBrigthnessAmount(_naturalIlluminationAdjustmentValues[2] * strength - _naturalIlluminationAdjustmentValues[0]),
+        _addBrigthnessAmount(_naturalIlluminationAdjustmentValues[3] * strength - _naturalIlluminationAdjustmentValues[0]),
+        _addBrigthnessAmount(_naturalIlluminationAdjustmentValues[4] * strength - _naturalIlluminationAdjustmentValues[0]),
+      ];
+    }
+    else
+    {
+      colors = [
+        _addBrigthnessAmount(_naturalIlluminationAdjustmentValues[0] * strength),
+        _addBrigthnessAmount(_naturalIlluminationAdjustmentValues[1] * strength),
+        _addBrigthnessAmount(_naturalIlluminationAdjustmentValues[2] * strength),
+        _addBrigthnessAmount(_naturalIlluminationAdjustmentValues[3] * strength),
+        _addBrigthnessAmount(_naturalIlluminationAdjustmentValues[4] * strength),
+      ];
+    }
+
     // TODO: add theming option to adjust angle
     return LinearGradient(
       begin: const Alignment(-1.0, -1.0),
       end: const Alignment(-0.95, 1.0),
-      colors: [
-        brighten(0.07),
-        brighten(0.05),
-        this,
-        darken(0.05),
-        darken(0.07),
-      ],
+      colors: colors,
     );
   }
 }
