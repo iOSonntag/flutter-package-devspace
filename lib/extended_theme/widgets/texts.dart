@@ -3,7 +3,7 @@ part of devspace;
 
 
 // ignore: constant_identifier_names
-const double CONTENT_DEFAULT_LINE_HEIGHT = 1.1;
+//const double CONTENT_DEFAULT_LINE_HEIGHT = 1.1;
 
 abstract class TextLabel {
 
@@ -14,7 +14,7 @@ abstract class TextLabel {
     bool? italic,
     bool? bold,
     TextAlign? textAlign,
-    double? lineHeight = CONTENT_DEFAULT_LINE_HEIGHT,
+    double? lineHeight,
     double? letterSpacing,
     bool? softWrap,
     TextStyle? style
@@ -40,7 +40,7 @@ abstract class TextLabel {
     bool? italic,
     bool? bold,
     TextAlign? textAlign,
-    double? lineHeight = CONTENT_DEFAULT_LINE_HEIGHT,
+    double? lineHeight,
     double? letterSpacing,
     bool? softWrap,
     TextStyle? style
@@ -66,7 +66,7 @@ abstract class TextLabel {
     bool? italic,
     bool? bold,
     TextAlign? textAlign,
-    double? lineHeight = CONTENT_DEFAULT_LINE_HEIGHT,
+    double? lineHeight,//,
     double? letterSpacing,
     bool? softWrap,
     TextStyle? style
@@ -99,7 +99,7 @@ abstract class TextTitle {
     bool? italic,
     bool? bold,
     TextAlign? textAlign,
-    double? lineHeight = CONTENT_DEFAULT_LINE_HEIGHT,
+    double? lineHeight,
     double? letterSpacing,
     bool? softWrap,
     TextStyle? style
@@ -202,7 +202,7 @@ abstract class TextBody {
     bool? italic,
     bool? bold,
     TextAlign? textAlign,
-    double? lineHeight = CONTENT_DEFAULT_LINE_HEIGHT,
+    double? lineHeight,
     double? letterSpacing,
     bool? softWrap,
     TextStyle? style
@@ -221,7 +221,7 @@ abstract class TextBody {
     bool? italic,
     bool? bold,
     TextAlign? textAlign,
-    double? lineHeight = CONTENT_DEFAULT_LINE_HEIGHT,
+    double? lineHeight,
     double? letterSpacing,
     bool? softWrap,
     TextStyle? style
@@ -247,7 +247,7 @@ abstract class TextBody {
     bool? italic,
     bool? bold,
     TextAlign? textAlign,
-    double? lineHeight = CONTENT_DEFAULT_LINE_HEIGHT,
+    double? lineHeight,
     double? letterSpacing,
     bool? softWrap,
     TextStyle? style
@@ -273,7 +273,7 @@ abstract class TextBody {
     bool? italic,
     bool? bold,
     TextAlign? textAlign,
-    double? lineHeight = CONTENT_DEFAULT_LINE_HEIGHT,
+    double? lineHeight,
     double? letterSpacing,
     bool? softWrap,
     TextStyle? style
@@ -305,7 +305,7 @@ abstract class TextHeadline {
     bool? italic,
     bool? bold,
     TextAlign? textAlign,
-    double? lineHeight = CONTENT_DEFAULT_LINE_HEIGHT,
+    double? lineHeight,
     double? letterSpacing,
     bool? softWrap,
     TextStyle? style

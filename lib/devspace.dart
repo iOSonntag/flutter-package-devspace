@@ -35,6 +35,7 @@ import 'dart:ui' as ui;
 
 // animations
 
+part 'animations/animation_builder.dart';
 part 'animations/helpers.dart';
 
 // app_flow_systems
@@ -167,7 +168,6 @@ part 'brixies/controller_holder.dart';
 part 'brixies/edge_shadow.dart';
 part 'brixies/empty_widget.dart';
 part 'brixies/golden_center.dart';
-part 'brixies/hide_keyboard_on_tap.dart';
 part 'brixies/hover_builder.dart';
 part 'brixies/intrinsic_height_page_view.dart';
 part 'brixies/layout_builder.dart';
@@ -204,6 +204,9 @@ part 'core/dialog/default_dialog.dart';
 part 'core/dialog/dialog.dart';
 part 'core/dialog/text_dialog.dart';
 part 'core/dialog/dialog_action.dart';
+
+part 'core/gestures/hide_keyboard_on_tap.dart';
+part 'core/gestures/tap_detector.dart';
 
 part 'core/images/image_provider_smart.dart';
 

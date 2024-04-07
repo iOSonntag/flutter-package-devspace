@@ -23,6 +23,11 @@ extension IntExtension on int {
   /// Returns a [Duration] with the value of this integer in milliseconds.
   Duration get asDuration => Duration(milliseconds: this);
 
+  Future<void> delay() async
+  {
+    await Future.delayed(asDuration);
+  }
+
 
   List<T> generateItems<T>(T Function(int index) generator)
   {
