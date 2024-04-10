@@ -24,6 +24,7 @@ dependencies:
   material_symbols_icons: ^4.2706.0
   super_tooltip: ^2.0.7
   image_picker: ^1.0.4
+  simple_animations: ^5.0.2
 
 dev_dependencies:
   flutter_test:

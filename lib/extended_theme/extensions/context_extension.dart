@@ -112,6 +112,7 @@ extension ContextExtension on BuildContext {
     return GoRouterState.of(this).pathParameters[key];
   }
 
+  Size get screenSize => MediaQuery.of(this).size;
 
 
   bool get isPortrait => MediaQuery.of(this).orientation == Orientation.portrait;

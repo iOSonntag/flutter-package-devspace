@@ -130,6 +130,7 @@ class AppRouter {
     router = GoRouter(
       debugLogDiagnostics: true,
       navigatorKey: rootNavigatorKey,
+      initialLocation: initialLocation,
       routes: finalRoutes,
       redirect: (context, state) async
       {

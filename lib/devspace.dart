@@ -26,6 +26,7 @@ import 'package:provider/provider.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 
 import 'lib_strings.dart';
@@ -37,6 +38,8 @@ import 'dart:ui' as ui;
 
 part 'animations/animation_builder.dart';
 part 'animations/helpers.dart';
+part 'animations/in_out_movie.dart';
+part 'animations/movie_orchestra.dart';
 
 // app_flow_systems
 

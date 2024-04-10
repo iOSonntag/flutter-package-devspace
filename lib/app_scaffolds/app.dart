@@ -3,7 +3,7 @@ part of devspace;
 
 
 
-typedef CreateRouterConfig = RouterConfig<Object> Function(BuildContext context, GlobalKey<NavigatorState> rootNavigatorKey);
+typedef CreateRouterConfig<T> = RouterConfig<Object> Function(BuildContext context, GlobalKey<NavigatorState> rootNavigatorKey, T loadedData);
 
 
 
@@ -34,7 +34,7 @@ class App<T> extends StatelessWidget {
   // ignore: non_constant_identifier_names
   final CreateGlobalGluesFunction<T> onPostLoad_createGlobalGlues;
   final AppLoadFunction<T> loadApp;
-  final CreateRouterConfig createRouterConfig;
+  final CreateRouterConfig<T> createRouterConfig;
 
   static final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -103,7 +103,7 @@ class App<T> extends StatelessWidget {
     if (!context.mounted) return null;
 
     return _GeneratedAppData(
-      routerConfig: createRouterConfig(context, rootNavigatorKey),
+      routerConfig: createRouterConfig(context, rootNavigatorKey, appLoadResult),
       globalGlues: onPostLoad_createGlobalGlues(appLoadResult),
     );
     
