@@ -231,6 +231,7 @@ part 'extended_theme/highlights_theme_data.dart';
 
 part 'glue_provider/context_extension.dart';
 part 'glue_provider/dependency_resolver.dart';
+part 'glue_provider/glue_actions.dart';
 part 'glue_provider/glue_component.dart';
 part 'glue_provider/glue.dart';
 part 'glue_provider/insert_glues.dart';

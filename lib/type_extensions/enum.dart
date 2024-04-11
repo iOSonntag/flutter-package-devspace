@@ -8,9 +8,14 @@ abstract class EnumTool {
 
   static T fromString<T extends Enum>(List<T> enumValues, String value)
   {
-    return enumValues.firstWhere((type) => type.toString().split('.').last == value, 
+    return enumValues.firstWhere((type) => EnumTool.enumToStringValue(type) == value,
       orElse: () => throw Exception('Unknown enum value: $value')
     );
+  }
+
+  static String enumToStringValue<T extends Enum>(T enumValue)
+  {
+    return enumValue.toString().split('.').last;
   }
 }
 
@@ -115,5 +120,13 @@ extension ExtensionOnEnum on Enum {
 
     // 'enum_kDocumentType_image'
     return '${enumParts[0]}_${enumParts[1]}';
+  }
+
+
+  /// Use this method when trying to convert an enum value to a string and
+  /// storing it in a database or sending it over the network.
+  String toStringValue()
+  {
+    return EnumTool.enumToStringValue(this);
   }
 }

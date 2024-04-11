@@ -108,7 +108,7 @@ class _InOutMovieState extends State<InOutMovie> {
       }
 
       // TODO improve the controlines of this
-      widget.outro!.applyInterpolationFromCurrentMovie(_currentMovie!.innerMovie, widget.stayToOutroProperties ?? [], 3000.asDuration, Curves.easeInOut);
+      widget.outro!.applyInterpolationFromCurrentMovie(_currentMovie!.innerMovie, widget.stayToOutroProperties ?? [], 300.asDuration, Curves.easeInOut);
 
       setState(()
       {

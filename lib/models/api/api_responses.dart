@@ -5,13 +5,16 @@ part of devspace;
 class ApiResponse {
 
   final bool success;
+  final Map<String, dynamic>? data;
 
   const ApiResponse({
     required this.success,
+    this.data,
   });
 
   bool get isSuccess => success;
   bool get isError => !success;
+  bool get hasData => data != null;
 
 
 
@@ -27,7 +30,7 @@ class ApiResponse {
 
       if (jsonPayload['data'] != null)
       {
-        return ApiResData(data: jsonPayload['data']);
+        return ApiResponse(success: true, data: jsonPayload['data']);
       }
 
       Dev.logWarning('ApiResponse', 'Additional payload data is not supported yet. Ignoring.', jsonPayload);
@@ -70,17 +73,6 @@ class ApiResponse {
       errorDetails: jsonPayload['error']['details'],
     );
   }
-
-}
-
-class ApiResData<T> extends ApiResponse {
-
-  final T data;
-
-  const ApiResData({
-    required this.data,
-  }) : 
-    super(success: true);
 
 }
 

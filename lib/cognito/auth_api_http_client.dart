@@ -49,6 +49,7 @@ class AuthApiResponse extends HttpStatusCodeInterpreter {
 
 typedef GetAuthToken = Future<String?> Function();
 typedef GetBaseUrl = Future<String> Function();
+typedef GetDefaultHeaders = Future<Map<String, String>> Function();
 typedef CreateResponseObject<T> = T Function(int statusCode, Map<String, dynamic>? jsonPayload);
 
 class UserNotAuthorizedException implements Exception {
@@ -65,11 +66,13 @@ class AuthApiHttpClient<TResponse> {
   final GetBaseUrl onGetBaseUrl;
   final GetAuthToken onGetAuthToken;
   final CreateResponseObject<TResponse> onCreateResponse;
+  final GetDefaultHeaders? onGetDefaultHeaders;
 
   AuthApiHttpClient({
     required this.onGetBaseUrl,
     required this.onGetAuthToken,
     required this.onCreateResponse,
+    this.onGetDefaultHeaders,
   });
 
   Future<TResponse> post({
@@ -238,6 +241,11 @@ class AuthApiHttpClient<TResponse> {
     };
 
     headers.addAll(additionalHeaders);
+
+    if (onGetDefaultHeaders != null)
+    {
+      headers.addAll(await onGetDefaultHeaders!());
+    }
 
     if (authRequirement != kAuthRequirement.none)
     {
