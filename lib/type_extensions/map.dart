@@ -14,7 +14,7 @@ extension ExtensionOnMap<K, V> on Map {
     return this[key] ?? (throw Exception('$key is required'));
   }
 
-  V getOrValue(K key, V defaultValue)
+  V getOrDefault(K key, V defaultValue)
   {
     return this[key] ?? defaultValue;
   }

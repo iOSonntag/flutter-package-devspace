@@ -7,7 +7,7 @@ class DialogAction {
 
   final bool enabled;
   final String title;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final kButtonType type;
   /// If set, overrides the icon for this action type
   final IconData? iconOverride;
@@ -15,7 +15,7 @@ class DialogAction {
   DialogAction({
     this.enabled = true,
     required this.title,
-    required this.onPressed,
+    this.onPressed,
     this.type = kButtonType.regular,
     this.iconOverride,
   });

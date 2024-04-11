@@ -23,6 +23,9 @@ enum kImageEdgePreset
   outerShadowS,
   outerShadowM,
   outerShadowL,
+  borderS,
+  borderM,
+  borderL,
 }
 
 class ImageDisplayStyle {
@@ -31,9 +34,10 @@ class ImageDisplayStyle {
   final BoxFit fit;
   final kImageShapePreset shapePreset;
   final kImageEdgePreset edgePreset;
-  final BorderRadiusGeometry? borderRadius;
+  final BorderRadius? borderRadius;
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;
+  final Color? borderColor;
   final ColorFilter? colorFilter;
 
   const ImageDisplayStyle({
@@ -44,6 +48,7 @@ class ImageDisplayStyle {
     this.borderRadius,
     this.padding,
     this.backgroundColor,
+    this.borderColor,
     this.colorFilter,
   }) : assert(shapePreset == kImageShapePreset.none || borderRadius == null);
 

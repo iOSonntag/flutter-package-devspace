@@ -203,10 +203,12 @@ part 'core/config/galaxy_config.dart';
 
 part 'core/diagnostics/dev.dart';
 
+part 'core/dialog/animations/fancy_dialog_animations.dart';
+
 part 'core/dialog/default_dialog.dart';
-part 'core/dialog/dialog.dart';
-part 'core/dialog/text_dialog.dart';
 part 'core/dialog/dialog_action.dart';
+part 'core/dialog/dialog_center.dart';
+part 'core/dialog/text_dialog.dart';
 
 part 'core/gestures/hide_keyboard_on_tap.dart';
 part 'core/gestures/tap_detector.dart';

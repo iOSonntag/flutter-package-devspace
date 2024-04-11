@@ -53,7 +53,7 @@ class DefaultImageRegular extends ArchBaseStatelessWidget<ImageData> {
       );
     }
 
-    BorderRadiusGeometry? radius;
+    BorderRadius? radius;
 
     if (data.style.shapePreset != kImageShapePreset.rectangle)
     {
@@ -81,9 +81,10 @@ class DefaultImageRegular extends ArchBaseStatelessWidget<ImageData> {
     return widget;
   }
 
-  Widget _buildEdgeWidget(BuildContext context, Widget child, BorderRadiusGeometry? radius)
+  Widget _buildEdgeWidget(BuildContext context, Widget child, BorderRadius? radius)
   {
     BoxShadow? shadow;
+    BoxBorder? border;
 
     switch (data.style.edgePreset)
     {
@@ -96,18 +97,59 @@ class DefaultImageRegular extends ArchBaseStatelessWidget<ImageData> {
       case kImageEdgePreset.outerShadowL:
         shadow = context.highlights.boxShadowL;
         break;
+      case kImageEdgePreset.borderS:
+        border = Border.all(
+          color: data.style.borderColor ?? context.colors.primary,
+          width: context.dimensions.borderThicknessS,
+        );
+        break;
+      case kImageEdgePreset.borderM:
+        border = Border.all(
+          color: data.style.borderColor ?? context.colors.primary,
+          width: context.dimensions.borderThicknessM,
+        );
+        break;
+      case kImageEdgePreset.borderL:
+        border = Border.all(
+          color: data.style.borderColor ?? context.colors.primary,
+          width: context.dimensions.borderThicknessL,
+        );
+        break;
       default:
         break;
     }
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: radius,
+        borderRadius: _borderRadiusForOuterContainer(context, radius, border),
+        border: border,
         boxShadow: [
           if (shadow != null) shadow
         ],
       ),
       child: child,
+    );
+  }
+
+  BorderRadius? _borderRadiusForOuterContainer(BuildContext context, BorderRadius? original, BoxBorder? border)
+  {
+    if (original == null)
+    {
+      return null;
+    }
+
+    if (border == null)
+    {
+      return original;
+    }
+
+    final add = (border.top.width);
+
+    return BorderRadius.only(
+      topLeft: Radius.circular(original.topLeft.x + add),
+      topRight: Radius.circular(original.topRight.x + add),
+      bottomLeft: Radius.circular(original.bottomLeft.x + add),
+      bottomRight: Radius.circular(original.bottomRight.x + add),
     );
   }
 

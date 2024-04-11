@@ -15,6 +15,15 @@ class _TestDataUrls {
 
   const _TestDataUrls._();
 
+  String randomAvatar({
+    int width = 600,
+    int height = 600,
+    List<String> keywords = const ['avatar'],
+  })
+  {
+    return randomImage(width: width, height: height, keywords: keywords);
+  }
+
   String randomImage({
     int width = 640,
     int height = 360,

@@ -7,6 +7,7 @@ class DefaultDialog extends StatelessWidget {
 
   final String title;
   final Widget content;
+  final Axis actionsAlignment;
   final List<DialogAction> actions;
 
   const DefaultDialog({
@@ -14,6 +15,7 @@ class DefaultDialog extends StatelessWidget {
     required this.title,
     required this.content,
     required this.actions,
+    this.actionsAlignment = Axis.horizontal,
   });
 
 
@@ -38,7 +40,7 @@ class DefaultDialog extends StatelessWidget {
 
     List<Widget> children = [
 
-      context.spaceXS,
+      context.spaceL,
 
       TextHeadline.medium(title),
 
@@ -51,13 +53,27 @@ class DefaultDialog extends StatelessWidget {
 
     if (buttons.isNotEmpty)
     {
-      children.add(
-        SpacedRow.S(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: buttons,
-        ),
-      );
+      if (actionsAlignment == Axis.horizontal)
+      {
+        children.add(
+          SpacedRow.S(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: buttons,
+          ),
+        );
+      }
+      else
+      {
+        children.add(context.spaceM);
+        children.add(
+          SpacedColumn.S(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: buttons,
+          ),
+        );
+      }
     }
 
     return material.Dialog(

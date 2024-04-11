@@ -1,0 +1,50 @@
+part of devspace;
+
+
+
+class FancyDialogAnimationA extends StatelessWidget {
+
+  final WidgetBuilder builder;
+  final opacityProp = MovieTweenProperty<double>();
+  final offsetProp = MovieTweenProperty<Offset>();
+
+  FancyDialogAnimationA({
+    super.key,
+    required this.builder,
+  });
+
+  @override
+  Widget build(BuildContext context)
+  {
+    final moveStep = context.screenSize.height / 100;
+    return InOutMovie(
+      intro: MovieTween()
+        ..scene(duration: 650.asDuration, curve: Curves.easeOut)
+        .tween(opacityProp, Tween(begin: 0.0, end: 1.0))
+
+        ..scene(duration: 500.asDuration, curve: Curves.easeInOutBack)
+        .tween(offsetProp, Tween(begin: Offset(0, -(context.screenSize.height / 3)), end: Offset.zero))
+
+        .thenFor(duration: 850.asDuration, curve: Curves.easeOutQuad)
+        .tween(offsetProp, Tween(begin: Offset.zero, end: Offset(0, -moveStep))),
+
+      stay: MovieTween()
+        ..scene(duration: 1500.asDuration, curve: Curves.easeInOut)
+        .tween(offsetProp, Tween(begin: Offset(0, -moveStep), end: Offset(0, moveStep)))
+
+        .thenFor(duration: 1500.asDuration, curve: Curves.easeInOut)
+        .tween(offsetProp, Tween(begin: Offset(0, moveStep), end: Offset(0, -moveStep))),
+
+      builder: (context, moview, _)
+      {
+        return Opacity(
+          opacity: moview.getOrDefault(opacityProp, 1.0),
+          child: Transform.translate(
+            offset: moview.getOrDefault(offsetProp, Offset.zero),
+            child: builder(context)
+          )
+        );
+      },
+    );
+  }
+}

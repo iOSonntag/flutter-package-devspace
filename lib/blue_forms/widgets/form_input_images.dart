@@ -323,7 +323,7 @@ class _FormInputImagesWidgetMultiState extends State<_FormInputImagesWidgetMulti
       images = images.sublist(0, widget.definition.max - _images.length);
 
       if (!context.mounted) return;
-      await Dialog.showNotice(context, message: 'dfhbsiadbfiandsfli');
+      await DialogCenter.showNotice(context, message: 'dfhbsiadbfiandsfli');
     }
 
 

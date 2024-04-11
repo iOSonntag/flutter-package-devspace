@@ -1,10 +1,15 @@
 part of devspace;
 
+// ignore: camel_case_types
+enum kDialogAnimationStyle
+{
+  regular,
+  fancyA,
+}
 
+abstract class DialogCenter {
 
-abstract class Dialog {
-
-  Dialog._();
+  DialogCenter._();
 
 
   static Future<bool> showConfirmation(BuildContext context, {
@@ -13,6 +18,7 @@ abstract class Dialog {
     String? denialText,
     String? approveText,
     bool barrierDismissible = false,
+    kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
     }) async
   {
     String titleResolved = title ?? LibStrings.lib_general_titleConfirm.tr();
@@ -22,6 +28,7 @@ abstract class Dialog {
     final confirmed = await _internalShowDialog<bool>(
       context: context,
       barrierDismissible: barrierDismissible,
+      animationStyle: animationStyle,
       builder: (context)
       {
 
@@ -58,12 +65,60 @@ abstract class Dialog {
 
 
 
+  static Future<int?> showChooseOptions(BuildContext context, {
+    String? title, 
+    required String message, 
+    bool messageLowFocus = true,
+    bool barrierDismissible = false,
+    kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
+    required List<DialogAction> actions,
+
+    }) async
+  {
+    if (actions.isEmpty)
+    {
+      throw ArgumentError('actions must not be empty');
+    }
+
+    String titleResolved = title ?? LibStrings.lib_general_titleConfirm.tr();
+
+    List<DialogAction> actionsResolved = actions.mapIndexed((action, index) => action.copyWith(
+      onPressed: ()
+      {
+        Navigator.of(context).pop(index);
+        action.onPressed?.call();
+      }
+    )).toList();
+
+    final result = await _internalShowDialog<int>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      animationStyle: animationStyle,
+      builder: (context)
+      {
+
+        return TextDialog(
+          title: titleResolved,
+          textLowFocus: messageLowFocus,
+          text: message,
+          actionsAlignment: Axis.vertical,
+          actions: actionsResolved
+        );
+      }
+    );
+
+    return result;
+  }
+
+
+
   static Future<void> showNotice(BuildContext context, {
     String? title, 
     required String message, 
     kDialogNoticeType type = kDialogNoticeType.info,
     String? dismissText, 
     bool barrierDismissible = false,
+    kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
     }) async
   {
     final dismiss = dismissText ?? LibStrings.lib_general_actionOkay.tr();
@@ -71,6 +126,7 @@ abstract class Dialog {
     await _internalShowDialog<void>(
       context: context,
       barrierDismissible: barrierDismissible,
+      animationStyle: animationStyle,
       builder: (BuildContext context)
       {
         return TextDialog(
@@ -99,6 +155,7 @@ abstract class Dialog {
     required BuildContext context,
     required WidgetBuilder builder,
     bool barrierDismissible = true,
+    kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
     Color? barrierColor = Colors.black54,
     String? barrierLabel,
     bool useSafeArea = true,
@@ -114,6 +171,7 @@ abstract class Dialog {
       barrierColor: barrierColor,
       barrierDismissible: barrierDismissible,
       barrierLabel: barrierLabel,
+      animationStyle: animationStyle,
       useSafeArea: useSafeArea,
       routeSettings: routeSettings,
       anchorPoint: anchorPoint,
@@ -129,6 +187,7 @@ abstract class Dialog {
     bool barrierDismissible = true,
     Color? barrierColor,
     String? barrierLabel,
+    kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
     bool useSafeArea = true,
     bool useRootNavigator = true,
     RouteSettings? routeSettings,
@@ -146,7 +205,7 @@ abstract class Dialog {
 
     return DialogRoute<T>(
       context: context,
-      builder: builder,
+      builder: (context) => _internalWrapBuilderWithAnimationIfNeeded(context, builder, animationStyle),
       barrierDismissible: barrierDismissible,
       barrierColor: barrierColor,
       barrierLabel: barrierLabel,
@@ -157,6 +216,18 @@ abstract class Dialog {
       traversalEdgeBehavior: traversalEdgeBehavior ?? TraversalEdgeBehavior.closedLoop,
     );
   }
+
+  static Widget _internalWrapBuilderWithAnimationIfNeeded(BuildContext context, WidgetBuilder builder, kDialogAnimationStyle animationStyle)
+  {
+    switch (animationStyle)
+    {
+      case kDialogAnimationStyle.regular:
+        return builder(context);
+      case kDialogAnimationStyle.fancyA:
+        return FancyDialogAnimationA(builder: builder);
+    }
+  }
+
 
 
 }

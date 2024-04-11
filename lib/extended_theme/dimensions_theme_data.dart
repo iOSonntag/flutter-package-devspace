@@ -240,7 +240,7 @@ class DimensionsThemeData {
 
   double reasonableButtonWidth(BuildContext context)
   {
-    if (context.isPhone) return MediaQuery.of(context).size.width * 0.4;
+    if (context.isPhone) return MediaQuery.of(context).size.width * 0.3;
     if (context.isTablet) return MediaQuery.of(context).size.width * 0.2;
     if (context.isDesktop) return 400.0;
 
