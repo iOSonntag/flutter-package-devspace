@@ -31,24 +31,37 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   @override
   Widget build(BuildContext context)
   {
-    Color borderColor = _borderColor(context);
-    Color backgroundColor = _backgroundColor(context);
+    Widget child = Padding(
+      padding: _contentPadding(context),
+      child: _buildContent(context)
+    );
+
+    final Gradient? grad = _backgroundGradient(context);
+    final BorderRadius borderRadius = _borderRadius(context);
+
+    if (grad != null)
+    {
+      child = Container(
+        decoration: BoxDecoration(
+          borderRadius: borderRadius,
+          gradient: grad,
+        ),
+        child: Center(child: child),
+      );
+    }
 
     return ElevatedButton(
       onPressed: data.enabled ? data.onPrimaryAction : null,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
+        backgroundColor: grad != null ? null : _backgroundColor(context),
         padding: EdgeInsets.zero,
         minimumSize: Size.zero,
         shape: RoundedRectangleBorder(
-          borderRadius: _borderRadius(context),
-          side: BorderSide(color: borderColor),
+          borderRadius: borderRadius,
+          side: grad != null ? BorderSide.none : BorderSide(color: _borderColor(context)),
         ),
       ),
-      child: Padding(
-        padding: _contentPadding(context),
-        child: _buildContent(context)
-      ),
+      child: child,
     );
   }
 
@@ -107,8 +120,9 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   {
     return TextBody.size3(data.size, data.title,
       color: contentColor,
+      bold: data.titleBold,
       style: TextStyle(
-        decoration: data.underline ? TextDecoration.underline : TextDecoration.none
+        decoration: data.underline ? TextDecoration.underline : TextDecoration.none,
       ),
     );
   }
@@ -145,6 +159,44 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
     };
   }
 
+  Gradient? _backgroundGradient(BuildContext context)
+  {
+    return switch (data.type)
+    {
+      kButtonType.regular => null,
+      kButtonType.primary => null,
+      kButtonType.secondary => null,
+      kButtonType.tertiary => null,
+      kButtonType.success => null,
+      kButtonType.destructive => null,
+      kButtonType.lowFocus => null,
+      kButtonType.fancy1 => LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          context.colors.primary,
+          context.colors.secondary,
+        ],
+      ),
+      kButtonType.fancy2 => LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          context.colors.secondary,
+          context.colors.tertiary,
+        ],
+      ),
+      kButtonType.fancy3 => LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          context.colors.tertiary,
+          context.colors.primary,
+        ],
+      ),
+    };
+  }
+
   Color _backgroundColor(BuildContext context)
   {
     return switch (data.type)
@@ -156,6 +208,9 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
       kButtonType.success => context.colors.success,
       kButtonType.destructive => context.colors.destructive,
       kButtonType.lowFocus => context.colors.onBackgroundLessFocus,
+      kButtonType.fancy1 => Colors.transparent,
+      kButtonType.fancy2 => Colors.transparent,
+      kButtonType.fancy3 => Colors.transparent,
     };
   }
 
@@ -170,6 +225,9 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
       kButtonType.success => context.colors.success.brighten(0.1),
       kButtonType.destructive => context.colors.destructive.brighten(0.1),
       kButtonType.lowFocus => context.colors.onBackgroundLessFocus.brighten(0.1),
+      kButtonType.fancy1 => Color.lerp(context.colors.primary, context.colors.secondary, 0.5)!.brighten(0.1),
+      kButtonType.fancy2 => Color.lerp(context.colors.secondary, context.colors.tertiary, 0.5)!.brighten(0.1),
+      kButtonType.fancy3 => Color.lerp(context.colors.tertiary, context.colors.primary , 0.5)!.brighten(0.1),
     };
   }
 
@@ -184,6 +242,9 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
       kButtonType.success => context.colors.onSuccess,
       kButtonType.destructive => context.colors.onDestructive,
       kButtonType.lowFocus => context.colors.background,
+      kButtonType.fancy1 => context.colors.onPrimary,
+      kButtonType.fancy2 => context.colors.onPrimary,
+      kButtonType.fancy3 => context.colors.onPrimary,
     };
   }
 

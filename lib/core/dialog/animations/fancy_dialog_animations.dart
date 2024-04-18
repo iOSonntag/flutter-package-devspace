@@ -19,7 +19,7 @@ class FancyDialogAnimationA extends StatelessWidget {
     final moveStep = context.screenSize.height / 100;
     return InOutMovie(
       intro: MovieTween()
-        ..scene(duration: 650.asDuration, curve: Curves.easeOut)
+        ..scene(duration: 500.asDuration, curve: Curves.easeInOut)
         .tween(opacityProp, Tween(begin: 0.0, end: 1.0))
 
         ..scene(duration: 500.asDuration, curve: Curves.easeInOutBack)

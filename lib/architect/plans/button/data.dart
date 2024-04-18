@@ -22,6 +22,9 @@ enum kButtonType
   success,
   destructive,
   lowFocus,
+  fancy1,
+  fancy2,
+  fancy3,
 }
 
 class ButtonData extends PlanDataWithChild {
@@ -30,6 +33,7 @@ class ButtonData extends PlanDataWithChild {
   final kSize3 size;
   final bool enabled;
   final String? title;
+  final bool? titleBold;
   final String? subtitle;
   final bool underline;
   final IconData? icon;
@@ -45,6 +49,7 @@ class ButtonData extends PlanDataWithChild {
     this.enabled = true,
     this.underline = false,
     this.title,
+    this.titleBold,
     this.subtitle,
     this.icon,
     this.onPrimaryAction,

@@ -70,6 +70,9 @@ class DefaultButtonLink extends ArchBaseStatelessWidget<ButtonData> {
       kButtonType.success => context.colors.success,
       kButtonType.destructive => context.colors.destructive,
       kButtonType.lowFocus => context.colors.onBackgroundLessFocus,
+      kButtonType.fancy1 => throw UnsupportedError('Fancy buttons are not supported for links'),
+      kButtonType.fancy2 => throw UnsupportedError('Fancy buttons are not supported for links'),
+      kButtonType.fancy3 => throw UnsupportedError('Fancy buttons are not supported for links'),
     };
   }
 

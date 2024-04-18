@@ -28,6 +28,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:super_tooltip/super_tooltip.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import 'lib_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -36,6 +37,7 @@ import 'dart:ui' as ui;
 
 // animations
 
+part 'animations/animate_package_extensions.dart';
 part 'animations/animation_builder.dart';
 part 'animations/helpers.dart';
 part 'animations/in_out_movie.dart';

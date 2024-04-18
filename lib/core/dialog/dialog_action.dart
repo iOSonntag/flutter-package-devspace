@@ -51,6 +51,9 @@ class DialogAction {
       kButtonType.tertiary => null,
       kButtonType.success => Icons.check_rounded,
       kButtonType.destructive => Icons.dangerous_outlined,
+      kButtonType.fancy1 => null,
+      kButtonType.fancy2 => null,
+      kButtonType.fancy3 => null,
       kButtonType.lowFocus => null,
     };
   }

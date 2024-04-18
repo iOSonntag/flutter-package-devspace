@@ -23,18 +23,30 @@ class DefaultDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
-    List<Widget> buttons = actions.mapToList((action, i) =>ConstrainedBox(
-      constraints: BoxConstraints(
-        minWidth: context.dimensions.reasonableButtonWidth(context)
-      ),
-      child: ArchButton(
+    List<Widget> buttons = actions.mapToList((action, i)
+    {
+      Widget button = ArchButton(
         type: action.type,
         title: action.title,
+        titleBold: true,
         icon: action.getIcon(context),
         onPressed: action.onPressed,
+        size: kSize3.L,
         enabled: action.enabled,
-      ),
-    ));
+      );
+
+      if (action.type == kButtonType.fancy1)
+      {
+        button = button.glassShimmer(delay: 500.asDuration);
+      }
+
+      return ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: context.dimensions.reasonableButtonWidth(context)
+        ),
+        child: button,
+      );
+    });
 
 
 
@@ -82,7 +94,7 @@ class DefaultDialog extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: context.colors.surface,
-          borderRadius: context.dimensions.borderRadiusL,
+          borderRadius: context.dimensions.borderRadiusXL,
         ),
         child: Padding(
           padding: context.paddingM,

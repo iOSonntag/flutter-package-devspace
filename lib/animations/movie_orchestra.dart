@@ -77,6 +77,7 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
 
 
   Key _currentAnimKey = UniqueKey();
+  Key _childKey = GlobalKey();
 
 
   @override
@@ -120,7 +121,10 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
         },
         builder: (context, movie, child)
         {
-          return widget.builder(context, NullableMovie(innerMovie: movie), child);
+          return KeyedSubtree(
+            key: _childKey,
+            child: widget.builder(context, NullableMovie(innerMovie: movie), child),
+          );
         },
       );
     }
@@ -134,7 +138,10 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
         developerMode: widget.developerMode,
         builder: (context, movie, child)
         {
-          return widget.builder(context, NullableMovie(innerMovie: movie), child);
+          return KeyedSubtree(
+            key: _childKey,
+            child: widget.builder(context, NullableMovie(innerMovie: movie), child),
+          );
         },
       );
     }
@@ -146,7 +153,10 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
       developerMode: widget.developerMode,
       builder: (context, movie, child)
       {
-        return widget.builder(context, NullableMovie(innerMovie: movie), child);
+        return KeyedSubtree(
+          key: _childKey,
+          child: widget.builder(context, NullableMovie(innerMovie: movie), child),
+        );
       },
     );
   }
