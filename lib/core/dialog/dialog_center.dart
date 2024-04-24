@@ -63,7 +63,21 @@ abstract class DialogCenter {
     return confirmed ?? false;
   }
 
+  static Future<T?> showDialogBuilder<T>(BuildContext context, {
+    required WidgetBuilder builder,
+    bool barrierDismissible = false,
+    kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
+    }) async
+  {
+    final result = await _internalShowDialog<T>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      animationStyle: animationStyle,
+      builder: builder
+    );
 
+    return result;
+  }
 
   static Future<int?> showChooseOptions(BuildContext context, {
     String? title, 
