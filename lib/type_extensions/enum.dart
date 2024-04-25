@@ -6,16 +6,65 @@ abstract class EnumTool {
 
   EnumTool._();
 
-  static T fromString<T extends Enum>(List<T> enumValues, String value)
+  static T fromString<T extends Enum>(String value, List<T> enumValues)
   {
     return enumValues.firstWhere((type) => EnumTool.enumToStringValue(type) == value,
       orElse: () => throw Exception('Unknown enum value: $value')
     );
   }
 
+  static T fromStringWithMap<T extends Enum>(String value, Map<String, T> enumValues)
+  {
+    final enumValue = enumValues[value];
+
+    if (enumValue == null)
+    {
+      throw Exception('Unknown enum value: $value');
+    }
+
+    return enumValue;
+  }
+
+
+  static T fromIntWithMap<T extends Enum>(int value, Map<int, T> enumValues)
+  {
+    final enumValue = enumValues[value];
+
+    if (enumValue == null)
+    {
+      throw Exception('Unknown enum value: $value');
+    }
+
+    return enumValue;
+  }
+
   static String enumToStringValue<T extends Enum>(T enumValue)
   {
     return enumValue.toString().split('.').last;
+  }
+
+  static String enumToStringWithMap<T extends Enum>(T enumValue, Map<T, String> enumValues)
+  {
+    final value = enumValues[enumValue];
+
+    if (value == null)
+    {
+      throw Exception('Unknown enum value: $enumValue');
+    }
+
+    return value;
+  }
+
+  static int enumToIntWithMap<T extends Enum>(T enumValue, Map<T, int> enumValues)
+  {
+    final value = enumValues[enumValue];
+
+    if (value == null)
+    {
+      throw Exception('Unknown enum value: $enumValue');
+    }
+
+    return value;
   }
 }
 

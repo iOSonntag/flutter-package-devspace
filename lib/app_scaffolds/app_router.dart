@@ -79,6 +79,7 @@ class AppRouter {
   final String homeLocation;
   final AppRouterAuthConfig? auth;
 
+  // TODO: read: https://docs.page/csells/go_router/redirection for litenable on auth
 
   factory AppRouter({
     required GlobalKey<NavigatorState> rootNavigatorKey,

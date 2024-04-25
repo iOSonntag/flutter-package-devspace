@@ -145,28 +145,21 @@ class _PopupBuilderState extends State<_PopupBuilder>
     widget.controller.addListener(_onControllerChange);
   }
 
-  // @override
-  // void didChangeDependencies()
-  // {
-  //   super.didChangeDependencies();
-    
-  //   context.dependOnInheritedWidgetOfExactType<DialogControlWidget>();
-  // }
-
   void _onControllerChange()
   {
 
     if (widget.controller.close)
     {
+      if (mounted == false)
+      {
+        return;
+      }
+
       WidgetsBinding.instance.addPostFrameCallback((timeStamp)
       {
-        if (mounted == false)
-        {
-          return;
-        }
+        Navigator.of(context).removeRoute(ModalRoute.of(context)!);
+      }); 
 
-        Navigator.of(context).pop();
-      });
     }
   }
 

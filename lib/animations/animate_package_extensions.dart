@@ -26,6 +26,7 @@ extension ExtensionAnimatePackageOnWidget on Widget {
       delay: delay,
       duration: duration,
       curve: Curves.easeInOut,
+      padding: 0.0,
     )
     .shimmer(
       size: 0.2,
@@ -39,6 +40,7 @@ extension ExtensionAnimatePackageOnWidget on Widget {
         0.99,
         1.0,
       ],
+      padding: 0.0,
     )
     .shimmer(
       size: 0.1,
@@ -52,6 +54,7 @@ extension ExtensionAnimatePackageOnWidget on Widget {
         0.99,
         1.0,
       ],
+      padding: 0.0,
     );
   }
 
