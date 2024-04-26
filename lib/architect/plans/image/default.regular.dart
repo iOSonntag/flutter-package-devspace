@@ -57,7 +57,7 @@ class DefaultImageRegular extends ArchBaseStatelessWidget<ImageData> {
 
     if (data.style.shapePreset != kImageShapePreset.rectangle)
     {
-      radius = data.style.borderRadius ?? (data.style.shapePreset == kImageShapePreset.rounded ? context.dimensions.borderRadiusM : BorderRadius.circular(double.infinity));
+      radius = data.style.borderRadius ?? (data.style.shapePreset == kImageShapePreset.rounded ? context.dimensions.borderRadiusM : BorderRadius.circular(10000));
 
       widget = ClipRRect(
         borderRadius: radius,
