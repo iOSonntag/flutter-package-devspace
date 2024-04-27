@@ -15,11 +15,13 @@ class DimensionsThemeData {
     double spaceL = 13.0,
     double spaceXL = 21.0,
     double spaceXXL = 34.0,
+    this.radiusXXS = 2.0,
     this.radiusXS = 3.0,
     this.radiusS = 5.0,
     this.radiusM = 8.0,
     this.radiusL = 13.0,
     this.radiusXL = 21.0,
+    this.radiusXXL = 34.0,
     this.listItemHeightS = 55.0,
     this.listItemHeightM = 89.0,
     this.listItemHeightL = 144.0,
@@ -59,11 +61,13 @@ class DimensionsThemeData {
   final double spaceXLValue;
   final double spaceXXLValue;
 
+  final double radiusXXS;
   final double radiusXS;
   final double radiusS;
   final double radiusM;
   final double radiusL;
   final double radiusXL;
+  final double radiusXXL;
 
   final double listItemHeightS;
   final double listItemHeightM;
@@ -208,11 +212,13 @@ class DimensionsThemeData {
   Widget spaceXXL() => SizedBox(height: spaceXXLValue, width: spaceXXLValue);
 
 
+  BorderRadius get borderRadiusXXS => BorderRadius.circular(radiusXXS);
   BorderRadius get borderRadiusXS => BorderRadius.circular(radiusXS);
   BorderRadius get borderRadiusS => BorderRadius.circular(radiusS);
   BorderRadius get borderRadiusM => BorderRadius.circular(radiusM);
   BorderRadius get borderRadiusL => BorderRadius.circular(radiusL);
   BorderRadius get borderRadiusXL => BorderRadius.circular(radiusXL);
+  BorderRadius get borderRadiusXXL => BorderRadius.circular(radiusXXL);
 
   BorderRadius get borderRadiusCircle => BorderRadius.circular(10000);  
 

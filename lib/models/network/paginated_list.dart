@@ -14,10 +14,24 @@ class PageFetchResult<T> {
     this.nextCursor
   });
 
-  factory PageFetchResult.fromJson(Map<String, dynamic> json, T Function(Map<String, dynamic>) itemFromJson)
+  factory PageFetchResult.fromJson(Map<String, dynamic> json, T? Function(Map<String, dynamic>) itemFromJson)
   {
+    final listJsons = List<Map<String, dynamic>>.from(json.getOrThrow('items'));
+    final List<T> items = [];
+
+    for (final itemJson in listJsons)
+    {
+      T? item = itemFromJson(itemJson);
+
+      if (item != null)
+      {
+        items.add(item);
+      }
+    }
+
+
     return PageFetchResult<T>(
-      items: (json.getOrThrow('items') as List).map((v) => itemFromJson(v)).toList(),
+      items: items,
       nextCursor: json.getOrNull('cursor') ?? json.getOrNull('nextCursor')
     );
   }
