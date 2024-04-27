@@ -93,6 +93,7 @@ class AuthApiHttpClient<TResponse> {
 
   Future<TResponse> get({
     required String apiPath,
+    Map<String, String> queryParameters = const {},
     Map<String, String> additionaHeaders = const {},
     kAuthRequirement authRequirement = kAuthRequirement.required,
   }) async
@@ -100,6 +101,7 @@ class AuthApiHttpClient<TResponse> {
     return makeRequest(
       apiPath: apiPath,
       body: null,
+      queryParameters: queryParameters,
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
       method: kHttpMethod.get,
@@ -145,6 +147,7 @@ class AuthApiHttpClient<TResponse> {
   Future<TResponse> makeRequest({
     required String apiPath,
     required Map<String, dynamic>? body,
+    Map<String, String> queryParameters = const {},
     Map<String, String> additionaHeaders = const {},
     kAuthRequirement authRequirement = kAuthRequirement.required,
     required kHttpMethod method,
@@ -169,7 +172,16 @@ class AuthApiHttpClient<TResponse> {
       }
 
       final finalUrl = path.join(baseUrl, apiPath);
-      final uri = Uri.parse(finalUrl);
+
+      String urlPostFix = '';
+
+      if (queryParameters.isNotEmpty)
+      {
+        String queryString = Uri(queryParameters: queryParameters).query;
+        urlPostFix = '?$queryString';
+      }
+
+      final uri = Uri.parse(finalUrl + urlPostFix);
 
       http.Response? response;
 
