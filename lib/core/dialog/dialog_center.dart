@@ -81,7 +81,7 @@ abstract class DialogCenter {
 
   static Future<int?> showChooseOptions(BuildContext context, {
     String? title, 
-    required String message, 
+    String? message, 
     bool messageLowFocus = true,
     bool barrierDismissible = false,
     kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,

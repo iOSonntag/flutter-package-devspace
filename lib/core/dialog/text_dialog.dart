@@ -5,7 +5,7 @@ part of devspace;
 class TextDialog extends StatelessWidget {
 
   final String title;
-  final String text;
+  final String? text;
   final bool textLowFocus;
   final Axis actionsAlignment;
   final List<DialogAction> actions;
@@ -13,7 +13,7 @@ class TextDialog extends StatelessWidget {
   const TextDialog({
     super.key,
     required this.title,
-    required this.text,
+    this.text,
     this.textLowFocus = false,
     this.actionsAlignment = Axis.horizontal,
     required this.actions,
@@ -24,7 +24,7 @@ class TextDialog extends StatelessWidget {
   {
     return DefaultDialog(
       title: title,
-      content: Padding(
+      content: text == null ? null : Padding(
         padding: context.paddingS_0,
         child: TextBody.medium(text, 
           textAlign: TextAlign.center,

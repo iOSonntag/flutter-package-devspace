@@ -6,7 +6,7 @@ part of devspace;
 class DefaultDialog extends StatelessWidget {
 
   final String title;
-  final Widget content;
+  final Widget? content;
   final Axis actionsAlignment;
   final List<DialogAction> actions;
 
@@ -57,11 +57,16 @@ class DefaultDialog extends StatelessWidget {
       TextHeadline.medium(title),
 
       context.spaceS,
-
-      content,
-
-      context.spaceS,
     ];
+
+    if (content != null)
+    {
+      children.addAll([
+        content!,
+        context.spaceS,
+      ]);
+    }
+
 
     if (buttons.isNotEmpty)
     {
