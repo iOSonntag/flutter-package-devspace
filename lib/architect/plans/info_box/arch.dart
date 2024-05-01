@@ -13,6 +13,7 @@ class ArchInfoBox extends ArchBase<kInfoBoxVariant, InfoBoxData> {
 
   ArchInfoBox.info({
     super.key,
+    bool onSurface = false,
     IconData? icon,
     String? title,
     String? subtitle,
@@ -22,6 +23,7 @@ class ArchInfoBox extends ArchBase<kInfoBoxVariant, InfoBoxData> {
     super.variant = kInfoBoxVariant.regular,
   }) : super(
     data: InfoBoxData(
+      onSurface: onSurface,
       type: kInfoBoxType.info,
       icon: icon,
       title: title,
@@ -34,6 +36,7 @@ class ArchInfoBox extends ArchBase<kInfoBoxVariant, InfoBoxData> {
 
   ArchInfoBox.error({
     super.key,
+    bool onSurface = false,
     IconData? icon,
     String? title,
     String? subtitle,
@@ -43,6 +46,7 @@ class ArchInfoBox extends ArchBase<kInfoBoxVariant, InfoBoxData> {
     super.variant = kInfoBoxVariant.regular,
   }) : super(
     data: InfoBoxData(
+      onSurface: onSurface,
       type: kInfoBoxType.error,
       icon: icon,
       title: title,

@@ -21,6 +21,7 @@ enum kInfoBoxType
 class InfoBoxData extends PlanData {
 
   final kInfoBoxType type;
+  final bool onSurface;
   final IconData? icon;
   final String? title;
   final String? subtitle;
@@ -31,6 +32,7 @@ class InfoBoxData extends PlanData {
 
   const InfoBoxData({
     super.variationId,
+    this.onSurface = false,
     this.type = kInfoBoxType.info,
     this.icon,
     this.title,

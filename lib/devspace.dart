@@ -179,6 +179,7 @@ part 'brixies/layout_builder.dart';
 part 'brixies/line_divider.dart';
 part 'brixies/loadable_view.dart';
 part 'brixies/loading_overlay.dart';
+part 'brixies/search_delay.dart';
 part 'brixies/smooth_swap.dart';
 part 'brixies/spaced_flex.dart';
 part 'brixies/steps_indicator.dart';

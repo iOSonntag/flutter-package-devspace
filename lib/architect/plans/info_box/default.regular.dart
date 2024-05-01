@@ -96,7 +96,7 @@ class DefaultInfoBoxRegular extends ArchBaseStatelessWidget<InfoBoxData> {
       kInfoBoxType.error => context.colors.error,
       kInfoBoxType.warning => context.colors.warning,
       kInfoBoxType.success => context.colors.success,
-      kInfoBoxType.info => context.colors.background,
+      kInfoBoxType.info => data.onSurface ? context.colors.surface : context.colors.background,
       kInfoBoxType.congratulations => context.colors.congratulations,
     };
   }
@@ -109,7 +109,7 @@ class DefaultInfoBoxRegular extends ArchBaseStatelessWidget<InfoBoxData> {
       kInfoBoxType.error => context.colors.onError,
       kInfoBoxType.warning => context.colors.onWarning,
       kInfoBoxType.success => context.colors.onSuccess,
-      kInfoBoxType.info => context.colors.onBackground,
+      kInfoBoxType.info => data.onSurface ? context.colors.onSurface : context.colors.onBackground,
       kInfoBoxType.congratulations => context.colors.onCongratulations,
     };
   }

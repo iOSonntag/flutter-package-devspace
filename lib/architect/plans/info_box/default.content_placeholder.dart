@@ -28,8 +28,8 @@ class DefaultInfoBoxContentPlaceholder extends ArchBaseStatelessWidget<InfoBoxDa
 
     Color titleColor = signalColor;
     Color subtitleColor = signalColor;
-    Color textColor = context.colors.onBackground;
-    Color iconColor = context.colors.onBackgroundLeastFocus;
+    Color textColor = data.onSurface ? context.colors.onSurface : context.colors.onBackground;
+    Color iconColor = data.onSurface ? context.colors.onSurfaceLeastFocus : context.colors.onBackgroundLeastFocus;
     // Color iconColor = signalColor;
 
     return Container(
