@@ -37,7 +37,7 @@ class DialogControlWidget extends StatefulWidget {
   });
 
   @override
-  State createState() => _DialogControlWidgetState();
+  State<DialogControlWidget> createState() => _DialogControlWidgetState();
 }
 
 class _DialogControlWidgetState extends State<DialogControlWidget> {
@@ -132,7 +132,7 @@ class _PopupBuilder extends StatefulWidget
   });
 
   @override
-  State createState() => _PopupBuilderState();
+  State<_PopupBuilder> createState() => _PopupBuilderState();
 }
 
 class _PopupBuilderState extends State<_PopupBuilder>

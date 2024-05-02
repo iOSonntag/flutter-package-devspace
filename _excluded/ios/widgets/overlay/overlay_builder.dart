@@ -15,7 +15,7 @@ class OverlayBuilder extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _OverlayBuilderState createState() => _OverlayBuilderState();
+  State<OverlayBuilder> createState() => _OverlayBuilderState();
 }
 
 

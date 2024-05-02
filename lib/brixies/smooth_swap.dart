@@ -21,7 +21,7 @@ class SmoothSwap<T> extends StatefulWidget {
   });
 
   @override
-  State createState() => _SmoothSwapState<T>();
+  State<SmoothSwap<T>> createState() => _SmoothSwapState<T>();
 }
 
 class _SmoothSwapState<T> extends State<SmoothSwap<T>> {
@@ -72,7 +72,7 @@ class _SmoothSwapByKey extends StatefulWidget {
     assert(child.key != null);
 
   @override
-  State createState() => _SmoothSwapByKeyState();
+  State<_SmoothSwapByKey> createState() => _SmoothSwapByKeyState();
 }
 
 class _SmoothSwapByKeyState extends State<_SmoothSwapByKey> {

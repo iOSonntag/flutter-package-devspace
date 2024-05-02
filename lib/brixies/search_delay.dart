@@ -17,7 +17,7 @@ class SearchDelay extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State createState() => _SearchDelayState();
+  State<SearchDelay> createState() => _SearchDelayState();
 }
 
 class _SearchDelayState extends State<SearchDelay> {
