@@ -21,7 +21,8 @@ class BlueForms extends StatefulWidget {
   final bool intrinsicHeight;
   final bool visuallyMarkRequiredFields;
   final Widget? bottomContent;
-  final clipPagination;
+  final Color? labelColor;
+  final bool clipPagination;
 
   const BlueForms({
     super.key,
@@ -37,6 +38,7 @@ class BlueForms extends StatefulWidget {
     this.visuallyMarkRequiredFields = true,
     this.clipPagination = true,
     this.bottomContent,
+    this.labelColor,
     required this.pages,
   }) :
     assert(pages.length > 0),
@@ -190,6 +192,7 @@ class _BlueFormsState extends State<BlueForms> {
       return _FormPageWidget(
         controller: page._controller!,
         definition: page,
+        labelColor: widget.labelColor,
         visuallyMarkRequiredFields: widget.visuallyMarkRequiredFields,
         currentSavedValues: _savedInputs,
         externalErrors: widget.externalErrors,

@@ -28,6 +28,7 @@ abstract class LibStrings {
   static const String lib_general_actionDelete = 'lib_general_actionDelete';
   static const String lib_general_actionEdit = 'lib_general_actionEdit';
   static const String lib_general_actionAdd = 'lib_general_actionAdd';
+  static const String lib_general_actionSubmit = 'lib_general_actionSubmit';
   static const String lib_general_actionRemove = 'lib_general_actionRemove';
   static const String lib_general_actionSelect = 'lib_general_actionSelect';
   static const String lib_general_actionChoose = 'lib_general_actionChoose';

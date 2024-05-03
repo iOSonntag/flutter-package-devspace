@@ -6,6 +6,7 @@ part of devspace;
 class _FormElementWidget extends StatelessWidget {
 
   final FormElement definition;
+  final Color? labelColor;
   final bool isFirstElement;
   final bool isLastElement;
   final bool visuallyMarkRequired;
@@ -17,6 +18,7 @@ class _FormElementWidget extends StatelessWidget {
     // ignore: unused_element
     super.key,
     required this.definition,
+    this.labelColor,
     required this.isFirstElement,
     required this.isLastElement,
     required this.visuallyMarkRequired,
@@ -43,6 +45,7 @@ class _FormElementWidget extends StatelessWidget {
       return _FormInputTextWidget(
         key: Key(definition.id),
         definition: definition as FormInputText,
+        labelColor: labelColor,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedValues[definition.id],
         externalError: externalErrors[definition.id],
@@ -55,6 +58,7 @@ class _FormElementWidget extends StatelessWidget {
       return _FormInputImagesWidget(
         key: Key(definition.id),
         definition: definition as FormInputImages,
+        labelColor: labelColor,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedValues[definition.id],
         externalError: externalErrors[definition.id],
@@ -67,6 +71,7 @@ class _FormElementWidget extends StatelessWidget {
       return _FormInputPickOptionWidget(
         key: Key(definition.id),
         definition: definition as FormInputPickOption,
+        labelColor: labelColor,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedValues[definition.id],
         externalError: externalErrors[definition.id],
@@ -78,6 +83,7 @@ class _FormElementWidget extends StatelessWidget {
     {
       return _FormInputGroup(
         definition: definition as FormInputGroup,
+        labelColor: labelColor,
         isFirstElement: isFirstElement,
         isLastElement: isLastElement,
         visuallyMarkRequired: visuallyMarkRequired,

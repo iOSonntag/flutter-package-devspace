@@ -9,6 +9,7 @@ part of devspace;
 class _FormInputPickOptionWidget extends StatefulWidget {
 
   final FormInputPickOption definition;
+  final Color? labelColor;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -17,6 +18,7 @@ class _FormInputPickOptionWidget extends StatefulWidget {
   const _FormInputPickOptionWidget({
     super.key,
     required this.definition,
+    this.labelColor,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -79,7 +81,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
         DropdownMenuItem<String>(
           value: _OPTION_SELECTION_UNSET_VALUE,
           child: TextBody.small(LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
-            color: context.isDarkMode && context.isWeb ? Colors.white.withOpacity(0.7) : context.colors.onBackgroundLessFocus,
+            color: context.isDarkMode && context.isWeb ? Colors.white.withOpacity(0.7) : context.colors.onSurfaceLessFocus,
           ),
         ),
       );
@@ -92,7 +94,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
         DropdownMenuItem<String>(
           value: fiItem.key,
           child: TextBody.small(fiItem.title,
-            color: context.isDarkMode && context.isWeb ? Colors.white : null,
+            color: context.isDarkMode && context.isWeb ? Colors.white : context.colors.onSurface,
           ),
         ),
       );
@@ -112,7 +114,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
             decoration: decoration,
             iconEnabledColor: borderColor,
             iconDisabledColor: borderColor,
-            dropdownColor: context.colors.onBackground,
+            dropdownColor: context.colors.surface,
             value: _dropdownValue,
             borderRadius: borderRadius,
             selectedItemBuilder: (context)
@@ -122,8 +124,11 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
               if (!widget.definition.isOptional)
               {
                 selectedItems.add(
-                  TextBody.small(LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
-                    color: context.colors.onBackgroundLessFocus,
+                  Padding(
+                    padding: context.paddingM_0,
+                    child: TextBody.small(LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
+                      color: context.colors.onBackgroundLessFocus,
+                    ),
                   ),
                 );
               }
@@ -131,7 +136,12 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
               for (FormsInputPickOptionItem fiItem in widget.definition.options)
               {
                 selectedItems.add(
-                  TextBody.small(fiItem.title),
+                  Padding(
+                    padding: context.paddingM_0,
+                    child: TextBody.small(fiItem.title,
+                      color: context.colors.onBackground,
+                    ),
+                  ),
                 );
               }
 
@@ -146,7 +156,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
 
               if (widget.definition.onChange != null)
               {
-                widget.definition.onChange!(value);
+                widget.definition.onChange!(value == _OPTION_SELECTION_UNSET_VALUE ? null : value);
               }
             },
             items: items,
@@ -188,7 +198,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
         children: [
           TextLabel.medium(
             widget.definition.label,
-            color: hasError ? context.colors.error : context.colors.onBackgroundLessFocus,
+            color: hasError ? context.colors.error : widget.labelColor ?? context.colors.onBackgroundLessFocus,
           ),
 
           if (widget.visuallyMarkRequired && widget.definition.isRequired) TextLabel.medium(

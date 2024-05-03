@@ -8,6 +8,7 @@ part of devspace;
 class _FormInputGroup extends StatelessWidget {
 
   final FormInputGroup definition;
+  final Color? labelColor;
   final bool isFirstElement;
   final bool isLastElement;
   final bool visuallyMarkRequired;
@@ -19,6 +20,7 @@ class _FormInputGroup extends StatelessWidget {
     // ignore: unused_element
     super.key,
     required this.definition,
+    this.labelColor,
     required this.isFirstElement,
     required this.isLastElement,
     required this.visuallyMarkRequired,
@@ -53,6 +55,7 @@ class _FormInputGroup extends StatelessWidget {
           Expanded(
             child: _FormElementWidget(
               definition: fiInputDefinition, 
+              labelColor: labelColor,
               isFirstElement: isFirst, 
               isLastElement: isLast, 
               visuallyMarkRequired: visuallyMarkRequired,
@@ -112,6 +115,7 @@ class _FormInputGroup extends StatelessWidget {
       groupChildren.add(
         _FormElementWidget(
           definition: fiInputDefinition, 
+          labelColor: labelColor,
           isFirstElement: isFirst, 
           isLastElement: isLast, 
           visuallyMarkRequired: visuallyMarkRequired,

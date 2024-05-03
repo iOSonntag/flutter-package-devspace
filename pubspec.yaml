@@ -1,7 +1,9 @@
 name: devspace
-description: "A new Flutter package project."
-version: 0.0.1
+description: "A diverse collection of useful Flutter widgets."
+version: 1.0.1
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev 
+authors: 
+  - "iOSonntag"
 
 environment:
   sdk: '>=3.1.0 <4.0.0'

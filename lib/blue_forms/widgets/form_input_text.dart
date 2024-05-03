@@ -7,6 +7,7 @@ part of devspace;
 class _FormInputTextWidget extends StatelessWidget {
 
   final FormInputText definition;
+  final Color? labelColor;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -15,6 +16,7 @@ class _FormInputTextWidget extends StatelessWidget {
   const _FormInputTextWidget({
     super.key,
     required this.definition,
+    this.labelColor,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -53,6 +55,7 @@ class _FormInputTextWidget extends StatelessWidget {
       child: ArchTextField(
         data: TextFieldData(
           isFormField: true,
+          labelColor: labelColor,
           visuallyMarkAsRequired: visuallyMarkRequired && definition.isOptional == false,
           isTextArea: definition.isTextArea,
           label: definition.label,

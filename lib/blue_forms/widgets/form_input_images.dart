@@ -7,6 +7,7 @@ part of devspace;
 class _FormInputImagesWidget extends StatelessWidget {
 
   final FormInputImages definition;
+  final Color? labelColor;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -15,6 +16,7 @@ class _FormInputImagesWidget extends StatelessWidget {
   const _FormInputImagesWidget({
     super.key,
     required this.definition,
+    this.labelColor,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -35,6 +37,7 @@ class _FormInputImagesWidget extends StatelessWidget {
 
       return _FormInputImagesWidgetSingle(
         definition: definition,
+        labelColor: labelColor,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedFile,
         onSave: (image) => onSave(image == null ? [] : [image]),
@@ -44,6 +47,7 @@ class _FormInputImagesWidget extends StatelessWidget {
 
     return _FormInputImagesWidgetMulti(
       definition: definition,
+      labelColor: labelColor,
       visuallyMarkRequired: visuallyMarkRequired,
       currentSavedValue: currentSavedValue,
       onSave: onSave,
@@ -59,6 +63,7 @@ class _FormInputImagesWidget extends StatelessWidget {
 class _FormInputImagesWidgetMulti extends StatefulWidget {
 
   final FormInputImages definition;
+  final Color? labelColor;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -67,6 +72,7 @@ class _FormInputImagesWidgetMulti extends StatefulWidget {
   const _FormInputImagesWidgetMulti({
     super.key,
     required this.definition,
+    required this.labelColor,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -292,7 +298,7 @@ class _FormInputImagesWidgetMultiState extends State<_FormInputImagesWidgetMulti
         children: [
           TextLabel.medium(
             widget.definition.label,
-            color: hasError ? context.colors.error : context.colors.onBackgroundLessFocus,
+            color: hasError ? context.colors.error : widget.labelColor ?? context.colors.onBackgroundLessFocus,
           ),
 
           if (widget.visuallyMarkRequired && widget.definition.isRequired) TextLabel.medium(
@@ -395,6 +401,7 @@ class _FormInputImagesWidgetMultiState extends State<_FormInputImagesWidgetMulti
 class _FormInputImagesWidgetSingle extends StatefulWidget {
 
   final FormInputImages definition;
+  final Color? labelColor;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -403,6 +410,7 @@ class _FormInputImagesWidgetSingle extends StatefulWidget {
   const _FormInputImagesWidgetSingle({
     super.key,
     required this.definition,
+    this.labelColor,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -560,7 +568,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
         children: [
           TextLabel.medium(
             widget.definition.label,
-            color: hasError ? context.colors.error : context.colors.onBackgroundLessFocus,
+            color: hasError ? context.colors.error : widget.labelColor ?? context.colors.onBackgroundLessFocus,
           ),
 
           if (widget.visuallyMarkRequired && widget.definition.isRequired) TextLabel.medium(

@@ -22,6 +22,7 @@ class FormPageController extends ChangeNotifier {
 class _FormPageWidget extends StatefulWidget {
 
   final FormPage definition;
+  final Color? labelColor;
   final FormPageController controller;
   final bool visuallyMarkRequiredFields;
   final Map<String, dynamic> currentSavedValues;
@@ -33,6 +34,7 @@ class _FormPageWidget extends StatefulWidget {
     // ignore: unused_element
     super.key,
     required this.definition,
+    this.labelColor,
     required this.controller,
     required this.visuallyMarkRequiredFields,
     required this.currentSavedValues,
@@ -124,13 +126,16 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
 
     bool displayRequiredNotice = false;
 
-    for (int i = 0; i < widget.definition.elements.length; i++)
+    List<FormElement> activeElements = widget.definition.elements.where((element) => element.isActive).toList();
+
+    for (int i = 0; i < activeElements.length; i++)
     {
       children.add(
         _FormElementWidget(
-          definition: widget.definition.elements[i], 
+          definition: activeElements[i], 
+          labelColor: widget.labelColor,
           isFirstElement: i == 0, 
-          isLastElement: i == widget.definition.elements.length - 1, 
+          isLastElement: i == activeElements.length - 1, 
           visuallyMarkRequired: widget.visuallyMarkRequiredFields,
           currentSavedValues: widget.currentSavedValues, 
           externalErrors: widget.externalErrors, 
@@ -140,13 +145,13 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
 
       if (widget.visuallyMarkRequiredFields && displayRequiredNotice == false)
       {
-        if (widget.definition.elements[i].isRequired)
+        if (activeElements[i].isRequired)
         {
           displayRequiredNotice = true;
         }
       }
 
-      bool isLastElement = i == widget.definition.elements.length - 1;
+      bool isLastElement = i == activeElements.length - 1;
 
       if (!isLastElement || displayRequiredNotice)
       {

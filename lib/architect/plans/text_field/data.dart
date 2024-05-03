@@ -11,6 +11,7 @@ enum kTextFieldVariant
 class TextFieldData extends PlanData {
 
   final kSize3 size;
+  final Color? labelColor;
   final bool enabled;
   final bool isFormField;
   final bool isTextArea;
@@ -33,6 +34,7 @@ class TextFieldData extends PlanData {
   const TextFieldData({
     super.variationId,
     this.size = kSize3.M,
+    this.labelColor,
     this.enabled = true,
     this.isFormField = true,
     this.isTextArea = false,

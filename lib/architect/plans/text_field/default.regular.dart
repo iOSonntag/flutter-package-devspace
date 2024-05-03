@@ -43,36 +43,47 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
       
             Container(
               decoration: BoxDecoration(
-                borderRadius: context.dimensions.borderRadiusL,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                  ),
-                  BoxShadow(
-                    color: Theme.of(context).colorScheme.surface,
-                    spreadRadius: -1.0,
-                    blurRadius: 3.0,
-                  ),
-                ]
+                  borderRadius: context.dimensions.borderRadiusL,
+                  color: context.colors.surface,
               ),
-              child: ControllerHolder<TextEditingController>(
-                create: () => TextEditingController(text: state.value),
-                builder: (context, controller) => TextField(
-                  controller: controller,
-                  enabled: data.enabled,
-                  decoration: _buildInputDecoration(context, hasError),
-                  maxLines: data.maxLines ?? (data.isTextArea ? 6 : 1),
-                  scrollPadding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 500.0),
-                  autofillHints: data.autofillHints,
-                  autocorrect: data.autocorrect,
-                  keyboardType: data.textInputType,
-                  onChanged: (value)
-                  {
-                    state.didChange(value);
-                    data.onChanged?.call(value);
-                  },
-                  obscureText: data.obscureText,
-                  enableSuggestions: data.enableSuggestions,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: context.dimensions.borderRadiusL,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                    ),
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.surface,
+                      spreadRadius: -1.0,
+                      blurRadius: 3.0,
+                    ),
+                  ]
+                ),
+                child: ControllerHolder<TextEditingController>(
+                  create: () => TextEditingController(text: state.value),
+                  builder: (context, controller) => ScrollConfiguration(
+                    behavior: const NoScrollBarBehavior(),
+                    child: TextField(
+                      controller: controller,
+                      enabled: data.enabled,
+                      style: context.text.bodyMedium,
+                      decoration: _buildInputDecoration(context, hasError),
+                      maxLines: data.maxLines ?? (data.isTextArea ? 6 : 1),
+                      scrollPadding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 500.0),
+                      scrollPhysics: data.isTextArea ? context.animations.scrollPhysics : null,
+                      autofillHints: data.autofillHints,
+                      autocorrect: data.autocorrect,
+                      keyboardType: data.textInputType,
+                      onChanged: (value)
+                      {
+                        state.didChange(value);
+                        data.onChanged?.call(value);
+                      },
+                      obscureText: data.obscureText,
+                      enableSuggestions: data.enableSuggestions,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -98,7 +109,7 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
         children: [
           TextLabel.medium(
             data.label!,
-            color: hasError ? context.colors.error : context.colors.onBackgroundLessFocus,
+            color: hasError ? context.colors.error : data.labelColor ?? context.colors.onBackgroundLessFocus,
           ),
 
           if (data.visuallyMarkAsRequired) TextLabel.medium(
@@ -113,7 +124,7 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
   InputDecoration _buildInputDecoration(BuildContext context, bool hasError)
   {
     Color focusColor = context.colors.primary;
-    Color hintColor = context.colors.onBackgroundLeastFocus;
+    Color hintColor = context.colors.onSurfaceLeastFocus;
     Color errorColor = context.colors.error;
 
 
@@ -131,7 +142,7 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
       focusedBorder: focusedBorder,
       hintText: data.hint,
       hintStyle: TextStyle(
-        color: hintColor
+        color: hintColor,
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       errorMaxLines: 3,
@@ -153,6 +164,15 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
 
 }
 
+class NoScrollBarBehavior extends ScrollBehavior {
+  const NoScrollBarBehavior();
+
+  @override
+  Widget buildScrollbar(context, child, details)
+  {
+    return child;
+  }
+}
 
 
 
