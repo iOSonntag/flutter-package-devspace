@@ -21,32 +21,19 @@ abstract class CommonFormInputs {
       isActive: isActive,
       elements: [
 
-        FormInputText(
+        CommonFormInputs.email(
           id: '${idPrefix}email',
           description: description,
-          initialValue: initialEmail,
-          label: LibStrings.lib_blueForms_commonInputs_emailLabel.tr(),
-          hint: LibStrings.lib_blueForms_commonInputs_emailHint.tr(),
-          autocorrect: false,
           isOptional: isOptional,
-          autofillHints: [
-            AutofillHints.email,
-          ],
-          validationType: kFormTextValidationType.trimNotEmpty,
+          initialEmail: initialEmail,
         ),
 
-        FormInputText(
+        CommonFormInputs.password(
           id: '${idPrefix}password',
-          initialValue: initialPassword,
-          label: LibStrings.lib_blueForms_commonInputs_passwordLabel.tr(),
-          hint: LibStrings.lib_blueForms_commonInputs_passwordHint.tr(),
-          autocorrect: false,
           isOptional: isOptional,
-          autofillHints: [AutofillHints.password],
-          obscureText: true,
-          enableSuggestions: false,
-          validationType: kFormTextValidationType.notEmpty,
+          initialPassword: initialPassword,
         ),
+
       ],
     );
   }
@@ -73,6 +60,29 @@ abstract class CommonFormInputs {
         AutofillHints.email,
       ],
       validationType: kFormTextValidationType.trimNotEmpty,
+    );
+  }
+
+  static FormInput password({
+    String id = 'password',
+    String? description,
+    bool isOptional = false,
+    bool isActive = true,
+    String? initialPassword,
+  })
+  {
+    return FormInputText(
+      isActive: isActive,
+      id: id,
+      initialValue: initialPassword,
+      label: LibStrings.lib_blueForms_commonInputs_passwordLabel.tr(),
+      hint: LibStrings.lib_blueForms_commonInputs_passwordHint.tr(),
+      autocorrect: false,
+      isOptional: isOptional,
+      autofillHints: [AutofillHints.password],
+      obscureText: true,
+      enableSuggestions: false,
+      validationType: kFormTextValidationType.notEmpty,
     );
   }
 

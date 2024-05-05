@@ -150,7 +150,6 @@ abstract class DialogCenter {
             DialogAction(
               title: dismiss, 
               type: type.buttonType,
-              iconOverride: type.icon,
               onPressed: ()
               {
                 Navigator.of(context).pop();

@@ -5,7 +5,7 @@ class FormCustomWidget extends FormElement {
   final WidgetBuilder builder;
 
   const FormCustomWidget({
-    required super.id,
+    super.id = 'NONE',
     required this.builder,
     super.isActive = true,
   });

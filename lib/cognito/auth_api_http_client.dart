@@ -79,6 +79,7 @@ class AuthApiHttpClient<TResponse> {
     required String apiPath,
     required Map<String, dynamic> body,
     Map<String, String> additionaHeaders = const {},
+    bool preventPayloadLogging = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
   }) async
   {
@@ -87,6 +88,7 @@ class AuthApiHttpClient<TResponse> {
       body: body,
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
+      preventPayloadLogging: preventPayloadLogging,
       method: kHttpMethod.post,
     );
   }
@@ -95,6 +97,7 @@ class AuthApiHttpClient<TResponse> {
     required String apiPath,
     Map<String, String> queryParameters = const {},
     Map<String, String> additionaHeaders = const {},
+    bool preventPayloadLogging = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
   }) async
   {
@@ -104,6 +107,7 @@ class AuthApiHttpClient<TResponse> {
       queryParameters: queryParameters,
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
+      preventPayloadLogging: preventPayloadLogging,
       method: kHttpMethod.get,
     );
   }
@@ -112,6 +116,7 @@ class AuthApiHttpClient<TResponse> {
     required String apiPath,
     required Map<String, dynamic> body,
     Map<String, String> additionaHeaders = const {},
+    bool preventPayloadLogging = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
   }) async
   {
@@ -120,6 +125,7 @@ class AuthApiHttpClient<TResponse> {
       body: body,
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
+      preventPayloadLogging: preventPayloadLogging,
       method: kHttpMethod.put,
     );
   }
@@ -128,6 +134,7 @@ class AuthApiHttpClient<TResponse> {
     required String apiPath,
     required Map<String, dynamic> body,
     Map<String, String> additionaHeaders = const {},
+    bool preventPayloadLogging = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
   }) async
   {
@@ -136,6 +143,7 @@ class AuthApiHttpClient<TResponse> {
       body: body,
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
+      preventPayloadLogging: preventPayloadLogging,
       method: kHttpMethod.delete,
     );
   }
@@ -149,11 +157,22 @@ class AuthApiHttpClient<TResponse> {
     required Map<String, dynamic>? body,
     Map<String, String> queryParameters = const {},
     Map<String, String> additionaHeaders = const {},
+    bool preventPayloadLogging = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
     required kHttpMethod method,
   }) async
   {
-    Dev.log(this, '$method to $apiPath', body);
+    if (preventPayloadLogging)
+    {
+      Dev.log(this, '$method to $apiPath');
+    }
+    else
+    {
+      Dev.log(this, '$method to $apiPath', body);
+    }
+
+    http.Response? response;
+    Map<String, dynamic>? jsonResponse;
 
     try
     {
@@ -183,7 +202,6 @@ class AuthApiHttpClient<TResponse> {
 
       final uri = Uri.parse(finalUrl + urlPostFix);
 
-      http.Response? response;
 
       switch (method)
       {
@@ -216,11 +234,10 @@ class AuthApiHttpClient<TResponse> {
           break;
       }
 
-      final jsonResponse = response.body.isNotEmpty && response.headers['content-type']?.contains('application/json') == true
+      jsonResponse = response.body.isNotEmpty && response.headers['content-type']?.contains('application/json') == true
         ? json.decode(response.body)
         : null;
 
-      return onCreateResponse(response.statusCode, jsonResponse);
     }
     catch (e)
     {
@@ -233,6 +250,8 @@ class AuthApiHttpClient<TResponse> {
 
       return onCreateResponse(500, null);
     }
+
+    return onCreateResponse(response.statusCode, jsonResponse);
   }
 
 

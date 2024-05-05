@@ -4,16 +4,12 @@ part of devspace;
 
 class ApiResponse {
 
-  final bool success;
   final Map<String, dynamic>? data;
 
   const ApiResponse({
-    required this.success,
     this.data,
   });
 
-  bool get isSuccess => success;
-  bool get isError => !success;
   bool get hasData => data != null;
 
 
@@ -25,75 +21,115 @@ class ApiResponse {
     {
       if (jsonPayload == null)
       {
-        return const ApiResponse(success: true);
+        return const ApiResponse();
       }
 
       if (jsonPayload['data'] != null)
       {
-        return ApiResponse(success: true, data: jsonPayload['data']);
+        return ApiResponse(data: jsonPayload['data']);
       }
 
       Dev.logWarning('ApiResponse', 'Additional payload data is not supported yet. Ignoring.', jsonPayload);
 
-      return const ApiResponse(success: true);
+      return const ApiResponse();
     }
 
-    if (jsonPayload == null)
+    if (jsonPayload == null || jsonPayload['error'] == null)
     {
-      return const ApiErrorRes(
-        // TODO: enumerizze keys
-        errorCode: 'RESPONSE_INVALID',
-        errorMessage: 'Response is invalid. The request was not successful, but no response payload was provided.',
-      );
-    }
-
-    if (jsonPayload['error'] == null)
-    {
-      return const ApiErrorRes(
-        // TODO: enumerizze keys
-        errorCode: 'RESPONSE_INVALID',
-        errorMessage: 'Response is invalid. The request was not successful, but no error payload was provided.',
-      );
+      throw ApiResponseInvalidException();
     }
 
     if (jsonPayload['zod'] != null)
     {
-      return ApiZodErrorRes(
+      throw ApiZodException(
         zodVersion: jsonPayload['zod']['version'],
         zodIssues: (jsonPayload['zod']['issues'] as List<dynamic>).cast<ZodIssue>(),
-        errorCode: jsonPayload['error']['code'],
-        errorMessage: jsonPayload['error']['message'],
-        errorDetails: jsonPayload['error']['details'],
       );
     }
     
-    return ApiErrorRes(
-      errorCode: jsonPayload['error']['code'],
-      errorMessage: jsonPayload['error']['message'],
-      errorDetails: jsonPayload['error']['details'],
-    );
+    switch (jsonPayload['error']['code'])
+    {
+      case 'RESOURCE_NOT_FOUND': throw ApiResourceNotFoundException();
+      case 'RESOURCE_ALREADY_EXISTS': throw ApiResourceAlreadyExistsException();
+      case 'NOT_IMPLEMENTED': throw ApiNotImplementedException();
+      case 'BAD_REQUEST': throw ApiBadRequestException();
+      case 'FORBIDDEN': throw ApiForbiddenException();
+      case 'INTERNAL_SERVER_ERROR': throw ApiInternalServerErrorException();
+      default:
+        throw LibraryIssueError('Unknown error code: ${jsonPayload['error']['code']}');
+    }
   }
-
 }
 
-class ApiErrorRes extends ApiResponse {
-
-  final String errorCode;
-  final String? errorMessage;
-  final dynamic errorDetails;
-
-  const ApiErrorRes({
-    required this.errorCode,
-    this.errorMessage,
-    this.errorDetails,
-  }) : 
-    super(success: false);
-
+class ApiResponseInvalidException implements Exception, UserFriendlyException {
+  @override
+  String toString() => 'ApiResponseInvalidException: Response is invalid. The request was not successful, but no response payload was provided.';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'Response is invalid. The request was not successful, but no response payload was provided.';
 }
+
+class ApiResourceNotFoundException implements Exception, UserFriendlyException {
+  
+  @override
+  String toString() => 'ApiResourceNotFoundException: The requested resource was not found.';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'The requested resource was not found.';
+}
+
+class ApiResourceAlreadyExistsException implements Exception, UserFriendlyException {
+  
+  @override
+  String toString() => 'ApiResourceAlreadyExistsException: The requested resource already exists and cannot be created.';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'The requested resource already exists and cannot be created.';
+}
+
+class ApiNotImplementedException implements Exception, UserFriendlyException {
+  
+  @override
+  String toString() => 'ApiNotImplementedException: The requested operation is not implemented (yet).';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'The requested operation is not implemented (yet).';
+}
+
+class ApiBadRequestException implements Exception, UserFriendlyException {
+  
+  @override
+  String toString() => 'ApiBadRequestException: The request is invalid.';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'The request is invalid.';
+}
+
+class ApiForbiddenException implements Exception, UserFriendlyException {
+  
+  @override
+  String toString() => 'ApiForbiddenException: The request is forbidden. Make sure you have the necessary permissions.';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'The request is forbidden. Make sure you have the necessary permissions.';
+}
+
+class ApiInternalServerErrorException implements Exception, UserFriendlyException {
+  
+  @override
+  String toString() => 'ApiInternalServerErrorException: The server encountered an internal error.';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'The server encountered an internal error.';
+}
+
+
+
+
 
 typedef ZodIssue = Map<String, dynamic>;
 
-class ApiZodErrorRes extends ApiErrorRes {
+class ApiZodException implements Exception, UserFriendlyException {
 
   final String zodVersion;
   final List<ZodIssue> zodIssues;
@@ -103,12 +139,9 @@ class ApiZodErrorRes extends ApiErrorRes {
   Map<String, String> get zodErrorMessages => _zodErrorMessages;
   
 
-  ApiZodErrorRes({
+  ApiZodException({
     required this.zodVersion,
     required this.zodIssues,
-    required super.errorCode,
-    super.errorMessage,
-    super.errorDetails,
   })
   {
     final versionParts = zodVersion.split('.');
@@ -169,6 +202,12 @@ class ApiZodErrorRes extends ApiErrorRes {
     _zodErrorMessages[path] = message;
   }
 
+
+  @override
+  String toString() => 'ApiZodException: Invalid data. Zod issues: $zodIssues';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'The input provided is incorrect.';
 
 }
 

@@ -85,7 +85,7 @@ class _DialogControlWidgetState extends State<DialogControlWidget> {
   {
     if (_controller == null)
     {
-      throw LibraryIssue('The popup controller is null inside the DialogControlWidget');
+      throw LibraryIssueError('The popup controller is null inside the DialogControlWidget');
     }
 
     _PopupController controller = _controller!;

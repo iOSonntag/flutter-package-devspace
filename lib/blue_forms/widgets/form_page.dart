@@ -106,6 +106,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
       if (widget.definition.title != null) Padding(
         padding: context.padding0_XL,
         child: TextTitle.medium(widget.definition.title,
+          color: context.colors.onBackground,
           textAlign: TextAlign.center,
         ),
       ),
@@ -114,6 +115,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
         padding: context.dimensions.paddingXLOnly(bottom: true),
         child: TextBody.medium(widget.definition.description,
           textAlign: TextAlign.center,
+          color: context.colors.onBackgroundLessFocus,
           lineHeight: 1.4,
         ),
       ),
@@ -155,7 +157,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
 
       if (!isLastElement || displayRequiredNotice)
       {
-        children.add(context.spaceXXL);
+        children.add(context.spaceL);
       }
     }
 
@@ -177,6 +179,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
       );
     }
         
+    children.add(context.spaceL);
 
     return SingleChildScrollView(
       physics: context.animations.scrollPhysics,
