@@ -55,6 +55,8 @@ class ApiResponse {
       case 'BAD_REQUEST': throw ApiBadRequestException();
       case 'FORBIDDEN': throw ApiForbiddenException();
       case 'INTERNAL_SERVER_ERROR': throw ApiInternalServerErrorException();
+      case 'AUTH_TOKEN_EXPIRED': throw ApiAuthException(code: kApiAuthExceptionCode.tokenExpired);
+      case 'AUTH_INVALID': throw ApiAuthException(code: kApiAuthExceptionCode.invalid);
       default:
         throw LibraryIssueError('Unknown error code: ${jsonPayload['error']['code']}');
     }
@@ -62,8 +64,12 @@ class ApiResponse {
 }
 
 class ApiResponseInvalidException implements Exception, UserFriendlyException {
+
+  final String message;
+  ApiResponseInvalidException([this.message = 'Response is invalid. The request was not successful, but no response payload was provided.']);
+
   @override
-  String toString() => 'ApiResponseInvalidException: Response is invalid. The request was not successful, but no response payload was provided.';
+  String toString() => 'ApiResponseInvalidException: $message';
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage() => 'Response is invalid. The request was not successful, but no response payload was provided.';
@@ -71,8 +77,11 @@ class ApiResponseInvalidException implements Exception, UserFriendlyException {
 
 class ApiResourceNotFoundException implements Exception, UserFriendlyException {
   
+  final String message;
+  ApiResourceNotFoundException([this.message = 'The requested resource was not found.']);
+
   @override
-  String toString() => 'ApiResourceNotFoundException: The requested resource was not found.';
+  String toString() => 'ApiResourceNotFoundException: $message';
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage() => 'The requested resource was not found.';
@@ -80,8 +89,11 @@ class ApiResourceNotFoundException implements Exception, UserFriendlyException {
 
 class ApiResourceAlreadyExistsException implements Exception, UserFriendlyException {
   
+  final String message;
+  ApiResourceAlreadyExistsException([this.message = 'The requested resource already exists and cannot be created.']);
+
   @override
-  String toString() => 'ApiResourceAlreadyExistsException: The requested resource already exists and cannot be created.';
+  String toString() => 'ApiResourceAlreadyExistsException: $message';
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage() => 'The requested resource already exists and cannot be created.';
@@ -89,8 +101,11 @@ class ApiResourceAlreadyExistsException implements Exception, UserFriendlyExcept
 
 class ApiNotImplementedException implements Exception, UserFriendlyException {
   
+  final String message;
+  ApiNotImplementedException([this.message = 'The requested operation is not implemented (yet).']);
+
   @override
-  String toString() => 'ApiNotImplementedException: The requested operation is not implemented (yet).';
+  String toString() => 'ApiNotImplementedException: $message';
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage() => 'The requested operation is not implemented (yet).';
@@ -98,8 +113,11 @@ class ApiNotImplementedException implements Exception, UserFriendlyException {
 
 class ApiBadRequestException implements Exception, UserFriendlyException {
   
+  final String message;
+  ApiBadRequestException([this.message = 'The request is invalid.']);
+
   @override
-  String toString() => 'ApiBadRequestException: The request is invalid.';
+  String toString() => 'ApiBadRequestException: $message';
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage() => 'The request is invalid.';
@@ -107,8 +125,11 @@ class ApiBadRequestException implements Exception, UserFriendlyException {
 
 class ApiForbiddenException implements Exception, UserFriendlyException {
   
+  final String message;
+  ApiForbiddenException([this.message = 'The request is forbidden. Make sure you have the necessary permissions.']);
+
   @override
-  String toString() => 'ApiForbiddenException: The request is forbidden. Make sure you have the necessary permissions.';
+  String toString() => 'ApiForbiddenException: $message';
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage() => 'The request is forbidden. Make sure you have the necessary permissions.';
@@ -116,13 +137,39 @@ class ApiForbiddenException implements Exception, UserFriendlyException {
 
 class ApiInternalServerErrorException implements Exception, UserFriendlyException {
   
+  final String message;
+  ApiInternalServerErrorException([this.message = 'The server encountered an internal error.']);
+
   @override
-  String toString() => 'ApiInternalServerErrorException: The server encountered an internal error.';
+  String toString() => 'ApiInternalServerErrorException: $message';
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage() => 'The server encountered an internal error.';
 }
 
+// ignore: camel_case_types
+enum kApiAuthExceptionCode
+{
+  tokenExpired,
+  invalid,
+}
+
+class ApiAuthException implements Exception, UserFriendlyException {
+  
+  final String message;
+  final kApiAuthExceptionCode code;
+
+  ApiAuthException({
+    this.message = 'The authentification is invalid or the authentification token expired.',
+    required this.code,
+  });
+
+  @override
+  String toString() => 'ApiAuthException: $message ($code)';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'The authentification is invalid or the authentification token expired.';
+}
 
 
 
@@ -130,6 +177,8 @@ class ApiInternalServerErrorException implements Exception, UserFriendlyExceptio
 typedef ZodIssue = Map<String, dynamic>;
 
 class ApiZodException implements Exception, UserFriendlyException {
+
+  final String message;
 
   final String zodVersion;
   final List<ZodIssue> zodIssues;
@@ -140,6 +189,7 @@ class ApiZodException implements Exception, UserFriendlyException {
   
 
   ApiZodException({
+    this.message = 'Invalid data. Zod issues.',
     required this.zodVersion,
     required this.zodIssues,
   })
@@ -204,7 +254,7 @@ class ApiZodException implements Exception, UserFriendlyException {
 
 
   @override
-  String toString() => 'ApiZodException: Invalid data. Zod issues: $zodIssues';
+  String toString() => 'ApiZodException: $message. Zod issues: $zodIssues';
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage() => 'The input provided is incorrect.';

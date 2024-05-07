@@ -32,12 +32,12 @@ class UnexpectedError extends Error implements UserFriendlyException
 {
   final String message;
 
-  UnexpectedError([this.message = '']);
+  UnexpectedError([this.message = 'An unexpected error occurred']);
 
   @override
   String toString()
   {
-    return 'UnexpectedError: An unexpected error occurred - $message';
+    return 'UnexpectedError: $message';
   }
   
   @override

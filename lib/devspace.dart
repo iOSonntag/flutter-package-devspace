@@ -16,6 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:convert'; 
 import 'package:path/path.dart' as path;
+import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';

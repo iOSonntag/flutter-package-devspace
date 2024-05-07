@@ -1,19 +1,16 @@
 part of devspace;
 
-/// If an stay movie & an outro movie is provided, it tries to interpolate the
-/// current state of the stay movie to the outro movie. But in order to do that,
-/// the outro movie must have at least all the properties from the stay movie &
-/// the stayToOutroProperties list must be provided.
+typedef CreateMovieTween = MovieTween Function(NullableMovie currentValues);
+
 class InOutMovie extends StatefulWidget {
 
   final MovieTween? intro;
   final VoidCallback? onIntroCompleted;
 
   final MovieTween? stay;
-  final List<MovieTweenPropertyType>? stayToOutroProperties;
 
   final bool playOutro;
-  final MovieTween? outro;
+  final CreateMovieTween? onCreateOutro;
   final VoidCallback? onOutroCompleted;
 
   final Widget? child;
@@ -25,9 +22,8 @@ class InOutMovie extends StatefulWidget {
     this.intro,
     this.onIntroCompleted,
     this.stay,
-    this.stayToOutroProperties,
     this.playOutro = false,
-    this.outro,
+    this.onCreateOutro,
     this.onOutroCompleted,
     this.child,
     this.developerMode = false,
@@ -38,43 +34,11 @@ class InOutMovie extends StatefulWidget {
   State<InOutMovie> createState() => _InOutMovieState();
 }
 
-
-// TODO: currently not working
-extension ExtensionOnMovieTween on MovieTween
-{
-  void applyInterpolationFromCurrentMovie(Movie currentValues, List<MovieTweenPropertyType> properties, Duration duration, Curve curve)
-  {
-    final desiredValue = transform(0.0);
-
-    MovieScene scene = this.scene(duration: duration, curve: curve);
-
-    for (final property in properties)
-    {
-      final valueCurrent = currentValues.get(property);
-      final valueDesired = desiredValue.get(property);
-
-      if (valueCurrent is Color)
-      {
-        scene = scene.tween(property, ColorTween(begin: valueCurrent, end: valueDesired));
-        continue;
-      }
-
-      if (valueCurrent is Size)
-      {
-        scene = scene.tween(property, SizeTween(begin: valueCurrent, end: valueDesired));
-        continue;
-      }
-
-      scene = scene.tween(property, Tween(begin: valueCurrent, end: valueDesired));
-    }
-  } 
-}
-
-
 class _InOutMovieState extends State<InOutMovie> {
 
   int _currentPhase = 0;
   int? _currentPlayIndex = 0;
+  MovieTween? _outro;
   NullableMovie? _currentMovie;
 
   @override
@@ -102,13 +66,17 @@ class _InOutMovieState extends State<InOutMovie> {
 
     if (widget.playOutro != oldWidget.playOutro)
     {
-      if (widget.outro == null)
+      if (!widget.playOutro)
+      {
+        throw Exception('playOutro cannot be set to false after it was set to true.');
+      }
+
+      if (widget.onCreateOutro == null)
       {
         throw Exception('Outro movie is required to play outro');
       }
 
-      // TODO improve the controlines of this
-      widget.outro!.applyInterpolationFromCurrentMovie(_currentMovie!.innerMovie, widget.stayToOutroProperties ?? [], 300.asDuration, Curves.easeInOut);
+      _outro = widget.onCreateOutro!(_currentMovie ?? NullableMovie.empty);
 
       setState(()
       {
@@ -155,7 +123,7 @@ class _InOutMovieState extends State<InOutMovie> {
       movies: [
         widget.intro ?? MovieTween(),
         widget.stay ?? MovieTween(),
-        widget.outro ?? MovieTween(),
+        _outro ?? MovieTween(),
       ],
       builder: (context, movie, child)
       {

@@ -52,14 +52,6 @@ typedef GetBaseUrl = Future<String> Function();
 typedef GetDefaultHeaders = Future<Map<String, String>> Function();
 typedef CreateResponseObject<T> = T Function(int statusCode, Map<String, dynamic>? jsonPayload);
 
-class UserNotAuthorizedException implements Exception {
-  final dynamic message;
-
-  UserNotAuthorizedException({
-    this.message = 'User is not authorized',
-  });
-
-}
 
 class AuthApiHttpClient<TResponse> {
 
@@ -162,28 +154,14 @@ class AuthApiHttpClient<TResponse> {
     required kHttpMethod method,
   }) async
   {
-    if (preventPayloadLogging)
-    {
-      Dev.log(this, '$method to $apiPath');
-    }
-    else
-    {
-      Dev.log(this, '$method to $apiPath', body);
-    }
+    
 
     http.Response? response;
     Map<String, dynamic>? jsonResponse;
 
     try
     {
-      Map<String, String> headers = await createHeaders(
-        additionalHeaders: additionaHeaders, 
-        authRequirement: authRequirement
-      );
-
       final baseUrl = await onGetBaseUrl();
-
-      String? jsonBody = body != null ? json.encode(body) : null;
 
       if (apiPath.startsWith('/'))
       {
@@ -191,6 +169,25 @@ class AuthApiHttpClient<TResponse> {
       }
 
       final finalUrl = path.join(baseUrl, apiPath);
+
+      if (preventPayloadLogging)
+      {
+        Dev.log(this, '${EnumTool.enumToStringValue(method).toUpperCase()}: $finalUrl');
+      }
+      else
+      {
+        Dev.log(this, '${EnumTool.enumToStringValue(method).toUpperCase()}: $finalUrl', body);
+      }
+
+      Map<String, String> headers = await createHeaders(
+        additionalHeaders: additionaHeaders, 
+        authRequirement: authRequirement
+      );
+
+
+      String? jsonBody = body != null ? json.encode(body) : null;
+
+
 
       String urlPostFix = '';
 
@@ -243,12 +240,7 @@ class AuthApiHttpClient<TResponse> {
     {
       Dev.logException(this, e, 'Failed $method to $apiPath');
 
-      if (e is UserNotAuthorizedException)
-      {
-        return onCreateResponse(401, null);
-      }
-
-      return onCreateResponse(500, null);
+      rethrow;
     }
 
     return onCreateResponse(response.statusCode, jsonResponse);
@@ -286,7 +278,7 @@ class AuthApiHttpClient<TResponse> {
       {
         if (authRequirement == kAuthRequirement.required)
         {
-          throw UserNotAuthorizedException();
+          throw ApiAuthException(code: kApiAuthExceptionCode.invalid);
         }
       }
       else
