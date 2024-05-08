@@ -11,6 +11,13 @@ enum kAuthRequirement
 }
 
 // ignore: camel_case_types
+enum kAuthErrorResolving
+{
+  cancelWithRethrow,
+  retry,
+}
+
+// ignore: camel_case_types
 enum kHttpMethod
 {
   get,
@@ -51,7 +58,7 @@ typedef GetAuthToken = Future<String?> Function();
 typedef GetBaseUrl = Future<String> Function();
 typedef GetDefaultHeaders = Future<Map<String, String>> Function();
 typedef CreateResponseObject<T> = T Function(int statusCode, Map<String, dynamic>? jsonPayload);
-
+typedef AuthError = Future<kAuthErrorResolving> Function(ApiAuthException exception, kAuthRequirement authRequirement);
 
 class AuthApiHttpClient<TResponse> {
 
@@ -59,11 +66,13 @@ class AuthApiHttpClient<TResponse> {
   final GetAuthToken onGetAuthToken;
   final CreateResponseObject<TResponse> onCreateResponse;
   final GetDefaultHeaders? onGetDefaultHeaders;
+  final AuthError onAuthError;
 
   AuthApiHttpClient({
     required this.onGetBaseUrl,
     required this.onGetAuthToken,
     required this.onCreateResponse,
+    required this.onAuthError,
     this.onGetDefaultHeaders,
   });
 
@@ -235,15 +244,37 @@ class AuthApiHttpClient<TResponse> {
         ? json.decode(response.body)
         : null;
 
+      return onCreateResponse(response.statusCode, jsonResponse);
     }
     catch (e)
     {
       Dev.logException(this, e, 'Failed $method to $apiPath');
 
+      if (e is ApiAuthException)
+      {
+        final authErrorResolving = await onAuthError(e, authRequirement);
+
+        if (authErrorResolving == kAuthErrorResolving.cancelWithRethrow)
+        {
+          rethrow;
+        }
+        else if (authErrorResolving == kAuthErrorResolving.retry)
+        {
+          return makeRequest(
+            apiPath: apiPath,
+            body: body,
+            queryParameters: queryParameters,
+            additionaHeaders: additionaHeaders,
+            preventPayloadLogging: preventPayloadLogging,
+            authRequirement: authRequirement,
+            method: method,
+          );
+        }
+      }
+
       rethrow;
     }
 
-    return onCreateResponse(response.statusCode, jsonResponse);
   }
 
 

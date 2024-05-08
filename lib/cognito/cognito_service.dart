@@ -49,7 +49,18 @@ class CognitoAuthenticationService extends AuthService {
         password: password,
       );
 
-      return CognitoSignInResult(data: result);
+      List<AuthUserAttribute>? attributes;
+
+      if (result.isSignedIn)
+      {
+        attributes = await Amplify.Auth.fetchUserAttributes();
+      }
+
+
+      return CognitoSignInResult(data: SignInResultExtended(
+        signInResult: result,
+        attributes: attributes ?? [],
+      ));
     }
     on Exception catch (e)
     {

@@ -9,7 +9,18 @@ enum _kCognitoSignInErrors
   passwordChangeRequired,
 }
 
-class CognitoSignInResult extends ServiceResult<SignInResult> {
+class SignInResultExtended {
+
+  final SignInResult signInResult;
+  final List<AuthUserAttribute> attributes;
+
+  SignInResultExtended({
+    required this.signInResult,
+    required this.attributes,
+  });
+}
+
+class CognitoSignInResult extends ServiceResult<SignInResultExtended> {
 
   _kCognitoSignInErrors? _error;
 
@@ -25,14 +36,15 @@ class CognitoSignInResult extends ServiceResult<SignInResult> {
   CognitoSignInResult.emptySuccess() : super.success();
   
   @override
-  bool? checkSuccess(SignInResult data)
+  bool? checkSuccess(SignInResultExtended data)
   {
-    if (data.isSignedIn)
+
+    if (data.signInResult.isSignedIn)
     {
       return true;
     }
     
-    if (data.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword)
+    if (data.signInResult.nextStep.signInStep == AuthSignInStep.confirmSignInWithNewPassword)
     {
       _error = _kCognitoSignInErrors.passwordChangeRequired;
       return false;
