@@ -154,7 +154,7 @@ class SpacedRow extends SpacedFlex {
     switch (spacing)
     {
       case -996.0:
-        return context.dimensions.spaceXSValue;
+        return context.dimensions.spaceXXSValue;
       case -995.0:
         return context.dimensions.spaceXSValue;
       case -994.0:
@@ -311,7 +311,7 @@ class SpacedColumn extends SpacedFlex {
     switch (spacing)
     {
       case -996.0:
-        return context.dimensions.spaceXSValue;
+        return context.dimensions.spaceXXSValue;
       case -995.0:
         return context.dimensions.spaceXSValue;
       case -994.0:

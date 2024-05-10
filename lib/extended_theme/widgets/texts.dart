@@ -502,6 +502,8 @@ class _TextBuilder extends StatelessWidget {
         textAlign: textAlign,
         maxLines: maxLines,
         softWrap: softWrap,
+        maxFontSize: finalStyle.fontSize ?? double.infinity,
+        minFontSize: 4.0,
         style: finalStyle,
       );
     }
