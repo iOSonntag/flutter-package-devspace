@@ -25,7 +25,7 @@ class TextDialog extends StatelessWidget {
     return DefaultDialog(
       title: title,
       content: text == null ? null : Padding(
-        padding: context.paddingS_0,
+        padding: context.paddingM_0,
         child: TextBody.medium(text, 
           textAlign: TextAlign.center,
           color: textLowFocus ? context.colors.onSurfaceLessFocus : null

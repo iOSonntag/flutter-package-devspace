@@ -400,10 +400,18 @@ class SpacedFlex extends StatelessWidget {
     double crossAxisPadding = crossAxisSpacing == CrossAxisSpacing.around ? spaceValue : 0;
 
     int? expanded;
+    FlexFit? fit;
 
     if (child is Expanded)
     {
       expanded = child.flex;
+      fit = child.fit;
+      child = child.child;
+    }
+    else if (child is Flexible)
+    {
+      expanded = child.flex;
+      fit = child.fit;
       child = child.child;
     }
 
@@ -419,8 +427,9 @@ class SpacedFlex extends StatelessWidget {
 
     if (expanded != null)
     {
-      child = Expanded(
+      child = Flexible(
         flex: expanded,
+        fit: fit ?? FlexFit.tight,
         child: child,
       );
     }

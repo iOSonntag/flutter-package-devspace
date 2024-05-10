@@ -5,6 +5,14 @@
 
 part of devspace;
 
+
+extension NullableListExtension<E> on List<E>? {
+
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
+  bool get isNotNullOrEmpty => !isNullOrEmpty;
+
+}
+
 extension ListExtension<E> on List<E> {
 
   Map<T, E> toMap<T>(T Function(E e) f)

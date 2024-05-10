@@ -40,12 +40,21 @@ class DefaultDialog extends StatelessWidget {
         button = button.glassShimmer(delay: 500.asDuration);
       }
 
-      return ConstrainedBox(
+      button = ConstrainedBox(
         constraints: BoxConstraints(
           minWidth: context.dimensions.reasonableButtonWidth(context)
         ),
         child: button,
       );
+
+      if (actionsAlignment == Axis.horizontal)
+      {
+        button = Flexible(
+          child: button,
+        );
+      }
+
+      return button;
     });
 
 
@@ -54,7 +63,13 @@ class DefaultDialog extends StatelessWidget {
 
       context.spaceL,
 
-      TextHeadline.medium(title),
+      Padding(
+        padding: context.paddingM_0,
+        child: TextHeadline.medium(title,
+          shrinkIfNeeded: true,
+          maxLines: 1,
+        ),
+      ),
 
       context.spaceS,
     ];
@@ -63,7 +78,7 @@ class DefaultDialog extends StatelessWidget {
     {
       children.addAll([
         content!,
-        context.spaceS,
+        context.spaceM,
       ]);
     }
 
@@ -73,10 +88,15 @@ class DefaultDialog extends StatelessWidget {
       if (actionsAlignment == Axis.horizontal)
       {
         children.add(
-          SpacedRow.S(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: buttons,
+          Padding(
+            padding: context.paddingS,
+            child: SpacedRow.L(
+              mainAxisSpacing: MainAxisSpacing.between,
+              crossAxisSpacing: CrossAxisSpacing.none,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: buttons,
+            ),
           ),
         );
       }

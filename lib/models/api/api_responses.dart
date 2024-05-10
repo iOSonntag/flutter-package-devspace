@@ -46,6 +46,11 @@ class ApiResponse {
         zodIssues: (jsonPayload['zod']['issues'] as List<dynamic>).cast<ZodIssue>(),
       );
     }
+
+    if (jsonPayload['error']['code'] == null)
+    {
+      throw ApiResponseInvalidException();
+    }
     
     switch (jsonPayload['error']['code'])
     {
@@ -58,7 +63,10 @@ class ApiResponse {
       case 'AUTH_TOKEN_EXPIRED': throw ApiAuthException(code: kApiAuthExceptionCode.tokenExpired);
       case 'AUTH_INVALID': throw ApiAuthException(code: kApiAuthExceptionCode.invalid);
       default:
-        throw LibraryIssueError('Unknown error code: ${jsonPayload['error']['code']}');
+        throw ApiCustomException(
+          code: jsonPayload['error']['code'],
+          details: jsonPayload['error']['details']
+        );
     }
   }
 }
@@ -169,6 +177,26 @@ class ApiAuthException implements Exception, UserFriendlyException {
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage() => 'The authentification is invalid or the authentification token expired.';
+}
+
+
+class ApiCustomException implements Exception, UserFriendlyException {
+  
+  final String message;
+  final String code;
+  final Map<String, dynamic>? details;
+
+  ApiCustomException({
+    this.message = 'A custom api response exception.',
+    required this.code,
+    required this.details,
+  });
+
+  @override
+  String toString() => 'ApiCustomException: $message ($code) - details: $details';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage() => 'An unexpected error occured.';
 }
 
 
