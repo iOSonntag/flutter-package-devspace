@@ -40,4 +40,35 @@ extension IntExtension on int {
   {
     return toDouble().toRadian();
   }
+
+  /// Creates a string with the int value and adds a seperator every 3 digits.
+  String toThousandSeperatedString({
+    required String seperator,
+  })
+  {
+    String value = toString();
+
+    if (value.length <= 3)
+    {
+      return value;
+    }
+
+    String result = '';
+
+    int index = 0;
+
+    for (int i = value.length - 1; i >= 0; i--)
+    {
+      result = value[i] + result;
+
+      index++;
+
+      if (index % 3 == 0 && i != 0)
+      {
+        result = seperator + result;
+      }
+    }
+
+    return result;
+  }
 }
