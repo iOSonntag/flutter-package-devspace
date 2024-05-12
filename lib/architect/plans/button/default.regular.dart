@@ -67,6 +67,13 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
 
   Widget _buildContent(BuildContext context)
   {
+    if (data.isLoading)
+    {
+      return ArchLoadingIndicator(
+        size: kSize3.S,
+      );
+    }
+
     Color contentColor = _contentColor(context);
 
     if (data.icon == null && data.title != null)
@@ -203,13 +210,13 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   {
     return switch (data.type)
     {
-      kButtonType.regular => context.colors.surface,
+      kButtonType.regular => data.onSurface ? context.colors.onSurface : context.colors.onBackground,
       kButtonType.primary => context.colors.primary,
       kButtonType.secondary => context.colors.secondary,
       kButtonType.tertiary => context.colors.tertiary,
       kButtonType.success => context.colors.success,
       kButtonType.destructive => context.colors.destructive,
-      kButtonType.lowFocus => context.colors.onBackgroundLessFocus,
+      kButtonType.lowFocus => data.onSurface ? context.colors.onSurfaceLessFocus : context.colors.onBackgroundLessFocus,
       kButtonType.fancy1 => Colors.transparent,
       kButtonType.fancy2 => Colors.transparent,
       kButtonType.fancy3 => Colors.transparent,

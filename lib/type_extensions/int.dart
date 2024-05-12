@@ -71,4 +71,16 @@ extension IntExtension on int {
 
     return result;
   }
+
+  String toPaddedString(int length, {String padding = '0'})
+  {
+    String value = toString();
+
+    if (value.length >= length)
+    {
+      return value;
+    }
+
+    return padding * (length - value.length) + value;
+  }
 }

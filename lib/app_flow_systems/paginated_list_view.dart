@@ -163,7 +163,7 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>> {
             actionTitle: widget.noItemsConfig?.actionTitle ?? LibStrings.lib_general_actionRetry.tr(),
           ),
         ),
-        firstPageProgressIndicatorBuilder: (_) => const Center(
+        firstPageProgressIndicatorBuilder: (_) => Center(
           child: ArchLoadingIndicator(
             variant: kLoadingIndicatorVariant.special
           )
@@ -171,7 +171,7 @@ class _PaginatedListViewState<T> extends State<PaginatedListView<T>> {
         newPageProgressIndicatorBuilder: (_) => Center(
           child: Padding(
             padding: context.paddingM,
-            child: const ArchLoadingIndicator(),
+            child: ArchLoadingIndicator(),
           )
         ),
         newPageErrorIndicatorBuilder: (_) => Center(

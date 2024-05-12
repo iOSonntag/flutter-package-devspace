@@ -4,11 +4,18 @@ part of devspace;
 
 class ArchLoadingIndicator extends ArchBase<kLoadingIndicatorVariant, LoadingIndicatorData> {
 
-  const ArchLoadingIndicator({
+  ArchLoadingIndicator({
     super.key,
-    super.data = const LoadingIndicatorData(),
     super.variant = kLoadingIndicatorVariant.regular,
-  });
+    kSize3 size = kSize3.M,
+    String? variationId,
+  }) :
+    super(
+      data: LoadingIndicatorData(
+        variationId: variationId,
+        size: size,
+      ),
+    );
 
 
 }

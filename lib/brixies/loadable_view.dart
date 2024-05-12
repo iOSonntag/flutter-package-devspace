@@ -27,7 +27,7 @@ class LoadableView extends StatelessWidget {
         return child;
       }
 
-      return const Center(
+      return Center(
         child: ArchLoadingIndicator()
       );
     }
@@ -43,7 +43,7 @@ class LoadableView extends StatelessWidget {
           child: child,
         ),
 
-        if (isLoading) const Positioned(
+        if (isLoading) Positioned(
           left: 0,
           right: 0,
           top: 0,

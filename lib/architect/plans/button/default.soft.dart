@@ -63,13 +63,13 @@ class DefaultButtonSoft extends ArchBaseStatelessWidget<ButtonData> {
   {
     return switch (data.type)
     {
-      kButtonType.regular => context.colors.onBackground,
+      kButtonType.regular => data.onSurface ? context.colors.onSurface : context.colors.onBackground,
       kButtonType.primary => context.colors.primary,
       kButtonType.secondary => context.colors.secondary,
       kButtonType.tertiary => context.colors.tertiary,
       kButtonType.success => context.colors.success,
       kButtonType.destructive => context.colors.destructive,
-      kButtonType.lowFocus => context.colors.onBackgroundLessFocus,
+      kButtonType.lowFocus => data.onSurface ? context.colors.onSurfaceLessFocus : context.colors.onBackgroundLessFocus,
       kButtonType.fancy1 => throw UnsupportedError('Fancy buttons are not supported for soft buttons'),
       kButtonType.fancy2 => throw UnsupportedError('Fancy buttons are not supported for soft buttons'),
       kButtonType.fancy3 => throw UnsupportedError('Fancy buttons are not supported for soft buttons'),

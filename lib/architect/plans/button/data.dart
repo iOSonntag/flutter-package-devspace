@@ -32,11 +32,13 @@ class ButtonData extends PlanDataWithChild {
   final kButtonType type;
   final kSize3 size;
   final bool enabled;
+  final bool isLoading;
   final String? title;
   final bool? titleBold;
   final String? subtitle;
   final bool underline;
   final IconData? icon;
+  final bool onSurface;
   final VoidCallback? onPrimaryAction;
   final VoidCallback? onSecondaryAction;
   final VoidCallback? onTertiaryAction;
@@ -47,11 +49,13 @@ class ButtonData extends PlanDataWithChild {
     this.size = kSize3.M,
     this.type = kButtonType.primary,
     this.enabled = true,
+    this.isLoading = false,
     this.underline = false,
     this.title,
     this.titleBold,
     this.subtitle,
     this.icon,
+    this.onSurface = false,
     this.onPrimaryAction,
     this.onSecondaryAction,
     this.onTertiaryAction,

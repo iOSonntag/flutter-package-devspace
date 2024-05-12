@@ -22,7 +22,7 @@ class LoadingOverlay extends StatelessWidget
       dialogBarrierDismissible: false,
       dialogBuilder: (context)
       {
-        return const Center(
+        return Center(
           child: ArchLoadingIndicator(),
         );
       },

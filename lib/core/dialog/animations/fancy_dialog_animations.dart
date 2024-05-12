@@ -16,7 +16,7 @@ class FancyDialogAnimationA extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
-    final moveStep = context.screenSize.height / 100;
+    final moveStep = context.screenSize.height / 200;
     return InOutMovie(
       intro: MovieTween()
         ..scene(duration: 500.asDuration, curve: Curves.easeInOut)
