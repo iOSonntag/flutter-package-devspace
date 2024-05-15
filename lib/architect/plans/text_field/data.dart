@@ -24,6 +24,7 @@ class TextFieldData extends PlanData {
   final TextInputType? textInputType;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String?>? onSave;
+  final ValueChanged<String>? onSubmit;
   final FormFieldValidator<String?>? validator;
   final bool visuallyMarkAsRequired;
   final String? label;
@@ -48,6 +49,7 @@ class TextFieldData extends PlanData {
     this.textInputType,
     this.onChanged,
     this.onSave,
+    this.onSubmit,
     this.validator,
     this.label,
     this.hint,

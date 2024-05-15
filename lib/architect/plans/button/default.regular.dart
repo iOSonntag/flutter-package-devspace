@@ -36,6 +36,30 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
       child: _buildContent(context)
     );
 
+    if (data.isLoading)
+    {
+      child = Stack(
+        children: [
+          
+          Visibility(
+            visible: false,
+            maintainState: true,
+            maintainAnimation: true,
+            maintainSize: true,
+            child: child,
+          ),
+
+          Positioned.fill(
+            child: Center(
+              child: ArchLoadingIndicator(
+                size: kSize3.S,
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
     final Gradient? grad = _backgroundGradient(context);
     final BorderRadius borderRadius = _borderRadius(context);
 
@@ -67,13 +91,6 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
 
   Widget _buildContent(BuildContext context)
   {
-    if (data.isLoading)
-    {
-      return ArchLoadingIndicator(
-        size: kSize3.S,
-      );
-    }
-
     Color contentColor = _contentColor(context);
 
     if (data.icon == null && data.title != null)

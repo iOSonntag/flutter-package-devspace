@@ -35,6 +35,7 @@ class DefaultLoadingIndicatorRegular extends ArchBaseStatelessWidget<LoadingIndi
         colors: [
           context.colors.primary,
         ],
+        backgroundColor: Colors.transparent,
         strokeWidth: _strokeWidth(context)
       ),
     );

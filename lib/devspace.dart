@@ -289,6 +289,7 @@ part 'type_extensions/border_radius.dart';
 part 'type_extensions/color.dart';
 part 'type_extensions/controller.dart';
 part 'type_extensions/curve.dart';
+part 'type_extensions/date_time.dart';
 part 'type_extensions/double.dart';
 part 'type_extensions/enum.dart';
 part 'type_extensions/int.dart';

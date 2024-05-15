@@ -62,28 +62,37 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
                 ),
                 child: ControllerHolder<TextEditingController>(
                   create: () => TextEditingController(text: state.value),
-                  builder: (context, controller) => ScrollConfiguration(
-                    behavior: const NoScrollBarBehavior(),
-                    child: TextField(
-                      controller: controller,
-                      enabled: data.enabled,
-                      style: context.text.bodyMedium,
-                      decoration: _buildInputDecoration(context, hasError),
-                      maxLines: data.maxLines ?? (data.isTextArea ? 6 : 1),
-                      scrollPadding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 500.0),
-                      scrollPhysics: data.isTextArea ? context.animations.scrollPhysics : null,
-                      autofillHints: data.autofillHints,
-                      autocorrect: data.autocorrect,
-                      keyboardType: data.textInputType,
-                      onChanged: (value)
-                      {
-                        state.didChange(value);
-                        data.onChanged?.call(value);
-                      },
-                      obscureText: data.obscureText,
-                      enableSuggestions: data.enableSuggestions,
-                    ),
-                  ),
+                  builder: (context, controller)
+                  {
+                    if (state.value != controller.text)
+                    {
+                      controller.text = state.value ?? '';
+                    }
+
+                    return ScrollConfiguration(
+                      behavior: const NoScrollBarBehavior(),
+                      child: TextField(
+                        controller: controller,
+                        enabled: data.enabled,
+                        style: context.text.bodyMedium,
+                        decoration: _buildInputDecoration(context, hasError),
+                        maxLines: data.maxLines ?? (data.isTextArea ? 6 : 1),
+                        scrollPadding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 500.0),
+                        scrollPhysics: data.isTextArea ? context.animations.scrollPhysics : null,
+                        autofillHints: data.autofillHints,
+                        autocorrect: data.autocorrect,
+                        keyboardType: data.textInputType,
+                        onSubmitted: data.onSubmit,
+                        onChanged: (value)
+                        {
+                          state.didChange(value);
+                          data.onChanged?.call(value);
+                        },
+                        obscureText: data.obscureText,
+                        enableSuggestions: data.enableSuggestions,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
