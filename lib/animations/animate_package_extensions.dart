@@ -2,14 +2,49 @@ part of devspace;
 
 extension ExtensionAnimatePackageOnWidget on Widget {
 
+  Animate glassShimmerRepeated({
+    bool show = true,
+    Duration delay = Duration.zero,
+    Duration duration = const Duration(milliseconds: 2000),
+    Duration repeatAfter = const Duration(milliseconds: 4000),
+  })
+  {
+    return glassShimmer(
+      show: show,
+      delay: delay,
+      duration: duration,
+      repeatAfter: repeatAfter,
+    );
+  }
+
   Animate glassShimmer({
     bool show = true,
     Duration delay = Duration.zero,
     Duration duration = const Duration(milliseconds: 2000),
+    Duration? repeatAfter,
   })
   {
     return animate(
-      target: show.thenEither(1.0, 0.0)
+      target: show.thenEither(1.0, 0.0),
+      onComplete: (controller) async
+      {
+        if (repeatAfter == null)
+        {
+          return;
+        }
+
+        await Future.delayed(repeatAfter);
+
+        try
+        {
+          controller.forward(from: 0.0);
+        }
+        catch (error)
+        {
+          // ignore
+        }
+      }
+        
     ).shimmer(
       size: 0.3,
       colors: [

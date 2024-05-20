@@ -125,6 +125,7 @@ class _InOutMovieState extends State<InOutMovie> {
         widget.stay ?? MovieTween(),
         _outro ?? MovieTween(),
       ],
+      child: widget.child,
       builder: (context, movie, child)
       {
         _currentMovie = movie;

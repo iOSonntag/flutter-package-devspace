@@ -77,7 +77,8 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
 
 
   Key _currentAnimKey = UniqueKey();
-  Key _childKey = GlobalKey();
+  final Key _childKey = GlobalKey();
+  final Key _prerenderedChildKey = GlobalKey();
 
 
   @override
@@ -99,7 +100,7 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
   {
     if (widget.playIndex == null)
     {
-      return widget.builder(context, NullableMovie.empty, null);
+      return widget.builder(context, NullableMovie.empty, widget.child != null ? KeyedSubtree(key: _prerenderedChildKey, child: widget.child!) : null);
     }
 
     final movie = widget.movies[widget.playIndex!];
@@ -123,7 +124,7 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
         {
           return KeyedSubtree(
             key: _childKey,
-            child: widget.builder(context, NullableMovie(innerMovie: movie), child),
+            child: widget.builder(context, NullableMovie(innerMovie: movie), widget.child != null ? KeyedSubtree(key: _prerenderedChildKey, child: widget.child!) : null),
           );
         },
       );
@@ -140,7 +141,7 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
         {
           return KeyedSubtree(
             key: _childKey,
-            child: widget.builder(context, NullableMovie(innerMovie: movie), child),
+            child: widget.builder(context, NullableMovie(innerMovie: movie), widget.child != null ? KeyedSubtree(key: _prerenderedChildKey, child: widget.child!) : null),
           );
         },
       );
@@ -155,7 +156,7 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
       {
         return KeyedSubtree(
           key: _childKey,
-          child: widget.builder(context, NullableMovie(innerMovie: movie), child),
+          child: widget.builder(context, NullableMovie(innerMovie: movie), widget.child != null ? KeyedSubtree(key: _prerenderedChildKey, child: widget.child!) : null),
         );
       },
     );

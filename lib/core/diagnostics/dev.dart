@@ -16,7 +16,7 @@ abstract class Dev
     debugPrint('local env [$className]: $finalMessage');
   }
 
-  static void logException(dynamic issuer, Object exception, String? message)
+  static void logException(dynamic issuer, Object exception, [String? message])
   {
     String className = (issuer is String) ? issuer : issuer.runtimeType.toString();
 
