@@ -76,6 +76,7 @@ class AppRouter {
   final GlobalKey<NavigatorState> rootNavigatorKey;
 
   final String initialLocation;
+  final Object? initialExtra;
   final String homeLocation;
   final AppRouterAuthConfig? auth;
 
@@ -85,6 +86,7 @@ class AppRouter {
     required GlobalKey<NavigatorState> rootNavigatorKey,
     AppRouterAuthConfig? auth,
     String initialLocation = '/',
+    Object? initialExtra,
     String homeLocation = '/',
     required List<RouteBase> routes,
   })
@@ -93,6 +95,7 @@ class AppRouter {
       rootNavigatorKey: rootNavigatorKey,
       auth: auth,
       initialLocation: initialLocation,
+      initialExtra: initialExtra,
       homeLocation: homeLocation,
       routes: routes,
     );
@@ -114,6 +117,7 @@ class AppRouter {
     required this.rootNavigatorKey,
     required this.auth,
     required this.initialLocation,
+    this.initialExtra,
     required this.homeLocation,
     required List<RouteBase> routes,
   })
@@ -132,6 +136,7 @@ class AppRouter {
       debugLogDiagnostics: true,
       navigatorKey: rootNavigatorKey,
       initialLocation: initialLocation,
+      initialExtra: initialExtra,
       routes: finalRoutes,
       redirect: (context, state) async
       {

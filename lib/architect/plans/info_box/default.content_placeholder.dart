@@ -40,7 +40,7 @@ class DefaultInfoBoxContentPlaceholder extends ArchBaseStatelessWidget<InfoBoxDa
           if (data.icon != null) Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: context.paddingXS,
+              padding: context.paddingXS.setTop(0.0),
               child: Icon(data.icon!,
                 size: context.dimensions.iconSizeXL,
                 color: iconColor,
@@ -74,7 +74,9 @@ class DefaultInfoBoxContentPlaceholder extends ArchBaseStatelessWidget<InfoBoxDa
               type: kButtonType.primary,
               onPressed: data.onAction,
             ),
-          )
+          ),
+
+          context.spaceXXL,
         ],
       ),
     );
