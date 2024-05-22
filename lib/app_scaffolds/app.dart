@@ -38,16 +38,21 @@ class App<T> extends StatelessWidget {
 
   static final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
-  static Locale get currentLocale
+  static BuildContext get rootNavigationContext
   {
     final BuildContext? context = rootNavigatorKey.currentContext;
 
     if (context == null)
     {
-      throw Exception('rootNavigatorKey.currentContext is null. Are you accessing App.currentLocale before the App is built?');
+      throw Exception('rootNavigatorKey.currentContext is null. Are you accessing App.rootContext before the App is built?');
     }
 
-    return Localizations.localeOf(context);
+    return context;
+  }
+
+  static Locale get currentLocale
+  {
+    return Localizations.localeOf(App.rootNavigationContext);
   }
 
   App({
