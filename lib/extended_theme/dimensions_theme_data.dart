@@ -25,6 +25,7 @@ class DimensionsThemeData {
     this.listItemHeightS = 55.0,
     this.listItemHeightM = 89.0,
     this.listItemHeightL = 144.0,
+    this.barHeightXXS = 13.0,
     this.barHeightXS = 21.0,
     this.barHeightS = 34.0,
     this.barHeightM = 55.0,
@@ -73,6 +74,7 @@ class DimensionsThemeData {
   final double listItemHeightM;
   final double listItemHeightL;
 
+  final double barHeightXXS;
   final double barHeightXS;
   final double barHeightS;
   final double barHeightM;
