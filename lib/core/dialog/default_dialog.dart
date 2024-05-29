@@ -5,6 +5,7 @@ part of devspace;
 
 class DefaultDialog extends StatelessWidget {
 
+  final bool isLoading;
   final String title;
   final Widget? content;
   final Axis actionsAlignment;
@@ -12,6 +13,7 @@ class DefaultDialog extends StatelessWidget {
 
   const DefaultDialog({
     super.key,
+    this.isLoading = false,
     required this.title,
     required this.content,
     required this.actions,
@@ -121,11 +123,14 @@ class DefaultDialog extends StatelessWidget {
           color: context.colors.surface,
           borderRadius: context.dimensions.borderRadiusXL,
         ),
-        child: Padding(
-          padding: context.paddingM,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: children,
+        child: LoadableView(
+          isLoading: isLoading,
+          child: Padding(
+            padding: context.paddingM,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: children,
+            ),
           ),
         ),
       ),

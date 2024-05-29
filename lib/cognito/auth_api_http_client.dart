@@ -133,7 +133,6 @@ class AuthApiHttpClient<TResponse> {
 
   Future<TResponse> delete({
     required String apiPath,
-    required Map<String, dynamic> body,
     Map<String, String> additionaHeaders = const {},
     bool preventPayloadLogging = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
@@ -141,7 +140,7 @@ class AuthApiHttpClient<TResponse> {
   {
     return makeRequest(
       apiPath: apiPath,
-      body: body,
+      body: null,
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
       preventPayloadLogging: preventPayloadLogging,
@@ -235,7 +234,6 @@ class AuthApiHttpClient<TResponse> {
           response = await http.delete(
             uri,
             headers: headers,
-            body: jsonBody,
           );
           break;
       }

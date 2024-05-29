@@ -4,6 +4,7 @@ part of devspace;
 
 class TextDialog extends StatelessWidget {
 
+  final bool isLoading;
   final String title;
   final String? text;
   final bool textLowFocus;
@@ -12,6 +13,7 @@ class TextDialog extends StatelessWidget {
 
   const TextDialog({
     super.key,
+    this.isLoading = false,
     required this.title,
     this.text,
     this.textLowFocus = false,
@@ -23,6 +25,7 @@ class TextDialog extends StatelessWidget {
   Widget build(BuildContext context)
   {
     return DefaultDialog(
+      isLoading: isLoading,
       title: title,
       content: text == null ? null : Padding(
         padding: context.paddingM_0,
