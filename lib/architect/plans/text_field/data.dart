@@ -15,6 +15,7 @@ class TextFieldData extends PlanData {
   final bool enabled;
   final bool isFormField;
   final bool isTextArea;
+  final FocusNode? focusNode;
   final int? maxLines;
   final String? initialValue;
   final Iterable<String>? autofillHints;
@@ -36,6 +37,7 @@ class TextFieldData extends PlanData {
     super.variationId,
     this.size = kSize3.M,
     this.labelColor,
+    this.focusNode,
     this.enabled = true,
     this.isFormField = true,
     this.isTextArea = false,

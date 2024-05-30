@@ -72,6 +72,7 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
                     return ScrollConfiguration(
                       behavior: const NoScrollBarBehavior(),
                       child: TextField(
+                        focusNode: data.focusNode,
                         controller: controller,
                         enabled: data.enabled,
                         style: context.text.bodyMedium,
