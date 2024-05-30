@@ -96,11 +96,15 @@ class _InOutMovieState extends State<InOutMovie> {
         widget.onIntroCompleted!();
       }
 
-      setState(()
+      if (widget.stay != null)
       {
-        _currentPhase = 1;
-        _currentPlayIndex = widget.stay == null ? null : 1;
-      });
+        setState(()
+        {
+          _currentPhase = 1;
+          _currentPlayIndex = 1;
+        });
+      }
+
     }
     else if (_currentPhase == 2)
     {

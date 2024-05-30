@@ -61,7 +61,7 @@ class MovieOrchestra extends StatefulWidget {
   const MovieOrchestra({
     super.key,
     required this.playIndex,
-    required this.playBehaviour,
+    this.playBehaviour = kMoviePlayBehaviour.playOnce,
     required this.movies,
     this.child,
     this.developerMode = false,
