@@ -194,7 +194,7 @@ class AppRouter {
     }
 
     // ! FORGOT PASSWORD PAGE
-    if (state.matchedLocation == AppRoutesAuth.forgotPassword)
+    if (state.matchedLocation == '${AppRoutesAuth.signIn}/${AppRoutesAuth.forgotPassword}')
     {
       if (!signedIn)
       {
@@ -206,7 +206,7 @@ class AppRouter {
     }
 
     // ! RESET PASSWORD PAGE
-    if (state.matchedLocation == AppRoutesAuth.resetPassword)
+    if (state.matchedLocation == '${AppRoutesAuth.signIn}/${AppRoutesAuth.resetPassword}')
     {
       if (!signedIn)
       {
@@ -218,7 +218,7 @@ class AppRouter {
     }
 
     // ! CHANGE INITIAL PASSWORD PAGE
-    if (state.matchedLocation == AppRoutesAuth.changeInitialPassword)
+    if (state.matchedLocation == '${AppRoutesAuth.signIn}/${AppRoutesAuth.changeInitialPassword}')
     {
       if (!signedIn)
       {
