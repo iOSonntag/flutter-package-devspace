@@ -16,9 +16,9 @@ class AppRoutesAuth {
 
   static String get signIn => '$_basePath/$_signInPath';
   static String get signUp => '$_basePath/$_signUpPath';
-  static String get forgotPassword => '$_basePath/$_forgotPasswordPath';
-  static String get resetPassword => '$_basePath/$_resetPasswordPath';
-  static String get changeInitialPassword => '$_basePath/$_changeInitialPasswordPath';
+  static String get forgotPassword => _forgotPasswordPath;
+  static String get resetPassword => _resetPasswordPath;
+  static String get changeInitialPassword => _changeInitialPasswordPath;
 }
 
 
@@ -30,7 +30,7 @@ class AppRouterAuthConfig {
   final CheckSignedIn isSignedIn;
 
   final GoRouterWidgetBuilder builderSignIn;
-  final GoRouterWidgetBuilder builderSignUp;
+  final GoRouterWidgetBuilder? builderSignUp;
   final GoRouterWidgetBuilder builderForgotPassword;
   final GoRouterWidgetBuilder builderResetPassword;
   final GoRouterWidgetBuilder? builderChangeInitialPassword;
@@ -51,7 +51,7 @@ class AppRouterAuthConfig {
     required this.isSignedIn,
 
     required this.builderSignIn,
-    required this.builderSignUp,
+    this.builderSignUp,
     required this.builderForgotPassword,
     required this.builderResetPassword,
     this.builderChangeInitialPassword,
@@ -280,32 +280,47 @@ class AppRouter {
             name: AppRoutesAuth.signIn,
             path: AppRoutesAuth._signInPath,
             // builder: auth.builderSignIn,
-            pageBuilder: (context, state) {
-            return CustomNoTransitionPage<void>(
+            pageBuilder: (context, state)
+            {
+              return CustomNoTransitionPage<void>(
                 child: auth.builderSignIn(context, state),
-            );
-        },
+              );
+            },
+            routes: [
+
+              GoRoute(
+                name: AppRoutesAuth.forgotPassword,
+                path: AppRoutesAuth._forgotPasswordPath,
+                builder: auth.builderForgotPassword,
+                routes: [
+
+                  GoRoute(
+                    name: AppRoutesAuth.resetPassword,
+                    path: AppRoutesAuth._resetPasswordPath,
+                    builder: auth.builderResetPassword,
+                  ),
+
+                ]
+              ),
+
+              if (auth.builderChangeInitialPassword != null) GoRoute(
+                name: AppRoutesAuth.changeInitialPassword,
+                path: AppRoutesAuth._changeInitialPasswordPath,
+                builder: auth.builderChangeInitialPassword,
+              )
+
+            ]
+
           ),
-          GoRoute(
+
+          if (auth.builderSignUp != null) GoRoute(
             name: AppRoutesAuth.signUp,
             path: AppRoutesAuth._signUpPath,
             builder: auth.builderSignUp,
           ),
-          GoRoute(
-            name: AppRoutesAuth.forgotPassword,
-            path: AppRoutesAuth._forgotPasswordPath,
-            builder: auth.builderForgotPassword,
-          ),
-          GoRoute(
-            name: AppRoutesAuth.resetPassword,
-            path: AppRoutesAuth._resetPasswordPath,
-            builder: auth.builderResetPassword,
-          ),
-          if (auth.builderChangeInitialPassword != null) GoRoute(
-            name: AppRoutesAuth.changeInitialPassword,
-            path: AppRoutesAuth._changeInitialPasswordPath,
-            builder: auth.builderChangeInitialPassword,
-          )
+          
+          
+          
         ]
       ),
     ];

@@ -167,7 +167,8 @@ part 'common/common_content_placeholder.dart';
 part 'config/env.dart';
 // context_steroids
 
-part 'context_steroids/context_extension_url_launcher.dart';
+part 'context_steroids/snack_bar.dart';
+part 'context_steroids/url_launcher.dart';
 // core
 
 part 'core/config/galaxy_config.dart';
