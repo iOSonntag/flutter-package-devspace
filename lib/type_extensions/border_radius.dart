@@ -25,4 +25,17 @@ extension ExtensionOnBorderRadius on BorderRadius {
     bottomRight: Radius.circular(bottomRight.x - padding.top),
   );
 
+
+  BorderRadius exclude({
+    bool topLeft = false,
+    bool topRight = false,
+    bool bottomLeft = false,
+    bool bottomRight = false,
+  }) => BorderRadius.only(
+    topLeft: topLeft ? Radius.zero : this.topLeft,
+    topRight: topRight ? Radius.zero : this.topRight,
+    bottomLeft: bottomLeft ? Radius.zero : this.bottomLeft,
+    bottomRight: bottomRight ? Radius.zero : this.bottomRight,
+  );
+
 }

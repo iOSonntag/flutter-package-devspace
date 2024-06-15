@@ -206,7 +206,7 @@ class AppRouter {
     }
 
     // ! RESET PASSWORD PAGE
-    if (state.matchedLocation == '${AppRoutesAuth.signIn}/${AppRoutesAuth.resetPassword}')
+    if (state.matchedLocation == '${AppRoutesAuth.signIn}/${AppRoutesAuth.forgotPassword}/${AppRoutesAuth.resetPassword}')
     {
       if (!signedIn)
       {

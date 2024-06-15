@@ -38,13 +38,13 @@ class DefaultButtonSoft extends ArchBaseStatelessWidget<ButtonData> {
     return TextButton(
       onPressed: data.enabled ? data.onPrimaryAction : null,
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(textColor.withOpacity(0.2)),
-        minimumSize: MaterialStateProperty.all(Size.zero),
-        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        overlayColor: WidgetStateProperty.all(textColor.withOpacity(0.2)),
+        minimumSize: WidgetStateProperty.all(Size.zero),
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
       ),
       child: Container(
         padding: _contentPadding(context),
-        child: _buildText(context, textColor),
+        child: _buildContent(context, textColor),
       ),
     );
   }
@@ -76,12 +76,63 @@ class DefaultButtonSoft extends ArchBaseStatelessWidget<ButtonData> {
     };
   }
 
+  Widget _buildContent(BuildContext context, Color contentColor)
+  {
 
-  Widget _buildText(BuildContext context, Color color)
+    if (data.icon == null && data.title != null)
+    {
+      return _buildTextContent(context, contentColor);
+    }
+
+    if (_isIconOnlyButton())
+    {
+      return _buildIconContent(context, contentColor);
+    }
+  
+
+    return SpacedRow(
+      crossAxisSpacing: CrossAxisSpacing.none,
+      mainAxisSpacing: MainAxisSpacing.between,
+      spacing: switch (data.size)
+      {
+        kSize3.S => context.dimensions.spaceXXSValue,
+        kSize3.M => context.dimensions.spaceXSValue,
+        kSize3.L => context.dimensions.spaceSValue
+      },
+      children: [
+        _buildIconContent(context, contentColor),
+        _buildTextContent(context, contentColor),
+      ],
+    );
+  }
+
+  bool _isIconOnlyButton()
+  {
+    return data.icon != null && data.title == null;
+  }
+
+  Widget _buildIconContent(BuildContext context, Color contentColor)
+  {
+    bool isIconOnlyButton = _isIconOnlyButton();
+
+    return Icon(data.icon,
+      color: contentColor,
+      size: switch (data.size)
+      {
+        kSize3.S => isIconOnlyButton ? context.dimensions.iconSizeM : context.dimensions.iconSizeXS,
+        kSize3.M => isIconOnlyButton ? context.dimensions.iconSizeL : context.dimensions.iconSizeS,
+        kSize3.L => isIconOnlyButton ? context.dimensions.iconSizeXL : context.dimensions.iconSizeM
+      },
+    );
+  }
+
+  Widget _buildTextContent(BuildContext context, Color contentColor)
   {
     return TextBody.size3(data.size, data.title?.toUpperCase(),
-      color: color,
-      letterSpacing: -0.8,
+      color: contentColor,
+      letterSpacing: -0.3,
+      shrinkIfNeeded: true,
+      maxLines: 1,
       style: TextStyle(
         decoration: data.underline ? TextDecoration.underline : TextDecoration.none
       ),
