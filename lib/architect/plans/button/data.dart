@@ -39,6 +39,7 @@ class ButtonData extends PlanDataWithChild {
   final bool underline;
   final IconData? icon;
   final bool onSurface;
+  final bool inverse;
   final VoidCallback? onPrimaryAction;
   final VoidCallback? onSecondaryAction;
   final VoidCallback? onTertiaryAction;
@@ -56,6 +57,7 @@ class ButtonData extends PlanDataWithChild {
     this.subtitle,
     this.icon,
     this.onSurface = false,
+    this.inverse = false,
     this.onPrimaryAction,
     this.onSecondaryAction,
     this.onTertiaryAction,

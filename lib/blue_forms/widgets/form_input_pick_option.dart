@@ -81,7 +81,8 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
         DropdownMenuItem<String>(
           value: _OPTION_SELECTION_UNSET_VALUE,
           child: TextBody.small(LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
-            color: context.isDarkMode && context.isWeb ? Colors.white.withOpacity(0.7) : context.colors.onSurfaceLessFocus,
+            color: context.colors.onSurfaceLessFocus,
+            // color: context.isDarkMode && context.isWeb ? Colors.white.withOpacity(0.7) : context.colors.onSurfaceLessFocus,
           ),
         ),
       );
@@ -94,7 +95,8 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
         DropdownMenuItem<String>(
           value: fiItem.key,
           child: TextBody.small(fiItem.title,
-            color: context.isDarkMode && context.isWeb ? Colors.white : context.colors.onSurface,
+            color: context.colors.onSurface,
+            // color: context.isDarkMode && context.isWeb ? Colors.white : context.colors.onSurface,
           ),
         ),
       );

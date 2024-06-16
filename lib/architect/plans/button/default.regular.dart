@@ -22,6 +22,7 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   void checkUnsupportedFields()
   {
     unsupportedIf(data.icon != null && data.title != null, 'icon and title', 'they can not be used together');
+    unsupportedIf(data.inverse, 'inverse', 'inverse is not supported');
     unsupported(data.child, 'child');
     unsupported(data.subtitle, 'subtitle');
     unsupported(data.onSecondaryAction, 'onSecondaryAction');

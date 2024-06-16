@@ -64,11 +64,11 @@ class DefaultButtonLink extends ArchBaseStatelessWidget<ButtonData> {
     return switch (data.type)
     {
       kButtonType.regular => data.onSurface ? context.colors.onSurface : context.colors.onBackground,
-      kButtonType.primary => context.colors.primary,
-      kButtonType.secondary => context.colors.secondary,
-      kButtonType.tertiary => context.colors.tertiary,
-      kButtonType.success => context.colors.success,
-      kButtonType.destructive => context.colors.destructive,
+      kButtonType.primary => data.inverse ? context.colors.onPrimary : context.colors.primary,
+      kButtonType.secondary => data.inverse ? context.colors.onSecondary : context.colors.secondary,
+      kButtonType.tertiary => data.inverse ? context.colors.onTertiary : context.colors.tertiary,
+      kButtonType.success => data.inverse ? context.colors.onSuccess : context.colors.success,
+      kButtonType.destructive => data.inverse ? context.colors.onDestructive : context.colors.destructive,
       kButtonType.lowFocus => data.onSurface ? context.colors.onSurfaceLessFocus : context.colors.onBackgroundLessFocus,
       kButtonType.fancy1 => throw UnsupportedError('Fancy buttons are not supported for links'),
       kButtonType.fancy2 => throw UnsupportedError('Fancy buttons are not supported for links'),
