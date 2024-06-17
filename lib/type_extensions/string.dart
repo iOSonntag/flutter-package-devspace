@@ -83,4 +83,18 @@ extension ExtensionOnString on String {
   {
     return _regExOnlyLettersAndNumbers.hasMatch(this);
   }
+
+
+  /// Generates a color from this string that is not too light or too dark.
+  Color toColor()
+  {
+    int hash = 0;
+    for (int i = 0; i < length; i++)
+    {
+      hash = codeUnitAt(i) + ((hash << 5) - hash);
+    }
+
+    double h = hash % 360.0;
+    return HSLColor.fromAHSL(1, h, 0.8, 0.5).toColor();
+  }
 }

@@ -8,6 +8,7 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'dart:ui';
 
+import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -155,6 +156,10 @@ part 'brixies/search_delay.dart';
 part 'brixies/smooth_swap.dart';
 part 'brixies/spaced_flex.dart';
 part 'brixies/steps_indicator.dart';
+// cached_query
+
+part 'cached_query/cached_query_extensions.dart';
+part 'cached_query/infinit_query_list.dart';
 // cognito
 
 part 'cognito/auth_api_http_client.dart';
