@@ -81,7 +81,7 @@ class _FormInputGroup extends StatelessWidget {
           
           if (mod > 0)
           {
-            for (int j = 0; j < mod; j++)
+            for (int j = 0; j < definition.elementsPerRow - mod; j++)
             {
               rowChildren.add(
                 Expanded(

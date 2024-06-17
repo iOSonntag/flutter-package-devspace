@@ -52,9 +52,9 @@ class DefaultButtonSoft extends ArchBaseStatelessWidget<ButtonData> {
   {
     return switch (data.size)
     {
-      kSize3.S => _isIconOnlyButton() ? context.paddingXXS : context.paddingM_S,
-      kSize3.M => _isIconOnlyButton() ? context.paddingXS : context.paddingL_M,
-      kSize3.L => _isIconOnlyButton() ? context.paddingS : context.paddingXL_L
+      kSize3.S => _isIconOnlyButton() ? context.paddingS : context.paddingM_S,
+      kSize3.M => _isIconOnlyButton() ? context.paddingM : context.paddingL_M,
+      kSize3.L => _isIconOnlyButton() ? context.paddingL : context.paddingXL_L
     };
   }
 
