@@ -13,6 +13,7 @@ class _FormElementWidget extends StatelessWidget {
   final Map<String, dynamic> currentSavedValues;
   final Map<String, String> externalErrors;
   final void Function(String id, dynamic value) onSave;
+  final VoidCallback onSubmitRequested;
 
   const _FormElementWidget({
     // ignore: unused_element
@@ -25,6 +26,7 @@ class _FormElementWidget extends StatelessWidget {
     required this.currentSavedValues,
     required this.externalErrors,
     required this.onSave,
+    required this.onSubmitRequested
   });
 
   @override
@@ -50,6 +52,7 @@ class _FormElementWidget extends StatelessWidget {
         currentSavedValue: currentSavedValues[definition.id],
         externalError: externalErrors[definition.id],
         onSave: (value) => onSave(definition.id, value),
+        onSubmitRequested: onSubmitRequested
       );
     }
 
@@ -89,7 +92,8 @@ class _FormElementWidget extends StatelessWidget {
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValues: currentSavedValues, 
         externalErrors: externalErrors, 
-        onSave: onSave
+        onSave: onSave,
+        onSubmitRequested: onSubmitRequested
       );
     }
 

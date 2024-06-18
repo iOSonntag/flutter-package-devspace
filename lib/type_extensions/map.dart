@@ -1,7 +1,7 @@
 part of devspace;
 
 
-extension ExtensionOnMap<K, V> on Map {
+extension ExtensionOnMap<K, X> on Map {
   
   bool entryNotNull(K key)
   {
@@ -13,24 +13,73 @@ extension ExtensionOnMap<K, V> on Map {
     return !entryNotNull(key);
   }
 
-  T? ifNotNull<T>(K key, T Function(V) callback)
+  T? ifNotNull<T, V>(K key, T Function(V) callback)
   {
-    return entryNotNull(key) ? callback(this[key] as V) : null;
+    if (entryIsNull(key))
+    {
+      return null;
+    }
+
+    dynamic value = this[key];
+
+    if (value is V)
+    {
+      return callback(value);
+    }
+
+    Dev.logWarning(this, 'Map value from key $key is not of type $V. Returning null instead. [Map.ifNotNull()]');
+
+    return null;
   }
 
-  V? getOrNull(K key)
+  V? getOrNull<V>(K key)
   {
-    return this[key];
+    dynamic value = this[key];
+
+    if (value == null || value is V)
+    {
+      return value;
+    }
+
+    Dev.logWarning(this, 'Map value from key $key is not of type $V. Returning null instead. [Map.getOrNull()]');
+    
+    return null;
   }
 
-  V getOrThrow(K key)
+  V getOrThrow<V>(K key)
   {
-    return this[key] ?? (throw Exception('Map value from key $key is required but is null. [Map.getOrThrow()]'));
+    dynamic value = this[key];
+
+    if (value == null)
+    { 
+      throw Exception('Map value from key $key is required but is null. [Map.getOrThrow()]');
+    }
+
+    if (value is V)
+    {
+      return value;
+    }
+
+    throw Exception('Map value from key $key is not of type $V. [Map.getOrThrow()]');
   }
 
-  V getOrDefault(K key, V defaultValue)
+  V getOrDefault<V>(K key, V defaultValue)
   {
-    return this[key] ?? defaultValue;
+    dynamic value = this[key];
+
+    if (value == null)
+    {
+      return defaultValue;
+    }
+
+    if (value is V)
+    {
+      return value;
+    }
+
+    Dev.logWarning(this, 'Map value from key $key is not of type $V. Returning default value instead. [Map.getOrDefault()]');
+
+    return defaultValue;
   }
 
   

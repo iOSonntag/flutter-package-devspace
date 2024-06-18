@@ -197,6 +197,7 @@ class _BlueFormsState extends State<BlueForms> {
         currentSavedValues: _savedInputs,
         externalErrors: widget.externalErrors,
         onValidationFailed: () => setState(() {}),
+        onWidgetRequestedSubmit: _onNext,
         onSave: (id, value)
         {
           _savedInputs[id] = value;

@@ -15,6 +15,7 @@ class _FormInputGroup extends StatelessWidget {
   final Map<String, dynamic> currentSavedValues;
   final Map<String, String> externalErrors;
   final void Function(String id, dynamic value) onSave;
+  final VoidCallback onSubmitRequested;
 
   const _FormInputGroup({
     // ignore: unused_element
@@ -27,6 +28,7 @@ class _FormInputGroup extends StatelessWidget {
     required this.currentSavedValues,
     required this.externalErrors,
     required this.onSave,
+    required this.onSubmitRequested
   });
 
 
@@ -61,8 +63,8 @@ class _FormInputGroup extends StatelessWidget {
               visuallyMarkRequired: visuallyMarkRequired,
               currentSavedValues: currentSavedValues, 
               externalErrors: externalErrors, 
-              
-              onSave: onSave
+              onSave: onSave,
+              onSubmitRequested: onSubmitRequested,
             ),
           )
         );
@@ -121,7 +123,8 @@ class _FormInputGroup extends StatelessWidget {
           visuallyMarkRequired: visuallyMarkRequired,
           currentSavedValues: currentSavedValues, 
           externalErrors: externalErrors, 
-          onSave: onSave
+          onSave: onSave,
+          onSubmitRequested: onSubmitRequested,
         )
       );
 

@@ -4,6 +4,9 @@ part of devspace;
 enum kImageClass {
   profile,
   avatar,
+  /// If there is an issue with the image, a strong visually impactful
+  /// placeholder will be used. 
+  highlightErrors,
   other
 }
 
@@ -28,6 +31,11 @@ abstract class ImageProviderSmart {
     if (classification == kImageClass.profile)
     {
       return AssetImage(App.config.assets.imagePlaceholderNoProfile);
+    }
+
+    if (classification == kImageClass.highlightErrors)
+    {
+      // TODO: implement
     }
 
     throw UnimplementedError('ImageProviderSmart.network: classification $classification not implemented');

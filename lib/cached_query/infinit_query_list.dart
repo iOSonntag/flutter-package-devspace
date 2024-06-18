@@ -198,6 +198,7 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
                   onPressed: query.fetchNextPageAdvanced,
                   type: kButtonType.regular,
                   size: kSize3.S,
+                  onSurface: true,
                   title: LibStrings.lib_general_actionRetry.tr(),
                 ),
 

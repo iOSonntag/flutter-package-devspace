@@ -29,6 +29,7 @@ class _FormPageWidget extends StatefulWidget {
   final Map<String, String> externalErrors;
   final void Function(String id, dynamic value) onSave;
   final VoidCallback onValidationFailed;
+  final VoidCallback onWidgetRequestedSubmit;
 
   const _FormPageWidget({
     // ignore: unused_element
@@ -41,6 +42,7 @@ class _FormPageWidget extends StatefulWidget {
     required this.externalErrors,
     required this.onSave,
     required this.onValidationFailed,
+    required this.onWidgetRequestedSubmit
   });
 
   @override
@@ -141,7 +143,8 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
           visuallyMarkRequired: widget.visuallyMarkRequiredFields,
           currentSavedValues: widget.currentSavedValues, 
           externalErrors: widget.externalErrors, 
-          onSave: widget.onSave
+          onSave: widget.onSave,
+          onSubmitRequested: widget.onWidgetRequestedSubmit,
         )
       );
 

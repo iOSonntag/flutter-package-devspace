@@ -97,4 +97,14 @@ extension ExtensionOnString on String {
     double h = hash % 360.0;
     return HSLColor.fromAHSL(1, h, 0.8, 0.5).toColor();
   }
+
+  int toInt()
+  {
+    return int.parse(this);
+  }
+
+  double toDouble()
+  {
+    return double.parse(this);
+  }
 }

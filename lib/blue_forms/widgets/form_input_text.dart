@@ -12,6 +12,7 @@ class _FormInputTextWidget extends StatelessWidget {
   final dynamic currentSavedValue;
   final String? externalError;
   final void Function(String? value) onSave;
+  final VoidCallback onSubmitRequested;
 
   const _FormInputTextWidget({
     super.key,
@@ -20,6 +21,7 @@ class _FormInputTextWidget extends StatelessWidget {
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
+    required this.onSubmitRequested,
     this.externalError,
   });
 
@@ -68,6 +70,7 @@ class _FormInputTextWidget extends StatelessWidget {
           enableSuggestions: definition.enableSuggestions,
           textInputType: definition.textInputType,
           onChanged: definition.onChange,
+          onSubmit: (value) => onSubmitRequested(),
           onSave: (value)
           {
             if (definition.trimOnSave)

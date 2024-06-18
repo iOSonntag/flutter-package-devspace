@@ -104,6 +104,61 @@ extension ExtensionOnQuery<T> on Query<T> {
 }
 
 
+abstract class CachedQueryInvalidations {
+
+  CachedQueryInvalidations._();
+
+  static void invalidateQueriesAndRefetchIfNeeded(KeyFilterFunc filterFunc)
+  {
+    CachedQuery.instance.invalidateCache(
+      filterFn: filterFunc,
+    );
+
+    final queriesNeedRefetching = CachedQuery.instance.whereQuery((query)
+    {
+      if (query.hasListener)
+      {
+        return filterFunc(query.unencodedKey, query.key);
+      }
+
+      return false;
+    });
+
+    if (queriesNeedRefetching == null) return;
+
+    for (final query in queriesNeedRefetching)
+    {
+      if (query is InfiniteQuery)
+      {
+        query.refetchBySystem();
+      }
+      else
+      {
+        // TODO: think if we should use refetchBySystem
+        query.refetch();
+      }
+    }
+  }
+
+  static void invalidateQueriesAndRefetchIfNeededStartingWith(List<String> startWith)
+  {
+    invalidateQueriesAndRefetchIfNeeded((unencodedKey, key)
+    {
+      for (final start in startWith)
+      {
+        if (key.startsWith(start))
+        {
+          return true;
+        }
+      }
+
+      return false;
+    });
+  }
+
+}
+
+
 
 
 

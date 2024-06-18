@@ -228,7 +228,7 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   {
     return switch (data.type)
     {
-      kButtonType.regular => data.onSurface ? context.colors.onSurface : context.colors.onBackground,
+      kButtonType.regular => data.onSurface ? context.colors.surface : context.colors.background,
       kButtonType.primary => context.colors.primary,
       kButtonType.secondary => context.colors.secondary,
       kButtonType.tertiary => context.colors.tertiary,
