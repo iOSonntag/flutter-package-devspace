@@ -67,6 +67,7 @@ class _FormAsyncDependencyState extends material.State<_FormAsyncDependency> {
       dataKey: widget.definition.dataKey, 
       onLoad: widget.definition.onLoad, 
       internalWidgetsPadding: context.paddingL,
+      noDataRequestedWidget: widget.definition.noDataRequestedWidget,
       builder: (context, data, retry)
       {
         FormElement formElement = widget.definition.builder(data);

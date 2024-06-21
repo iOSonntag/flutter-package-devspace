@@ -94,9 +94,11 @@ class _FormGroup extends StatelessWidget {
           }
 
           groupChildren.add(
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: rowChildren,
+            IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: rowChildren,
+              ),
             )
           );
           rowChildren = [];
