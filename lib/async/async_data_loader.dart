@@ -4,12 +4,24 @@ typedef AsyncDataLoaderCallback<T> = Future<T?> Function(String dataKey);
 
 typedef AsyncDataLoaderBuilder<T> = Widget Function(BuildContext context, T? data, String? errorMessage, bool isLoading, void Function() retry);
 
+// ignore: camel_case_types
+enum kAsyncDataState
+{
+  noDataRequested,
+  loading,
+  loadedHasData,
+  loadedNoData,
+  error
+}
+
+
 class AsyncDataLoader<T> extends StatefulWidget {
 
   /// {@template AsyncDataLoader.dataKey}
   /// 
-  /// To start loading data, the key must be present. If the key changes, new
-  /// data will be loaded. If the key is null, no data will be loaded.
+  /// To start loading data (requesting data), the key must be present. If the
+  /// key changes, new data will be loaded. If the key is null, no data will be
+  /// loaded. 
   /// The data will be cached in case the key changes back to a already loaded
   /// key. 
   /// The data will be cached until the widget is disposed.
@@ -18,12 +30,14 @@ class AsyncDataLoader<T> extends StatefulWidget {
   final String? dataKey;
   final AsyncDataLoaderCallback<T> onLoad;
   final AsyncDataLoaderBuilder<T> builder;
+  final void Function(kAsyncDataState state)? onStateChange;
 
   const AsyncDataLoader({
     super.key,
     required this.dataKey,
     required this.onLoad,
     required this.builder,
+    this.onStateChange,
   });
 
   @override
@@ -47,6 +61,7 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
 
   final Map<String, _AsyncDataLoadingEntry<T>> _dataCache = {};
   bool _isLoading = false;
+  kAsyncDataState _state = kAsyncDataState.noDataRequested;
 
   @override
   void initState()
@@ -61,6 +76,22 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
     }
   }
 
+  void _setDataState(kAsyncDataState state)
+  {
+    if (_state == state)
+    {
+      return;
+    }
+
+    _state = state;
+
+    if (widget.onStateChange != null)
+    {
+      widget.onStateChange!(_state);
+    }
+  }
+
+
   @override
   void didUpdateWidget(AsyncDataLoader<T> oldWidget)
   {
@@ -73,6 +104,11 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
       if (oldWidget.dataKey != null)
       {
         _getOrCreateEntry(oldWidget.dataKey!).canceled = true;
+
+        if (widget.dataKey == null)
+        {
+          _setDataState(kAsyncDataState.noDataRequested);
+        }
       }
 
       if (widget.dataKey != null)
@@ -86,6 +122,7 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
   {
     if (_dataCache.containsKey(key) && !forceReload && _dataCache[key]!.data != null)
     {
+      _setDataState(kAsyncDataState.loadedHasData);
       return;
     }
 
@@ -96,6 +133,7 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
       entry.data = null;
       entry.errorMessage = null;
 
+      _setDataState(kAsyncDataState.loading);
       setState(() {
         _isLoading = true;
       });
@@ -109,6 +147,15 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
       }
 
       entry.data = data;
+
+      if (data == null)
+      {
+        _setDataState(kAsyncDataState.loadedNoData);
+      }
+      else
+      {
+        _setDataState(kAsyncDataState.loadedHasData);
+      }
 
       if (mounted)
       {
@@ -127,6 +174,7 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
       }
 
       entry.errorMessage = ExceptionTool.toUserFriendlyMessage(e);
+      _setDataState(kAsyncDataState.error);
 
       if (mounted)
       {

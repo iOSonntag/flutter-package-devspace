@@ -14,14 +14,18 @@ class AsyncContentBlock<T> extends StatelessWidget {
   final kAsyncContentBlockType type;
   /// {@macro AsyncDataLoader.dataKey}
   final String? dataKey;
+  final EdgeInsets internalWidgetsPadding;
   final AsyncDataLoaderCallback<T> onLoad;
-  final Widget? noDataKeyWidget;
+  final Widget? noDataRequestedWidget;
+  final void Function(kAsyncDataState state)? onStateChange;
   final AsyncContentBuilder<T> builder;
 
   const AsyncContentBlock({
     super.key,
     this.type = kAsyncContentBlockType.smallBrick,
-    this.noDataKeyWidget,
+    this.noDataRequestedWidget,
+    this.onStateChange,
+    this.internalWidgetsPadding = EdgeInsets.zero,
     required this.dataKey,
     required this.onLoad,
     required this.builder,
@@ -33,20 +37,24 @@ class AsyncContentBlock<T> extends StatelessWidget {
     return AsyncDataLoader<T>(
       dataKey: dataKey,
       onLoad: onLoad,
+      onStateChange: onStateChange,
       builder: (context, data, errorMessage, isLoading, retry)
       {
         if (isLoading)
         {
           return Center(
-            child: ArchLoadingIndicator(
-              size: type == kAsyncContentBlockType.smallBrick ? kSize3.S : kSize3.M,
+            child: Padding(
+              padding: internalWidgetsPadding,
+              child: ArchLoadingIndicator(
+                size: type == kAsyncContentBlockType.smallBrick ? kSize3.S : kSize3.M,
+              ),
             )
           );
         }
 
         if (dataKey == null)
         {
-          return noDataKeyWidget ?? EmptyWidget();
+          return noDataRequestedWidget ?? EmptyWidget();
         }
 
         if (errorMessage != null)
@@ -69,13 +77,16 @@ class AsyncContentBlock<T> extends StatelessWidget {
   {
     return Center(
       child: Padding(
-        padding: type == kAsyncContentBlockType.hugeSection ? context.paddingXXL : EdgeInsets.zero,
-        child: ArchInfoBox.error(
-          variant: type == kAsyncContentBlockType.hugeSection ? kInfoBoxVariant.contentPlaceholder : kInfoBoxVariant.smallBrick,
-          icon: Symbols.warning_rounded,
-          title: LibStrings.lib_general_titleError.tr(),
-          message: errorMessage,
-          onAction: retry,
+        padding: internalWidgetsPadding,
+        child: Padding(
+          padding: type == kAsyncContentBlockType.hugeSection ? context.paddingXXL : EdgeInsets.zero,
+          child: ArchInfoBox.error(
+            variant: type == kAsyncContentBlockType.hugeSection ? kInfoBoxVariant.contentPlaceholder : kInfoBoxVariant.smallBrick,
+            icon: Symbols.warning_rounded,
+            title: LibStrings.lib_general_titleError.tr(),
+            message: errorMessage,
+            onAction: retry,
+          ),
         ),
       )
     );
@@ -85,13 +96,16 @@ class AsyncContentBlock<T> extends StatelessWidget {
   {
     return Center(
       child: Padding(
-        padding: type == kAsyncContentBlockType.hugeSection ? context.paddingXXL : EdgeInsets.zero,
-        child: ArchInfoBox.info(
-          variant: type == kAsyncContentBlockType.hugeSection ? kInfoBoxVariant.contentPlaceholder : kInfoBoxVariant.smallBrick,
-          icon: Symbols.info_rounded,
-          title: LibStrings.lib_warning_resourceNotFound_title.tr(),
-          message: LibStrings.lib_warning_resourceNotFound_message.tr(),
-          onAction: retry,
+        padding: internalWidgetsPadding,
+        child: Padding(
+          padding: type == kAsyncContentBlockType.hugeSection ? context.paddingXXL : EdgeInsets.zero,
+          child: ArchInfoBox.info(
+            variant: type == kAsyncContentBlockType.hugeSection ? kInfoBoxVariant.contentPlaceholder : kInfoBoxVariant.smallBrick,
+            icon: Symbols.info_rounded,
+            title: LibStrings.lib_warning_resourceNotFound_title.tr(),
+            message: LibStrings.lib_warning_resourceNotFound_message.tr(),
+            onAction: retry,
+          ),
         ),
       )
     );

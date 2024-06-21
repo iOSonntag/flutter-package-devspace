@@ -139,6 +139,7 @@ part 'blue_forms/models/pages/form_page.dart';
 part 'blue_forms/models/pages/form_page_info.dart';
 part 'blue_forms/util/common_form_inputs.dart';
 part 'blue_forms/util/input_validators.dart';
+part 'blue_forms/widgets/form_async_dependency.dart';
 part 'blue_forms/widgets/form_element.dart';
 part 'blue_forms/widgets/form_input_container.dart';
 part 'blue_forms/widgets/form_group.dart';

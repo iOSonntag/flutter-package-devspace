@@ -2,22 +2,25 @@
 
 part of devspace;
 
-// TODO: implement
+typedef FormAsyncDependencyBuilder<T> = FormElement Function(T data);
 
-class FormAsyncDependency extends FormInput {
+class FormAsyncDependency<T> extends FormInput {
 
-  final List<FormsInputPickOptionItem> options;
-  final void Function(String? newValue)? onChange;
+  /// {@macro AsyncDataLoader.dataKey}
+  final String? dataKey;
+  final AsyncDataLoaderCallback<T> onLoad;
+  final Widget? noDataRequestedWidget;
+  final FormAsyncDependencyBuilder<T> builder;
+  final bool preventSubmitWithoutData;
 
   const FormAsyncDependency({
-    required super.id,
-    super.initialValue,
-    super.description,
-    super.label,
+    super.id = 'NONE',
     super.isActive,
-    required this.options,
-    super.isOptional,
-    this.onChange,
+    required this.dataKey,
+    required this.onLoad,
+    this.noDataRequestedWidget,
+    this.preventSubmitWithoutData = true,
+    required this.builder,
   });
 
 }

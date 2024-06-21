@@ -82,6 +82,21 @@ class _FormElementWidget extends StatelessWidget {
       );
     }
 
+    if (definition is FormAsyncDependency)
+    {
+      return _FormAsyncDependency(
+        definition: definition as FormAsyncDependency,
+        labelColor: labelColor,
+        isFirstElement: isFirstElement,
+        isLastElement: isLastElement,
+        visuallyMarkRequired: visuallyMarkRequired,
+        currentSavedValues: currentSavedValues, 
+        externalErrors: externalErrors, 
+        onSave: onSave,
+        onSubmitRequested: onSubmitRequested
+      );
+    }
+
     if (definition is FormGroup)
     {
       return _FormGroup(

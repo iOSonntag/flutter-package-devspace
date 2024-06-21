@@ -7,7 +7,7 @@ part of devspace;
 
 abstract interface class UserFriendlyException
 {
-  String toUserFriendlyMessage();
+  String toUserFriendlyMessage(bool forEmployee);
 } 
 
 abstract class ExceptionTool {
@@ -16,9 +16,19 @@ abstract class ExceptionTool {
 
   static toUserFriendlyMessage(Object exception)
   {
+    if (App.config.errorShadowing == kErrorShadowing.developer)
+    {
+      return exception.toString();
+    }
+
     if (exception is UserFriendlyException)
     {
-      return exception.toUserFriendlyMessage();
+      return exception.toUserFriendlyMessage(App.config.errorShadowing == kErrorShadowing.employee);
+    }
+
+    if (App.config.errorShadowing == kErrorShadowing.employee)
+    {
+      return exception.toString();
     }
 
     // TODO: localize
@@ -40,12 +50,9 @@ class UnexpectedError extends Error implements UserFriendlyException
     return 'UnexpectedError: $message';
   }
   
+  // TODO: localize
   @override
-  String toUserFriendlyMessage()
-  {
-    // TODO: localize
-    return 'An unexpected error occurred.';
-  }
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'An unexpected error occurred.';
 }
 
 

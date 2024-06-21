@@ -80,7 +80,7 @@ class ApiResponseInvalidException implements Exception, UserFriendlyException {
   String toString() => 'ApiResponseInvalidException: $message';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'Response is invalid. The request was not successful, but no response payload was provided.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'Response is invalid. The request was not successful, but no response payload was provided.';
 }
 
 class ApiResourceNotFoundException implements Exception, UserFriendlyException {
@@ -92,7 +92,7 @@ class ApiResourceNotFoundException implements Exception, UserFriendlyException {
   String toString() => 'ApiResourceNotFoundException: $message';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'The requested resource was not found.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The requested resource was not found.';
 }
 
 class ApiResourceAlreadyExistsException implements Exception, UserFriendlyException {
@@ -104,7 +104,7 @@ class ApiResourceAlreadyExistsException implements Exception, UserFriendlyExcept
   String toString() => 'ApiResourceAlreadyExistsException: $message';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'The requested resource already exists and cannot be created.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The requested resource already exists and cannot be created.';
 }
 
 class ApiNotImplementedException implements Exception, UserFriendlyException {
@@ -116,7 +116,7 @@ class ApiNotImplementedException implements Exception, UserFriendlyException {
   String toString() => 'ApiNotImplementedException: $message';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'The requested operation is not implemented (yet).';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The requested operation is not implemented (yet).';
 }
 
 class ApiBadRequestException implements Exception, UserFriendlyException {
@@ -128,7 +128,7 @@ class ApiBadRequestException implements Exception, UserFriendlyException {
   String toString() => 'ApiBadRequestException: $message';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'The request is invalid.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The request is invalid.';
 }
 
 class ApiForbiddenException implements Exception, UserFriendlyException {
@@ -140,7 +140,7 @@ class ApiForbiddenException implements Exception, UserFriendlyException {
   String toString() => 'ApiForbiddenException: $message';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'The request is forbidden. Make sure you have the necessary permissions.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The request is forbidden. Make sure you have the necessary permissions.';
 }
 
 class ApiInternalServerErrorException implements Exception, UserFriendlyException {
@@ -152,7 +152,7 @@ class ApiInternalServerErrorException implements Exception, UserFriendlyExceptio
   String toString() => 'ApiInternalServerErrorException: $message';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'The server encountered an internal error.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The server encountered an internal error.';
 }
 
 // ignore: camel_case_types
@@ -176,7 +176,7 @@ class ApiAuthException implements Exception, UserFriendlyException {
   String toString() => 'ApiAuthException: $message ($code)';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'The authentification is invalid or the authentification token expired.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The authentification is invalid or the authentification token expired.';
 }
 
 
@@ -196,7 +196,7 @@ class ApiCustomException implements Exception, UserFriendlyException {
   String toString() => 'ApiCustomException: $message ($code) - details: $details';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'An unexpected error occured.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'An unexpected error occured.';
 }
 
 
@@ -285,7 +285,7 @@ class ApiZodException implements Exception, UserFriendlyException {
   String toString() => 'ApiZodException: $message. Zod issues: $zodIssues';
   // TODO: use localized strings
   @override
-  String toUserFriendlyMessage() => 'The input provided is incorrect.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The input provided is incorrect.';
 
 }
 
