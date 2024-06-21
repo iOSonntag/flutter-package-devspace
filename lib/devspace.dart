@@ -91,6 +91,7 @@ part 'architect/plans/info_box/data.dart';
 part 'architect/plans/info_box/default.content_placeholder.dart';
 part 'architect/plans/info_box/default.dart';
 part 'architect/plans/info_box/default.regular.dart';
+part 'architect/plans/info_box/default.small_brick.dart';
 part 'architect/plans/input_decoration/arch.dart';
 part 'architect/plans/input_decoration/data.dart';
 part 'architect/plans/input_decoration/default.dart';
@@ -117,11 +118,18 @@ part 'architect/plans/text_field/data.dart';
 part 'architect/plans/text_field/default.dart';
 part 'architect/plans/text_field/default.regular.dart';
 part 'blue_forms/blue_forms.dart';
+// async
+
+part 'async/async_content_block.dart';
+part 'async/async_data_loader.dart';
+part 'async/loadable_view.dart';
+part 'async/loading_overlay.dart';
 // blue_forms
 
 part 'blue_forms/models/elements/base.dart';
+part 'blue_forms/models/elements/form_async_dependency.dart';
 part 'blue_forms/models/elements/form_custom_widget.dart';
-part 'blue_forms/models/elements/form_input_group.dart';
+part 'blue_forms/models/elements/form_group.dart';
 part 'blue_forms/models/elements/form_input_images.dart';
 part 'blue_forms/models/elements/form_input_pick_option.dart';
 part 'blue_forms/models/elements/form_input_text.dart';
@@ -133,7 +141,7 @@ part 'blue_forms/util/common_form_inputs.dart';
 part 'blue_forms/util/input_validators.dart';
 part 'blue_forms/widgets/form_element.dart';
 part 'blue_forms/widgets/form_input_container.dart';
-part 'blue_forms/widgets/form_input_group.dart';
+part 'blue_forms/widgets/form_group.dart';
 part 'blue_forms/widgets/form_input_images.dart';
 part 'blue_forms/widgets/form_input_pick_option.dart';
 part 'blue_forms/widgets/form_input_text.dart';
@@ -150,8 +158,6 @@ part 'brixies/hover_builder.dart';
 part 'brixies/intrinsic_height_page_view.dart';
 part 'brixies/layout_builder.dart';
 part 'brixies/line_divider.dart';
-part 'brixies/loadable_view.dart';
-part 'brixies/loading_overlay.dart';
 part 'brixies/search_delay.dart';
 part 'brixies/smooth_swap.dart';
 part 'brixies/spaced_flex.dart';

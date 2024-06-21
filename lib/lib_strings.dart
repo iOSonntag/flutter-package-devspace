@@ -46,6 +46,9 @@ abstract class LibStrings {
   static const String lib_error_network = 'lib_error_network';
   static const String lib_error_unknown = 'lib_error_unknown';
 
+  static const String lib_warning_resourceNotFound_title = 'lib_warning_resourceNotFound_title';
+  static const String lib_warning_resourceNotFound_message = 'lib_warning_resourceNotFound_message';
+
   static const String lib_imageNotAvailable_message = 'lib_imageNotAvailable_message';
 
   static const String lib_models_cognitoSignIn_invalidCredentials_message = 'lib_models_cognitoSignIn_invalidCredentials_message';

@@ -23,6 +23,7 @@ class DefaultInfoBox extends ArchBaseVariantSwitch<kInfoBoxVariant, InfoBoxData>
     {
       kInfoBoxVariant.regular => DefaultInfoBoxRegular(data: data),
       kInfoBoxVariant.contentPlaceholder => DefaultInfoBoxContentPlaceholder(data: data),
+      kInfoBoxVariant.smallBrick => DefaultInfoBoxSmallBrick(data: data),
     };
   }
   

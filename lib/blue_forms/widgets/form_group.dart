@@ -5,9 +5,9 @@
 part of devspace;
 
 
-class _FormInputGroup extends StatelessWidget {
+class _FormGroup extends StatelessWidget {
 
-  final FormInputGroup definition;
+  final FormGroup definition;
   final Color? labelColor;
   final bool isFirstElement;
   final bool isLastElement;
@@ -17,7 +17,7 @@ class _FormInputGroup extends StatelessWidget {
   final void Function(String id, dynamic value) onSave;
   final VoidCallback onSubmitRequested;
 
-  const _FormInputGroup({
+  const _FormGroup({
     // ignore: unused_element
     super.key,
     required this.definition,
@@ -41,7 +41,7 @@ class _FormInputGroup extends StatelessWidget {
 
     for (int i = 0; i < definition.elements.length; i++)
     {
-      FormInput fiInputDefinition = definition.elements[i];
+      FormElement fiInputDefinition = definition.elements[i];
 
       if (fiInputDefinition.isActive == false)
       {

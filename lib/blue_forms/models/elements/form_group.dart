@@ -2,13 +2,13 @@
 part of devspace;
 
 // TODO: IMPROVEMENT add isOptional and label and description to group cascading the isOptional value down to the fields
-class FormInputGroup extends FormInput {
+class FormGroup extends FormInput {
 
   final int elementsPerRow;
-  final List<FormInput> elements;
+  final List<FormElement> elements;
 
 
-  const FormInputGroup({
+  const FormGroup({
     this.elementsPerRow = 1,
     required this.elements,
     super.isActive,

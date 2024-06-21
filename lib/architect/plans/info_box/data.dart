@@ -5,7 +5,8 @@ part of devspace;
 enum kInfoBoxVariant
 {
   regular,
-  contentPlaceholder
+  contentPlaceholder,
+  smallBrick
 }
 
 // ignore: camel_case_types

@@ -17,7 +17,7 @@ abstract class CommonFormInputs {
     String? initialPassword,
   })
   {
-    return FormInputGroup(
+    return FormGroup(
       isActive: isActive,
       elements: [
 
@@ -121,7 +121,7 @@ abstract class CommonFormInputs {
     int elementsPerRow = 2,
   })
   {
-    return FormInputGroup(
+    return FormGroup(
       isActive: isActive,
       elementsPerRow: elementsPerRow,
       elements: [
@@ -227,7 +227,7 @@ abstract class CommonFormInputs {
     }
 
 
-    return FormInputGroup(
+    return FormGroup(
       isActive: isActive,
       elements: [
 

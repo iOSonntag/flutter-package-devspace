@@ -82,10 +82,10 @@ class _FormElementWidget extends StatelessWidget {
       );
     }
 
-    if (definition is FormInputGroup)
+    if (definition is FormGroup)
     {
-      return _FormInputGroup(
-        definition: definition as FormInputGroup,
+      return _FormGroup(
+        definition: definition as FormGroup,
         labelColor: labelColor,
         isFirstElement: isFirstElement,
         isLastElement: isLastElement,
