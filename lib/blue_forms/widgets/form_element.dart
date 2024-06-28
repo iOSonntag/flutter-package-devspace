@@ -56,6 +56,20 @@ class _FormElementWidget extends StatelessWidget {
       );
     }
 
+    if (definition is FormInputDateTime)
+    {
+      return _FormInputDateTimeWidget(
+        key: Key(definition.id),
+        definition: definition as FormInputDateTime,
+        labelColor: labelColor,
+        visuallyMarkRequired: visuallyMarkRequired,
+        currentSavedValue: currentSavedValues[definition.id],
+        externalError: externalErrors[definition.id],
+        onSave: (value) => onSave(definition.id, value),
+        onSubmitRequested: onSubmitRequested
+      );
+    }
+
     if (definition is FormInputImages)
     {
       return _FormInputImagesWidget(

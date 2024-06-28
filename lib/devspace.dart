@@ -26,10 +26,12 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:measure_size/measure_size.dart';
 import 'package:path/path.dart' as path;
+import 'package:image/image.dart' as img;
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 import 'package:url_launcher/url_launcher.dart' as p_url_launcher;
+import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 import 'lib_strings.dart';
 
@@ -130,6 +132,7 @@ part 'blue_forms/models/elements/base.dart';
 part 'blue_forms/models/elements/form_async_dependency.dart';
 part 'blue_forms/models/elements/form_custom_widget.dart';
 part 'blue_forms/models/elements/form_group.dart';
+part 'blue_forms/models/elements/form_input_date_time.dart';
 part 'blue_forms/models/elements/form_input_images.dart';
 part 'blue_forms/models/elements/form_input_pick_option.dart';
 part 'blue_forms/models/elements/form_input_text.dart';
@@ -143,6 +146,7 @@ part 'blue_forms/widgets/form_async_dependency.dart';
 part 'blue_forms/widgets/form_element.dart';
 part 'blue_forms/widgets/form_input_container.dart';
 part 'blue_forms/widgets/form_group.dart';
+part 'blue_forms/widgets/form_input_date_time.dart';
 part 'blue_forms/widgets/form_input_images.dart';
 part 'blue_forms/widgets/form_input_pick_option.dart';
 part 'blue_forms/widgets/form_input_text.dart';
@@ -253,12 +257,14 @@ part 'type_extensions/curve.dart';
 part 'type_extensions/date_time.dart';
 part 'type_extensions/double.dart';
 part 'type_extensions/enum.dart';
+part 'type_extensions/image.dart';
 part 'type_extensions/int.dart';
 part 'type_extensions/list.dart';
 part 'type_extensions/map.dart';
 part 'type_extensions/offset.dart';
 part 'type_extensions/string.dart';
 part 'type_extensions/widget.dart';
+part 'type_extensions/x_file.dart';
 // utils
 
 part 'utils/random.dart';

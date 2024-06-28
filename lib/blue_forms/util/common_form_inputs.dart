@@ -79,6 +79,7 @@ abstract class CommonFormInputs {
       hint: LibStrings.lib_blueForms_commonInputs_passwordHint.tr(),
       autocorrect: false,
       isOptional: isOptional,
+      trimOnSave: false,
       autofillHints: [AutofillHints.password],
       obscureText: true,
       enableSuggestions: false,

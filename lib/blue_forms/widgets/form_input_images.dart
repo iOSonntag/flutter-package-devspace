@@ -11,7 +11,7 @@ class _FormInputImagesWidget extends StatelessWidget {
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
-  final void Function(List<XFile> images) onSave;
+  final void Function(List<img.Image> images) onSave;
 
   const _FormInputImagesWidget({
     super.key,
@@ -28,9 +28,9 @@ class _FormInputImagesWidget extends StatelessWidget {
   {
     if (definition.max == 1)
     {
-      XFile? currentSavedFile;
+      img.Image? currentSavedFile;
 
-      if (currentSavedValue != null && currentSavedValue is List<XFile> && currentSavedValue.isNotEmpty)
+      if (currentSavedValue != null && currentSavedValue is List<img.Image> && currentSavedValue.isNotEmpty)
       {
         currentSavedFile = currentSavedValue[0];
       }
@@ -67,7 +67,7 @@ class _FormInputImagesWidgetMulti extends StatefulWidget {
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
-  final void Function(List<XFile> images) onSave;
+  final void Function(List<img.Image> images) onSave;
 
   const _FormInputImagesWidgetMulti({
     super.key,
@@ -106,6 +106,8 @@ class _FormInputImagesWidgetMultiState extends State<_FormInputImagesWidgetMulti
   @override
   Widget build(BuildContext context)
   {
+    // TODO: handle file settings correctly
+    // TODO: change to img.Image
 
     return _FormInputContainerWidget(
       description: widget.definition.description,
@@ -405,9 +407,10 @@ class _FormInputImagesWidgetSingle extends StatefulWidget {
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
-  final void Function(XFile? image) onSave;
+  final void Function(img.Image? image) onSave;
 
   const _FormInputImagesWidgetSingle({
+    // ignore: unused_element
     super.key,
     required this.definition,
     this.labelColor,
@@ -424,6 +427,8 @@ class _FormInputImagesWidgetSingle extends StatefulWidget {
 class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSingle> {
 
   final ImagePicker _picker = ImagePicker();
+  bool _isLoading = false;
+  String? _internalError;
 
   @override
   Widget build(BuildContext context)
@@ -431,12 +436,23 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
 
     return _FormInputContainerWidget(
       description: widget.definition.description,
-      child: FormField<XFile?>(
+      child: FormField<img.Image?>(
         initialValue: widget.currentSavedValue ?? widget.definition.initialValue,
         onSaved: widget.onSave,
-        validator: (file)
+        validator: (image)
         {
-          if (file == null)
+          if (_internalError == 'MIN_WIDTH')
+          {
+            return LibStrings.lib_blueForms_formInputImagesSingle_errorMinWidth.tr(args: [widget.definition.fileSettings.minWidth.toString()]);
+          }
+
+          if (_internalError == 'MIN_HEIGHT')
+          {
+            return LibStrings.lib_blueForms_formInputImagesSingle_errorMinHeight.tr(args: [widget.definition.fileSettings.minHeight.toString()]);
+          }
+
+
+          if (image == null)
           {
             return widget.definition.isRequired ? LibStrings.lib_blueForms_formInputImagesSingle_errorRequired.tr() : null;
           }
@@ -447,6 +463,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
         builder: (state)
         { 
           bool hasError = state.hasError || widget.externalError != null;
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -477,7 +494,10 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
                 ),
                 child: AspectRatio(
                   aspectRatio: widget.definition.imagePreviewAspectRatio,
-                  child: _buildPreview(context, state),
+                  child: LoadableView(
+                    isLoading: _isLoading,
+                    child: _buildPreview(context, state)
+                  ),
                 ),
               ),
 
@@ -496,9 +516,9 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
   }
 
 
-  Widget _buildPreview(BuildContext context, FormFieldState<XFile?> state)
+  Widget _buildPreview(BuildContext context, FormFieldState<img.Image?> state)
   {
-    XFile? image = state.value;
+    img.Image? image = state.value;
 
     if (image == null)
     {
@@ -536,7 +556,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
           margin: context.paddingL,
           child: ArchImage(
             edgePreset: kImageEdgePreset.outerShadowM,
-            image: _getImageFromFile(image),
+            image: image.toImageProvider(),
           ),
         ),
         Padding(
@@ -580,34 +600,79 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
     );
   }
 
-  ImageProvider _getImageFromFile(XFile file)
+  Future<void> _addImage(ImageSource source, FormFieldState<img.Image?> state) async
   {
-    if (kIsWeb)
+
+    
+
+    try
     {
-      return NetworkImage(file.path);
-    }
+      XFile? imageFile = await _picker.pickImage(source: source);
 
-    return FileImage(File(file.path));
-  }
+      setState(()
+      {
+        _isLoading = true;
+        _internalError = null;
+      });
 
-  Future<void> _addImage(ImageSource source, FormFieldState<XFile?> state) async
-  {
-    XFile? image = await _picker.pickImage(source: source);
+      img.Image? image;
 
+      if (imageFile != null)
+      {
+        image = await imageFile.getImage();
+      }
 
-    if (!context.mounted) return;
-    if (image != null)
-    {
+      if (image == null) return;
+
+      image = await _imageProcessing(image, state);
+
+      if (!context.mounted) return;
+
       setState(()
       {
         state.didChange(image);
-        widget.definition.onChange?.call([image]);
+        widget.definition.onChange?.call([image!]);
       });
     }
+    finally
+    {
+      setState(()
+      {
+        _isLoading = false;
+      });
+    }
+
+  }
+
+  Future<img.Image> _imageProcessing(img.Image image, FormFieldState<img.Image?> state) async
+  {
+    if (widget.definition.fileSettings.minWidth != null && image.width < widget.definition.fileSettings.minWidth!)
+    {
+      _internalError = 'MIN_WIDTH';
+      state.validate();
+
+      throw Exception('Image width is smaller than min width');
+    }
+
+    if (widget.definition.fileSettings.minHeight != null && image.height < widget.definition.fileSettings.minHeight!)
+    {
+      _internalError = 'MIN_HEIGHT';
+      state.validate();
+
+      throw Exception('Image height is smaller than min height');
+    }
+
+    return image.convertImage(
+      type: widget.definition.fileSettings.conversion,
+      quality: widget.definition.fileSettings.conversionQuality,
+      maxWidth: widget.definition.fileSettings.maxWidth,
+      maxHeight: widget.definition.fileSettings.maxHeight,
+    );
+    
   }
 
 
-  void _deleteCurrentImage(FormFieldState<XFile?> state)
+  void _deleteCurrentImage(FormFieldState<img.Image?> state)
   {
     if (state.value == null)
     {
@@ -617,6 +682,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
     // TODO: check if onSvae or something needs to be called
     setState(()
     {
+      _internalError = null;
       state.didChange(null);
       widget.definition.onChange?.call([]);
     });

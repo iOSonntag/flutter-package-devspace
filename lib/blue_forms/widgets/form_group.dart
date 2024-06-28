@@ -43,7 +43,7 @@ class _FormGroup extends StatelessWidget {
     {
       FormElement fiInputDefinition = definition.elements[i];
 
-      if (fiInputDefinition.isActive == false)
+      if (fiInputDefinition.isActive == false && definition.elementsPerRow == 1)
       {
         continue;
       }
@@ -55,7 +55,7 @@ class _FormGroup extends StatelessWidget {
       {
         rowChildren.add(
           Expanded(
-            child: _FormElementWidget(
+            child: fiInputDefinition.isActive == false ? EmptyWidget() : _FormElementWidget(
               definition: fiInputDefinition, 
               labelColor: labelColor,
               isFirstElement: isFirst, 
@@ -93,12 +93,12 @@ class _FormGroup extends StatelessWidget {
             }
           }
 
+          // Note: normally this would be wrapped in an intrinsic height, but it
+          // leads to problems if the async dependency is used in the form group
           groupChildren.add(
-            IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: rowChildren,
-              ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: rowChildren,
             )
           );
           rowChildren = [];

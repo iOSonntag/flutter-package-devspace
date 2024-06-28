@@ -70,6 +70,8 @@ abstract class LibStrings {
   static const String lib_blueForms_formInputImages_takePhoto = 'lib_blueForms_formInputImages_takePhoto';
   static const String lib_blueForms_formInputImages_changeImage = 'lib_blueForms_formInputImages_changeImage';
   static const String lib_blueForms_formInputImagesSingle_errorRequired = 'lib_blueForms_formInputImagesSingle_errorRequired';
+  static const String lib_blueForms_formInputImagesSingle_errorMinWidth = 'lib_blueForms_formInputImagesSingle_errorMinWidth';
+  static const String lib_blueForms_formInputImagesSingle_errorMinHeight = 'lib_blueForms_formInputImagesSingle_errorMinHeight';
 
   static const String lib_blueForms_inputValidators_failedOptionSelectionUntouched = 'lib_blueForms_inputValidators_failedOptionSelectionUntouched';
   static const String lib_blueForms_inputValidators_failedNotEmptyCheck = 'lib_blueForms_inputValidators_failedNotEmptyCheck';
