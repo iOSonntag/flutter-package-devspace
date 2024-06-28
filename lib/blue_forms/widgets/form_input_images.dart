@@ -429,6 +429,20 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
   final ImagePicker _picker = ImagePicker();
   bool _isLoading = false;
   String? _internalError;
+  ImageProvider? _imageProvider;
+
+  @override
+  void initState()
+  {
+    img.Image? image = widget.currentSavedValue ?? widget.definition.initialValue;
+
+    if (image != null)
+    {
+      _imageProvider = image.toImageProvider();
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context)
@@ -518,9 +532,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
 
   Widget _buildPreview(BuildContext context, FormFieldState<img.Image?> state)
   {
-    img.Image? image = state.value;
-
-    if (image == null)
+    if (_imageProvider == null)
     {
       return Container(
         margin: context.paddingL,
@@ -556,7 +568,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
           margin: context.paddingL,
           child: ArchImage(
             edgePreset: kImageEdgePreset.outerShadowM,
-            image: image.toImageProvider(),
+            image: _imageProvider!,
           ),
         ),
         Padding(
@@ -632,6 +644,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       {
         state.didChange(image);
         widget.definition.onChange?.call([image!]);
+        _imageProvider = image!.toImageProvider();
       });
     }
     finally
@@ -662,6 +675,9 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       throw Exception('Image height is smaller than min height');
     }
 
+
+    // TODO: use the following for image processing (other is a way too slow): https://pub.dev/packages/flutter_image_compress
+
     return image.convertImage(
       type: widget.definition.fileSettings.conversion,
       quality: widget.definition.fileSettings.conversionQuality,
@@ -685,6 +701,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       _internalError = null;
       state.didChange(null);
       widget.definition.onChange?.call([]);
+      _imageProvider = null;
     });
   }
 
