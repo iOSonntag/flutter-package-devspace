@@ -39,9 +39,6 @@ extension ExtensionOnImage on img.Image {
 
     switch (type)
     {
-      case kImageConversionType.none:
-        return image;
-        
       case kImageConversionType.jpeg:
         encodedImage = img.encodeJpg(image, quality: (quality * 100).round());
         break;

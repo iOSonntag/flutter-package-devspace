@@ -13,7 +13,7 @@ class FormInputImagesFileSettings {
   final int? minHeight;
 
   const FormInputImagesFileSettings({
-    this.conversion = kImageConversionType.none,
+    this.conversion = kImageConversionType.jpeg,
     this.conversionQuality = 1.0,
     this.maxWidth,
     this.maxHeight,
