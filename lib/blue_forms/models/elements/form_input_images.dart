@@ -31,7 +31,7 @@ class FormInputImages extends FormInput {
   final int min;
   final int max;
   final FormInputImagesFileSettings fileSettings;
-  final void Function(List<img.Image> images)? onChange;
+  final void Function(List<Uint8List> images)? onChange;
 
   const FormInputImages({
     required super.id,

@@ -11,7 +11,7 @@ class _FormInputImagesWidget extends StatelessWidget {
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
-  final void Function(List<img.Image> images) onSave;
+  final void Function(List<Uint8List> images) onSave;
 
   const _FormInputImagesWidget({
     super.key,
@@ -67,7 +67,7 @@ class _FormInputImagesWidgetMulti extends StatefulWidget {
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
-  final void Function(List<img.Image> images) onSave;
+  final void Function(List<Uint8List> images) onSave;
 
   const _FormInputImagesWidgetMulti({
     super.key,
@@ -407,7 +407,7 @@ class _FormInputImagesWidgetSingle extends StatefulWidget {
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
-  final void Function(img.Image? image) onSave;
+  final void Function(Uint8List? image) onSave;
 
   const _FormInputImagesWidgetSingle({
     // ignore: unused_element
@@ -450,7 +450,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
 
     return _FormInputContainerWidget(
       description: widget.definition.description,
-      child: FormField<img.Image?>(
+      child: FormField<Uint8List?>(
         initialValue: widget.currentSavedValue ?? widget.definition.initialValue,
         onSaved: widget.onSave,
         validator: (image)
@@ -530,7 +530,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
   }
 
 
-  Widget _buildPreview(BuildContext context, FormFieldState<img.Image?> state)
+  Widget _buildPreview(BuildContext context, FormFieldState<Uint8List?> state)
   {
     if (_imageProvider == null)
     {
@@ -612,7 +612,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
     );
   }
 
-  Future<void> _addImage(ImageSource source, FormFieldState<img.Image?> state) async
+  Future<void> _addImage(ImageSource source, FormFieldState<Uint8List?> state) async
   {
 
     
@@ -627,11 +627,11 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
         _internalError = null;
       });
 
-      img.Image? image;
+      Uint8List? image;
 
       if (imageFile != null)
       {
-        image = await imageFile.getImage();
+        image = await imageFile.readAsBytes();
       }
 
       if (image == null) return;
@@ -644,7 +644,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       {
         state.didChange(image);
         widget.definition.onChange?.call([image!]);
-        _imageProvider = image!.toImageProvider();
+        _imageProvider = MemoryImage(image!);
       });
     }
     finally
@@ -657,9 +657,13 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
 
   }
 
-  Future<img.Image> _imageProcessing(img.Image image, FormFieldState<img.Image?> state) async
+  Future<Uint8List> _imageProcessing(Uint8List image, FormFieldState<Uint8List?> state) async
   {
-    if (widget.definition.fileSettings.minWidth != null && image.width < widget.definition.fileSettings.minWidth!)
+    final codec = await ui.instantiateImageCodec(image);
+    final frame = await codec.getNextFrame();
+
+
+    if (widget.definition.fileSettings.minWidth != null && frame.image.width < widget.definition.fileSettings.minWidth!)
     {
       _internalError = 'MIN_WIDTH';
       state.validate();
@@ -667,7 +671,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       throw Exception('Image width is smaller than min width');
     }
 
-    if (widget.definition.fileSettings.minHeight != null && image.height < widget.definition.fileSettings.minHeight!)
+    if (widget.definition.fileSettings.minHeight != null && frame.image.height < widget.definition.fileSettings.minHeight!)
     {
       _internalError = 'MIN_HEIGHT';
       state.validate();
@@ -675,20 +679,40 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       throw Exception('Image height is smaller than min height');
     }
 
+    int minHeight = frame.image.height;
+    int minWidth = frame.image.width;
 
-    // TODO: use the following for image processing (other is a way too slow): https://pub.dev/packages/flutter_image_compress
+    if (widget.definition.fileSettings.maxWidth != null)
+    {
+      if (widget.definition.fileSettings.maxHeight != null)
+      {
+        throw UnimplementedError('Max width and max height are not yet supported');
+      }
+      else
+      {
+        minWidth = widget.definition.fileSettings.maxWidth!;
+      }
+    }
+    else if (widget.definition.fileSettings.maxHeight != null)
+    {
+      minHeight = widget.definition.fileSettings.maxHeight!;
+    }
 
-    return image.convertImage(
-      type: widget.definition.fileSettings.conversion,
-      quality: widget.definition.fileSettings.conversionQuality,
-      maxWidth: widget.definition.fileSettings.maxWidth,
-      maxHeight: widget.definition.fileSettings.maxHeight,
+    return await FlutterImageCompress.compressWithList(image,
+      minHeight: minHeight,
+      minWidth: minWidth,
+      quality: (widget.definition.fileSettings.conversionQuality * 100).round(),
+      format: switch (widget.definition.fileSettings.conversion)
+      {
+        kImageConversionType.jpeg => CompressFormat.jpeg,
+        kImageConversionType.png => CompressFormat.png,
+      },
     );
-    
+
   }
 
 
-  void _deleteCurrentImage(FormFieldState<img.Image?> state)
+  void _deleteCurrentImage(FormFieldState<Uint8List?> state)
   {
     if (state.value == null)
     {

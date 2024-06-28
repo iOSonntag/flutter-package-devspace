@@ -4,7 +4,6 @@ part of devspace;
 // ignore: camel_case_types
 enum kImageConversionType
 {
-  none,
   jpeg,
   png
 }
