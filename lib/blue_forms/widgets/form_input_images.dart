@@ -434,14 +434,26 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
   @override
   void initState()
   {
-    img.Image? image = widget.currentSavedValue ?? widget.definition.initialValue;
+    Uint8List? image = _getImageFromSavedOrInitialValue();
 
     if (image != null)
     {
-      _imageProvider = image.toImageProvider();
+      _imageProvider = MemoryImage(image);
     }
 
     super.initState();
+  }
+
+  Uint8List? _getImageFromSavedOrInitialValue()
+  {
+    List<Uint8List>? image = widget.currentSavedValue ?? widget.definition.initialValue;
+
+    if (image != null && image.isNotEmpty)
+    {
+      return image[0];
+    }
+
+    return null;
   }
 
   @override
@@ -451,7 +463,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
     return _FormInputContainerWidget(
       description: widget.definition.description,
       child: FormField<Uint8List?>(
-        initialValue: widget.currentSavedValue ?? widget.definition.initialValue,
+        initialValue: _getImageFromSavedOrInitialValue(),
         onSaved: widget.onSave,
         validator: (image)
         {
@@ -647,6 +659,12 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
         _imageProvider = MemoryImage(image!);
       });
     }
+    catch (e)
+    {
+      if (!mounted) return;
+
+      context.showError(e);
+    }
     finally
     {
       setState(()
@@ -708,6 +726,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
         kImageConversionType.png => CompressFormat.png,
       },
     );
+    
 
   }
 
