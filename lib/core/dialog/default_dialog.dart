@@ -35,6 +35,7 @@ class DefaultDialog extends StatelessWidget {
         onPressed: action.onPressed,
         size: kSize3.L,
         enabled: action.enabled,
+        onSurface: true,
       );
 
       if (action.type == kButtonType.fancy1)
