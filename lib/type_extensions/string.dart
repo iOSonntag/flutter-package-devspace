@@ -107,4 +107,50 @@ extension ExtensionOnString on String {
   {
     return double.parse(this);
   }
+
+
+
+  bool matchesWildcardString(String other)
+  {
+    if (this == other)
+    {
+      return true;
+    }
+
+    if (other == '*')
+    {
+      return true;
+    }
+
+    if (other.contains('*'))
+    {
+      List<String> parts = other.split('*');
+      int currentIndex = 0;
+
+      for (int i = 0; i < parts.length; i++)
+      {
+        if (parts[i].isEmpty)
+        {
+          continue;
+        }
+
+        int index = indexOf(parts[i], currentIndex);
+        if (index == -1)
+        {
+          return false;
+        }
+
+        if (i == 0 && index != 0 && !other.startsWith('*'))
+        {
+          return false;
+        }
+
+        currentIndex = index + parts[i].length;
+      }
+
+      return other.endsWith('*') || currentIndex == length;
+    }
+
+    return false;
+  }
 }
