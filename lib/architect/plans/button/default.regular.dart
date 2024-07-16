@@ -3,7 +3,6 @@
 
 part of devspace;
 
-// TODO: implement icon feature
 class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
 
   DefaultButtonRegular({
@@ -21,7 +20,6 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
   @override
   void checkUnsupportedFields()
   {
-    unsupportedIf(data.icon != null && data.title != null, 'icon and title', 'they can not be used together');
     unsupportedIf(data.inverse, 'inverse', 'inverse is not supported');
     unsupported(data.child, 'child');
     unsupported(data.subtitle, 'subtitle');
@@ -108,6 +106,7 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
     return SpacedRow(
       crossAxisSpacing: CrossAxisSpacing.none,
       mainAxisSpacing: MainAxisSpacing.between,
+      mainAxisSize: MainAxisSize.min,
       spacing: switch (data.size)
       {
         kSize3.S => context.dimensions.spaceXXSValue,
@@ -134,9 +133,9 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
       color: contentColor,
       size: switch (data.size)
       {
-        kSize3.S => isIconOnlyButton ? context.dimensions.iconSizeM : context.dimensions.iconSizeS,
-        kSize3.M => isIconOnlyButton ? context.dimensions.iconSizeL : context.dimensions.iconSizeM,
-        kSize3.L => isIconOnlyButton ? context.dimensions.iconSizeXL : context.dimensions.iconSizeL
+        kSize3.S => isIconOnlyButton ? context.dimensions.iconSizeM : context.dimensions.iconSizeXS,
+        kSize3.M => isIconOnlyButton ? context.dimensions.iconSizeL : context.dimensions.iconSizeS,
+        kSize3.L => isIconOnlyButton ? context.dimensions.iconSizeXL : context.dimensions.iconSizeM
       },
     );
   }

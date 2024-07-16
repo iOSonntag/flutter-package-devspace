@@ -15,6 +15,7 @@ abstract class DialogCenter {
   static Future<bool> showConfirmation(BuildContext context, {
     String? title, 
     required String message, 
+    TextAlign textAlign = TextAlign.center,
     String? denialText,
     String? approveText,
     bool barrierDismissible = false,
@@ -37,6 +38,7 @@ abstract class DialogCenter {
         return TextDialog(
           title: titleResolved,
           text: message,
+          textAlign: textAlign,
           actions: [
             DialogAction(
                 title: denial,
@@ -134,6 +136,7 @@ abstract class DialogCenter {
     kDialogNoticeType type = kDialogNoticeType.info,
     String? dismissText, 
     bool barrierDismissible = false,
+    TextAlign textAlign = TextAlign.center,
     kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
     }) async
   {
@@ -148,6 +151,7 @@ abstract class DialogCenter {
         return TextDialog(
           title: title ?? type.title,
           text: message,
+          textAlign: textAlign,
           actions: [
             DialogAction(
               title: dismiss, 

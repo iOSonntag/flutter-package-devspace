@@ -8,6 +8,7 @@ class TextDialog extends StatelessWidget {
   final String title;
   final String? text;
   final bool textLowFocus;
+  final TextAlign textAlign;
   final Axis actionsAlignment;
   final List<DialogAction> actions;
 
@@ -17,6 +18,7 @@ class TextDialog extends StatelessWidget {
     required this.title,
     this.text,
     this.textLowFocus = false,
+    this.textAlign = TextAlign.center,
     this.actionsAlignment = Axis.horizontal,
     required this.actions,
   });
@@ -30,7 +32,7 @@ class TextDialog extends StatelessWidget {
       content: text == null ? null : Padding(
         padding: context.paddingM_0,
         child: TextBody.medium(text, 
-          textAlign: TextAlign.center,
+          textAlign: textAlign,
           color: textLowFocus ? context.colors.onSurfaceLessFocus : null
         ),
       ),
