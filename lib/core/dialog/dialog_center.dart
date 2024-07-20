@@ -100,13 +100,6 @@ abstract class DialogCenter {
 
     String titleResolved = title ?? LibStrings.lib_general_titleConfirm.tr();
 
-    List<DialogAction> actionsResolved = actions.mapIndexed((action, index) => action.copyWith(
-      onPressed: ()
-      {
-        Navigator.of(context).pop(index);
-        action.onPressed?.call();
-      }
-    )).toList();
 
     final result = await _internalShowDialog<int>(
       context: context,
@@ -114,6 +107,13 @@ abstract class DialogCenter {
       animationStyle: animationStyle,
       builder: (context)
       {
+        List<DialogAction> actionsResolved = actions.mapIndexed((action, index) => action.copyWith(
+          onPressed: ()
+          {
+            Navigator.of(context).pop(index);
+            action.onPressed?.call();
+          }
+        )).toList();
 
         return TextDialog(
           title: titleResolved,
