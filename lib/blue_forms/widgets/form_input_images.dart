@@ -663,6 +663,23 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
     {
       if (!mounted) return;
 
+      if (e is PlatformException)
+      {
+        if (e.code == 'photo_access_denied')
+        {
+          DialogCenter.showCommon(context, kCommonDialog.permissionDeniedGallery);
+          return;
+        }
+
+        if (e.code == 'camera_access_denied')
+        {
+          DialogCenter.showCommon(context, kCommonDialog.permissionDeniedCamera);
+          return;
+        }
+        
+        return;
+      }
+
       context.showError(e);
     }
     finally

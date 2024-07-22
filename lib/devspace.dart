@@ -16,6 +16,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get_it/get_it.dart';
@@ -33,6 +34,7 @@ import 'package:simple_animations/simple_animations.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 import 'package:url_launcher/url_launcher.dart' as p_url_launcher;
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+import 'package:app_settings/app_settings.dart';
 
 import 'lib_strings.dart';
 

@@ -27,6 +27,6 @@ class Glue<T extends GlueComponent> {
     required Create<T> create,
     this.dependsOn = const [],
   }) :
-    provider = ChangeNotifierProvider<T>(create: create);
+    provider = ChangeNotifierProvider<T>(create: create, lazy: false);
 
 }

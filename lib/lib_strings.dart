@@ -32,12 +32,19 @@ abstract class LibStrings {
   static const String lib_general_actionRemove = 'lib_general_actionRemove';
   static const String lib_general_actionSelect = 'lib_general_actionSelect';
   static const String lib_general_actionChoose = 'lib_general_actionChoose';
+  static const String lib_general_actionDeviceSettings = 'lib_general_actionDeviceSettings';
 
   static const String lib_general_titleError = 'lib_general_titleError';
   static const String lib_general_titleInfo = 'lib_general_titleInfo';
   static const String lib_general_titleWarning = 'lib_general_titleWarning';
   static const String lib_general_titleSuccess = 'lib_general_titleSuccess';
   static const String lib_general_titleConfirm = 'lib_general_titleConfirm';
+
+
+  static const String lib_commonDialogs_permissionDeniedCamera_title = 'lib_commonDialogs_permissionDeniedCamera_title';
+  static const String lib_commonDialogs_permissionDeniedCamera_message = 'lib_commonDialogs_permissionDeniedCamera_message';
+  static const String lib_commonDialogs_permissionDeniedGallery_title = 'lib_commonDialogs_permissionDeniedGallery_title';
+  static const String lib_commonDialogs_permissionDeniedGallery_message = 'lib_commonDialogs_permissionDeniedGallery_message';
 
   static const String lib_lists_noItemsFound = 'lib_lists_noItemsFound';
   static const String lib_lists_noMoreItems = 'lib_lists_noMoreItems';

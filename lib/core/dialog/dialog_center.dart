@@ -12,6 +12,11 @@ abstract class DialogCenter {
   DialogCenter._();
 
 
+  static Future<void> showCommon(BuildContext context, kCommonDialog dialog)
+  {
+    return _CommonDialogs.show(context, dialog);
+  }
+
   static Future<bool> showConfirmation(BuildContext context, {
     String? title, 
     required String message, 
@@ -303,6 +308,70 @@ extension ExtensionOnDialogNoticeType on kDialogNoticeType
         return kButtonType.success;
       case kDialogNoticeType.error:
         return kButtonType.destructive;
+    }
+  }
+}
+
+// ignore: camel_case_types
+enum kCommonDialog
+{
+  permissionDeniedCamera,
+  permissionDeniedGallery,
+}
+
+abstract class _CommonDialogs
+{
+  _CommonDialogs._();
+
+  static Future<void> show(BuildContext context, kCommonDialog dialog)
+  {
+    switch (dialog)
+    {
+      case kCommonDialog.permissionDeniedCamera:
+        return showPermissionDeniedCamera(context);
+      case kCommonDialog.permissionDeniedGallery:
+        return showPermissionDeniedGallery(context);
+    }
+
+    // ignore: dead_code
+    throw ArgumentError('dialog not implemented');
+  }
+
+  static Future<void> showPermissionDeniedCamera(BuildContext context) async
+  {
+    bool confirmed = await DialogCenter.showConfirmation(
+      context,
+      title: LibStrings.lib_commonDialogs_permissionDeniedCamera_title.tr(),
+      message: LibStrings.lib_commonDialogs_permissionDeniedCamera_message.tr(),
+      barrierDismissible: false,
+      denialText: LibStrings.lib_general_actionDismiss.tr(),
+      approveText: LibStrings.lib_general_actionDeviceSettings.tr(),
+    );
+
+    if (confirmed)
+    {
+      await AppSettings.openAppSettings(
+        type: AppSettingsType.settings,
+      );
+    }
+  }
+
+  static Future<void> showPermissionDeniedGallery(BuildContext context) async
+  {
+    bool confirmed = await DialogCenter.showConfirmation(
+      context,
+      title: LibStrings.lib_commonDialogs_permissionDeniedGallery_title.tr(),
+      message: LibStrings.lib_commonDialogs_permissionDeniedGallery_message.tr(),
+      barrierDismissible: false,
+      denialText: LibStrings.lib_general_actionDismiss.tr(),
+      approveText: LibStrings.lib_general_actionDeviceSettings.tr(),
+    );
+
+    if (confirmed)
+    {
+      await AppSettings.openAppSettings(
+        type: AppSettingsType.settings,
+      );
     }
   }
 }
