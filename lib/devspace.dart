@@ -51,11 +51,12 @@ part 'animations/movie_orchestra.dart';
 part 'app_flow_systems/app_flow_paged_steps.dart';
 part 'app_flow_systems/paginated_list_view.dart';
 part 'app_flow_systems/steps_bar.dart';
-part 'app_scaffolds/app.dart';
 // app_scaffolds
 
+part 'app_scaffolds/app_events.dart';
 part 'app_scaffolds/app_loader.dart';
 part 'app_scaffolds/app_router.dart';
+part 'app_scaffolds/app.dart';
 part 'architect/architect.dart';
 part 'architect/architect_plans.dart';
 part 'architect/materials/arch_base.dart';

@@ -26,6 +26,7 @@ class App<T> extends StatelessWidget {
   static GalaxyConfig get config => App._config ?? (throw Exception('App.config is not set. Are you accessing it before the App is built?'));
 
   final GalaxyConfig configuration;
+  final AppEvents events;
   final StringBuilder buildTitle;
   final ThemeBuilder buildTheme;
   final String translationsFolder;
@@ -58,6 +59,7 @@ class App<T> extends StatelessWidget {
   App({
     super.key,
     required this.configuration,
+    required this.events,
     required this.buildTitle,
     required this.buildTheme,
     this.translationsFolder = 'assets/translations',
@@ -78,6 +80,7 @@ class App<T> extends StatelessWidget {
     return AppLoader<_GeneratedAppData>(
       loadApp: _loadApp,
       buildApp: (context, data) => _AppWidget(
+        events: events,
         buildTitle: buildTitle,
         buildTheme: buildTheme,
         generatedData: data,
@@ -121,6 +124,7 @@ class App<T> extends StatelessWidget {
 
 class _AppWidget extends StatelessWidget {
 
+  final AppEvents events;
   final StringBuilder buildTitle;
   final ThemeBuilder buildTheme;
   final _GeneratedAppData? generatedData;
@@ -130,6 +134,7 @@ class _AppWidget extends StatelessWidget {
   final List<Glue<GlueComponent>> globalGlues;
 
   _AppWidget({
+    required this.events,
     required this.buildTitle,
     required this.buildTheme,
     required this.generatedData,
@@ -152,21 +157,79 @@ class _AppWidget extends StatelessWidget {
       child: InsertGlues(
         key: _keyGlues,
         glues: globalGlues,
-        child: Builder(builder: (context) => MaterialApp.router(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            routerConfig: generatedData?.routerConfig,
-            scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
-            onGenerateTitle: buildTitle,
-            // showPerformanceOverlay: true,
-            theme: buildTheme(context),
-        )),
+        child: _NavigationWrapper(
+          events: events,
+          buildTitle: buildTitle,
+          buildTheme: buildTheme,
+          generatedData: generatedData,
+        ),
       ),
     );
   }
-
 }
+
+
+class _NavigationWrapper extends StatefulWidget {
+
+  final AppEvents events;
+  final StringBuilder buildTitle;
+  final ThemeBuilder buildTheme;
+  final _GeneratedAppData? generatedData;
+
+  const _NavigationWrapper({
+    required this.events,
+    required this.buildTitle,
+    required this.buildTheme,
+    required this.generatedData,
+  });
+
+  @override
+  material.State<_NavigationWrapper> createState() => _NavigationWrapperState();
+}
+
+class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBindingObserver {
+
+  @override
+  void initState()
+  {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state)
+  {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.resumed)
+    {
+      widget.events.onAppResumed?.call(context);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return MaterialApp.router(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      routerConfig: widget.generatedData?.routerConfig,
+      scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
+      onGenerateTitle: widget.buildTitle,
+      // showPerformanceOverlay: true,
+      theme: widget.buildTheme(context),
+    );
+  }
+
+  @override
+  void dispose()
+  {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+}
+
 
 class NoThumbScrollBehavior extends ScrollBehavior {
 
