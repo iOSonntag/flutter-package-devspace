@@ -78,6 +78,38 @@ class MyService {
     );
   }
 
+  /// This method will try to get the service and retries after 500ms if the
+  /// service is not available yet (e.g. not initialized or not registered yet)
+  /// 
+  /// This is useful if you need to access a server in a top level function.
+  static Future<T> getWhenAvailable<T extends Object>({
+    String? instanceName,
+    dynamic param1,
+    dynamic param2,
+    Type? type,
+  }) async
+  {
+    T? service;
+
+    while (service == null)
+    {
+      try
+      {
+        service = MyService.get<T>();
+      }
+      // ignore: empty_catches
+      catch (e) {}
+
+      if (service == null)
+      {
+        await 500.delay();
+      }
+    }
+
+    return service;
+  }
+
+
   static T call<T extends Object>({
     String? instanceName,
     dynamic param1,
