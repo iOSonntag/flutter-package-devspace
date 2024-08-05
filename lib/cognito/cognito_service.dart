@@ -144,11 +144,13 @@ class CognitoAuthenticationService extends AuthService {
   {
     final result = await Amplify.Auth.fetchAuthSession(
       // ignore: deprecated_member_use
-      options: const CognitoFetchAuthSessionOptions(getAWSCredentials: true),
+      // options: const CognitoFetchAuthSessionOptions(getAWSCredentials: true),
     ) as CognitoAuthSession;
 
     // ignore: deprecated_member_use
-    final token = result.userPoolTokens?.idToken.raw;
+    // final token = result.userPoolTokens?.idToken.raw;
+
+    final token = result.userPoolTokensResult.value.idToken.raw;
 
     Dev.logOnlyLocalEnv(this, 'JWT Token: $token');
 

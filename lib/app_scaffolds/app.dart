@@ -210,15 +210,18 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
   @override
   Widget build(BuildContext context)
   {
-    return MaterialApp.router(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      routerConfig: widget.generatedData?.routerConfig,
-      scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
-      onGenerateTitle: widget.buildTitle,
-      // showPerformanceOverlay: true,
-      theme: widget.buildTheme(context),
+    return PopScope(
+      canPop: false,
+      child: MaterialApp.router(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        routerConfig: widget.generatedData?.routerConfig,
+        scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
+        onGenerateTitle: widget.buildTitle,
+        // showPerformanceOverlay: true,
+        theme: widget.buildTheme(context),
+      ),
     );
   }
 
