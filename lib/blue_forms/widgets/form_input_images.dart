@@ -644,6 +644,12 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       if (imageFile != null)
       {
         image = await imageFile.readAsBytes();
+
+        // check if is HEIC & platform is web
+        if (kIsWeb && imageFile.name.split('.').last.toLowerCase() == 'heic')
+        {
+          image = await HeicToAny.convertHeicToPng(image);
+        }
       }
 
       if (image == null) return;
