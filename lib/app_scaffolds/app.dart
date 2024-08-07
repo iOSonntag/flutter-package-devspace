@@ -25,8 +25,10 @@ class App<T> extends StatelessWidget {
   static GalaxyConfig? _config;
   static GalaxyConfig get config => App._config ?? (throw Exception('App.config is not set. Are you accessing it before the App is built?'));
 
+  static AppEvents? _events;
+  static AppEvents get events => App._events ?? (throw Exception('App.events is not set. Are you accessing it before the App is built?'));
+
   final GalaxyConfig configuration;
-  final AppEvents events;
   final StringBuilder buildTitle;
   final ThemeBuilder buildTheme;
   final String translationsFolder;
@@ -59,7 +61,7 @@ class App<T> extends StatelessWidget {
   App({
     super.key,
     required this.configuration,
-    required this.events,
+    required AppEvents events,
     required this.buildTitle,
     required this.buildTheme,
     this.translationsFolder = 'assets/translations',
@@ -72,6 +74,7 @@ class App<T> extends StatelessWidget {
   })
   {
     App._config = configuration;
+    App._events = events;
   }
 
   @override
@@ -80,7 +83,6 @@ class App<T> extends StatelessWidget {
     return AppLoader<_GeneratedAppData>(
       loadApp: _loadApp,
       buildApp: (context, data) => _AppWidget(
-        events: events,
         buildTitle: buildTitle,
         buildTheme: buildTheme,
         generatedData: data,
@@ -124,7 +126,6 @@ class App<T> extends StatelessWidget {
 
 class _AppWidget extends StatelessWidget {
 
-  final AppEvents events;
   final StringBuilder buildTitle;
   final ThemeBuilder buildTheme;
   final _GeneratedAppData? generatedData;
@@ -134,7 +135,6 @@ class _AppWidget extends StatelessWidget {
   final List<Glue<GlueComponent>> globalGlues;
 
   _AppWidget({
-    required this.events,
     required this.buildTitle,
     required this.buildTheme,
     required this.generatedData,
@@ -158,7 +158,6 @@ class _AppWidget extends StatelessWidget {
         key: _keyGlues,
         glues: globalGlues,
         child: _NavigationWrapper(
-          events: events,
           buildTitle: buildTitle,
           buildTheme: buildTheme,
           generatedData: generatedData,
@@ -171,13 +170,11 @@ class _AppWidget extends StatelessWidget {
 
 class _NavigationWrapper extends StatefulWidget {
 
-  final AppEvents events;
   final StringBuilder buildTitle;
   final ThemeBuilder buildTheme;
   final _GeneratedAppData? generatedData;
 
   const _NavigationWrapper({
-    required this.events,
     required this.buildTitle,
     required this.buildTheme,
     required this.generatedData,
@@ -203,7 +200,7 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
 
     if (state == AppLifecycleState.resumed)
     {
-      widget.events.onAppResumed?.call(context);
+      App.events.onAppResumed?.call(context);
     }
   }
 

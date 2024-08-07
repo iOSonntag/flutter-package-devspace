@@ -12,7 +12,6 @@ import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:devspace/blue_forms/widgets/web_converter_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
@@ -268,6 +267,7 @@ part 'type_extensions/list.dart';
 part 'type_extensions/map.dart';
 part 'type_extensions/offset.dart';
 part 'type_extensions/string.dart';
+part 'type_extensions/uint8_list.dart';
 part 'type_extensions/widget.dart';
 part 'type_extensions/x_file.dart';
 // utils
