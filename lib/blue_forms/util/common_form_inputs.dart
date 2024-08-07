@@ -15,6 +15,8 @@ abstract class CommonFormInputs {
     bool isActive = true,
     String? initialEmail,
     String? initialPassword,
+    String? labelEmail,
+    String? labelPassword,
   })
   {
     return FormGroup(
@@ -26,12 +28,14 @@ abstract class CommonFormInputs {
           description: description,
           isOptional: isOptional,
           initialEmail: initialEmail,
+          label: labelEmail,
         ),
 
         CommonFormInputs.password(
           id: '${idPrefix}password',
           isOptional: isOptional,
           initialPassword: initialPassword,
+          label: labelPassword,
         ),
 
       ],
@@ -45,6 +49,7 @@ abstract class CommonFormInputs {
     bool isOptional = false,
     bool isActive = true,
     String? initialEmail,
+    String? label,
   })
   {
     return FormInputText(
@@ -52,7 +57,7 @@ abstract class CommonFormInputs {
       id: id,
       description: description,
       initialValue: initialEmail,
-      label: LibStrings.lib_blueForms_commonInputs_emailLabel.tr(),
+      label: label ?? LibStrings.lib_blueForms_commonInputs_emailLabel.tr(),
       hint: LibStrings.lib_blueForms_commonInputs_emailHint.tr(),
       autocorrect: false,
       isOptional: isOptional,
@@ -69,13 +74,14 @@ abstract class CommonFormInputs {
     bool isOptional = false,
     bool isActive = true,
     String? initialPassword,
+    String? label,
   })
   {
     return FormInputText(
       isActive: isActive,
       id: id,
       initialValue: initialPassword,
-      label: LibStrings.lib_blueForms_commonInputs_passwordLabel.tr(),
+      label: label ?? LibStrings.lib_blueForms_commonInputs_passwordLabel.tr(),
       hint: LibStrings.lib_blueForms_commonInputs_passwordHint.tr(),
       autocorrect: false,
       isOptional: isOptional,

@@ -251,7 +251,7 @@ class _FakeTextFieldState<T> extends material.State<_FakeTextField<T>> {
 
             if (hasError) Padding(
               padding: context.dimensions.paddingMOnly(left: true, top: true),
-              child: TextLabel.medium(
+              child: TextLabel.small(
                 state.errorText ?? widget.externalError,
                 color: context.colors.error,
               ),
@@ -268,12 +268,12 @@ class _FakeTextFieldState<T> extends material.State<_FakeTextField<T>> {
       padding: context.dimensions.paddingMOnly(left: true, bottom: true),
       child: Row(
         children: [
-          TextLabel.medium(
+          TextLabel.small(
             widget.label!,
             color: hasError ? context.colors.error : widget.labelColor ?? context.colors.onBackgroundLessFocus,
           ),
 
-          if (widget.visuallyMarkAsRequired) TextLabel.medium(
+          if (widget.visuallyMarkAsRequired) TextLabel.small(
             ' *',
             color: context.colors.primary,
           )

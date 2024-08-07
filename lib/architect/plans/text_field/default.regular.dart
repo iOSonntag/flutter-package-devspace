@@ -100,7 +100,7 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
 
             if (hasError) Padding(
               padding: context.dimensions.paddingMOnly(left: true, top: true),
-              child: TextLabel.medium(
+              child: TextLabel.small(
                 state.errorText ?? data.externalError,
                 color: context.colors.error,
               ),
@@ -117,12 +117,12 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
       padding: context.dimensions.paddingMOnly(left: true, bottom: true),
       child: Row(
         children: [
-          TextLabel.medium(
+          TextLabel.small(
             data.label!,
             color: hasError ? context.colors.error : data.labelColor ?? context.colors.onBackgroundLessFocus,
           ),
 
-          if (data.visuallyMarkAsRequired) TextLabel.medium(
+          if (data.visuallyMarkAsRequired) TextLabel.small(
             ' *',
             color: context.colors.primary,
           )

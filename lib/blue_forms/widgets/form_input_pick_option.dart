@@ -198,12 +198,12 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
       padding: context.dimensions.paddingMOnly(left: true, bottom: true),
       child: Row(
         children: [
-          TextLabel.medium(
+          TextLabel.small(
             widget.definition.label,
             color: hasError ? context.colors.error : widget.labelColor ?? context.colors.onBackgroundLessFocus,
           ),
 
-          if (widget.visuallyMarkRequired && widget.definition.isRequired) TextLabel.medium(
+          if (widget.visuallyMarkRequired && widget.definition.isRequired) TextLabel.small(
             ' *',
             color: context.colors.primary,
           )
