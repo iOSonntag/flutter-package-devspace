@@ -195,7 +195,10 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
                 context.spaceL,
 
                 ArchButton(
-                  onPressed: query.fetchNextPageAdvanced,
+                  onPressed: ()
+                  {
+                    query.refetchByUser();
+                  },
                   type: kButtonType.regular,
                   size: kSize3.S,
                   onSurface: true,

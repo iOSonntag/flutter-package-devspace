@@ -36,6 +36,7 @@ import 'package:super_tooltip/super_tooltip.dart';
 import 'package:url_launcher/url_launcher.dart' as p_url_launcher;
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 import 'package:app_settings/app_settings.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'lib_strings.dart';
 

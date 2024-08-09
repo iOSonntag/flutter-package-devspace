@@ -62,6 +62,8 @@ class ApiResponse {
       case 'INTERNAL_SERVER_ERROR': throw ApiInternalServerErrorException();
       case 'AUTH_TOKEN_EXPIRED': throw ApiAuthException(code: kApiAuthExceptionCode.tokenExpired);
       case 'AUTH_INVALID': throw ApiAuthException(code: kApiAuthExceptionCode.invalid);
+      case 'CLIENT_VERSION_INVALID': throw ApiClientVersionInvalidException();
+      case 'CLIENT_VERSION_DEPRECATED': throw ApiClientVersionDeprecatedException();
       default:
         throw ApiCustomException(
           code: jsonPayload['error']['code'],
@@ -177,6 +179,30 @@ class ApiAuthException implements Exception, UserFriendlyException {
   // TODO: use localized strings
   @override
   String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The authentification is invalid or the authentification token expired.';
+}
+
+class ApiClientVersionInvalidException implements Exception, UserFriendlyException {
+  
+  final String message;
+  ApiClientVersionInvalidException([this.message = 'The client version is invalid.']);
+
+  @override
+  String toString() => 'ApiClientVersionInvalidException: $message';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The client version is invalid.';
+}
+
+class ApiClientVersionDeprecatedException implements Exception, UserFriendlyException {
+  
+  final String message;
+  ApiClientVersionDeprecatedException([this.message = 'The client version is deprecated.']);
+
+  @override
+  String toString() => 'ApiClientVersionDeprecatedException: $message';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'The client version is deprecated. Please update your application.';
 }
 
 

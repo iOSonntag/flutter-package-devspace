@@ -39,6 +39,7 @@ abstract class LibStrings {
   static const String lib_general_titleWarning = 'lib_general_titleWarning';
   static const String lib_general_titleSuccess = 'lib_general_titleSuccess';
   static const String lib_general_titleConfirm = 'lib_general_titleConfirm';
+  static const String lib_general_titleCongratulation = 'lib_general_titleCongratulation';
 
 
   static const String lib_commonDialogs_permissionDeniedCamera_title = 'lib_commonDialogs_permissionDeniedCamera_title';

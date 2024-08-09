@@ -13,10 +13,12 @@ class GalaxyConfig {
 
   final GalaxyAssets assets;
   final kErrorShadowing errorShadowing;
+  final IOSConfig ios;
 
   const GalaxyConfig({
     required this.errorShadowing,
     required this.assets,
+    required this.ios,
   });
 
 }
@@ -30,5 +32,24 @@ class GalaxyAssets {
     required this.imagePlaceholderNoAvatar,
     required this.imagePlaceholderNoProfile,
   });
+
+}
+
+class IOSConfig {
+
+  /// A a numerical ID that Apple assigns to your app when you first create it
+  /// in App Store Connect. 
+  /// 
+  /// Where to find it:
+  /// - Log into App Store Connect (https://appstoreconnect.apple.com/)
+  /// - Select your app
+  /// - In the app's information page, look for "Apple ID" or "App ID"
+  final String appStoreAppId;
+
+  const IOSConfig({
+    required this.appStoreAppId,
+  });
+
+  const IOSConfig.none() : appStoreAppId = '';
 
 }

@@ -192,6 +192,55 @@ abstract class DialogCenter {
     );
   }
 
+  static Future<void> showAppBlocker(BuildContext context, {
+    String? title, 
+    required String message, 
+    TextAlign textAlign = TextAlign.center,
+    kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
+    bool externallyDismissable = false,
+    String? actionText,
+    VoidCallback? onAction,
+    kButtonType actionButtonType = kButtonType.primary,
+    }) async
+  {
+    await _internalShowDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      animationStyle: animationStyle,
+      builder: (BuildContext context)
+      {
+        return TextDialog(
+          title: title ?? LibStrings.lib_general_titleInfo.tr(),
+          text: message,
+          textAlign: textAlign,
+          actions: [
+
+            if (onAction != null) DialogAction(
+              title: actionText ?? LibStrings.lib_general_actionOkay.tr(), 
+              type: actionButtonType,
+              onPressed: onAction
+            ),
+          ],
+        );
+      }
+    );
+
+    if (!externallyDismissable)
+    {
+      // ignore: use_build_context_synchronously
+      await showAppBlocker(App.rootNavigationContext,
+        title: title,
+        message: message,
+        textAlign: textAlign,
+        animationStyle: kDialogAnimationStyle.regular,
+        externallyDismissable: externallyDismissable,
+        actionText: actionText,
+        onAction: onAction,
+        actionButtonType: actionButtonType,
+      );
+    }
+  }
+
 
 
 
@@ -277,13 +326,13 @@ abstract class DialogCenter {
 }
 
 
-// TODO: add congratulations
 // ignore: camel_case_types
 enum kDialogNoticeType
 {
   info,
   success,
   error,
+  congratulation,
 }
 
 extension ExtensionOnDialogNoticeType on kDialogNoticeType
@@ -295,6 +344,7 @@ extension ExtensionOnDialogNoticeType on kDialogNoticeType
       kDialogNoticeType.info => Icons.info_outline_rounded,
       kDialogNoticeType.success => Icons.check_rounded,
       kDialogNoticeType.error => Icons.error_outline_rounded,
+      kDialogNoticeType.congratulation => Icons.star_rounded,
     };
   }
 
@@ -305,6 +355,7 @@ extension ExtensionOnDialogNoticeType on kDialogNoticeType
       kDialogNoticeType.info => context.colors.primary,  
       kDialogNoticeType.success => context.colors.success,
       kDialogNoticeType.error => context.colors.destructive,
+      kDialogNoticeType.congratulation => context.colors.success,
     };
   }
 
@@ -315,6 +366,7 @@ extension ExtensionOnDialogNoticeType on kDialogNoticeType
       kDialogNoticeType.info => LibStrings.lib_general_titleInfo.tr(),
       kDialogNoticeType.success => LibStrings.lib_general_titleSuccess.tr(),
       kDialogNoticeType.error => LibStrings.lib_general_titleError.tr(),
+      kDialogNoticeType.congratulation => LibStrings.lib_general_titleCongratulation.tr(),
     };
   }
 
@@ -328,6 +380,8 @@ extension ExtensionOnDialogNoticeType on kDialogNoticeType
         return kButtonType.success;
       case kDialogNoticeType.error:
         return kButtonType.destructive;
+      case kDialogNoticeType.congratulation:
+        return kButtonType.success;
     }
   }
 }
