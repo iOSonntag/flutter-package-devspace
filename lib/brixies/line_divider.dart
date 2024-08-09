@@ -9,6 +9,7 @@ class LineDivider extends StatelessWidget {
   final double length;
   // TODO: use theme extension
   final double? thickness;
+  final BoxShadow? shadow;
   final bool fade;
 
   const LineDivider({
@@ -18,6 +19,7 @@ class LineDivider extends StatelessWidget {
     this.space = 0.0,
     this.length = double.infinity,
     this.thickness = 0.5,
+    this.shadow,
     this.fade = false,
   });
 
@@ -32,6 +34,7 @@ class LineDivider extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(space, 0.0, space, 0.0),
         decoration: BoxDecoration(
           color: fade ? null : col,
+          boxShadow: shadow != null ? [shadow!] : null,
           gradient: !fade ? null : LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
@@ -51,6 +54,7 @@ class LineDivider extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(0.0, space, 0.0, space),
       decoration: BoxDecoration(
         color: fade ? null : col,
+        boxShadow: shadow != null ? [shadow!] : null,
         gradient: !fade ? null : LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

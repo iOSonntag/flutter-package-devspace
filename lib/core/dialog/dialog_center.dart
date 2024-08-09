@@ -112,13 +112,22 @@ abstract class DialogCenter {
       animationStyle: animationStyle,
       builder: (context)
       {
-        List<DialogAction> actionsResolved = actions.mapIndexed((action, index) => action.copyWith(
-          onPressed: ()
+        List<DialogAction> actionsResolved = []; 
+        int realIndex = 0;
+        
+        for (var fiAction in actions)
+        {
+          if (fiAction.isCustom)
           {
-            Navigator.of(context).pop(index);
-            action.onPressed?.call();
+            actionsResolved.add(fiAction);
+            continue;
           }
-        )).toList();
+
+          actionsResolved.add(_copyActionWithIndexCall(context, fiAction, realIndex));
+
+          realIndex++;
+        }
+        
 
         return TextDialog(
           title: titleResolved,
@@ -131,6 +140,17 @@ abstract class DialogCenter {
     );
 
     return result;
+  }
+
+  static DialogAction _copyActionWithIndexCall(BuildContext context, DialogAction action, int index)
+  {
+    return action.copyWith(
+      onPressed: ()
+      {
+        Navigator.of(context).pop(index);
+        action.onPressed?.call();
+      }
+    );
   }
 
 

@@ -20,6 +20,8 @@ class DialogAction {
     this.iconOverride,
   });
 
+  bool get isCustom => this is CustomDialogAction;
+
   DialogAction copyWith({
     String? title,
     VoidCallback? onPressed,
@@ -56,6 +58,31 @@ class DialogAction {
       kButtonType.fancy3 => null,
       kButtonType.lowFocus => null,
     };
+  }
+
+}
+
+class CustomDialogAction extends DialogAction {
+
+  final Widget child;
+
+  CustomDialogAction({
+    required this.child,
+  }) : super(
+    title: '',
+  );
+
+  @override
+  DialogAction copyWith({
+    String? title,
+    VoidCallback? onPressed,
+    kButtonType? type,
+    IconData? iconOverride,
+  })
+  {
+    return CustomDialogAction(
+      child: child,
+    );
   }
 
 }

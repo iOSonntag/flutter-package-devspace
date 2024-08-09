@@ -27,6 +27,11 @@ class DefaultDialog extends StatelessWidget {
   {
     List<Widget> buttons = actions.mapToList((action, i)
     {
+      if (action.isCustom)
+      {
+        return (action as CustomDialogAction).child;
+      }
+
       Widget button = ArchButton(
         type: action.type,
         title: action.title,

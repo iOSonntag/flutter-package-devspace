@@ -2,21 +2,30 @@ part of devspace;
 
 
 
-class FancyDialogAnimationA extends StatelessWidget {
+class FancyDialogAnimationA extends material.StatefulWidget {
 
   final WidgetBuilder builder;
-  final opacityProp = MovieTweenProperty<double>();
-  final offsetProp = MovieTweenProperty<Offset>();
 
-  FancyDialogAnimationA({
+  const FancyDialogAnimationA({
     super.key,
     required this.builder,
   });
 
   @override
+  material.State<FancyDialogAnimationA> createState() => _FancyDialogAnimationAState();
+}
+
+class _FancyDialogAnimationAState extends material.State<FancyDialogAnimationA> {
+  final opacityProp = MovieTweenProperty<double>();
+
+  final offsetProp = MovieTweenProperty<Offset>();
+
+  final _contentKey = GlobalKey();
+
+  @override
   Widget build(BuildContext context)
   {
-    final moveStep = context.screenSize.height / 200;
+    final moveStep = context.screenSize.height / 300;
     return InOutMovie(
       intro: MovieTween()
         ..scene(duration: 500.asDuration, curve: Curves.easeInOut)
@@ -41,7 +50,10 @@ class FancyDialogAnimationA extends StatelessWidget {
           opacity: moview.getOrDefault(opacityProp, 1.0),
           child: Transform.translate(
             offset: moview.getOrDefault(offsetProp, Offset.zero),
-            child: builder(context)
+            child: Container(
+              key: _contentKey,
+              child: widget.builder(context),
+            )
           )
         );
       },
