@@ -209,6 +209,13 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
   {
     return PopScope(
       canPop: false,
+      onPopInvoked: (didPop)
+      {
+        if (Platform.isAndroid)
+        {
+          App.events.onAndroidBackButtonPressed?.call(context);
+        }
+      },
       child: MaterialApp.router(
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

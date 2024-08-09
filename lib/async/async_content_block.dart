@@ -2,6 +2,8 @@ part of devspace;
 
 typedef AsyncContentBuilder<T> = Widget Function(BuildContext context, T data, void Function() retry);
 
+typedef AsyncContentWrapperBuilder<T> = Widget Function(BuildContext context, T? data, void Function() retry, Widget child);
+
 // ignore: camel_case_types
 enum kAsyncContentBlockType
 {
@@ -19,6 +21,7 @@ class AsyncContentBlock<T> extends StatelessWidget {
   final Widget? noDataRequestedWidget;
   final void Function(kAsyncDataState state)? onStateChange;
   final AsyncContentBuilder<T> builder;
+  final AsyncContentWrapperBuilder<T>? wrapperBuilder;
 
   const AsyncContentBlock({
     super.key,
@@ -29,6 +32,7 @@ class AsyncContentBlock<T> extends StatelessWidget {
     required this.dataKey,
     required this.onLoad,
     required this.builder,
+    this.wrapperBuilder
   });
 
   @override
@@ -40,37 +44,49 @@ class AsyncContentBlock<T> extends StatelessWidget {
       onStateChange: onStateChange,
       builder: (context, data, errorMessage, isLoading, retry)
       {
-        if (isLoading)
+        Widget child = _buildChild(context, data, errorMessage, isLoading, retry);
+
+        if (wrapperBuilder != null)
         {
-          return Center(
-            child: Padding(
-              padding: internalWidgetsPadding,
-              child: ArchLoadingIndicator(
-                size: type == kAsyncContentBlockType.smallBrick ? kSize3.S : kSize3.M,
-              ),
-            )
-          );
+          child = wrapperBuilder!(context, data, retry, child);
         }
 
-        if (dataKey == null)
-        {
-          return noDataRequestedWidget ?? EmptyWidget();
-        }
-
-        if (errorMessage != null)
-        {
-          return _buildError(context, errorMessage, retry);
-        }
-        
-        
-        if (data != null)
-        {
-          return builder(context, data, retry);
-        }
-
-        return _buildNotFound(context, retry);
+        return child;
       },
     );
+  }
+
+  Widget _buildChild(BuildContext context, T? data, String? errorMessage, bool isLoading, void Function() retry)
+  {
+    if (isLoading)
+    {
+      return Center(
+        child: Padding(
+          padding: internalWidgetsPadding,
+          child: ArchLoadingIndicator(
+            size: type == kAsyncContentBlockType.smallBrick ? kSize3.S : kSize3.M,
+          ),
+        )
+      );
+    }
+
+    if (dataKey == null)
+    {
+      return noDataRequestedWidget ?? EmptyWidget();
+    }
+
+    if (errorMessage != null)
+    {
+      return _buildError(context, errorMessage, retry);
+    }
+    
+    
+    if (data != null)
+    {
+      return builder(context, data, retry);
+    }
+
+    return _buildNotFound(context, retry);
   }
 
   Widget _buildError(BuildContext context, String errorMessage, void Function() retry)

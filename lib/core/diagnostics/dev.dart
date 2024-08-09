@@ -31,6 +31,13 @@ abstract class Dev
     developer.log('ERROR     [$className]: $finalMessage');
   }
 
+  static void logAppIssue(dynamic issuer, String message, [Object? object])
+  {
+    final finalMessage = object != null ? '$message\n$object' : message;
+    String className = (issuer is String) ? issuer : issuer.runtimeType.toString();
+    developer.log('APP ISSUE [$className]: $finalMessage');
+  }
+
   static void logWarning(dynamic issuer, String message, [Object? object])
   {
     final finalMessage = object != null ? '$message\n$object' : message;
