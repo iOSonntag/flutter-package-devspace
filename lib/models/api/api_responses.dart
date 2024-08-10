@@ -73,6 +73,18 @@ class ApiResponse {
   }
 }
 
+class ApiResponseNoNetwork implements Exception, UserFriendlyException {
+
+  final String message;
+  ApiResponseNoNetwork([this.message = 'No network available. Please check your internet connection.']);
+
+  @override
+  String toString() => 'ApiResponseNoNetwork: $message';
+  // TODO: use localized strings
+  @override
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'No network available. Please check your internet connection.';
+}
+
 class ApiResponseInvalidException implements Exception, UserFriendlyException {
 
   final String message;

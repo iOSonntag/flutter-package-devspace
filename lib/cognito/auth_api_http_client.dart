@@ -18,6 +18,14 @@ enum kAuthErrorResolving
 }
 
 // ignore: camel_case_types
+enum kAuthError
+{
+  invalid,
+  expired,
+  signedOut,
+}
+
+// ignore: camel_case_types
 enum kHttpMethod
 {
   get,
@@ -58,7 +66,7 @@ typedef GetAuthToken = Future<String?> Function();
 typedef GetBaseUrl = Future<String> Function();
 typedef GetDefaultHeaders = Future<Map<String, String>> Function();
 typedef CreateResponseObject<T> = T Function(int statusCode, Map<String, dynamic>? jsonPayload);
-typedef AuthError = Future<kAuthErrorResolving> Function(ApiAuthException exception, kAuthRequirement authRequirement);
+typedef AuthError = Future<kAuthErrorResolving> Function(kAuthError error, kAuthRequirement authRequirement);
 
 class AuthApiHttpClient<TResponse> {
 
@@ -248,9 +256,11 @@ class AuthApiHttpClient<TResponse> {
     {
       Dev.logException(this, e, 'Failed $method to $apiPath');
 
-      if (e is ApiAuthException)
+      if (e is ApiAuthException || e is SignedOutException)
       {
-        final authErrorResolving = await onAuthError(e, authRequirement);
+        kAuthError authError = e is SignedOutException ? kAuthError.signedOut : (e as ApiAuthException).code == kApiAuthExceptionCode.tokenExpired ? kAuthError.expired : kAuthError.invalid;
+
+        final authErrorResolving = await onAuthError(authError, authRequirement);
 
         if (authErrorResolving == kAuthErrorResolving.cancelWithRethrow)
         {
@@ -258,6 +268,8 @@ class AuthApiHttpClient<TResponse> {
         }
         else if (authErrorResolving == kAuthErrorResolving.retry)
         {
+          await 1000.delay();
+
           return makeRequest(
             apiPath: apiPath,
             body: body,
@@ -268,6 +280,16 @@ class AuthApiHttpClient<TResponse> {
             method: method,
           );
         }
+      }
+
+      if (e is NetworkException)
+      {
+        throw ApiResponseNoNetwork();
+      }
+
+      if (e is ClientException && e.message.startsWith('Failed host lookup'))
+      {
+        throw ApiResponseNoNetwork();
       }
 
       rethrow;

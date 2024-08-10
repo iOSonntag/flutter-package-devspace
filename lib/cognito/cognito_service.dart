@@ -12,6 +12,10 @@ enum kSignInResult
 
 abstract class AuthService extends CustomService {
 
+  Future<void> updateStoredPassword(String password);
+  Future<void> updateStoredEmail(String email);
+
+  Future<CognitoSignInResult> signInUsingStoreCredentials();
   Future<CognitoSignInResult> signIn(String email, String password);
   Future<CognitoForgotPasswordRequestResult> forgotPasswordRequest(String email);
   Future<CognitoResetPasswordResult> resetPasswordRequest(String email, String newPassword, String confirmationCode);
@@ -26,6 +30,7 @@ abstract class AuthService extends CustomService {
 class CognitoAuthenticationService extends AuthService {
 
   final String config;
+  late final FlutterSecureStorage _secureStorage;
 
   CognitoAuthenticationService(this.config);
 
@@ -35,6 +40,36 @@ class CognitoAuthenticationService extends AuthService {
   {
     await Amplify.addPlugin(AmplifyAuthCognito());
     await Amplify.configure(config);
+
+    _secureStorage = const FlutterSecureStorage();
+
+  }
+
+  @override
+  Future<void> updateStoredPassword(String password) async
+  {
+    await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
+  }
+
+  @override
+  Future<void> updateStoredEmail(String email) async
+  {
+    await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
+  }
+
+
+  @override
+  Future<CognitoSignInResult> signInUsingStoreCredentials() async
+  {
+    String? email = await _secureStorage.read(key: 'COGNITO_EMAIL');
+    String? password = await _secureStorage.read(key: 'COGNITO_PASSWORD');
+
+    if (email == null || password == null)
+    {
+      return CognitoSignInResult(exception: Exception('No stored credentials'));
+    }
+
+    return signIn(email, password);
   }
 
   @override
@@ -56,6 +91,8 @@ class CognitoAuthenticationService extends AuthService {
         attributes = await Amplify.Auth.fetchUserAttributes();
       }
 
+      await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
+      await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
 
       return CognitoSignInResult(data: SignInResultExtended(
         signInResult: result,
@@ -121,6 +158,9 @@ class CognitoAuthenticationService extends AuthService {
   Future<void> signOut() async
   {
     await Amplify.Auth.signOut();
+
+    await _secureStorage.delete(key: 'COGNITO_EMAIL');
+    await _secureStorage.delete(key: 'COGNITO_PASSWORD');
   }
 
   @override
