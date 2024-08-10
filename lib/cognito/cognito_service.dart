@@ -41,26 +41,40 @@ class CognitoAuthenticationService extends AuthService {
     await Amplify.addPlugin(AmplifyAuthCognito());
     await Amplify.configure(config);
 
-    _secureStorage = const FlutterSecureStorage();
+    if (!kIsWeb)
+    {
+      _secureStorage = const FlutterSecureStorage();
+    }
 
   }
 
   @override
   Future<void> updateStoredPassword(String password) async
   {
-    await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
+    if (!kIsWeb)
+    {
+      await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
+    }
   }
 
   @override
   Future<void> updateStoredEmail(String email) async
   {
-    await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
+    if (!kIsWeb)
+    {
+      await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
+    }
   }
 
 
   @override
   Future<CognitoSignInResult> signInUsingStoreCredentials() async
   {
+    if (kIsWeb)
+    {
+      return CognitoSignInResult(exception: Exception('Not supported on web'));
+    }
+
     String? email = await _secureStorage.read(key: 'COGNITO_EMAIL');
     String? password = await _secureStorage.read(key: 'COGNITO_PASSWORD');
 
@@ -91,8 +105,11 @@ class CognitoAuthenticationService extends AuthService {
         attributes = await Amplify.Auth.fetchUserAttributes();
       }
 
-      await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
-      await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
+      if (!kIsWeb)
+      {
+        await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
+        await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
+      }
 
       return CognitoSignInResult(data: SignInResultExtended(
         signInResult: result,
@@ -159,8 +176,11 @@ class CognitoAuthenticationService extends AuthService {
   {
     await Amplify.Auth.signOut();
 
-    await _secureStorage.delete(key: 'COGNITO_EMAIL');
-    await _secureStorage.delete(key: 'COGNITO_PASSWORD');
+    if (!kIsWeb)
+    {
+      await _secureStorage.delete(key: 'COGNITO_EMAIL');
+      await _secureStorage.delete(key: 'COGNITO_PASSWORD');
+    }
   }
 
   @override
