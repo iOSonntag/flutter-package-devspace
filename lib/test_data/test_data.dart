@@ -32,7 +32,7 @@ class _TestDataUrls {
   {
     Dev.logWarning(this, 'TEST DATA USED. A random image from the internet was requested. Make sure to remove this code in production.');
 
-    return 'https://loremflickr.com/${width}/${height}/${keywords.join(',')}?random=${math.Random().nextInt(100000)}';
+    return 'https://loremflickr.com/$width/$height/${keywords.join(',')}?random=${math.Random().nextInt(100000)}';
   }
 
 }

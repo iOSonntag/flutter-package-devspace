@@ -8,6 +8,8 @@ abstract class AdditionalColorsDefaults {
   
   AdditionalColorsDefaults._();
 
+  static const Color background = Color(0xFFFFFFFF);
+  static const Color onBackground = Color(0xFF333333);
   static const Color onBackgroundLessFocus = Color(0xFF959595);
   static const Color onBackgroundLeastFocus = Color(0xFFDEDEDE);
   static const Color onSurfaceLessFocus = Color(0xFF959595);
@@ -24,6 +26,8 @@ abstract class AdditionalColorsDefaults {
 
 class AdditionalColorsThemeData extends ThemeExtension<AdditionalColorsThemeData> {
 
+  final Color background;
+  final Color onBackground;
   final Color onBackgroundLessFocus;
   final Color onBackgroundLeastFocus;
   final Color onSurfaceLessFocus;
@@ -37,6 +41,8 @@ class AdditionalColorsThemeData extends ThemeExtension<AdditionalColorsThemeData
   final Color onCongratulations;
 
   const AdditionalColorsThemeData({
+    this.background = AdditionalColorsDefaults.background,
+    this.onBackground = AdditionalColorsDefaults.onBackground,
     this.onBackgroundLessFocus = AdditionalColorsDefaults.onBackgroundLessFocus,
     this.onBackgroundLeastFocus = AdditionalColorsDefaults.onBackgroundLeastFocus,
     this.onSurfaceLessFocus = AdditionalColorsDefaults.onSurfaceLessFocus,
@@ -52,6 +58,8 @@ class AdditionalColorsThemeData extends ThemeExtension<AdditionalColorsThemeData
   
   @override
   ThemeExtension<AdditionalColorsThemeData> copyWith({
+    Color? background,
+    Color? onBackground,
     Color? onBackgroundLessFocus,
     Color? onBackgroundLeastFocus,
     Color? onSurfaceLessFocus,
@@ -66,6 +74,8 @@ class AdditionalColorsThemeData extends ThemeExtension<AdditionalColorsThemeData
   })
   {
     return AdditionalColorsThemeData(
+      background: background ?? this.background,
+      onBackground: onBackground ?? this.onBackground,
       onBackgroundLessFocus: onBackgroundLessFocus ?? this.onBackgroundLessFocus,
       onBackgroundLeastFocus: onBackgroundLeastFocus ?? this.onBackgroundLeastFocus,
       onSurfaceLessFocus: onSurfaceLessFocus ?? this.onSurfaceLessFocus,
@@ -86,6 +96,8 @@ class AdditionalColorsThemeData extends ThemeExtension<AdditionalColorsThemeData
     if (other == null || other is! AdditionalColorsThemeData) return this;
 
     return AdditionalColorsThemeData(
+      background: Color.lerp(background, other.background, t)!,
+      onBackground: Color.lerp(onBackground, other.onBackground, t)!,
       onBackgroundLessFocus: Color.lerp(onBackgroundLessFocus, other.onBackgroundLessFocus, t)!,
       onBackgroundLeastFocus: Color.lerp(onBackgroundLeastFocus, other.onBackgroundLeastFocus, t)!,
       onSurfaceLessFocus: Color.lerp(onSurfaceLessFocus, other.onSurfaceLessFocus, t)!,

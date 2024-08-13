@@ -12,6 +12,8 @@ class ColorsAccess  {
     required this.context
   });
 
+  Color get background => Theme.of(context).extension<AdditionalColorsThemeData>()?.background ?? AdditionalColorsDefaults.background;
+  Color get onBackground => Theme.of(context).extension<AdditionalColorsThemeData>()?.onBackground ?? AdditionalColorsDefaults.onBackground;
   Color get onBackgroundLessFocus => Theme.of(context).extension<AdditionalColorsThemeData>()?.onBackgroundLessFocus ?? AdditionalColorsDefaults.onBackgroundLessFocus;
   Color get onBackgroundLeastFocus => Theme.of(context).extension<AdditionalColorsThemeData>()?.onBackgroundLeastFocus ?? AdditionalColorsDefaults.onBackgroundLeastFocus;
   Color get onSurfaceLessFocus => Theme.of(context).extension<AdditionalColorsThemeData>()?.onSurfaceLessFocus ?? AdditionalColorsDefaults.onSurfaceLessFocus;
@@ -44,12 +46,8 @@ class ColorsAccess  {
   Color get onError => Theme.of(context).colorScheme.onError;
   Color get errorContainer => Theme.of(context).colorScheme.errorContainer;
   Color get onErrorContainer => Theme.of(context).colorScheme.onErrorContainer;
-  Color get background => Theme.of(context).colorScheme.background;
-  Color get onBackground => Theme.of(context).colorScheme.onBackground;
   Color get surface => Theme.of(context).colorScheme.surface;
   Color get onSurface => Theme.of(context).colorScheme.onSurface;
-  Color get surfaceVariant => Theme.of(context).colorScheme.surfaceVariant;
-  Color get onSurfaceVariant => Theme.of(context).colorScheme.onSurfaceVariant;
   Color get outline => Theme.of(context).colorScheme.outline;
   Color get outlineVariant => Theme.of(context).colorScheme.outlineVariant;
   Color get shadow => Theme.of(context).colorScheme.shadow;

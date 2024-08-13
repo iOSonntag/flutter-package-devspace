@@ -38,9 +38,9 @@ class DefaultButtonLink extends ArchBaseStatelessWidget<ButtonData> {
     return TextButton(
       onPressed: data.enabled ? data.onPrimaryAction : null,
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(textColor.withOpacity(0.2)),
-        minimumSize: MaterialStateProperty.all(Size.zero),
-        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        overlayColor: WidgetStateProperty.all(textColor.withOpacity(0.2)),
+        minimumSize: WidgetStateProperty.all(Size.zero),
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
       ),
       child: Container(
         padding: _contentPadding(context),

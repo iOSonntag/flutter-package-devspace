@@ -61,7 +61,7 @@ class _IntrinsicHeightPageViewState extends State<IntrinsicHeightPageView> with 
   @override
   Widget build(BuildContext context)
   {
-    return Container(
+    return SizedBox(
       height: _currentHeight, 
       child: PageView(
         controller: _pageController,
@@ -71,31 +71,31 @@ class _IntrinsicHeightPageViewState extends State<IntrinsicHeightPageView> with 
       ),
     );
 
-    return TweenAnimationBuilder<double>(
-      curve: Curves.easeInOutCubic,
-      duration: const Duration(milliseconds: 100),
-      tween: Tween<double>(begin: _heights[0], end: _currentHeight),
-      builder: (context, value, child)
-      {
-        return SizedBox(
-          height: _currentHeight, 
-          child: PageView(
-            controller: _pageController,
-            physics: widget.physics,
-            children: _buildChildren(context),
-          ),
-        );
-      },
-      // child: PageView(
-      //   controller: _pageController,
-      //   physics: widget.physics,
-      //   children: _sizeReportingChildren
-      //     .asMap()
-      //     .map((index, child) => MapEntry(index, child))
-      //     .values
-      //     .toList(),
-      // ),
-    );
+    // return TweenAnimationBuilder<double>(
+    //   curve: Curves.easeInOutCubic,
+    //   duration: const Duration(milliseconds: 100),
+    //   tween: Tween<double>(begin: _heights[0], end: _currentHeight),
+    //   builder: (context, value, child)
+    //   {
+    //     return SizedBox(
+    //       height: _currentHeight, 
+    //       child: PageView(
+    //         controller: _pageController,
+    //         physics: widget.physics,
+    //         children: _buildChildren(context),
+    //       ),
+    //     );
+    //   },
+    //   // child: PageView(
+    //   //   controller: _pageController,
+    //   //   physics: widget.physics,
+    //   //   children: _sizeReportingChildren
+    //   //     .asMap()
+    //   //     .map((index, child) => MapEntry(index, child))
+    //   //     .values
+    //   //     .toList(),
+    //   // ),
+    // );
   }
 
   void _onSizeChanged(int index, Size size)

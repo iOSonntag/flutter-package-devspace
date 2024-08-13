@@ -8,16 +8,16 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'dart:ui';
 
-import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:app_settings/app_settings.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -25,20 +25,19 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:measure_size/measure_size.dart';
+import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' as path;
-import 'package:image/image.dart' as img;
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 import 'package:url_launcher/url_launcher.dart' as p_url_launcher;
-import 'package:omni_datetime_picker/omni_datetime_picker.dart';
-import 'package:app_settings/app_settings.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import 'lib_strings.dart';
 
@@ -55,13 +54,13 @@ part 'animations/movie_orchestra.dart';
 part 'app_flow_systems/app_flow_paged_steps.dart';
 part 'app_flow_systems/paginated_list_view.dart';
 part 'app_flow_systems/steps_bar.dart';
+part 'app_scaffolds/app.dart';
 // app_scaffolds
 
 part 'app_scaffolds/app_events.dart';
 part 'app_scaffolds/app_helper.dart';
 part 'app_scaffolds/app_loader.dart';
 part 'app_scaffolds/app_router.dart';
-part 'app_scaffolds/app.dart';
 part 'architect/architect.dart';
 part 'architect/architect_plans.dart';
 part 'architect/materials/arch_base.dart';
@@ -128,13 +127,13 @@ part 'architect/plans/text_field/arch.dart';
 part 'architect/plans/text_field/data.dart';
 part 'architect/plans/text_field/default.dart';
 part 'architect/plans/text_field/default.regular.dart';
-part 'blue_forms/blue_forms.dart';
 // async
 
 part 'async/async_content_block.dart';
 part 'async/async_data_loader.dart';
 part 'async/loadable_view.dart';
 part 'async/loading_overlay.dart';
+part 'blue_forms/blue_forms.dart';
 // blue_forms
 
 part 'blue_forms/models/elements/base.dart';
@@ -153,8 +152,8 @@ part 'blue_forms/util/common_form_inputs.dart';
 part 'blue_forms/util/input_validators.dart';
 part 'blue_forms/widgets/form_async_dependency.dart';
 part 'blue_forms/widgets/form_element.dart';
-part 'blue_forms/widgets/form_input_container.dart';
 part 'blue_forms/widgets/form_group.dart';
+part 'blue_forms/widgets/form_input_container.dart';
 part 'blue_forms/widgets/form_input_date_time.dart';
 part 'blue_forms/widgets/form_input_images.dart';
 part 'blue_forms/widgets/form_input_pick_option.dart';
