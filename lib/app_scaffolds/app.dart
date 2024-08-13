@@ -217,7 +217,7 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
   {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop)
+      onPopInvokedWithResult: (didPop, result)
       {
         if (Platform.isAndroid)
         {
