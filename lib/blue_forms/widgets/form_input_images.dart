@@ -106,8 +106,8 @@ class _FormInputImagesWidgetMultiState extends State<_FormInputImagesWidgetMulti
   @override
   Widget build(BuildContext context)
   {
-    // TODO: handle file settings correctly
-    // TODO: change to img.Image
+    // TODOLIB: handle file settings correctly
+    // TODOLIB: change to img.Image
 
     return _FormInputContainerWidget(
       description: widget.definition.description,
@@ -116,7 +116,7 @@ class _FormInputImagesWidgetMultiState extends State<_FormInputImagesWidgetMulti
         mainAxisSize: MainAxisSize.min,
         children: [
 
-          // TODO: this is actually wrong an internal error through validatyion
+          // TODOLIB: this is actually wrong an internal error through validatyion
           // could still accour and thus the label should still be colored red
           // see archtextfield for reference (there it is done correctly)
           _buildLabel(context, widget.externalError != null),
@@ -495,7 +495,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
             mainAxisSize: MainAxisSize.min,
             children: [
           
-              // TODO: this is actually wrong an internal error through validatyion
+              // TODOLIB: this is actually wrong an internal error through validatyion
               // could still accour and thus the label should still be colored red
               // see archtextfield for reference (there it is done correctly)
               _buildLabel(context, hasError),
@@ -564,7 +564,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
                 onPressed: () => _addImage(ImageSource.gallery, state),
               ),
 
-              // TODO: add take photo button
+              // TODOLIB: add take photo button
               // if (context.isPortableDevice) context.spaceM,
 
             ],
@@ -761,7 +761,6 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       return;
     }
 
-    // TODO: check if onSvae or something needs to be called
     setState(()
     {
       _internalError = null;

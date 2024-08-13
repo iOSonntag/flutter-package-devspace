@@ -18,7 +18,7 @@ class ExtendedInfinitQueryData {
 
 }
 
-// TODO: fix memory leak, reverse map and search for value
+// IMPROVE: maybe this is a memory leak
 final Map<InfiniteQuery, ExtendedInfinitQueryData> _inifnitQueryData = {};
 
 extension ExtensionOnInfiniteQuery<T, Arg> on InfiniteQuery<T, Arg> {
@@ -96,7 +96,6 @@ extension ExtensionOnQuery<T> on Query<T> {
 
     if (hasListener)
     {
-      // TODO: think if we should use refetchBySystem
       refetch();
     }
   }
@@ -134,7 +133,6 @@ abstract class CachedQueryInvalidations {
       }
       else
       {
-        // TODO: think if we should use refetchBySystem
         query.refetch();
       }
     }
@@ -178,7 +176,6 @@ extension ExtensionOnQueryState<T> on QueryState<T> {
   bool get hasData => data != null;
 
 
-  // TODO: refactor
   void invalidateQueriesAndRefetchWithListeners(KeyFilterFunc filterFunc)
   {
     CachedQuery.instance.invalidateCache(
@@ -203,7 +200,6 @@ extension ExtensionOnQueryState<T> on QueryState<T> {
     }
   }
 
-  // TODO: refactor
   void invalidateQueriesAndRefetchWithListenersStartWidth(List<String> startWith)
   {
     invalidateQueriesAndRefetchWithListeners((unencodedKey, key)

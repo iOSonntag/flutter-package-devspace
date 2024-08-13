@@ -24,7 +24,7 @@ abstract class Result {
   {
     if (_success == null)
     {
-      // TODO: log warning instead
+      // IMPROVE: log warning instead
       throw Exception('Result has not been finalized. Accessing its value is dangerous.');
     }
 

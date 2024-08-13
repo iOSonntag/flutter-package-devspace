@@ -1,8 +1,6 @@
 part of devspace;
 
 
-// TODO: introduce toUserMessage() method to all exceptions and then use that in
-// the ui to display nice error messages to the user
 
 
 abstract interface class UserFriendlyException
@@ -31,8 +29,7 @@ abstract class ExceptionTool {
       return exception.toString();
     }
 
-    // TODO: localize
-    return 'An unexpected error occurred';
+    return LibStrings.lib_exception_UnexpectedError.tr();
   }
 
 }
@@ -50,17 +47,14 @@ class UnexpectedError extends Error implements UserFriendlyException
     return 'UnexpectedError: $message';
   }
   
-  // TODO: localize
   @override
-  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : 'An unexpected error occurred.';
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : LibStrings.lib_exception_UnexpectedError.tr();
 }
 
 
 
 
 
-
-// TODO: move to errors.dart
 
 class LibraryIssueError extends Error
 {

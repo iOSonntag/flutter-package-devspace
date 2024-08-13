@@ -58,6 +58,7 @@ part 'app_flow_systems/steps_bar.dart';
 // app_scaffolds
 
 part 'app_scaffolds/app_events.dart';
+part 'app_scaffolds/app_helper.dart';
 part 'app_scaffolds/app_loader.dart';
 part 'app_scaffolds/app_router.dart';
 part 'app_scaffolds/app.dart';

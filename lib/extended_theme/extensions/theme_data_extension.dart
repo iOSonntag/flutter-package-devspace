@@ -6,7 +6,7 @@
 
 part of devspace;
 
-// TODO: add ExtendedTheme class to be able to replace the default values
+// TODOLIB: add ExtendedTheme class to be able to replace the default values
 
 final WeakMap<ThemeData, DimensionsThemeData> _dimensionsThemeData = WeakMap();
 final WeakMap<ThemeData, HighlightsThemeData> _highlightsThemeData = WeakMap();

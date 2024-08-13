@@ -5,7 +5,6 @@
 part of devspace;
 
 
-// TODO: refactor once onced once
 class _FormInputPickOptionWidget extends StatefulWidget {
 
   final FormInputPickOption definition;
@@ -61,7 +60,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
     ));
 
 
-    // TODO: find better way than to assume that the theming provides a border color and radius
+    // IMPROVE: find better way than to assume that the theming provides a border color and radius
     Color? borderColor = decoration.focusedBorder?.borderSide.color;
     BorderRadius? borderRadius;
 
@@ -107,7 +106,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
       child: Column(
         children: [
 
-          // TODO: this is actually wrong an internal error through validatyion
+          // TODOLIB: this is actually wrong an internal error through validatyion
           // could still accour and thus the label should still be colored red
           // see archtextfield for reference (there it is done correctly)
           _buildLabel(context, widget.externalError != null),

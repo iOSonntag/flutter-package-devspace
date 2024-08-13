@@ -1,7 +1,7 @@
 
 
 
-// TODO: next and previous page doenst hide keyboard atm BUT the focus node is the last active textfield leading into wrong textfield to enter input!!!!!!
+// IMPROVE: next and previous page doenst hide keyboard atm BUT the focus node is the last active textfield leading into wrong textfield to enter input!!!!!!
 
 
 part of devspace;
@@ -159,7 +159,7 @@ class _BlueFormsState extends State<BlueForms> {
   {
     if (_currentIndex >= widget.pages.length - 1)
     {
-      // TODO: IMPROVEMENT copy all values to make the usage of this widget safer
+      // IMPROVE: copy all values to make the usage of this widget safer
       widget.onComplete(_savedInputs);
 
       return;

@@ -7,7 +7,6 @@ class LineDivider extends StatelessWidget {
   final Color? color;
   final double space;
   final double length;
-  // TODO: use theme extension
   final double? thickness;
   final BoxShadow? shadow;
   final bool fade;
@@ -18,7 +17,7 @@ class LineDivider extends StatelessWidget {
     this.color,
     this.space = 0.0,
     this.length = double.infinity,
-    this.thickness = 0.5,
+    this.thickness,
     this.shadow,
     this.fade = false,
   });
@@ -27,6 +26,8 @@ class LineDivider extends StatelessWidget {
   Widget build(BuildContext context)
   {
     Color col = color ?? context.colors.onBackgroundLessFocus;
+
+    double thickness = this.thickness ?? context.dimensions.lineThicknessS;
 
     if (axis == Axis.horizontal)
     {

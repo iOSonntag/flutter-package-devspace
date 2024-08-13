@@ -5,7 +5,7 @@
 
 part of devspace;
 
-// TODO: check correct value
+// IMPROVE: check correct value
 // const double _mobileThreshold = 600.0;
 const double _mobileThreshold = 850.0;
 

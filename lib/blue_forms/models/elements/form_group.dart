@@ -1,7 +1,7 @@
 
 part of devspace;
 
-// TODO: IMPROVEMENT add isOptional and label and description to group cascading the isOptional value down to the fields
+// IMPROVE: add isOptional and label and description to group cascading the isOptional value down to the fields
 class FormGroup extends FormInput {
 
   final int elementsPerRow;

@@ -121,7 +121,7 @@ extension ColorExtension on Color {
       ];
     }
 
-    // TODO: add theming option to adjust angle
+    // IMPROVE: add theming option to adjust angle
     return LinearGradient(
       begin: const Alignment(0, -1.0),
       end: Alignment(ignoreAngle ? 0.0 : 0.05, 1.0),

@@ -35,7 +35,7 @@ abstract class ImageProviderSmart {
 
     if (classification == kImageClass.highlightErrors)
     {
-      // TODO: implement
+      return AssetImage(App.config.assets.imagePlaceholderHighlightAsError);
     }
 
     throw UnimplementedError('ImageProviderSmart.network: classification $classification not implemented');

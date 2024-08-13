@@ -103,6 +103,7 @@ class App<T> extends StatelessWidget {
 
 
     await EasyLocalization.ensureInitialized();
+    await _checkLanguagesIfNeeded();
 
     if (!context.mounted) return null;
 
@@ -117,6 +118,13 @@ class App<T> extends StatelessWidget {
       globalGlues: onPostLoad_createGlobalGlues(appLoadResult),
     );
     
+  }
+
+  Future<void> _checkLanguagesIfNeeded() async
+  {
+    if (!Env.isLocal) return;
+    
+    await AppHelper.ensureAllTranslationKeysAreAvailable(supportedLocales, translationsFolder);
   }
 }
 

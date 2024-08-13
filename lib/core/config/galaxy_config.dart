@@ -27,10 +27,14 @@ class GalaxyAssets {
 
   final String imagePlaceholderNoAvatar;
   final String imagePlaceholderNoProfile;
+  /// A placeholder image that is used when an image is missing but should be
+  /// strongly visible as an error.
+  final String imagePlaceholderHighlightAsError;
 
   const GalaxyAssets({
     required this.imagePlaceholderNoAvatar,
     required this.imagePlaceholderNoProfile,
+    required this.imagePlaceholderHighlightAsError,
   });
 
 }

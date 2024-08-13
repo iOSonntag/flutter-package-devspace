@@ -208,7 +208,7 @@ abstract class CommonFormInputs {
 
 
 
-  // TODO: maybe add server name
+  // IMPROVE: maybe add server name
   /// Creates inputs with ids:
   /// - AddressStreet
   /// - AddressPostalCode
@@ -247,7 +247,7 @@ abstract class CommonFormInputs {
           label: LibStrings.lib_blueForms_commonInputs_address_streetLabel.tr(),
           hint: LibStrings.lib_blueForms_commonInputs_address_streetHint.tr(),
           autofillHints: const [
-              // TODO: check if ts the correct value
+              // IMPROVE: check if ts the correct value
               AutofillHints.fullStreetAddress
           ],
           validationType: kFormTextValidationType.trimNotEmpty,

@@ -50,7 +50,7 @@ abstract class DialogCenter {
                 type: denialButtonType,
                 onPressed: ()
                 {
-                  // TODO: ensure that the correct popup gets rejected (NOT the top screen lol)
+                  // IMPROVE: ensure that the correct popup gets rejected (NOT the top screen lol)
                   Navigator.of(context).pop(false);
                 }
             ),
@@ -59,7 +59,7 @@ abstract class DialogCenter {
                 type: approveButtonType,
                 onPressed: ()
                 {
-                  // TODO: ensure that the correct popup gets rejected (NOT the top screen lol)
+                  // IMPROVE: ensure that the correct popup gets rejected (NOT the top screen lol)
                   Navigator.of(context).pop(true);
                 }
             )
