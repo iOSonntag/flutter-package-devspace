@@ -49,11 +49,35 @@ class CognitoAuthenticationService extends AuthService {
   }
 
   @override
+  Future<void> reset() async
+  {
+    if (!kIsWeb)
+    {
+      try
+      {
+        await _secureStorage.delete(key: 'COGNITO_EMAIL');
+        await _secureStorage.delete(key: 'COGNITO_PASSWORD');
+      }
+      catch (e)
+      {
+        Dev.logException(this, e, 'Error deleting stored credentials');
+      }
+    }
+  }
+
+  @override
   Future<void> updateStoredPassword(String password) async
   {
     if (!kIsWeb)
     {
-      await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
+      try
+      {
+        await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
+      }
+      catch (e)
+      {
+        Dev.logException(this, e, 'Error deleting stored credentials');
+      }
     }
   }
 
@@ -62,7 +86,14 @@ class CognitoAuthenticationService extends AuthService {
   {
     if (!kIsWeb)
     {
-      await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
+      try
+      {
+        await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
+      }
+      catch (e)
+      {
+        Dev.logException(this, e, 'Error deleting stored credentials');
+      }
     }
   }
 
@@ -107,8 +138,15 @@ class CognitoAuthenticationService extends AuthService {
 
       if (!kIsWeb)
       {
-        await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
-        await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
+        try
+        {
+          await _secureStorage.write(key: 'COGNITO_EMAIL', value: email);
+          await _secureStorage.write(key: 'COGNITO_PASSWORD', value: password);
+        }
+        catch (e)
+        {
+          Dev.logException(this, e, 'Error deleting stored credentials');
+        }
       }
 
       return CognitoSignInResult(data: SignInResultExtended(
@@ -178,8 +216,15 @@ class CognitoAuthenticationService extends AuthService {
 
     if (!kIsWeb)
     {
-      await _secureStorage.delete(key: 'COGNITO_EMAIL');
-      await _secureStorage.delete(key: 'COGNITO_PASSWORD');
+      try
+      {
+        await _secureStorage.delete(key: 'COGNITO_EMAIL');
+        await _secureStorage.delete(key: 'COGNITO_PASSWORD');
+      }
+      catch (e)
+      {
+        Dev.logException(this, e, 'Error deleting stored credentials');
+      }
     }
   }
 
