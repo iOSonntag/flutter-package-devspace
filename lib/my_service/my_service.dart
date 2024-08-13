@@ -131,5 +131,6 @@ abstract class CustomService {
 
   Future<void> initialize();
   Future<void> dispose();
+  Future<void> reset();
 
 }

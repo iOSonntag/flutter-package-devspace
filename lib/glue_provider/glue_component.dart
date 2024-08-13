@@ -22,6 +22,8 @@ abstract class GlueComponent extends ChangeNotifier {
     super.dispose();
   }
 
+  Future<void> reset();
+
   @override
   @mustCallSuper
   void notifyListeners()
