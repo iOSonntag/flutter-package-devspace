@@ -229,6 +229,7 @@ part 'models/action_result.dart';
 
 part 'models/api/api_responses.dart';
 part 'models/builder.dart';
+part 'models/callbacks.dart';
 part 'models/exceptions.dart';
 part 'models/financials.dart';
 part 'models/futures.dart';

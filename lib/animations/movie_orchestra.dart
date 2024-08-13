@@ -1,8 +1,6 @@
 part of devspace;
 
 
-// TODO: move
-typedef ValueCallback<T> = void Function(T value);
 
 class NullableMovie 
 {

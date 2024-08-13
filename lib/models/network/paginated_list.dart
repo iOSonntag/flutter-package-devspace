@@ -21,11 +21,18 @@ class PageFetchResult<T> {
 
     for (final itemJson in listJsons)
     {
-      T? item = itemFromJson(itemJson);
-
-      if (item != null)
+      try
       {
-        items.add(item);
+        T? item = itemFromJson(itemJson);
+
+        if (item != null)
+        {
+          items.add(item);
+        }
+      }
+      catch (e)
+      {
+        Dev.logError('PageFetchResult', 'Failed to parse item from json', e);
       }
     }
 

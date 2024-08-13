@@ -11,7 +11,7 @@ class DefaultInputDecoration extends ArchObject<InputDecoration, InputDecoration
   };
 
   DefaultInputDecoration({
-    // TODO: add default sitch for arch objects and create mixin for the "default" part"
+    // IMPROVE: add default sitch for arch objects and create mixin for the "default" part"
     // required super.variant,
     required super.data
   });

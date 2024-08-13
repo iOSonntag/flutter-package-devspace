@@ -4,7 +4,7 @@
 part of devspace;
 
 
-// TODO: implement icon feature
+// IMPROVE: implement icon feature
 class DefaultButtonSoft extends ArchBaseStatelessWidget<ButtonData> {
 
   DefaultButtonSoft({

@@ -52,7 +52,7 @@ class DefaultBonusInfoRegular extends ArchBaseStatelessWidget<BonusInfoData> {
           arrowTipDistance: arrowTipDistance,
           content: Container(
             constraints: const BoxConstraints(
-              // TODO: improve
+              // IMPROVE: improve
               maxWidth: 300.0,
             ),
             child: Column(  
