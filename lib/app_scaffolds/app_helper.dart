@@ -24,7 +24,10 @@ abstract class AppHelper {
     if (missingKeys.isNotEmpty)
     {
       final missingKeysString = missingKeys.join('\n');
-      throw Exception('Missing translation keys:\n\n$missingKeysString');
+      final message = 'Missing translation keys:\n\n$missingKeysString';
+
+      Dev.logError('AppHelper', message);
+      throw Exception(message);
     }
 
   }
