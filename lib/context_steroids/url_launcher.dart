@@ -18,6 +18,12 @@ extension ExtensionContextUrlLauncher on BuildContext
     if (!launched) throw 'Could not launch $uri';
   }
 
+
+  Future<void> openSettingsPushNotifications() async
+  {
+    await AppSettings.openAppSettings(type: AppSettingsType.notification);
+  }
+
   /// Open the App store on iOS and Play Store on Android.
   Future<void> openAppStore() async
   {

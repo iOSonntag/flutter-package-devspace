@@ -163,6 +163,7 @@ abstract class DialogCenter {
     bool barrierDismissible = false,
     TextAlign textAlign = TextAlign.center,
     kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
+    kButtonType? overwriteButtonType,
     }) async
   {
     final dismiss = dismissText ?? LibStrings.lib_general_actionOkay.tr();
@@ -180,7 +181,7 @@ abstract class DialogCenter {
           actions: [
             DialogAction(
               title: dismiss, 
-              type: type.buttonType,
+              type: overwriteButtonType ?? type.buttonType,
               onPressed: ()
               {
                 Navigator.of(context).pop();
