@@ -9,8 +9,8 @@ part of devspace;
 // const double _mobileThreshold = 600.0;
 const double _mobileThreshold = 850.0;
 
-// const double _tabletThreshold = 950.0;
-const double _tabletThreshold = 1100.0;
+const double _tabletThreshold = 950.0;
+// const double _tabletThreshold = 1100.0;
 extension ContextExtension on BuildContext {
 
   HighlightsThemeData get highlights => Theme.of(this).highlights;
