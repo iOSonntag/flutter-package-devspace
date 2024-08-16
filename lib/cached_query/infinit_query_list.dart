@@ -66,13 +66,6 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
 
   Widget _buildContent(BuildContext context, InfiniteQueryState<PageFetchResult<T>> state, InfiniteQuery<PageFetchResult<T>, String?> query)
   {
-    if (query.isFetchingForTheFirstTime || query.isRefetching)
-    {
-      return Center(
-        child: ArchLoadingIndicator(),
-      );
-    }
-
     final allPosts = state.data?.expand((e) => e.items).toList();
 
     if (state.status == QueryStatus.success && allPosts.isNullOrEmpty)
@@ -213,11 +206,14 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
     }
 
 
-    return CustomScrollView(
-      controller: _scrollController,
-      physics: context.animations.scrollPhysics,
-      reverse: widget.reverse,
-      slivers: slivers,
+    return LoadableView(
+      isLoading: query.isFetchingForTheFirstTime || query.isRefetching,
+      child: CustomScrollView(
+        controller: _scrollController,
+        physics: context.animations.scrollPhysics,
+        reverse: widget.reverse,
+        slivers: slivers,
+      ),
     );
   }
 
