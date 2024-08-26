@@ -28,6 +28,30 @@ abstract class Env {
   static bool get isLocal => environment == kEnvironment.local;
 
 
+  static String get idLocalBecomesDev
+  {
+    return switch (environment)
+    {
+      kEnvironment.prod => 'prod',
+      kEnvironment.stage => 'stage',
+      kEnvironment.dev => 'dev',
+      kEnvironment.local => 'dev',
+    };
+  }
+
+
+  static String get id
+  {
+    return switch (environment)
+    {
+      kEnvironment.prod => 'prod',
+      kEnvironment.stage => 'stage',
+      kEnvironment.dev => 'dev',
+      kEnvironment.local => 'local',
+    };
+  }
+
+
   static String chooseString({
     required String prod, 
     required String stage, 
