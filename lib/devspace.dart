@@ -206,6 +206,7 @@ part 'core/dialog/text_dialog.dart';
 part 'core/gestures/hide_keyboard_on_tap.dart';
 part 'core/gestures/tap_detector.dart';
 part 'core/images/image_provider_smart.dart';
+part 'core/util/foreground_timer.dart';
 part 'extended_theme/additional_color_theme_data.dart';
 part 'extended_theme/animations_theme_data.dart';
 part 'extended_theme/colors_access.dart';

@@ -209,6 +209,11 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
     if (state == AppLifecycleState.resumed)
     {
       App.events.onAppResumed?.call(context);
+      _ForegroundTimerRegistry().onAppResumed();
+    }
+    else if (state == AppLifecycleState.paused)
+    {
+      _ForegroundTimerRegistry().onAppPaused();
     }
   }
 
