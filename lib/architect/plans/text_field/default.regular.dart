@@ -78,7 +78,7 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
                         style: context.text.bodyMedium,
                         decoration: _buildInputDecoration(context, hasError),
                         maxLines: data.maxLines ?? (data.isTextArea ? 6 : 1),
-                        scrollPadding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 500.0),
+                        scrollPadding: (Platform.isIOS || Platform.isAndroid) ? const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 500.0) : const EdgeInsets.all(20.0),
                         scrollPhysics: data.isTextArea ? context.animations.scrollPhysics : null,
                         autofillHints: data.autofillHints,
                         autocorrect: data.autocorrect,
