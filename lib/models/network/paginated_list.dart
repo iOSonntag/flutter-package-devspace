@@ -14,6 +14,11 @@ class PageFetchResult<T> {
     this.nextCursor
   });
 
+  factory PageFetchResult.empty()
+  {
+    return PageFetchResult<T>(items: [], nextCursor: null);
+  }
+
   factory PageFetchResult.fromJson(Map<String, dynamic> json, T? Function(Map<String, dynamic>) itemFromJson)
   {
     final listJsons = List<Map<String, dynamic>>.from(json.getOrThrow('items'));
