@@ -230,6 +230,7 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
         }
       },
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: App.config.hideDebugFlag == false,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

@@ -13,10 +13,12 @@ class GalaxyConfig {
 
   final GalaxyAssets assets;
   final kErrorShadowing errorShadowing;
+  final bool hideDebugFlag;
   final IOSConfig ios;
 
   const GalaxyConfig({
     required this.errorShadowing,
+    this.hideDebugFlag = false,
     required this.assets,
     required this.ios,
   });
