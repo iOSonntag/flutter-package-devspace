@@ -206,6 +206,8 @@ extension ContextExtension on BuildContext {
   
   bool get isDesktop
   {
+    if (kIsWeb) return defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows || defaultTargetPlatform == TargetPlatform.linux;
+
     return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
   }
 
@@ -214,8 +216,6 @@ extension ContextExtension on BuildContext {
     final brightness = MediaQuery.of(this).platformBrightness;
     return brightness == Brightness.dark;
   }
-
-
 
   
 
