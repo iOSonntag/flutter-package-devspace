@@ -103,6 +103,7 @@ abstract class LibStrings {
   static const String lib_exception_ApiAuthException = 'lib_exception_ApiAuthException';
   static const String lib_exception_ApiClientVersionInvalidException = 'lib_exception_ApiClientVersionInvalidException';
   static const String lib_exception_ApiClientVersionDeprecatedException = 'lib_exception_ApiClientVersionDeprecatedException';
+  static const String lib_exception_ApiClientStateOutdatedException = 'lib_exception_ApiClientStateOutdatedException';
   static const String lib_exception_ApiCustomException = 'lib_exception_ApiCustomException';
   static const String lib_exception_ApiZodException = 'lib_exception_ApiZodException';
   static const String lib_exception_UnexpectedError = 'lib_exception_UnexpectedError';
@@ -202,6 +203,7 @@ abstract class LibStrings {
     'lib_exception_ApiAuthException',
     'lib_exception_ApiClientVersionInvalidException',
     'lib_exception_ApiClientVersionDeprecatedException',
+    'lib_exception_ApiClientStateOutdatedException',
     'lib_exception_ApiCustomException',
     'lib_exception_ApiZodException',
     'lib_exception_UnexpectedError',

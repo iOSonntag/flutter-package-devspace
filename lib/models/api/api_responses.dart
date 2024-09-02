@@ -64,6 +64,7 @@ class ApiResponse {
       case 'AUTH_INVALID': throw ApiAuthException(code: kApiAuthExceptionCode.invalid);
       case 'CLIENT_VERSION_INVALID': throw ApiClientVersionInvalidException();
       case 'CLIENT_VERSION_DEPRECATED': throw ApiClientVersionDeprecatedException();
+      case 'CLIENT_STATE_OUTDATED': throw ApiClientStateOutdatedException();
       default:
         throw ApiCustomException(
           code: jsonPayload['error']['code'],
@@ -215,6 +216,18 @@ class ApiClientVersionDeprecatedException implements Exception, UserFriendlyExce
   
   @override
   String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : LibStrings.lib_exception_ApiClientVersionDeprecatedException.tr();
+}
+
+class ApiClientStateOutdatedException implements Exception, UserFriendlyException {
+  
+  final String message;
+  ApiClientStateOutdatedException([this.message = 'The client state is outdated. Refresh and try again.']);
+
+  @override
+  String toString() => 'ApiClientStateOutdatedException: $message';
+  
+  @override
+  String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : LibStrings.lib_exception_ApiClientStateOutdatedException.tr();
 }
 
 
