@@ -4,7 +4,7 @@
 
 part of devspace;
 
-extension ExtensionEdgeInsets on EdgeInsets {
+extension ExtensionOnEdgeInsets on EdgeInsets {
 
   EdgeInsets get onlyHorizontal => EdgeInsets.only(
     left: left,

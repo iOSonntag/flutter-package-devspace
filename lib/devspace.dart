@@ -214,9 +214,9 @@ part 'extended_theme/dimensions_theme_data.dart';
 // extended_theme
 
 part 'extended_theme/extensions/context_extension.dart';
-part 'extended_theme/extensions/edge_insets_extension.dart';
-part 'extended_theme/extensions/theme_data_extension.dart';
+part 'type_extensions/edge_insets.dart';
 part 'extended_theme/highlights_theme_data.dart';
+part 'extended_theme/theme.dart';
 part 'extended_theme/widgets/texts.dart';
 // glue_provider
 

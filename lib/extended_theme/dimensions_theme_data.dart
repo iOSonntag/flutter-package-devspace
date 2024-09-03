@@ -98,6 +98,151 @@ class DimensionsThemeData {
   final double iconSizeXL;
   final double iconSizeXXL;
 
+
+
+
+  // @override
+  // ThemeExtension<DimensionsThemeData> copyWith({
+  //   double? spaceXXS,
+  //   double? spaceXS,
+  //   double? spaceS,
+  //   double? spaceM,
+  //   double? spaceL,
+  //   double? spaceXL,
+  //   double? spaceXXL,
+  //   double? radiusXXS,
+  //   double? radiusXS,
+  //   double? radiusS,
+  //   double? radiusM,
+  //   double? radiusL,
+  //   double? radiusXL,
+  //   double? radiusXXL,
+  //   double? listItemHeightS,
+  //   double? listItemHeightM,
+  //   double? listItemHeightL,
+  //   double? barHeightXXS,
+  //   double? barHeightXS,
+  //   double? barHeightS,
+  //   double? barHeightM,
+  //   double? barHeightL,
+  //   double? barHeightXL,
+  //   double? borderThicknessXS,
+  //   double? borderThicknessS,
+  //   double? borderThicknessM,
+  //   double? borderThicknessL,
+  //   double? borderThicknessXL,
+  //   double? lineThicknessS,
+  //   double? lineThicknessM,
+  //   double? lineThicknessL,
+  //   double? iconSizeXS,
+  //   double? iconSizeS,
+  //   double? iconSizeM,
+  //   double? iconSizeL,
+  //   double? iconSizeXL,
+  //   double? iconSizeXXL,
+  // })
+  // {
+  //   return DimensionsThemeData(
+  //     spaceXXS: spaceXXS ?? spaceXXSValue,
+  //     spaceXS: spaceXS ?? spaceXSValue,
+  //     spaceS: spaceS ?? spaceSValue,
+  //     spaceM: spaceM ?? spaceMValue,
+  //     spaceL: spaceL ?? spaceLValue,
+  //     spaceXL: spaceXL ?? spaceXLValue,
+  //     spaceXXL: spaceXXL ?? spaceXXLValue,
+  //     radiusXXS: radiusXXS ?? this.radiusXXS,
+  //     radiusXS: radiusXS ?? this.radiusXS,
+  //     radiusS: radiusS ?? this.radiusS,
+  //     radiusM: radiusM ?? this.radiusM,
+  //     radiusL: radiusL ?? this.radiusL,
+  //     radiusXL: radiusXL ?? this.radiusXL,
+  //     radiusXXL: radiusXXL ?? this.radiusXXL,
+  //     listItemHeightS: listItemHeightS ?? this.listItemHeightS,
+  //     listItemHeightM: listItemHeightM ?? this.listItemHeightM,
+  //     listItemHeightL: listItemHeightL ?? this.listItemHeightL,
+  //     barHeightXXS: barHeightXXS ?? this.barHeightXXS,
+  //     barHeightXS: barHeightXS ?? this.barHeightXS,
+  //     barHeightS: barHeightS ?? this.barHeightS,
+  //     barHeightM: barHeightM ?? this.barHeightM,
+  //     barHeightL: barHeightL ?? this.barHeightL,
+  //     barHeightXL: barHeightXL ?? this.barHeightXL,
+  //     borderThicknessXS: borderThicknessXS ?? this.borderThicknessXS,
+  //     borderThicknessS: borderThicknessS ?? this.borderThicknessS,
+  //     borderThicknessM: borderThicknessM ?? this.borderThicknessM,
+  //     borderThicknessL: borderThicknessL ?? this.borderThicknessL,
+  //     borderThicknessXL: borderThicknessXL ?? this.borderThicknessXL,
+  //     lineThicknessS: lineThicknessS ?? this.lineThicknessS,
+  //     lineThicknessM: lineThicknessM ?? this.lineThicknessM,
+  //     lineThicknessL: lineThicknessL ?? this.lineThicknessL,
+  //     iconSizeXS: iconSizeXS ?? this.iconSizeXS,
+  //     iconSizeS: iconSizeS ?? this.iconSizeS,
+  //     iconSizeM: iconSizeM ?? this.iconSizeM,
+  //     iconSizeL: iconSizeL ?? this.iconSizeL,
+  //     iconSizeXL: iconSizeXL ?? this.iconSizeXL,
+  //     iconSizeXXL: iconSizeXXL ?? this.iconSizeXXL,
+  //   );
+  // }
+
+
+  // @override
+  // ThemeExtension<DimensionsThemeData> lerp(covariant ThemeExtension<DimensionsThemeData>? other, double t)
+  // {
+  //   if (other == null || other is! DimensionsThemeData) return this;
+
+  //   return DimensionsThemeData(
+  //     spaceXXS: lerpDouble(spaceXXSValue, other.spaceXXSValue, t)!,
+  //     spaceXS: lerpDouble(spaceXSValue, other.spaceXSValue, t)!,
+  //     spaceS: lerpDouble(spaceSValue, other.spaceSValue, t)!,
+  //     spaceM: lerpDouble(spaceMValue, other.spaceMValue, t)!,
+  //     spaceL: lerpDouble(spaceLValue, other.spaceLValue, t)!,
+  //     spaceXL: lerpDouble(spaceXLValue, other.spaceXLValue, t)!,
+  //     spaceXXL: lerpDouble(spaceXXLValue, other.spaceXXLValue, t)!,
+  //     radiusXXS: lerpDouble(radiusXXS, other.radiusXXS, t)!,
+  //     radiusXS: lerpDouble(radiusXS, other.radiusXS, t)!,
+  //     radiusS: lerpDouble(radiusS, other.radiusS, t)!,
+  //     radiusM: lerpDouble(radiusM, other.radiusM, t)!,
+  //     radiusL: lerpDouble(radiusL, other.radiusL, t)!,
+  //     radiusXL: lerpDouble(radiusXL, other.radiusXL, t)!,
+  //     radiusXXL: lerpDouble(radiusXXL, other.radiusXXL, t)!,
+  //     listItemHeightS: lerpDouble(listItemHeightS, other.listItemHeightS, t)!,
+  //     listItemHeightM: lerpDouble(listItemHeightM, other.listItemHeightM, t)!,
+  //     listItemHeightL: lerpDouble(listItemHeightL, other.listItemHeightL, t)!,
+  //     barHeightXXS: lerpDouble(barHeightXXS, other.barHeightXXS, t)!,
+  //     barHeightXS: lerpDouble(barHeightXS, other.barHeightXS, t)!,
+  //     barHeightS: lerpDouble(barHeightS, other.barHeightS, t)!,
+  //     barHeightM: lerpDouble(barHeightM, other.barHeightM, t)!,
+  //     barHeightL: lerpDouble(barHeightL, other.barHeightL, t)!,
+  //     barHeightXL: lerpDouble(barHeightXL, other.barHeightXL, t)!,
+  //     borderThicknessXS: lerpDouble(borderThicknessXS, other.borderThicknessXS, t)!,
+  //     borderThicknessS: lerpDouble(borderThicknessS, other.borderThicknessS, t)!,
+  //     borderThicknessM: lerpDouble(borderThicknessM, other.borderThicknessM, t)!,
+  //     borderThicknessL: lerpDouble(borderThicknessL, other.borderThicknessL, t)!,
+  //     borderThicknessXL: lerpDouble(borderThicknessXL, other.borderThicknessXL, t)!,
+  //     lineThicknessS: lerpDouble(lineThicknessS, other.lineThicknessS, t)!,
+  //     lineThicknessM: lerpDouble(lineThicknessM, other.lineThicknessM, t)!,
+  //     lineThicknessL: lerpDouble(lineThicknessL, other.lineThicknessL, t)!,
+  //     iconSizeXS: lerpDouble(iconSizeXS, other.iconSizeXS, t)!,
+  //     iconSizeS: lerpDouble(iconSizeS, other.iconSizeS, t)!,
+  //     iconSizeM: lerpDouble(iconSizeM, other.iconSizeM, t)!,
+  //     iconSizeL: lerpDouble(iconSizeL, other.iconSizeL, t)!,
+  //     iconSizeXL: lerpDouble(iconSizeXL, other.iconSizeXL, t)!,
+  //     iconSizeXXL: lerpDouble(iconSizeXXL, other.iconSizeXXL, t)!,
+  //   );
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   EdgeInsets get paddingXXS => EdgeInsets.all(spaceXXSValue);
   EdgeInsets get paddingXS => EdgeInsets.all(spaceXSValue);
   EdgeInsets get paddingS => EdgeInsets.all(spaceSValue);
@@ -251,6 +396,15 @@ class DimensionsThemeData {
     if (context.isPhone) return MediaQuery.of(context).size.width * 0.3;
     if (context.isTablet) return MediaQuery.of(context).size.width * 0.2;
     if (context.isDesktop) return 400.0;
+
+    throw Exception("Unknown device type");
+  }
+
+  double dialogMaxWidth(BuildContext context)
+  {
+    if (context.isPhone) return MediaQuery.of(context).size.width * 0.9;
+    if (context.isTablet) return MediaQuery.of(context).size.width * 0.5;
+    if (context.isDesktop) return 800.0;
 
     throw Exception("Unknown device type");
   }

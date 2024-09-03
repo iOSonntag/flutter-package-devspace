@@ -69,7 +69,7 @@ class DefaultButtonRegular extends ArchBaseStatelessWidget<ButtonData> {
           borderRadius: borderRadius,
           gradient: grad,
         ),
-        child: Center(child: child),
+        child: material.Center(child: child),
       );
     }
 

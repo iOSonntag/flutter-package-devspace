@@ -116,7 +116,7 @@ class DefaultDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: buttons,
-          ),
+          )
         );
       }
     }
@@ -125,6 +125,9 @@ class DefaultDialog extends StatelessWidget {
       elevation: 0,
       backgroundColor: Colors.transparent,
       child: Container(
+        constraints: BoxConstraints(
+          maxWidth: context.dimensions.dialogMaxWidth(context)
+        ),
         decoration: BoxDecoration(
           color: context.colors.surface,
           borderRadius: context.dimensions.borderRadiusXL,
