@@ -22,33 +22,42 @@ abstract class Dev
 
     String finalMessage = message != null ? 'EXCEPTION [$className]: $message' : 'EXCEPTION [$className]';
     developer.log(finalMessage, error: exception, stackTrace: StackTrace.current);
+    App.events.logEvents?.onException(finalMessage, exception);
   }
 
   static void logError(dynamic issuer, String message, [Object? object])
   {
-    final finalMessage = object != null ? '$message\n$object' : message;
+    String finalMessage = object != null ? '$message\n$object' : message;
     String className = (issuer is String) ? issuer : issuer.runtimeType.toString();
-    developer.log('ERROR     [$className]: $finalMessage');
+    finalMessage = 'ERROR     [$className]: $finalMessage';
+    developer.log(finalMessage);
+    App.events.logEvents?.onError(finalMessage, object);
   }
 
   static void logAppIssue(dynamic issuer, String message, [Object? object])
   {
-    final finalMessage = object != null ? '$message\n$object' : message;
+    String finalMessage = object != null ? '$message\n$object' : message;
     String className = (issuer is String) ? issuer : issuer.runtimeType.toString();
-    developer.log('APP ISSUE [$className]: $finalMessage');
+    finalMessage = 'APP ISSUE [$className]: $finalMessage';
+    developer.log(finalMessage);
+    App.events.logEvents?.onAppIssue(finalMessage);
   }
 
   static void logWarning(dynamic issuer, String message, [Object? object])
   {
-    final finalMessage = object != null ? '$message\n$object' : message;
+    String finalMessage = object != null ? '$message\n$object' : message;
     String className = (issuer is String) ? issuer : issuer.runtimeType.toString();
-    developer.log('WARNING   [$className]: $finalMessage');
+    finalMessage = 'WARNING   [$className]: $finalMessage';
+    developer.log(finalMessage);
+    App.events.logEvents?.onWarning(finalMessage);
   }
 
   static void log(dynamic issuer, String message, [Object? object])
   {
-    final finalMessage = object != null ? '$message\n$object' : message;
+    String finalMessage = object != null ? '$message\n$object' : message;
     String className = (issuer is String) ? issuer : issuer.runtimeType.toString();
-    developer.log('info      [$className]: $finalMessage');
+    finalMessage = 'INFO      [$className]: $finalMessage';
+    developer.log(finalMessage);
+    App.events.logEvents?.onLog(finalMessage);
   }
 }
