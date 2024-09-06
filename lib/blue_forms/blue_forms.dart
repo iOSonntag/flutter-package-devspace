@@ -18,6 +18,7 @@ class BlueForms extends StatefulWidget {
   final bool actionBarSeparation;
   final List<FormPageBase> pages;
   final String? completeButtonTitle;
+  final String? cancelButtonTitle;
   final bool intrinsicHeight;
   final bool visuallyMarkRequiredFields;
   final Widget? bottomContent;
@@ -34,6 +35,7 @@ class BlueForms extends StatefulWidget {
     this.externalErrors = const {},
     this.actionBarSeparation = true,
     this.completeButtonTitle,
+    this.cancelButtonTitle,
     this.intrinsicHeight = false,
     this.visuallyMarkRequiredFields = true,
     this.clipPagination = true,
@@ -70,6 +72,7 @@ class _BlueFormsState extends State<BlueForms> {
     Widget child = AppFlowPagedSteps(
       clip: widget.clipPagination ? Clip.hardEdge : Clip.none,
       onCancel: widget.onCancel,
+      cancelButtonTitle: widget.cancelButtonTitle,
       currentIndex: _currentIndex,
       actionBarSeparation: widget.actionBarSeparation,
       actionBarHeader: _buildErrorWidget(context),
