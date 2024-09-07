@@ -103,6 +103,8 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
 
     return _FormInputContainerWidget(
       description: widget.definition.description,
+      extraButton: widget.definition.extraButton,
+      hasLabel: widget.definition.label != null,
       child: Column(
         children: [
 

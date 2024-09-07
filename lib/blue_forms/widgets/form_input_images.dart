@@ -112,6 +112,8 @@ class _FormInputImagesWidgetMultiState extends State<_FormInputImagesWidgetMulti
 
     return _FormInputContainerWidget(
       description: widget.definition.description,
+      extraButton: widget.definition.extraButton,
+      hasLabel: widget.definition.label != null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -463,6 +465,8 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
 
     return _FormInputContainerWidget(
       description: widget.definition.description,
+      extraButton: widget.definition.extraButton,
+      hasLabel: widget.definition.label != null,
       child: FormField<Uint8List?>(
         initialValue: _getImageFromSavedOrInitialValue(),
         onSaved: widget.onSave,

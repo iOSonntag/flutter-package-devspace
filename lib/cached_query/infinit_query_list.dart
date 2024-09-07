@@ -14,6 +14,7 @@ class InfinitQueryList<T> extends StatefulWidget {
   final WidgetBuilder? buildNoItemsFound;
   final bool reverse;
   final bool disablePullToRefresh;
+  final List<T> Function(List<T> items)? onTransformItems;
 
   const InfinitQueryList({
     super.key,
@@ -25,6 +26,7 @@ class InfinitQueryList<T> extends StatefulWidget {
     this.buildNoItemsFound,
     this.reverse = false,
     this.disablePullToRefresh = false,
+    this.onTransformItems,
   });
 
   @override
@@ -66,7 +68,12 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
 
   Widget _buildContent(BuildContext context, InfiniteQueryState<PageFetchResult<T>> state, InfiniteQuery<PageFetchResult<T>, String?> query)
   {
-    final allPosts = state.data?.expand((e) => e.items).toList();
+    List<T>? allPosts = state.data?.expand((e) => e.items).toList();
+
+    if (allPosts != null && widget.onTransformItems != null)
+    {
+      allPosts = widget.onTransformItems!(List<T>.from(allPosts));
+    }
 
     if (state.status == QueryStatus.success && allPosts.isNullOrEmpty)
     {
@@ -124,7 +131,7 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
                     left: resolvedPadding.left,
                     right: resolvedPadding.right,
                   ),
-                  child: widget.buildItem(context, allPosts[i], i, i == allPosts.length - 1, allPosts),
+                  child: widget.buildItem(context, allPosts![i], i, i == allPosts.length - 1, allPosts),
                 );
               }
 
@@ -132,11 +139,11 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
               {
                 return Padding(
                   padding: EdgeInsets.only(top: widget.itemSeperation),
-                  child: widget.buildItem(context, allPosts[i], i, i == allPosts.length - 1, allPosts),
+                  child: widget.buildItem(context, allPosts![i], i, i == allPosts.length - 1, allPosts),
                 );
               }
 
-              return widget.buildItem(context, allPosts[i], i, i == allPosts.length - 1, allPosts);
+              return widget.buildItem(context, allPosts![i], i, i == allPosts.length - 1, allPosts);
             },
             childCount: allPosts.length,
           ),

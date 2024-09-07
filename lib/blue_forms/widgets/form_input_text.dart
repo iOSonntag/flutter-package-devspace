@@ -54,6 +54,8 @@ class _FormInputTextWidget extends StatelessWidget {
   {
     return _FormInputContainerWidget(
       description: definition.description,
+      extraButton: definition.extraButton,
+      hasLabel: definition.label != null,
       child: ArchTextField(
         data: TextFieldData(
           isFormField: true,
