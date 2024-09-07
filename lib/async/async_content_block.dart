@@ -4,11 +4,27 @@ typedef AsyncContentBuilder<T> = Widget Function(BuildContext context, T data, v
 
 typedef AsyncContentWrapperBuilder<T> = Widget Function(BuildContext context, T? data, void Function() retry, Widget child);
 
+typedef AsyncContentCustomErrorBuilder = AsyncContentBlockCustomError? Function(BuildContext context, Object originalException);
+
 // ignore: camel_case_types
 enum kAsyncContentBlockType
 {
   smallBrick,
   hugeSection
+}
+
+class AsyncContentBlockCustomError {
+
+  final IconData? icon;
+  final String? title;
+  final String message;
+
+  const AsyncContentBlockCustomError({
+    this.icon,
+    this.title,
+    required this.message
+  });
+
 }
 
 class AsyncContentBlock<T> extends StatelessWidget {
@@ -22,6 +38,7 @@ class AsyncContentBlock<T> extends StatelessWidget {
   final void Function(kAsyncDataState state)? onStateChange;
   final AsyncContentBuilder<T> builder;
   final AsyncContentWrapperBuilder<T>? wrapperBuilder;
+  final AsyncContentCustomErrorBuilder? customErrorBuilder;
 
   const AsyncContentBlock({
     super.key,
@@ -32,6 +49,7 @@ class AsyncContentBlock<T> extends StatelessWidget {
     required this.dataKey,
     required this.onLoad,
     required this.builder,
+    this.customErrorBuilder,
     this.wrapperBuilder
   });
 
@@ -42,9 +60,9 @@ class AsyncContentBlock<T> extends StatelessWidget {
       dataKey: dataKey,
       onLoad: onLoad,
       onStateChange: onStateChange,
-      builder: (context, data, errorMessage, isLoading, retry)
+      builder: (context, data, errorMessage, originalException, isLoading, retry)
       {
-        Widget child = _buildChild(context, data, errorMessage, isLoading, retry);
+        Widget child = _buildChild(context, data, errorMessage, originalException, isLoading, retry);
 
         if (wrapperBuilder != null)
         {
@@ -56,7 +74,7 @@ class AsyncContentBlock<T> extends StatelessWidget {
     );
   }
 
-  Widget _buildChild(BuildContext context, T? data, String? errorMessage, bool isLoading, void Function() retry)
+  Widget _buildChild(BuildContext context, T? data, String? errorMessage, Object? originalException, bool isLoading, void Function() retry)
   {
     if (isLoading)
     {
@@ -77,7 +95,7 @@ class AsyncContentBlock<T> extends StatelessWidget {
 
     if (errorMessage != null)
     {
-      return _buildError(context, errorMessage, retry);
+      return _buildError(context, errorMessage, originalException, retry);
     }
     
     
@@ -89,8 +107,10 @@ class AsyncContentBlock<T> extends StatelessWidget {
     return _buildNotFound(context, retry);
   }
 
-  Widget _buildError(BuildContext context, String errorMessage, void Function() retry)
+  Widget _buildError(BuildContext context, String errorMessage, Object? originalException, void Function() retry)
   {
+    AsyncContentBlockCustomError? customError = customErrorBuilder != null && originalException != null ? customErrorBuilder!(context, originalException) : null;
+
     return Center(
       child: Padding(
         padding: internalWidgetsPadding,
@@ -98,9 +118,9 @@ class AsyncContentBlock<T> extends StatelessWidget {
           padding: type == kAsyncContentBlockType.hugeSection ? context.paddingXXL : EdgeInsets.zero,
           child: ArchInfoBox.error(
             variant: type == kAsyncContentBlockType.hugeSection ? kInfoBoxVariant.contentPlaceholder : kInfoBoxVariant.smallBrick,
-            icon: Symbols.warning_rounded,
-            title: LibStrings.lib_general_titleError.tr(),
-            message: errorMessage,
+            icon: customError?.icon ?? Symbols.warning_rounded,
+            title: customError?.title ??  LibStrings.lib_general_titleError.tr(),
+            message: customError?.message ?? errorMessage,
             onAction: retry,
           ),
         ),

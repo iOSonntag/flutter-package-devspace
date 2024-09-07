@@ -2,7 +2,7 @@ part of devspace;
 
 typedef AsyncDataLoaderCallback<T> = Future<T?> Function(String dataKey);
 
-typedef AsyncDataLoaderBuilder<T> = Widget Function(BuildContext context, T? data, String? errorMessage, bool isLoading, void Function() retry);
+typedef AsyncDataLoaderBuilder<T> = Widget Function(BuildContext context, T? data, String? errorMessage, Object? originalException, bool isLoading, void Function() retry);
 
 // ignore: camel_case_types
 enum kAsyncDataState
@@ -48,11 +48,13 @@ class _AsyncDataLoadingEntry<T> {
 
   T? data;
   String? errorMessage;
+  Object? originalException;
   bool canceled = false;
 
   _AsyncDataLoadingEntry({
     this.data,
     this.errorMessage,
+    this.originalException,
   });
 
 }
@@ -132,6 +134,7 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
     {
       entry.data = null;
       entry.errorMessage = null;
+      entry.originalException = null;
 
       _setDataState(kAsyncDataState.loading);
       setState(() {
@@ -174,6 +177,7 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
       }
 
       entry.errorMessage = ExceptionTool.toUserFriendlyMessage(e);
+      entry.originalException = e;
       _setDataState(kAsyncDataState.error);
 
       if (mounted)
@@ -209,11 +213,11 @@ class _AsyncDataLoaderState<T> extends State<AsyncDataLoader<T>> {
   {
     if (widget.dataKey == null)
     {
-      return widget.builder(context, null, null, false, () {});
+      return widget.builder(context, null, null, null, false, () {});
     }
 
     final entry = _getOrCreateEntry(widget.dataKey!);
 
-    return widget.builder(context, entry.data, entry.errorMessage, _isLoading, _retry);
+    return widget.builder(context, entry.data, entry.errorMessage, entry.originalException, _isLoading, _retry);
   }
 }
