@@ -27,6 +27,8 @@ abstract class DialogCenter {
     kDialogAnimationStyle animationStyle = kDialogAnimationStyle.regular,
     kButtonType denialButtonType = kButtonType.regular,
     kButtonType approveButtonType = kButtonType.primary,
+    IconData? denialButtonIcon,
+    IconData? approveButtonIcon,
     }) async
   {
     String titleResolved = title ?? LibStrings.lib_general_titleConfirm.tr();
@@ -48,6 +50,7 @@ abstract class DialogCenter {
             DialogAction(
                 title: denial,
                 type: denialButtonType,
+                iconOverride: denialButtonIcon,
                 onPressed: ()
                 {
                   // IMPROVE: ensure that the correct popup gets rejected (NOT the top screen lol)
@@ -57,6 +60,7 @@ abstract class DialogCenter {
             DialogAction(
                 title: approve,
                 type: approveButtonType,
+                iconOverride: approveButtonIcon,
                 onPressed: ()
                 {
                   // IMPROVE: ensure that the correct popup gets rejected (NOT the top screen lol)
