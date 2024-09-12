@@ -11,6 +11,7 @@ class FormInputImagesFileSettings {
   final int? maxHeight;
   final int? minWidth;
   final int? minHeight;
+  final bool cropToPreviewAspectRatio;
 
   const FormInputImagesFileSettings({
     this.conversion = kImageConversionType.jpeg,
@@ -19,6 +20,7 @@ class FormInputImagesFileSettings {
     this.maxHeight,
     this.minWidth,
     this.minHeight,
+    this.cropToPreviewAspectRatio = false,
   });
 
 

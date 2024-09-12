@@ -434,6 +434,13 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
   String? _internalError;
   ImageProvider? _imageProvider;
 
+  
+  CropController? _cropController;
+  bool _inCroppingMode = false;
+  Uint8List? _imageToCrop;
+  Uint8List? _croppedImage;
+
+
   @override
   void initState()
   {
@@ -442,6 +449,11 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
     if (image != null)
     {
       _imageProvider = MemoryImage(image);
+    }
+
+    if (widget.definition.fileSettings.cropToPreviewAspectRatio)
+    {
+      _cropController = CropController();
     }
 
     super.initState();
@@ -526,7 +538,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
                 child: AspectRatio(
                   aspectRatio: widget.definition.imagePreviewAspectRatio,
                   child: LoadableView(
-                    isLoading: _isLoading,
+                    isLoading: _isLoading && !_inCroppingMode,
                     child: _buildPreview(context, state)
                   ),
                 ),
@@ -549,6 +561,37 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
 
   Widget _buildPreview(BuildContext context, FormFieldState<Uint8List?> state)
   {
+    if (_inCroppingMode)
+    {
+      return Stack(
+        children: [
+
+          Crop(
+            controller: _cropController!,
+            aspectRatio: widget.definition.imagePreviewAspectRatio,
+            image: _imageToCrop!,
+            onCropped: (croppedImage)
+            {
+              setState(()
+              {
+                _croppedImage = croppedImage;
+              });
+            },
+          ),
+
+          Positioned(
+            bottom: context.dimensions.spaceSValue,
+            right: context.dimensions.spaceSValue,
+            child: ArchButton(
+              icon: Icons.crop,
+              size: kSize3.S,
+              onPressed: () => _cropController!.crop(),
+            ),
+          )
+        ],
+      );
+    }
+
     if (_imageProvider == null)
     {
       return Container(
@@ -664,6 +707,11 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
 
       if (image == null) return;
 
+      if (_cropController != null)
+      {
+        image = await _cropImage(image);
+      }
+      
       image = await _imageProcessing(image, state);
 
       if (!context.mounted) return;
@@ -706,6 +754,33 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       });
     }
 
+  }
+
+  Future<Uint8List> _cropImage(Uint8List imageToCrop) async
+  {
+
+    setState(()
+    {
+      
+      _inCroppingMode = true;
+      _croppedImage = null;
+      _imageToCrop = imageToCrop;
+    });
+
+    while (true)
+    {
+      await 100.delay();
+
+      if (_croppedImage != null)
+      {
+        setState(()
+        {
+          _inCroppingMode = false;
+        });
+        break;
+      }
+    }
+    return _croppedImage!;
   }
 
   Future<Uint8List> _imageProcessing(Uint8List image, FormFieldState<Uint8List?> state) async

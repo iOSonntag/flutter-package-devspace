@@ -13,6 +13,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_query_flutter/cached_query_flutter.dart';
+import 'package:crop_your_image/crop_your_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
