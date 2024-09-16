@@ -220,6 +220,35 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
   @override
   Widget build(BuildContext context)
   {
+    Widget child = MaterialApp.router(
+      debugShowCheckedModeBanner: App.config.hideDebugFlag == false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      routerConfig: widget.generatedData?.routerConfig,
+      scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
+      onGenerateTitle: widget.buildTitle,
+      // showPerformanceOverlay: true,
+      theme: widget.buildTheme(context),
+    );
+
+    if (App.config.disableUiInteractions)
+    {
+      child = IgnorePointer(
+        child: child,
+      );
+    }
+
+    if (App.events.screenGesturesEvents != null && App.events.screenGesturesEvents!.hasEvents)
+    {
+      child = GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: App.events.screenGesturesEvents!.onTap,
+        child: child,
+      );
+    }
+
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result)
@@ -229,17 +258,7 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
           App.events.onAndroidBackButtonPressed?.call(context);
         }
       },
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: App.config.hideDebugFlag == false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        routerConfig: widget.generatedData?.routerConfig,
-        scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
-        onGenerateTitle: widget.buildTitle,
-        // showPerformanceOverlay: true,
-        theme: widget.buildTheme(context),
-      ),
+      child: child,
     );
   }
 

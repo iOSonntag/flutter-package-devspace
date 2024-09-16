@@ -9,12 +9,14 @@ class AppEvents {
   final void Function(BuildContext context)? onAndroidBackButtonPressed;
   final Future<Uint8List> Function(Uint8List heicFileBytes) onWorkaround_web_convertHeicToPng;
   final LogEvents? logEvents;
+  final ScreenGesturesEvents? screenGesturesEvents;
 
   const AppEvents({
     this.onAppResumed,
     this.onAndroidBackButtonPressed,
     required this.onWorkaround_web_convertHeicToPng,
     this.logEvents,
+    this.screenGesturesEvents,
   });
 
 }
@@ -35,5 +37,19 @@ class LogEvents {
     required this.onWarning,
     required this.onLog,
   });
+
+}
+
+class ScreenGesturesEvents {
+
+  /// Note: This event only fires if no other gesture detector is consuming the
+  /// event (e.g. a button or a scroll view).
+  final VoidCallback? onTap;
+
+  const ScreenGesturesEvents({
+    this.onTap,
+  });
+
+  bool get hasEvents => onTap != null;
 
 }

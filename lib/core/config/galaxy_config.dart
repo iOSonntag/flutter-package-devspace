@@ -14,11 +14,13 @@ class GalaxyConfig {
   final GalaxyAssets assets;
   final kErrorShadowing errorShadowing;
   final bool hideDebugFlag;
+  final bool disableUiInteractions;
   final IOSConfig ios;
 
   const GalaxyConfig({
     required this.errorShadowing,
     this.hideDebugFlag = false,
+    this.disableUiInteractions = false,
     required this.assets,
     required this.ios,
   });
