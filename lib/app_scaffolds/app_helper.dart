@@ -11,7 +11,7 @@ abstract class AppHelper {
 
     for (Locale locale in forLocales)
     {
-      final localeFileKey = '${locale.languageCode}-${locale.countryCode}.json';
+      final localeFileKey = '${locale.languageCode}${locale.countryCode == null ? '' : '-${locale.countryCode}'}.json';
 
       final missingKeysForLocale = await _getMissingKeysForLocale(localeFileKey, assetDir);
 

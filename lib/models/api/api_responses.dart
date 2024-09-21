@@ -15,7 +15,7 @@ class ApiResponse {
 
 
 
-  static ApiResponse fromHttpResponse(int statusCode, Map<String, dynamic>? jsonPayload)
+  static ApiResponse fromHttpResponse(int statusCode, Map<String, dynamic>? jsonPayload, String rawBody)
   {
     if (statusCode >= 200 && statusCode < 300)
     {
@@ -36,7 +36,11 @@ class ApiResponse {
 
     if (jsonPayload == null || jsonPayload['error'] == null)
     {
-      throw ApiResponseInvalidException();
+      throw ApiResponseInvalidException(
+        statusCode: statusCode,
+        jsonPayload: jsonPayload,
+        body: rawBody,
+      );
     }
 
     if (jsonPayload['zod'] != null)
@@ -49,7 +53,11 @@ class ApiResponse {
 
     if (jsonPayload['error']['code'] == null)
     {
-      throw ApiResponseInvalidException();
+      throw ApiResponseInvalidException(
+        statusCode: statusCode,
+        jsonPayload: jsonPayload,
+        body: rawBody,
+      );
     }
     
     switch (jsonPayload['error']['code'])
@@ -89,10 +97,18 @@ class ApiResponseNoNetwork implements Exception, UserFriendlyException {
 class ApiResponseInvalidException implements Exception, UserFriendlyException {
 
   final String message;
-  ApiResponseInvalidException([this.message = 'Response is invalid. The request was not successful, but no response payload was provided.']);
+  final int? statusCode;
+  final Map<String, dynamic>? jsonPayload;
+  final String body;
+  ApiResponseInvalidException({
+    this.statusCode,
+    this.jsonPayload,
+    required this.body,
+    this.message = 'Response is invalid. The request was not successful, but no response payload was provided.'
+  });
 
   @override
-  String toString() => 'ApiResponseInvalidException: $message';
+  String toString() => 'ApiResponseInvalidException: $message${statusCode == null ? '' : '\nStatus code: $statusCode'}${jsonPayload == null ? '' : '\nPayload: $jsonPayload'}\nBody: $body';
 
   @override
   String toUserFriendlyMessage(bool forEmployee) => forEmployee ? toString() : LibStrings.lib_exception_ApiResponseInvalidException.tr();

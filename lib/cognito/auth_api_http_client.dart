@@ -65,7 +65,7 @@ class AuthApiResponse extends HttpStatusCodeInterpreter {
 typedef GetAuthToken = Future<String?> Function();
 typedef GetBaseUrl = Future<String> Function();
 typedef GetDefaultHeaders = Future<Map<String, String>> Function();
-typedef CreateResponseObject<T> = T Function(int statusCode, Map<String, dynamic>? jsonPayload);
+typedef CreateResponseObject<T> = T Function(int statusCode, Map<String, dynamic>? jsonPayload, String rawBody);
 typedef AuthError = Future<kAuthErrorResolving> Function(kAuthError error, kAuthRequirement authRequirement);
 
 class AuthApiHttpClient<TResponse> {
@@ -250,7 +250,7 @@ class AuthApiHttpClient<TResponse> {
         ? json.decode(response.body)
         : null;
 
-      return onCreateResponse(response.statusCode, jsonResponse);
+      return onCreateResponse(response.statusCode, jsonResponse, response.body);
     }
     catch (e)
     {
