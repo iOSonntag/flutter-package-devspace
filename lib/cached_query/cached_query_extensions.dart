@@ -86,6 +86,12 @@ extension ExtensionOnInfiniteQuery<T, Arg> on InfiniteQuery<T, Arg> {
     }
   }
 
+  void invalidateQueryAndRefetch()
+  {
+    invalidateQuery();
+    refetchBySystem();
+  }
+
 }
 
 extension ExtensionOnQuery<T> on Query<T> {
