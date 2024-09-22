@@ -249,17 +249,7 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
     }
 
 
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result)
-      {
-        if (Platform.isAndroid)
-        {
-          App.events.onAndroidBackButtonPressed?.call(context);
-        }
-      },
-      child: child,
-    );
+    return child;
   }
 
   @override
