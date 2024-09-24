@@ -5,7 +5,7 @@ part of devspace;
 enum kFormInputDateTimeType 
 {
   date,
-  time,
+  // time,
   dateAndTime
 }
 

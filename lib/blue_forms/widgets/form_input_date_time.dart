@@ -59,10 +59,10 @@ class _FormInputDateTimeWidgetState extends material.State<_FormInputDateTimeWid
       return DateFormat.yMd().format(converted);
     }
 
-    if (widget.definition.type == kFormInputDateTimeType.time)
-    {
-      return DateFormat.Hm().format(converted);
-    }
+    // if (widget.definition.type == kFormInputDateTimeType.time)
+    // {
+    //   return DateFormat.Hm().format(converted);
+    // }
 
     return '${DateFormat.yMd().format(converted)} - ${DateFormat.Hm().format(converted)}';
   }
@@ -79,7 +79,7 @@ class _FormInputDateTimeWidgetState extends material.State<_FormInputDateTimeWid
       type: switch (widget.definition.type)
       {
         kFormInputDateTimeType.date => OmniDateTimePickerType.date,
-        kFormInputDateTimeType.time => OmniDateTimePickerType.time,
+        // kFormInputDateTimeType.time => OmniDateTimePickerType.time,
         kFormInputDateTimeType.dateAndTime => OmniDateTimePickerType.dateAndTime,
       },
       constraints: const BoxConstraints(
