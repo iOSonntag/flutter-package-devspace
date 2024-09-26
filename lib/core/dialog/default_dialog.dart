@@ -124,6 +124,7 @@ class DefaultDialog extends StatelessWidget {
     return material.Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
+      insetPadding: context.isPhoneSmall ? context.paddingL_0 : context.paddingXXL_0,
       child: Container(
         constraints: BoxConstraints(
           maxWidth: context.dimensions.dialogMaxWidth(context)

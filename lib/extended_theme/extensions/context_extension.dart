@@ -129,6 +129,10 @@ extension ContextExtension on BuildContext {
   bool get isPhoneApp => !kIsWeb && (Platform.isIOS || Platform.isAndroid) && MediaQuery.of(this).size.shortestSide < _tabletSmallestWidthThreshold;
   bool get isPhoneWeb => kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android) && MediaQuery.of(this).size.shortestSide < _tabletSmallestWidthThreshold;
 
+
+  bool get isPhoneSmall => isPhone &&  MediaQuery.of(this).size.shortestSide < 350.0;
+
+
   bool get isPortableDevice => isPortableDeviceApp || isPortableDeviceWeb;
   bool get isPortableDeviceApp => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
   bool get isPortableDeviceWeb => kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android);
