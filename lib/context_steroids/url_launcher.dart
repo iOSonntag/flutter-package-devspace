@@ -18,6 +18,17 @@ extension ExtensionContextUrlLauncher on BuildContext
     if (!launched) throw 'Could not launch $uri';
   }
 
+  Future<void> openRouteInNewTab(String name, {
+    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, dynamic> queryParameters = const <String, dynamic>{},
+  }) async
+  {
+    final newUrl = GoRouter.of(this).namedLocation(name, pathParameters: pathParameters, queryParameters: queryParameters);
+    
+
+    await openUrl('/#$newUrl', webOpenInNewTap: true);
+  }
+
 
   Future<void> openSettingsPushNotifications() async
   {
