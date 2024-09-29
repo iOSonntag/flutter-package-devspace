@@ -33,7 +33,8 @@ class TextDialog extends StatelessWidget {
         padding: context.paddingM_0,
         child: TextBody.medium(text, 
           textAlign: textAlign,
-          color: textLowFocus ? context.colors.onSurfaceLessFocus : null
+          color: textLowFocus ? context.colors.onSurfaceLessFocus : null,
+          shrinkIfNeeded: true,
         ),
       ),
       actionsAlignment: actionsAlignment,

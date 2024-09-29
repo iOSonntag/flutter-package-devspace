@@ -85,7 +85,9 @@ class DefaultDialog extends StatelessWidget {
     if (content != null)
     {
       children.addAll([
-        content!,
+        Flexible(
+          child: content!,
+        ),
         context.spaceM,
       ]);
     }
