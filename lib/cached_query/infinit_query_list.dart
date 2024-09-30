@@ -13,6 +13,7 @@ class InfinitQueryList<T> extends StatefulWidget {
   final InfinitItemBuilder<T> buildItem;
   final WidgetBuilder? buildNoItemsFound;
   final bool reverse;
+  final bool shrinkWrap;
   final bool disablePullToRefresh;
   final List<T> Function(List<T> items)? onTransformItems;
 
@@ -25,6 +26,7 @@ class InfinitQueryList<T> extends StatefulWidget {
     required this.buildItem,
     this.buildNoItemsFound,
     this.reverse = false,
+    this.shrinkWrap = false,
     this.disablePullToRefresh = false,
     this.onTransformItems,
   });
@@ -108,6 +110,8 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
 
     List<Widget> slivers = [];
 
+    
+
     if (resolvedPadding.top > 0)
     {
       slivers.add(
@@ -119,6 +123,8 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
 
     if (allPosts != null && allPosts.isNotEmpty) 
     {
+      
+
       slivers.add(
         SliverList(
           delegate: SliverChildBuilderDelegate((context, i)
@@ -213,11 +219,14 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
     }
 
 
+
     return LoadableView(
       isLoading: query.isFetchingForTheFirstTime || query.isRefetching,
       child: CustomScrollView(
         controller: _scrollController,
         physics: context.animations.scrollPhysics,
+        shrinkWrap: widget.shrinkWrap,
+        clipBehavior: widget.shrinkWrap ? Clip.none : Clip.hardEdge,
         reverse: widget.reverse,
         slivers: slivers,
       ),
