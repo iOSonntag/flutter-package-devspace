@@ -7,12 +7,14 @@ part of devspace;
 class LoadableView extends StatelessWidget {
 
   final bool isLoading;
+  final kSize3 loadingIndicatorSize;
   final bool maintainState;
   final Widget child;
 
   const LoadableView({
     super.key,
     required this.isLoading,
+    this.loadingIndicatorSize = kSize3.M,
     this.maintainState = true,
     required this.child,
   });
@@ -28,7 +30,9 @@ class LoadableView extends StatelessWidget {
       }
 
       return Center(
-        child: ArchLoadingIndicator()
+        child: ArchLoadingIndicator(
+          size: loadingIndicatorSize,
+        )
       );
     }
 
@@ -48,7 +52,9 @@ class LoadableView extends StatelessWidget {
           right: 0,
           top: 0,
           bottom: 0,
-          child: Center(child: ArchLoadingIndicator()),
+          child: Center(child: ArchLoadingIndicator(
+            size: loadingIndicatorSize,
+          )),
         ),
 
       ],
