@@ -461,11 +461,18 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
 
   Uint8List? _getImageFromSavedOrInitialValue()
   {
-    List<Uint8List>? image = widget.currentSavedValue ?? widget.definition.initialValue;
+    final list = widget.currentSavedValue ?? widget.definition.initialValue;
 
-    if (image != null && image.isNotEmpty)
+    if (list != null)
     {
-      return image[0];
+      if (list is List<Uint8List?> && list.isNotEmpty)
+      {
+        return list[0];
+      }
+      else if (list is List<Uint8List> && list.isNotEmpty)
+      {
+        return list[0];
+      }
     }
 
     return null;
