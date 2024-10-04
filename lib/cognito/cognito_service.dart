@@ -23,6 +23,7 @@ abstract class AuthService extends CustomService {
   Future<void> signOut();
   Future<bool> isSignedIn();
   Future<String?> getJWTAccessToken();
+  Future<String?> getAuthServiceUserId();
 
 }
 
@@ -260,6 +261,25 @@ class CognitoAuthenticationService extends AuthService {
     Dev.logOnlyLocalEnv(this, 'JWT Token: $token');
 
     return token;
+  }
+
+  @override
+  Future<String?> getAuthServiceUserId() async
+  {
+    try
+    {
+      final result = await Amplify.Auth.fetchAuthSession(
+        // ignore: deprecated_member_use
+        // options: const CognitoFetchAuthSessionOptions(getAWSCredentials: true),
+      ) as CognitoAuthSession;
+
+      return result.userSubResult.value;
+    }
+    on AuthException catch (e)
+    {
+      Dev.logException(this, e, 'Error retrieving auth session in getAuthServiceUserId()');
+      return null;
+    }
   }
 
 

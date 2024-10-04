@@ -34,7 +34,7 @@ abstract class FormInput extends FormElement {
   final bool isOptional;
   final String? description;
   final String? label;
-  final FormElementButton? extraButton;
+  final List<FormElementButton> extraButtons;
 
   const FormInput({
     required super.id,
@@ -43,7 +43,7 @@ abstract class FormInput extends FormElement {
     this.description,
     this.label,
     super.isActive = true,
-    this.extraButton,
+    this.extraButtons = const [],
   });
 
   @override

@@ -11,7 +11,7 @@ class FormInputImagesFileSettings {
   final int? maxHeight;
   final int? minWidth;
   final int? minHeight;
-  final bool cropToPreviewAspectRatio;
+  final FormInputImagesEditingOptions editingOptions;
 
   const FormInputImagesFileSettings({
     this.conversion = kImageConversionType.jpeg,
@@ -20,12 +20,34 @@ class FormInputImagesFileSettings {
     this.maxHeight,
     this.minWidth,
     this.minHeight,
-    this.cropToPreviewAspectRatio = false,
+    this.editingOptions = const FormInputImagesEditingOptions(),
   });
+}
 
+// ignore: camel_case_types
+enum kCropingMode {
+  disabled,
+  allowed,
+  forced
+}
+
+class FormInputImagesEditingOptions {
+
+  final kCropingMode cropMode;
+  final double? cropAspectRatio;
+
+  const FormInputImagesEditingOptions({
+    this.cropMode = kCropingMode.allowed,
+    this.cropAspectRatio,
+  });
 
 }
 
+// ignore: camel_case_types
+enum kImageChangeType {
+  replace,
+  resizeOrCrop
+}
 
 class FormInputImages extends FormInput {
 
@@ -33,7 +55,7 @@ class FormInputImages extends FormInput {
   final int min;
   final int max;
   final FormInputImagesFileSettings fileSettings;
-  final void Function(List<Uint8List> images)? onChange;
+  final void Function(List<Uint8List> images, kImageChangeType changeType)? onChange;
 
   const FormInputImages({
     required super.id,

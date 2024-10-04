@@ -156,6 +156,7 @@ part 'blue_forms/widgets/form_element.dart';
 part 'blue_forms/widgets/form_group.dart';
 part 'blue_forms/widgets/form_input_container.dart';
 part 'blue_forms/widgets/form_input_date_time.dart';
+part 'blue_forms/widgets/form_input_images_single.dart';
 part 'blue_forms/widgets/form_input_images.dart';
 part 'blue_forms/widgets/form_input_pick_option.dart';
 part 'blue_forms/widgets/form_input_text.dart';

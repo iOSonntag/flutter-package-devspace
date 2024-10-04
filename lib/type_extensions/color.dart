@@ -49,11 +49,12 @@ extension ColorExtension on Color {
   /// If the color is already bright, the gradient will be from the original
   /// color to a slightly even darker version of the color.
   // ignore: non_constant_identifier_names
-  Gradient toGradient_NaturalIlluminationS({ignoreAngle = false})
+  Gradient toGradient_NaturalIlluminationS({bool ignoreAngle = false, bool inverse = false})
   {
     return toGradient_NaturalIlluminationWithStrength(
       strength: 0.5,
       ignoreAngle: ignoreAngle,
+      inverse: inverse,
     );
   }
 
@@ -64,11 +65,12 @@ extension ColorExtension on Color {
   /// If the color is already bright, the gradient will be from the original
   /// color to a slightly even darker version of the color.
   // ignore: non_constant_identifier_names
-  Gradient toGradient_NaturalIlluminationM({ignoreAngle = false})
+  Gradient toGradient_NaturalIlluminationM({bool ignoreAngle = false, bool inverse = false})
   {
     return toGradient_NaturalIlluminationWithStrength(
       strength: 0.75,
       ignoreAngle: ignoreAngle,
+      inverse: inverse,
     );
   }
 
@@ -79,11 +81,12 @@ extension ColorExtension on Color {
   /// If the color is already bright, the gradient will be from the original
   /// color to a slightly even darker version of the color.
   // ignore: non_constant_identifier_names
-  Gradient toGradient_NaturalIlluminationL({ignoreAngle = false})
+  Gradient toGradient_NaturalIlluminationL({bool ignoreAngle = false, bool inverse = false})
   {
     return toGradient_NaturalIlluminationWithStrength(
       strength: 1.0,
       ignoreAngle: ignoreAngle,
+      inverse: inverse,
     );
   }
 
@@ -94,7 +97,7 @@ extension ColorExtension on Color {
   /// If the color is already bright, the gradient will be from the original
   /// color to a slightly even darker version of the color.
   // ignore: non_constant_identifier_names
-  Gradient toGradient_NaturalIlluminationWithStrength({double strength = 1.0, ignoreAngle = false})
+  Gradient toGradient_NaturalIlluminationWithStrength({double strength = 1.0, bool ignoreAngle = false, bool inverse = false})
   {
     final hsl = HSLColor.fromColor(this);
 
@@ -123,8 +126,8 @@ extension ColorExtension on Color {
 
     // IMPROVE: add theming option to adjust angle
     return LinearGradient(
-      begin: const Alignment(0, -1.0),
-      end: Alignment(ignoreAngle ? 0.0 : 0.05, 1.0),
+      begin: inverse ? Alignment(ignoreAngle ? 0.0 : 0.05, 1.0) : const Alignment(0, -1.0),
+      end: inverse ? const Alignment(0, -1.0) : Alignment(ignoreAngle ? 0.0 : 0.05, 1.0),
       colors: colors,
     );
   }

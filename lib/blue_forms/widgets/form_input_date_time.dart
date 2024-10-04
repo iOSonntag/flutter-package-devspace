@@ -102,7 +102,7 @@ class _FormInputDateTimeWidgetState extends material.State<_FormInputDateTimeWid
   {
     return _FormInputContainerWidget(
       description: widget.definition.description,
-      extraButton: widget.definition.extraButton,
+      extraButtons: widget.definition.extraButtons,
       hasLabel: widget.definition.label != null,
       child: TapDetector(
         onTap: _pickDateTime,

@@ -8,14 +8,14 @@ class _FormInputContainerWidget extends StatelessWidget {
 
   final String? description;
   final bool hasLabel;
-  final FormElementButton? extraButton;
+  final List<FormElementButton> extraButtons;
   final Widget child;
 
   const _FormInputContainerWidget({
     // ignore: unused_element
     super.key,
     this.description,
-    this.extraButton,
+    this.extraButtons = const [],
     required this.hasLabel,
     required this.child,
   });
@@ -25,13 +25,29 @@ class _FormInputContainerWidget extends StatelessWidget {
   {
     Widget child = this.child;
 
-    if (extraButton != null)
+    if (extraButtons.isNotEmpty)
     {
-      Widget button = ArchButton(
-        icon: extraButton!.icon,
-        title: extraButton!.title,
-        size: kSize3.S,
-        onPressed: extraButton!.onPressed,
+      Widget button = Row(
+        children: [
+
+          ArchButton(
+            icon: extraButtons[0].icon,
+            title: extraButtons[0].title,
+            size: kSize3.S,
+            onPressed: extraButtons[0].onPressed,
+          ),
+
+          for (int i = 1; i < extraButtons.length; i++) ...[
+            context.spaceM,
+            ArchButton(
+              icon: extraButtons[i].icon,
+              title: extraButtons[i].title,
+              size: kSize3.S,
+              onPressed: extraButtons[i].onPressed,
+            ),
+          ]
+
+        ],
       );
 
       if (hasLabel)

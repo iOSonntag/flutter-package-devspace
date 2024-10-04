@@ -23,7 +23,7 @@ class FormInputText extends FormInput {
 
   const FormInputText({
     required super.id,
-    super.extraButton,
+    super.extraButtons,
     super.initialValue,
     super.description,
     super.label,
