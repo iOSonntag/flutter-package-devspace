@@ -28,6 +28,7 @@ class TextFieldData extends PlanData {
   final ValueChanged<String>? onSubmit;
   final FormFieldValidator<String?>? validator;
   final bool visuallyMarkAsRequired;
+  final int? displayMaxChars;
   final String? label;
   final String? hint;
   final String? externalError;
@@ -42,6 +43,7 @@ class TextFieldData extends PlanData {
     this.isFormField = true,
     this.isTextArea = false,
     this.visuallyMarkAsRequired = false,
+    this.displayMaxChars,
     this.maxLines,
     this.initialValue,
     this.autofillHints,

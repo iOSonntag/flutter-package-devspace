@@ -26,10 +26,14 @@ class FormsInputPickOptionItem {
 
   final String key;
   final String title;
+  final String? subtitle;
+  final Color? color;
 
   const FormsInputPickOptionItem({
     required this.key,
     required this.title,
+    this.subtitle,
+    this.color,
   });
 
 }

@@ -93,10 +93,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
       items.add(
         DropdownMenuItem<String>(
           value: fiItem.key,
-          child: TextBody.small(fiItem.title,
-            color: context.colors.onSurface,
-            // color: context.isDarkMode && context.isWeb ? Colors.white : context.colors.onSurface,
-          ),
+          child: _buildItem(context, fiItem),
         ),
       );
     }
@@ -141,9 +138,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
                 selectedItems.add(
                   Padding(
                     padding: context.paddingM_0,
-                    child: TextBody.small(fiItem.title,
-                      color: context.colors.onBackground,
-                    ),
+                    child: _buildItem(context, fiItem),
                   ),
                 );
               }
@@ -189,6 +184,59 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildItem(BuildContext context, FormsInputPickOptionItem item)
+  {
+    if (item.color == null)
+    {
+      return _buildItemInfo(context, item);
+    }
+
+    return Row(
+      children: [
+        Container(
+          width: context.dimensions.iconSizeM,
+          height: context.dimensions.iconSizeM,
+          decoration: BoxDecoration(
+            color: item.color,
+            borderRadius: BorderRadius.circular(100),
+            boxShadow: [context.highlights.boxShadowM],
+          ),
+        ),
+
+        context.spaceS,
+
+        _buildItemInfo(context, item),
+      ],
+    );
+  }
+
+  Widget _buildItemInfo(BuildContext context, FormsInputPickOptionItem item)
+  {
+    if (item.subtitle.isNullOrEmpty)
+    {
+      return _buildItemTitle(context, item.title);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildItemTitle(context, item.title),
+        context.spaceXXS,
+        TextBody.small(item.subtitle!,
+          color: context.colors.onSurfaceLessFocus,
+          italic: true,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildItemTitle(BuildContext context, String title)
+  {
+    return TextBody.medium(title,
+      color: context.colors.onSurface,
     );
   }
 

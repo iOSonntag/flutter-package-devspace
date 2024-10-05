@@ -73,6 +73,7 @@ class _FormInputTextWidget extends StatelessWidget {
           textInputType: definition.textInputType,
           onChanged: definition.onChange,
           onSubmit: (value) => onSubmitRequested(),
+          displayMaxChars: definition.displayMaxChars,
           onSave: (value)
           {
             if (definition.trimOnSave)

@@ -18,6 +18,7 @@ class FormInputText extends FormInput {
   final bool autocorrect;
   final bool obscureText;
   final bool enableSuggestions;
+  final int? displayMaxChars;
   final TextInputType? textInputType;
   final void Function(String newValue)? onChange;
 
@@ -38,6 +39,7 @@ class FormInputText extends FormInput {
     this.autocorrect = true,
     this.obscureText = false,
     this.enableSuggestions = true,
+    this.displayMaxChars,
     this.textInputType,
     this.onChange,
     super.isActive,

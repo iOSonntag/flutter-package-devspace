@@ -84,6 +84,8 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
                         autocorrect: data.autocorrect,
                         keyboardType: data.textInputType,
                         onSubmitted: data.onSubmit,
+                        maxLength: data.displayMaxChars,
+                        maxLengthEnforcement: data.displayMaxChars == null ? null : MaxLengthEnforcement.none,
                         onChanged: (value)
                         {
                           state.didChange(value);
