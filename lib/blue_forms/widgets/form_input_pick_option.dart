@@ -93,7 +93,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
       items.add(
         DropdownMenuItem<String>(
           value: fiItem.key,
-          child: _buildItem(context, fiItem),
+          child: _buildItem(context, fiItem, false),
         ),
       );
     }
@@ -138,7 +138,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
                 selectedItems.add(
                   Padding(
                     padding: context.paddingM_0,
-                    child: _buildItem(context, fiItem),
+                    child: _buildItem(context, fiItem, true),
                   ),
                 );
               }
@@ -187,18 +187,18 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
     );
   }
 
-  Widget _buildItem(BuildContext context, FormsInputPickOptionItem item)
+  Widget _buildItem(BuildContext context, FormsInputPickOptionItem item, bool selected)
   {
     if (item.color == null)
     {
-      return _buildItemInfo(context, item);
+      return _buildItemInfo(context, item, selected);
     }
 
     return Row(
       children: [
         Container(
-          width: context.dimensions.iconSizeM,
-          height: context.dimensions.iconSizeM,
+          width: selected ? context.dimensions.iconSizeS : context.dimensions.iconSizeM,
+          height: selected ? context.dimensions.iconSizeS : context.dimensions.iconSizeM,
           decoration: BoxDecoration(
             color: item.color,
             borderRadius: BorderRadius.circular(100),
@@ -206,25 +206,27 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
           ),
         ),
 
-        context.spaceS,
+        selected ? context.spaceS : context.spaceM,
 
-        _buildItemInfo(context, item),
+        _buildItemInfo(context, item, selected),
       ],
     );
   }
 
-  Widget _buildItemInfo(BuildContext context, FormsInputPickOptionItem item)
+  Widget _buildItemInfo(BuildContext context, FormsInputPickOptionItem item, bool selected)
   {
     if (item.subtitle.isNullOrEmpty)
     {
-      return _buildItemTitle(context, item.title);
+      return _buildItemTitle(context, item.title, selected);
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildItemTitle(context, item.title),
-        context.spaceXXS,
+        _buildItemTitle(context, item.title, selected),
+        
+        if (!selected) context.spaceXXS,
+        
         TextBody.small(item.subtitle!,
           color: context.colors.onSurfaceLessFocus,
           italic: true,
@@ -233,8 +235,15 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
     );
   }
 
-  Widget _buildItemTitle(BuildContext context, String title)
+  Widget _buildItemTitle(BuildContext context, String title, bool selected)
   {
+    if (selected)
+    {
+      return TextBody.small(title,
+        color: context.colors.onSurface,
+      );
+    }
+
     return TextBody.medium(title,
       color: context.colors.onSurface,
     );
