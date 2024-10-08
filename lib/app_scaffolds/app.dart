@@ -28,6 +28,8 @@ class App<T> extends StatelessWidget {
   static AppEvents? _events;
   static AppEvents get events => App._events ?? (throw Exception('App.events is not set. Are you accessing it before the App is built?'));
 
+  final Key _keyAppLoader = GlobalKey();
+
   final GalaxyConfig configuration;
   final StringBuilder buildTitle;
   final ThemeBuilder buildTheme;
@@ -82,6 +84,7 @@ class App<T> extends StatelessWidget {
   {
     return AppLoader<_GeneratedAppData>(
       loadApp: _loadApp,
+      key: _keyAppLoader,
       buildApp: (context, data) => _AppWidget(
         buildTitle: buildTitle,
         buildTheme: buildTheme,
@@ -153,12 +156,15 @@ class _AppWidget extends StatelessWidget {
   });
 
   final Key _keyGlues = GlobalKey();
+  final Key _keyEasyLocalization = GlobalKey();
+  final Key _keyNavigationWrapper = GlobalKey();
   // final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context)
   {
     return EasyLocalization(
+      key: _keyEasyLocalization,
       path: translationsFolder,
       supportedLocales: supportedLocales,
       fallbackLocale: fallbackLocale,
@@ -166,6 +172,7 @@ class _AppWidget extends StatelessWidget {
         key: _keyGlues,
         glues: globalGlues,
         child: _NavigationWrapper(
+          key: _keyNavigationWrapper,
           buildTitle: buildTitle,
           buildTheme: buildTheme,
           generatedData: generatedData,
@@ -183,6 +190,7 @@ class _NavigationWrapper extends StatefulWidget {
   final _GeneratedAppData? generatedData;
 
   const _NavigationWrapper({
+    super.key,
     required this.buildTitle,
     required this.buildTheme,
     required this.generatedData,
@@ -193,6 +201,8 @@ class _NavigationWrapper extends StatefulWidget {
 }
 
 class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBindingObserver {
+
+  final Key _keyMaterialApp = GlobalKey();
 
   @override
   void initState()
@@ -221,6 +231,7 @@ class _NavigationWrapperState extends State<_NavigationWrapper> with WidgetsBind
   Widget build(BuildContext context)
   {
     Widget child = MaterialApp.router(
+      key: _keyMaterialApp,
       debugShowCheckedModeBanner: App.config.hideDebugFlag == false,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

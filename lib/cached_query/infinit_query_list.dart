@@ -15,6 +15,7 @@ class InfinitQueryList<T> extends StatefulWidget {
   final bool reverse;
   final bool shrinkWrap;
   final bool disablePullToRefresh;
+  final bool Function(BuildContext context)? onAllowPullToRefresh;
   final List<T> Function(List<T> items)? onTransformItems;
 
   const InfinitQueryList({
@@ -28,6 +29,7 @@ class InfinitQueryList<T> extends StatefulWidget {
     this.reverse = false,
     this.shrinkWrap = false,
     this.disablePullToRefresh = false,
+    this.onAllowPullToRefresh,
     this.onTransformItems,
   });
 
@@ -61,7 +63,16 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
 
         return RefreshIndicator(
           backgroundColor: context.colors.surface,
-          onRefresh: () => query.refetchByUser(),
+          onRefresh: () async
+          {
+            if (widget.onAllowPullToRefresh != null && !widget.onAllowPullToRefresh!(context))
+            {
+              await 400.randomize(startValue: 200).delay();
+              return;
+            }
+
+            await query.refetchByUser();
+          },
           child: _buildContent(context, state, query)
         );
       }
