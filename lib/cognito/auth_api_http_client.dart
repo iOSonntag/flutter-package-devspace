@@ -89,6 +89,7 @@ class AuthApiHttpClient<TResponse> {
     required Map<String, dynamic> body,
     Map<String, String> additionaHeaders = const {},
     bool preventPayloadLogging = false,
+    bool apiPathIsFullUrl = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
   }) async
   {
@@ -98,6 +99,7 @@ class AuthApiHttpClient<TResponse> {
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
       preventPayloadLogging: preventPayloadLogging,
+      apiPathIsFullUrl: apiPathIsFullUrl,
       method: kHttpMethod.post,
     );
   }
@@ -107,6 +109,7 @@ class AuthApiHttpClient<TResponse> {
     Map<String, String> queryParameters = const {},
     Map<String, String> additionaHeaders = const {},
     bool preventPayloadLogging = false,
+    bool apiPathIsFullUrl = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
   }) async
   {
@@ -117,6 +120,7 @@ class AuthApiHttpClient<TResponse> {
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
       preventPayloadLogging: preventPayloadLogging,
+      apiPathIsFullUrl: apiPathIsFullUrl,
       method: kHttpMethod.get,
     );
   }
@@ -126,6 +130,7 @@ class AuthApiHttpClient<TResponse> {
     required Map<String, dynamic> body,
     Map<String, String> additionaHeaders = const {},
     bool preventPayloadLogging = false,
+    bool apiPathIsFullUrl = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
   }) async
   {
@@ -135,6 +140,7 @@ class AuthApiHttpClient<TResponse> {
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
       preventPayloadLogging: preventPayloadLogging,
+      apiPathIsFullUrl: apiPathIsFullUrl,
       method: kHttpMethod.put,
     );
   }
@@ -143,6 +149,7 @@ class AuthApiHttpClient<TResponse> {
     required String apiPath,
     Map<String, String> additionaHeaders = const {},
     bool preventPayloadLogging = false,
+    bool apiPathIsFullUrl = false,
     kAuthRequirement authRequirement = kAuthRequirement.required,
   }) async
   {
@@ -152,6 +159,7 @@ class AuthApiHttpClient<TResponse> {
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
       preventPayloadLogging: preventPayloadLogging,
+      apiPathIsFullUrl: apiPathIsFullUrl,
       method: kHttpMethod.delete,
     );
   }
@@ -166,6 +174,7 @@ class AuthApiHttpClient<TResponse> {
     Map<String, String> queryParameters = const {},
     Map<String, String> additionaHeaders = const {},
     bool preventPayloadLogging = false,
+    required bool apiPathIsFullUrl,
     kAuthRequirement authRequirement = kAuthRequirement.required,
     required kHttpMethod method,
   }) async
@@ -177,14 +186,19 @@ class AuthApiHttpClient<TResponse> {
 
     try
     {
-      final baseUrl = await onGetBaseUrl();
+      String finalUrl = apiPath;
 
-      if (apiPath.startsWith('/'))
+      if (!apiPathIsFullUrl)
       {
-        apiPath = apiPath.substring(1);
-      }
+        final baseUrl = await onGetBaseUrl();
 
-      final finalUrl = path.join(baseUrl, apiPath);
+        if (apiPath.startsWith('/'))
+        {
+          apiPath = apiPath.substring(1);
+        }
+
+        finalUrl = path.join(baseUrl, apiPath);
+      }
 
       if (preventPayloadLogging)
       {
@@ -276,6 +290,7 @@ class AuthApiHttpClient<TResponse> {
             queryParameters: queryParameters,
             additionaHeaders: additionaHeaders,
             preventPayloadLogging: preventPayloadLogging,
+            apiPathIsFullUrl: apiPathIsFullUrl,
             authRequirement: authRequirement,
             method: method,
           );
