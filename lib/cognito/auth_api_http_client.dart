@@ -268,7 +268,6 @@ class AuthApiHttpClient<TResponse> {
     }
     catch (e)
     {
-      Dev.logException(this, e, 'Failed $method to $apiPath');
 
       if (e is ApiAuthException || e is SignedOutException)
       {
@@ -307,6 +306,7 @@ class AuthApiHttpClient<TResponse> {
         throw ApiResponseNoNetwork();
       }
 
+      Dev.logException(this, e, 'Failed $method to $apiPath');
       rethrow;
     }
 
