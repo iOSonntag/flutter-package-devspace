@@ -393,8 +393,8 @@ class DimensionsThemeData {
 
   double reasonableButtonWidth(BuildContext context)
   {
-    if (context.isPhone) return MediaQuery.of(context).size.width * 0.3;
-    if (context.isTablet) return MediaQuery.of(context).size.width * 0.2;
+    if (context.isPhone) return context.screenSize.width * 0.3;
+    if (context.isTablet) return context.screenSize.width * 0.2;
     if (context.isDesktop) return 400.0;
 
     throw Exception("Unknown device type");
@@ -402,8 +402,8 @@ class DimensionsThemeData {
 
   double dialogMaxWidth(BuildContext context)
   {
-    if (context.isPhone) return MediaQuery.of(context).size.width * 0.9;
-    if (context.isTablet) return MediaQuery.of(context).size.width * 0.5;
+    if (context.isPhone) return context.screenSize.width * 0.9;
+    if (context.isTablet) return context.screenSize.width * 0.5;
     if (context.isDesktop) return 800.0;
 
     throw Exception("Unknown device type");

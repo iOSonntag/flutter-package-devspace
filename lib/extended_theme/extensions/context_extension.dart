@@ -108,12 +108,13 @@ extension ContextExtension on BuildContext {
     return GoRouterState.of(this).pathParameters[key];
   }
 
-  bool get isDarkMode => MediaQuery.of(this).platformBrightness == Brightness.dark;
+  bool get isDarkMode => MediaQuery.platformBrightnessOf(this) == Brightness.dark;
 
-  Size get screenSize => MediaQuery.of(this).size;
+  // Note: using view sizes here as overlaying keyboard will not affect the view size
+  Size get screenSize => View.of(this).physicalSize / View.of(this).devicePixelRatio;
 
-  bool get isPortrait => MediaQuery.of(this).orientation == Orientation.portrait;
-  bool get isLandscape => MediaQuery.of(this).orientation == Orientation.landscape;
+  bool get isPortrait => MediaQuery.orientationOf(this) == Orientation.portrait;
+  bool get isLandscape => MediaQuery.orientationOf(this) == Orientation.landscape;
 
   bool get isWeb => kIsWeb;
   
@@ -122,15 +123,15 @@ extension ContextExtension on BuildContext {
   bool get isDesktopWeb => kIsWeb && (defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows || defaultTargetPlatform == TargetPlatform.linux);
 
   bool get isTablet => isTabletApp || isTabletWeb;
-  bool get isTabletApp => !kIsWeb && (Platform.isIOS || Platform.isAndroid) && MediaQuery.of(this).size.shortestSide >= _tabletSmallestWidthThreshold;
-  bool get isTabletWeb => kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android) && MediaQuery.of(this).size.shortestSide >= _tabletSmallestWidthThreshold;
+  bool get isTabletApp => !kIsWeb && (Platform.isIOS || Platform.isAndroid) && screenSize.shortestSide >= _tabletSmallestWidthThreshold;
+  bool get isTabletWeb => kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android) && screenSize.shortestSide >= _tabletSmallestWidthThreshold;
 
   bool get isPhone => isPhoneApp || isPhoneWeb;
-  bool get isPhoneApp => !kIsWeb && (Platform.isIOS || Platform.isAndroid) && MediaQuery.of(this).size.shortestSide < _tabletSmallestWidthThreshold;
-  bool get isPhoneWeb => kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android) && MediaQuery.of(this).size.shortestSide < _tabletSmallestWidthThreshold;
+  bool get isPhoneApp => !kIsWeb && (Platform.isIOS || Platform.isAndroid) && screenSize.shortestSide < _tabletSmallestWidthThreshold;
+  bool get isPhoneWeb => kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android) && screenSize.shortestSide < _tabletSmallestWidthThreshold;
 
 
-  bool get isPhoneSmall => isPhone &&  MediaQuery.of(this).size.shortestSide < 350.0;
+  bool get isPhoneSmall => isPhone &&  screenSize.shortestSide < 350.0;
 
 
   bool get isPortableDevice => isPortableDeviceApp || isPortableDeviceWeb;
