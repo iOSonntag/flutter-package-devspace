@@ -21,6 +21,7 @@ class BlueForms extends StatefulWidget {
   final String? cancelButtonTitle;
   final bool intrinsicHeight;
   final bool visuallyMarkRequiredFields;
+  final bool disableEnterToSubmit;
   final Widget? bottomContent;
   final Color? labelColor;
   final bool clipPagination;
@@ -39,6 +40,7 @@ class BlueForms extends StatefulWidget {
     this.intrinsicHeight = false,
     this.visuallyMarkRequiredFields = true,
     this.clipPagination = true,
+    this.disableEnterToSubmit = false,
     this.bottomContent,
     this.labelColor,
     required this.pages,
@@ -200,7 +202,15 @@ class _BlueFormsState extends State<BlueForms> {
         currentSavedValues: _savedInputs,
         externalErrors: widget.externalErrors,
         onValidationFailed: () => setState(() {}),
-        onWidgetRequestedSubmit: _onNext,
+        onWidgetRequestedSubmit: ()
+        {
+          if (widget.disableEnterToSubmit)
+          {
+            return;
+          }
+
+          _onNext();
+        },
         onSave: (id, value)
         {
           _savedInputs[id] = value;

@@ -96,6 +96,7 @@ class StepsBar extends StatelessWidget {
     {
       rowChildren.add(
         SmoothSwap<bool>(
+          key: ValueKey('${_nextButtonTitle()}:${_finalNextButtonTitle()}'),
           value: currentIndex == stepsCount - 1, 
           builder: (context, isFinalButton)
           {

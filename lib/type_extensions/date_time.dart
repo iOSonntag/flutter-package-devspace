@@ -27,5 +27,10 @@ extension ExtensionOnDateTime on DateTime {
     return thisDate.year == other.year && thisDate.month == other.month && thisDate.day == other.day;
   }
 
+  int get quarter
+  {
+    return ((month - 1) / 3).floor() + 1;
+  }
+
 
 }
