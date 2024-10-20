@@ -28,7 +28,8 @@ class FormInputImagesFileSettings {
 enum kCropingMode {
   disabled,
   allowed,
-  forced
+  forcedOnChange,
+  forcedOnInitialAsWell
 }
 
 class FormInputImagesEditingOptions {

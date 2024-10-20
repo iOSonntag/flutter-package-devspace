@@ -61,6 +61,42 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
     }
 
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp)
+    {
+      if (widget.definition.fileSettings.editingOptions.cropMode == kCropingMode.forcedOnInitialAsWell)
+      {
+        if (hasInitialImageAndIsTheCurrentImage())
+        {
+          setState(()
+          {
+            _inCroppingMode = true;
+            _imageToCrop = _imageProvider!.bytes;
+          });
+        }
+      }
+    });
+  }
+
+  bool hasInitialImageAndIsTheCurrentImage()
+  {
+    if (widget.currentSavedValue != null) return false;
+
+    final list = widget.definition.initialValue;
+
+    if (list != null)
+    {
+      if (list is List<Uint8List?> && list.isNotEmpty)
+      {
+        return true;
+      }
+      else if (list is List<Uint8List> && list.isNotEmpty)
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   Uint8List? _getImageFromSavedOrInitialValue()
@@ -95,6 +131,11 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
         onSaved: widget.onSave,
         validator: (image)
         {
+          if (_isLoading || _inCroppingMode || _inCropDirectlyAfterChoosing)
+          {
+            return LibStrings.lib_blueForms_general_errorCompleteActionFirst.tr();
+          }
+
           if (_internalError == 'MIN_WIDTH')
           {
             return LibStrings.lib_blueForms_formInputImagesSingle_errorMinWidth.tr(args: [widget.definition.fileSettings.minWidth.toString()]);
@@ -357,7 +398,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
 
       if (image == null) return;
 
-      if (_cropController != null && widget.definition.fileSettings.editingOptions.cropMode == kCropingMode.forced)
+      if (_cropController != null && (widget.definition.fileSettings.editingOptions.cropMode == kCropingMode.forcedOnChange || widget.definition.fileSettings.editingOptions.cropMode == kCropingMode.forcedOnInitialAsWell))
       {
         image = await _cropImageDirectlyAfterChoosing(image);
       }
@@ -469,11 +510,13 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       else
       {
         minWidth = widget.definition.fileSettings.maxWidth!;
+        minHeight = 1;
       }
     }
     else if (widget.definition.fileSettings.maxHeight != null)
     {
       minHeight = widget.definition.fileSettings.maxHeight!;
+      minWidth = 1;
     }
 
     return await FlutterImageCompress.compressWithList(image,
