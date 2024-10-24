@@ -39,6 +39,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 import 'package:url_launcher/url_launcher.dart' as p_url_launcher;
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'lib_strings.dart';
 

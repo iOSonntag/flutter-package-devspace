@@ -20,7 +20,7 @@ abstract class ImageProviderSmart {
   {
     if (url != null) 
     {
-      return NetworkImage(url);
+      return CachedNetworkImageProvider(url);
     } 
     
     if (classification == kImageClass.avatar)
