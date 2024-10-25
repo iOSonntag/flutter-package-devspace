@@ -45,7 +45,7 @@ class DefaultDialog extends StatelessWidget {
 
       if (action.type == kButtonType.fancy1)
       {
-        button = button.glassShimmerRepeated(delay: 500.asDuration);
+        button = RepaintBoundary(child: button.glassShimmerRepeated(delay: 500.asDuration));
       }
 
       button = ConstrainedBox(

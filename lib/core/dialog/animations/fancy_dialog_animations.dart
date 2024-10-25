@@ -20,8 +20,6 @@ class _FancyDialogAnimationAState extends material.State<FancyDialogAnimationA> 
 
   final offsetProp = MovieTweenProperty<Offset>();
 
-  final _contentKey = GlobalKey();
-
   @override
   Widget build(BuildContext context)
   {
@@ -43,17 +41,14 @@ class _FancyDialogAnimationAState extends material.State<FancyDialogAnimationA> 
 
         .thenFor(duration: 1500.asDuration, curve: Curves.easeInOut)
         .tween(offsetProp, Tween(begin: Offset(0, moveStep), end: Offset(0, -moveStep))),
-
-      builder: (context, moview, _)
+      child: RepaintBoundary(child: widget.builder(context)),
+      builder: (context, moview, child)
       {
         return Opacity(
           opacity: moview.getOrDefault(opacityProp, 1.0),
           child: Transform.translate(
             offset: moview.getOrDefault(offsetProp, Offset.zero),
-            child: Container(
-              key: _contentKey,
-              child: widget.builder(context),
-            )
+            child: child
           )
         );
       },
