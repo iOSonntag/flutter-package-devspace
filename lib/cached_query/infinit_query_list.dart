@@ -54,6 +54,10 @@ class _InfinitQueryListState<T> extends State<InfinitQueryList<T>> {
   {
     return InfiniteQueryBuilder<PageFetchResult<T>, String?>(
       query: widget.query,
+      buildWhen: (oldState, newState)
+      {
+        return oldState.status != newState.status || oldState.data != newState.data || oldState.error != newState.error;
+      },
       builder: (context, state, query)
       {
         if (widget.disablePullToRefresh)
