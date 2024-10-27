@@ -56,3 +56,23 @@ class _TweeLoopnBuilderState<T extends Object?> extends State<TweenAnimationLoop
     );
   }
 }
+
+
+
+
+
+class FakeWidgetHolder extends StatelessWidget {
+
+  final List<Widget> children;
+
+  const FakeWidgetHolder({
+    super.key, 
+    required this.children
+  });
+
+  @override
+  Widget build(BuildContext context)
+  {
+    throw Exception('This widget should not be rendered');
+  }
+}

@@ -93,12 +93,30 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
     }
   }
 
+  Widget? _getChild()
+  {
+    if (widget.child == null)
+    {
+      return null;
+    }
+
+    if (widget.child is FakeWidgetHolder)
+    {
+      return widget.child;
+    }
+
+    return KeyedSubtree(
+      key: _prerenderedChildKey,
+      child: widget.child!,
+    );
+  }
+
   @override
   Widget build(BuildContext context)
   {
     if (widget.playIndex == null)
     {
-      return widget.builder(context, NullableMovie.empty, widget.child != null ? KeyedSubtree(key: _prerenderedChildKey, child: widget.child!) : null);
+      return widget.builder(context, NullableMovie.empty, _getChild());
     }
 
     final movie = widget.movies[widget.playIndex!];
@@ -122,7 +140,7 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
         {
           return KeyedSubtree(
             key: _childKey,
-            child: widget.builder(context, NullableMovie(innerMovie: movie), widget.child != null ? KeyedSubtree(key: _prerenderedChildKey, child: widget.child!) : null),
+            child: widget.builder(context, NullableMovie(innerMovie: movie), _getChild()),
           );
         },
       );
@@ -139,7 +157,7 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
         {
           return KeyedSubtree(
             key: _childKey,
-            child: widget.builder(context, NullableMovie(innerMovie: movie), widget.child != null ? KeyedSubtree(key: _prerenderedChildKey, child: widget.child!) : null),
+            child: widget.builder(context, NullableMovie(innerMovie: movie), _getChild()),
           );
         },
       );
@@ -154,7 +172,7 @@ class _MovieOrchestraState extends State<MovieOrchestra> {
       {
         return KeyedSubtree(
           key: _childKey,
-          child: widget.builder(context, NullableMovie(innerMovie: movie), widget.child != null ? KeyedSubtree(key: _prerenderedChildKey, child: widget.child!) : null),
+          child: widget.builder(context, NullableMovie(innerMovie: movie), _getChild()),
         );
       },
     );
