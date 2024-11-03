@@ -128,6 +128,7 @@ class AuthApiHttpClient<TResponse> {
   Future<TResponse> put({
     required String apiPath,
     required Map<String, dynamic> body,
+    Map<String, String> queryParameters = const {},
     Map<String, String> additionaHeaders = const {},
     bool preventPayloadLogging = false,
     bool apiPathIsFullUrl = false,
@@ -137,6 +138,7 @@ class AuthApiHttpClient<TResponse> {
     return makeRequest(
       apiPath: apiPath,
       body: body,
+      queryParameters: queryParameters,
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
       preventPayloadLogging: preventPayloadLogging,
