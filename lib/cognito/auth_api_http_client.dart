@@ -67,6 +67,7 @@ typedef GetBaseUrl = Future<String> Function();
 typedef GetDefaultHeaders = Future<Map<String, String>> Function();
 typedef CreateResponseObject<T> = T Function(int statusCode, Map<String, dynamic>? jsonPayload, String rawBody);
 typedef AuthError = Future<kAuthErrorResolving> Function(kAuthError error, kAuthRequirement authRequirement);
+typedef RetryOnException = Future<bool> Function(dynamic e);
 
 class AuthApiHttpClient<TResponse> {
 
@@ -74,12 +75,16 @@ class AuthApiHttpClient<TResponse> {
   final GetAuthToken onGetAuthToken;
   final CreateResponseObject<TResponse> onCreateResponse;
   final GetDefaultHeaders? onGetDefaultHeaders;
+  final RetryOnException retryOnException;
   final AuthError onAuthError;
+  final int maxRetryAttempts;
 
   AuthApiHttpClient({
     required this.onGetBaseUrl,
     required this.onGetAuthToken,
     required this.onCreateResponse,
+    required this.retryOnException,
+    this.maxRetryAttempts = 5,
     required this.onAuthError,
     this.onGetDefaultHeaders,
   });
@@ -87,6 +92,7 @@ class AuthApiHttpClient<TResponse> {
   Future<TResponse> post({
     required String apiPath,
     required Map<String, dynamic> body,
+    Map<String, String> queryParameters = const {},
     Map<String, String> additionaHeaders = const {},
     bool preventPayloadLogging = false,
     bool apiPathIsFullUrl = false,
@@ -96,6 +102,7 @@ class AuthApiHttpClient<TResponse> {
     return makeRequest(
       apiPath: apiPath,
       body: body,
+      queryParameters: queryParameters,
       additionaHeaders: additionaHeaders,
       authRequirement: authRequirement,
       preventPayloadLogging: preventPayloadLogging,
@@ -179,6 +186,7 @@ class AuthApiHttpClient<TResponse> {
     required bool apiPathIsFullUrl,
     kAuthRequirement authRequirement = kAuthRequirement.required,
     required kHttpMethod method,
+    int attempt = 1,
   }) async
   {
     
@@ -270,7 +278,6 @@ class AuthApiHttpClient<TResponse> {
     }
     catch (e)
     {
-
       if (e is ApiAuthException || e is SignedOutException)
       {
         kAuthError authError = e is SignedOutException ? kAuthError.signedOut : (e as ApiAuthException).code == kApiAuthExceptionCode.tokenExpired ? kAuthError.expired : kAuthError.invalid;
@@ -297,6 +304,39 @@ class AuthApiHttpClient<TResponse> {
           );
         }
       }
+
+      if (attempt < maxRetryAttempts)
+      {
+        var finalizedE = e;
+
+        if (e is NetworkException || e is ClientException && e.message.startsWith('Failed host lookup'))
+        {
+          finalizedE = ApiResponseNoNetwork();
+        }
+
+
+        final retry = await retryOnException(finalizedE);
+
+        if (retry)
+        {
+          await (300 * (attempt + 1) * (attempt + 1)).delay();
+
+          return makeRequest(
+            apiPath: apiPath,
+            body: body,
+            queryParameters: queryParameters,
+            additionaHeaders: additionaHeaders,
+            preventPayloadLogging: preventPayloadLogging,
+            apiPathIsFullUrl: apiPathIsFullUrl,
+            authRequirement: authRequirement,
+            method: method,
+            attempt: attempt + 1,
+          );
+        }
+      }
+
+
+
 
       if (e is NetworkException)
       {
