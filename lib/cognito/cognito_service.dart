@@ -24,6 +24,7 @@ abstract class AuthService extends CustomService {
   Future<bool> isSignedIn();
   Future<String?> getJWTAccessToken();
   Future<String?> getAuthServiceUserId();
+  Future<String?> getCustomUserAttribute(String keyName);
 
 }
 
@@ -116,6 +117,22 @@ class CognitoAuthenticationService extends AuthService {
     }
 
     return signIn(email, password);
+  }
+
+  @override
+  Future<String?> getCustomUserAttribute(String key) async
+  {
+    final result = await Amplify.Auth.fetchUserAttributes();
+
+    for (final fiUserAttribute in result)
+    {
+      if (fiUserAttribute.userAttributeKey.key == 'custom:$key')
+      {
+        return fiUserAttribute.value;
+      }
+    }
+
+    return null;
   }
 
   @override
