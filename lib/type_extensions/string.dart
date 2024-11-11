@@ -60,6 +60,25 @@ extension NullableStringExtension on String? {
   String orPlaceholderNotAvailable() => isNullOrEmpty ? LibStrings.lib_general_valueNotAvailable.tr() : this!;
 
 
+  bool isValidHttpsUrl()
+  {
+    if (isNullOrEmpty) return false;
+
+    if (!this!.toLowerCase().startsWith('https://')) return false;
+
+    try
+    {
+      final uri = Uri.parse(this!);
+      
+      return uri.scheme == 'https' &&  uri.host.isNotEmpty && !this!.contains('\\');
+    }
+    catch (e)
+    {
+      return false;
+    }
+  }
+
+
 }
 
 extension ExtensionOnString on String {

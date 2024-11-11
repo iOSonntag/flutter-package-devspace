@@ -19,6 +19,7 @@ abstract class LibStrings {
   static const String lib_general_actionSave = 'lib_general_actionSave';
   static const String lib_general_actionRetry = 'lib_general_actionRetry';
   static const String lib_general_actionConfirm = 'lib_general_actionConfirm';
+  static const String lib_general_actionCreate = 'lib_general_actionCreate';
   static const String lib_general_actionDismiss = 'lib_general_actionDismiss';
   static const String lib_general_actionClose = 'lib_general_actionClose';
   static const String lib_general_actionOkay = 'lib_general_actionOkay';
@@ -120,6 +121,7 @@ abstract class LibStrings {
     'lib_general_actionSave',
     'lib_general_actionRetry',
     'lib_general_actionConfirm',
+    'lib_general_actionCreate',
     'lib_general_actionDismiss',
     'lib_general_actionClose',
     'lib_general_actionOkay',
