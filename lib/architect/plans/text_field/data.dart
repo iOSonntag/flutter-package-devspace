@@ -22,6 +22,10 @@ class TextFieldData extends PlanData {
   final bool autocorrect;
   final bool obscureText;
   final bool enableSuggestions;
+
+  /// The Textfield will assume it will be displayed on a surface, if it is
+  /// displayed on a background, set this to true to adjust the colors accordingly.
+  final bool onBackground;
   final TextInputType? textInputType;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String?>? onSave;
@@ -50,6 +54,7 @@ class TextFieldData extends PlanData {
     this.autocorrect = true,
     this.obscureText = false,
     this.enableSuggestions = true,
+    this.onBackground = false,
     this.textInputType,
     this.onChanged,
     this.onSave,

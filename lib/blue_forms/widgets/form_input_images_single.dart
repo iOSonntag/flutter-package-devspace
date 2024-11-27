@@ -10,6 +10,7 @@ class _FormInputImagesWidgetSingle extends StatefulWidget {
 
   final FormInputImages definition;
   final Color? labelColor;
+  final bool onBackground;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -20,6 +21,7 @@ class _FormInputImagesWidgetSingle extends StatefulWidget {
     super.key,
     required this.definition,
     this.labelColor,
+    required this.onBackground,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -126,6 +128,7 @@ class _FormInputImagesWidgetSingleState extends State<_FormInputImagesWidgetSing
       description: widget.definition.description,
       extraButtons: widget.definition.extraButtons,
       hasLabel: widget.definition.label != null,
+      onBackground: widget.onBackground,
       child: FormField<Uint8List?>(
         initialValue: _getImageFromSavedOrInitialValue(),
         onSaved: widget.onSave,

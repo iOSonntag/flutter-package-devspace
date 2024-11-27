@@ -11,6 +11,9 @@ class BlueForms extends StatefulWidget {
 
   final VoidCallback? onCancel;
   final OnCompleteForms onComplete;
+  /// BlueForms assume it will be displayed on a surface, if it is displayed on
+  /// a background, set this to true to adjust the colors accordingly.
+  final bool onBackground;
   final bool isLoading;
   final String? errorMessage;
   final FormError? error;
@@ -30,6 +33,7 @@ class BlueForms extends StatefulWidget {
     super.key,
     this.onCancel,
     required this.onComplete,
+    this.onBackground = false,
     this.isLoading = false,
     this.error,
     this.errorMessage,
@@ -197,6 +201,7 @@ class _BlueFormsState extends State<BlueForms> {
       return _FormPageWidget(
         controller: page._controller!,
         definition: page,
+        onBackground: widget.onBackground,
         labelColor: widget.labelColor,
         visuallyMarkRequiredFields: widget.visuallyMarkRequiredFields,
         currentSavedValues: _savedInputs,

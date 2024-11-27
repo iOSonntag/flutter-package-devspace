@@ -8,6 +8,7 @@ class _FormInputImagesWidget extends StatelessWidget {
 
   final FormInputImages definition;
   final Color? labelColor;
+  final bool onBackground;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -17,6 +18,7 @@ class _FormInputImagesWidget extends StatelessWidget {
     super.key,
     required this.definition,
     this.labelColor,
+    required this.onBackground,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -38,6 +40,7 @@ class _FormInputImagesWidget extends StatelessWidget {
       return _FormInputImagesWidgetSingle(
         definition: definition,
         labelColor: labelColor,
+        onBackground: onBackground,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedFile,
         onSave: (image) => onSave(image == null ? [] : [image]),
@@ -48,6 +51,7 @@ class _FormInputImagesWidget extends StatelessWidget {
     return _FormInputImagesWidgetMulti(
       definition: definition,
       labelColor: labelColor,
+      onBackground: onBackground,
       visuallyMarkRequired: visuallyMarkRequired,
       currentSavedValue: currentSavedValue,
       onSave: onSave,
@@ -64,6 +68,7 @@ class _FormInputImagesWidgetMulti extends StatefulWidget {
 
   final FormInputImages definition;
   final Color? labelColor;
+  final bool onBackground;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -74,6 +79,7 @@ class _FormInputImagesWidgetMulti extends StatefulWidget {
     super.key,
     required this.definition,
     required this.labelColor,
+    required this.onBackground,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -114,6 +120,7 @@ class _FormInputImagesWidgetMultiState extends State<_FormInputImagesWidgetMulti
       description: widget.definition.description,
       extraButtons: widget.definition.extraButtons,
       hasLabel: widget.definition.label != null,
+      onBackground: widget.onBackground,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,

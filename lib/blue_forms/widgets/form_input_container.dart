@@ -8,6 +8,7 @@ class _FormInputContainerWidget extends StatelessWidget {
 
   final String? description;
   final bool hasLabel;
+  final bool onBackground;
   final List<FormElementButton> extraButtons;
   final Widget child;
 
@@ -17,6 +18,7 @@ class _FormInputContainerWidget extends StatelessWidget {
     this.description,
     this.extraButtons = const [],
     required this.hasLabel,
+    required this.onBackground,
     required this.child,
   });
 
@@ -87,7 +89,7 @@ class _FormInputContainerWidget extends StatelessWidget {
           padding: context.paddingM_0.setTop(context.dimensions.spaceLValue),
           child: TextBody.medium(description!,
             italic: true,
-            color: context.colors.onBackgroundLessFocus,
+            color: onBackground ? context.colors.onBackgroundLessFocus : context.colors.onSurfaceLessFocus,
           ),
         ),
 

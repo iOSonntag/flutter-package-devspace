@@ -9,6 +9,7 @@ class _FormAsyncDependency extends material.StatefulWidget {
 
   final FormAsyncDependency definition;
   final Color? labelColor;
+  final bool onBackground;
   final bool isFirstElement;
   final bool isLastElement;
   final bool visuallyMarkRequired;
@@ -22,6 +23,7 @@ class _FormAsyncDependency extends material.StatefulWidget {
     super.key,
     required this.definition,
     this.labelColor,
+    required this.onBackground,
     required this.isFirstElement,
     required this.isLastElement,
     required this.visuallyMarkRequired,
@@ -76,6 +78,7 @@ class _FormAsyncDependencyState extends material.State<_FormAsyncDependency> {
           key: key,
           definition: formElement,
           labelColor: widget.labelColor,
+          onBackground: widget.onBackground,
           isFirstElement: widget.isFirstElement,
           isLastElement: widget.isLastElement,
           visuallyMarkRequired: widget.visuallyMarkRequired,

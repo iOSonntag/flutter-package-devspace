@@ -7,6 +7,7 @@ class _FormElementWidget extends StatelessWidget {
 
   final FormElement definition;
   final Color? labelColor;
+  final bool onBackground;
   final bool isFirstElement;
   final bool isLastElement;
   final bool visuallyMarkRequired;
@@ -20,6 +21,7 @@ class _FormElementWidget extends StatelessWidget {
     super.key,
     required this.definition,
     this.labelColor,
+    required this.onBackground,
     required this.isFirstElement,
     required this.isLastElement,
     required this.visuallyMarkRequired,
@@ -48,6 +50,7 @@ class _FormElementWidget extends StatelessWidget {
         key: Key(definition.id),
         definition: definition as FormInputText,
         labelColor: labelColor,
+        onBackground: onBackground,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedValues[definition.id],
         externalError: externalErrors[definition.id],
@@ -62,6 +65,7 @@ class _FormElementWidget extends StatelessWidget {
         key: Key(definition.id),
         definition: definition as FormInputDateTime,
         labelColor: labelColor,
+        onBackground: onBackground,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedValues[definition.id],
         externalError: externalErrors[definition.id],
@@ -76,6 +80,7 @@ class _FormElementWidget extends StatelessWidget {
         key: Key(definition.id),
         definition: definition as FormInputImages,
         labelColor: labelColor,
+        onBackground: onBackground,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedValues[definition.id],
         externalError: externalErrors[definition.id],
@@ -89,6 +94,7 @@ class _FormElementWidget extends StatelessWidget {
         key: Key(definition.id),
         definition: definition as FormInputPickOption,
         labelColor: labelColor,
+        onBackground: onBackground,
         visuallyMarkRequired: visuallyMarkRequired,
         currentSavedValue: currentSavedValues[definition.id],
         externalError: externalErrors[definition.id],
@@ -101,6 +107,7 @@ class _FormElementWidget extends StatelessWidget {
       return _FormAsyncDependency(
         definition: definition as FormAsyncDependency,
         labelColor: labelColor,
+        onBackground: onBackground,
         isFirstElement: isFirstElement,
         isLastElement: isLastElement,
         visuallyMarkRequired: visuallyMarkRequired,
@@ -116,6 +123,7 @@ class _FormElementWidget extends StatelessWidget {
       return _FormGroup(
         definition: definition as FormGroup,
         labelColor: labelColor,
+        onBackground: onBackground,
         isFirstElement: isFirstElement,
         isLastElement: isLastElement,
         visuallyMarkRequired: visuallyMarkRequired,

@@ -24,6 +24,7 @@ class _FormPageWidget extends StatefulWidget {
   final FormPage definition;
   final Color? labelColor;
   final FormPageController controller;
+  final bool onBackground;
   final bool visuallyMarkRequiredFields;
   final Map<String, dynamic> currentSavedValues;
   final Map<String, String> externalErrors;
@@ -37,6 +38,7 @@ class _FormPageWidget extends StatefulWidget {
     required this.definition,
     this.labelColor,
     required this.controller,
+    required this.onBackground,
     required this.visuallyMarkRequiredFields,
     required this.currentSavedValues,
     required this.externalErrors,
@@ -110,7 +112,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
       if (widget.definition.title != null) Padding(
         padding: context.padding0_XL,
         child: TextTitle.medium(widget.definition.title,
-          color: context.colors.onBackground,
+          color: widget.onBackground ? context.colors.onBackground : context.colors.onSurface,
           textAlign: TextAlign.center,
         ),
       ),
@@ -119,7 +121,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
         padding: context.dimensions.paddingXLOnly(bottom: true),
         child: TextBody.medium(widget.definition.description,
           textAlign: TextAlign.center,
-          color: context.colors.onBackgroundLessFocus,
+          color: widget.onBackground ? context.colors.onBackgroundLessFocus : context.colors.onSurfaceLessFocus,
           lineHeight: 1.4,
         ),
       ),
@@ -140,6 +142,7 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
         _FormElementWidget(
           definition: activeElements[i], 
           labelColor: widget.labelColor,
+          onBackground: widget.onBackground,
           isFirstElement: i == 0, 
           isLastElement: i == activeElements.length - 1, 
           visuallyMarkRequired: widget.visuallyMarkRequiredFields,
@@ -172,12 +175,12 @@ class _FormPageWidgetState extends State<_FormPageWidget> {
         Row(
           children: [
             Icon(Icons.info_outline_rounded,
-              color: context.colors.onBackgroundLeastFocus,
+              color: widget.onBackground ? context.colors.onBackgroundLeastFocus : context.colors.onSurfaceLeastFocus,
               size: context.dimensions.iconSizeXS,
             ),
             context.spaceS,
             TextBody.small(LibStrings.lib_blueForms_requiredFieldsNotice.tr(args: ['*']),
-              color: context.colors.onBackgroundLeastFocus,
+              color: widget.onBackground ? context.colors.onBackgroundLeastFocus : context.colors.onSurfaceLeastFocus,
             ),
           ],
         ),

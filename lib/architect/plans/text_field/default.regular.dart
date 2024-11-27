@@ -121,7 +121,7 @@ class DefaultTextFieldRegular extends ArchBaseStatelessWidget<TextFieldData> {
         children: [
           TextLabel.small(
             data.label!,
-            color: hasError ? context.colors.error : data.labelColor ?? context.colors.onBackgroundLessFocus,
+            color: hasError ? context.colors.error : data.labelColor ?? (data.onBackground ? context.colors.onBackgroundLessFocus : context.colors.onSurfaceLessFocus),
           ),
 
           if (data.visuallyMarkAsRequired) TextLabel.small(

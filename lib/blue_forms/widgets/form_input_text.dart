@@ -8,6 +8,7 @@ class _FormInputTextWidget extends StatelessWidget {
 
   final FormInputText definition;
   final Color? labelColor;
+  final bool onBackground;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -18,6 +19,7 @@ class _FormInputTextWidget extends StatelessWidget {
     super.key,
     required this.definition,
     this.labelColor,
+    required this.onBackground,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -56,10 +58,12 @@ class _FormInputTextWidget extends StatelessWidget {
       description: definition.description,
       extraButtons: definition.extraButtons,
       hasLabel: definition.label != null,
+      onBackground: onBackground,
       child: ArchTextField(
         data: TextFieldData(
           isFormField: true,
           labelColor: labelColor,
+          onBackground: onBackground,
           visuallyMarkAsRequired: visuallyMarkRequired && definition.isOptional == false,
           isTextArea: definition.isTextArea,
           label: definition.label,

@@ -8,6 +8,7 @@ class _FormInputDateTimeWidget extends material.StatefulWidget {
 
   final FormInputDateTime definition;
   final Color? labelColor;
+  final bool onBackground;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -18,6 +19,7 @@ class _FormInputDateTimeWidget extends material.StatefulWidget {
     super.key,
     required this.definition,
     this.labelColor,
+    required this.onBackground,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -104,10 +106,12 @@ class _FormInputDateTimeWidgetState extends material.State<_FormInputDateTimeWid
       description: widget.definition.description,
       extraButtons: widget.definition.extraButtons,
       hasLabel: widget.definition.label != null,
+      onBackground: widget.onBackground,
       child: TapDetector(
         onTap: _pickDateTime,
         child: _FakeTextField<DateTime>(
           labelColor: widget.labelColor,
+          onBackground: widget.onBackground,
           visuallyMarkAsRequired: widget.visuallyMarkRequired && widget.definition.isOptional == false,
           label: widget.definition.label,
           hint: widget.definition.hint,
@@ -145,6 +149,7 @@ class _FakeTextField<T> extends material.StatefulWidget {
   final String? externalError;
   final String? label;
   final Color? labelColor;
+  final bool onBackground;
   final bool visuallyMarkAsRequired;
   final String? hint;
   final String Function(T? value) toDisplayString;
@@ -156,6 +161,7 @@ class _FakeTextField<T> extends material.StatefulWidget {
     this.externalError,
     this.label,
     this.labelColor,
+    required this.onBackground,
     this.hint,
     this.visuallyMarkAsRequired = false,
     required this.toDisplayString,
@@ -272,7 +278,7 @@ class _FakeTextFieldState<T> extends material.State<_FakeTextField<T>> {
         children: [
           TextLabel.small(
             widget.label!,
-            color: hasError ? context.colors.error : widget.labelColor ?? context.colors.onBackgroundLessFocus,
+            color: hasError ? context.colors.error : widget.labelColor ?? (widget.onBackground ? context.colors.onBackgroundLessFocus : context.colors.onSurfaceLessFocus),
           ),
 
           if (widget.visuallyMarkAsRequired) TextLabel.small(

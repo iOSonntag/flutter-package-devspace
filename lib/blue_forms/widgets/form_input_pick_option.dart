@@ -9,6 +9,7 @@ class _FormInputPickOptionWidget extends StatefulWidget {
 
   final FormInputPickOption definition;
   final Color? labelColor;
+  final bool onBackground;
   final bool visuallyMarkRequired;
   final dynamic currentSavedValue;
   final String? externalError;
@@ -18,6 +19,7 @@ class _FormInputPickOptionWidget extends StatefulWidget {
     super.key,
     required this.definition,
     this.labelColor,
+    required this.onBackground,
     required this.visuallyMarkRequired,
     required this.currentSavedValue,
     required this.onSave,
@@ -102,6 +104,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
       description: widget.definition.description,
       extraButtons: widget.definition.extraButtons,
       hasLabel: widget.definition.label != null,
+      onBackground: widget.onBackground,
       child: Column(
         children: [
 
@@ -127,7 +130,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
                   Padding(
                     padding: context.paddingM_0,
                     child: TextBody.small(LibStrings.lib_blueForms_inputPickOption_pleaseChoose.tr(),
-                      color: context.colors.onBackgroundLessFocus,
+                      color: widget.onBackground ? context.colors.onBackgroundLessFocus : context.colors.onSurfaceLessFocus,
                     ),
                   ),
                 );
@@ -228,7 +231,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
         if (!selected) context.spaceXXS,
         
         TextBody.small(item.subtitle!,
-          color: context.colors.onSurfaceLessFocus,
+          color: !selected ? context.colors.onSurfaceLessFocus : (widget.onBackground ? context.colors.onBackgroundLessFocus : context.colors.onSurfaceLessFocus),
           italic: true,
         ),
       ],
@@ -239,8 +242,8 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
   {
     if (selected)
     {
-      return TextBody.small(title,
-        color: context.colors.onSurface,
+      return TextLabel.small(title,
+        color: widget.onBackground ? context.colors.onBackground : context.colors.onSurface,
       );
     }
 
@@ -258,7 +261,7 @@ class _FormInputPickOptionWidgetState extends State<_FormInputPickOptionWidget> 
         children: [
           TextLabel.small(
             widget.definition.label,
-            color: hasError ? context.colors.error : widget.labelColor ?? context.colors.onBackgroundLessFocus,
+            color: hasError ? context.colors.error : widget.labelColor ?? (widget.onBackground ? context.colors.onBackgroundLessFocus : context.colors.onSurfaceLessFocus),
           ),
 
           if (widget.visuallyMarkRequired && widget.definition.isRequired) TextLabel.small(

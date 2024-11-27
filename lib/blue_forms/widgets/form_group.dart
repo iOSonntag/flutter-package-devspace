@@ -9,6 +9,7 @@ class _FormGroup extends StatelessWidget {
 
   final FormGroup definition;
   final Color? labelColor;
+  final bool onBackground;
   final bool isFirstElement;
   final bool isLastElement;
   final bool visuallyMarkRequired;
@@ -22,6 +23,7 @@ class _FormGroup extends StatelessWidget {
     super.key,
     required this.definition,
     this.labelColor,
+    required this.onBackground,
     required this.isFirstElement,
     required this.isLastElement,
     required this.visuallyMarkRequired,
@@ -58,6 +60,7 @@ class _FormGroup extends StatelessWidget {
             child: fiInputDefinition.isActive == false ? EmptyWidget() : _FormElementWidget(
               definition: fiInputDefinition, 
               labelColor: labelColor,
+              onBackground: onBackground,
               isFirstElement: isFirst, 
               isLastElement: isLast, 
               visuallyMarkRequired: visuallyMarkRequired,
@@ -120,6 +123,7 @@ class _FormGroup extends StatelessWidget {
         _FormElementWidget(
           definition: fiInputDefinition, 
           labelColor: labelColor,
+          onBackground: onBackground,
           isFirstElement: isFirst, 
           isLastElement: isLast, 
           visuallyMarkRequired: visuallyMarkRequired,
