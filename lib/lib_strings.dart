@@ -9,6 +9,7 @@ abstract class LibStrings {
 
   LibStrings._();
 
+  static const String lib_general_flagNew = 'lib_general_flagNew';
   static const String lib_general_valueNotSet = 'lib_general_valueNotSet';
   static const String lib_general_valueNotYetSet = 'lib_general_valueNotYetSet';
   static const String lib_general_valueNotAvailable = 'lib_general_valueNotAvailable';
@@ -111,6 +112,7 @@ abstract class LibStrings {
   static const String lib_exception_UnexpectedError = 'lib_exception_UnexpectedError';
 
   static const List<String> allKeys = [
+    'lib_general_flagNew',
     'lib_general_valueNotSet',
     'lib_general_valueNotYetSet',
     'lib_general_valueNotAvailable',

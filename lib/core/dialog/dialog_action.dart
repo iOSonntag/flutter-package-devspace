@@ -11,6 +11,7 @@ class DialogAction {
   final kButtonType type;
   /// If set, overrides the icon for this action type
   final IconData? iconOverride;
+  final DateTime? markAsNewUntil;
 
   DialogAction({
     this.enabled = true,
@@ -18,6 +19,7 @@ class DialogAction {
     this.onPressed,
     this.type = kButtonType.regular,
     this.iconOverride,
+    this.markAsNewUntil,
   });
 
   bool get isCustom => this is CustomDialogAction;
@@ -27,6 +29,7 @@ class DialogAction {
     VoidCallback? onPressed,
     kButtonType? type,
     IconData? iconOverride,
+    DateTime? markAsNewUntil,
   })
   {
     return DialogAction(
@@ -34,6 +37,7 @@ class DialogAction {
       onPressed: onPressed ?? this.onPressed,
       type: type ?? this.type,
       iconOverride: iconOverride ?? this.iconOverride,
+      markAsNewUntil: markAsNewUntil ?? this.markAsNewUntil,
     );
   }
 
@@ -78,6 +82,7 @@ class CustomDialogAction extends DialogAction {
     VoidCallback? onPressed,
     kButtonType? type,
     IconData? iconOverride,
+    DateTime? markAsNewUntil,
   })
   {
     return CustomDialogAction(

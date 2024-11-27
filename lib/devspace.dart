@@ -175,6 +175,7 @@ part 'brixies/intrinsic_height_page_view.dart';
 part 'brixies/layout_builder.dart';
 part 'brixies/line_divider.dart';
 part 'brixies/multi_transform.dart';
+part 'brixies/new_badge.dart';
 part 'brixies/search_delay.dart';
 part 'brixies/smooth_swap.dart';
 part 'brixies/spaced_flex.dart';

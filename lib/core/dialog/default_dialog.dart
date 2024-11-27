@@ -48,6 +48,13 @@ class DefaultDialog extends StatelessWidget {
         button = RepaintBoundary(child: button.glassShimmerRepeated(delay: 500.asDuration));
       }
 
+      if (action.markAsNewUntil != null && action.markAsNewUntil!.isAfter(DateTime.now()))
+      {
+        button = NewBadge(
+          child: button,
+        );
+      }
+
       button = ConstrainedBox(
         constraints: BoxConstraints(
           minWidth: context.dimensions.reasonableButtonWidth(context)
