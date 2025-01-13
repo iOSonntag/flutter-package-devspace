@@ -12,6 +12,7 @@ class DialogAction {
   /// If set, overrides the icon for this action type
   final IconData? iconOverride;
   final DateTime? markAsNewUntil;
+  final String? badge;
 
   DialogAction({
     this.enabled = true,
@@ -20,6 +21,7 @@ class DialogAction {
     this.type = kButtonType.regular,
     this.iconOverride,
     this.markAsNewUntil,
+    this.badge,
   });
 
   bool get isCustom => this is CustomDialogAction;
@@ -30,6 +32,7 @@ class DialogAction {
     kButtonType? type,
     IconData? iconOverride,
     DateTime? markAsNewUntil,
+    String? badge,
   })
   {
     return DialogAction(
@@ -38,6 +41,7 @@ class DialogAction {
       type: type ?? this.type,
       iconOverride: iconOverride ?? this.iconOverride,
       markAsNewUntil: markAsNewUntil ?? this.markAsNewUntil,
+      badge: badge ?? this.badge,
     );
   }
 
@@ -83,6 +87,7 @@ class CustomDialogAction extends DialogAction {
     kButtonType? type,
     IconData? iconOverride,
     DateTime? markAsNewUntil,
+    String? badge,
   })
   {
     return CustomDialogAction(

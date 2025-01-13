@@ -40,6 +40,7 @@ import 'package:simple_animations/simple_animations.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 import 'package:url_launcher/url_launcher.dart' as p_url_launcher;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:badges/badges.dart' as badges;
 
 import 'lib_strings.dart';
 
@@ -165,6 +166,7 @@ part 'blue_forms/widgets/form_page.dart';
 part 'blue_forms/widgets/form_page_info.dart';
 // brixies
 
+part 'brixies/circle_badge.dart';
 part 'brixies/circle_button_close.dart';
 part 'brixies/controller_holder.dart';
 part 'brixies/edge_shadow.dart';

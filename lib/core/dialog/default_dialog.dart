@@ -55,6 +55,20 @@ class DefaultDialog extends StatelessWidget {
         );
       }
 
+      if (action.badge != null)
+      {
+        double offset = context.dimensions.spaceSValue + context.dimensions.spaceXXSValue;
+
+        button = CircleBadge(
+          show: true,
+          content: action.badge!,
+          position: badges.BadgePosition.topEnd(top: -context.dimensions.spaceSValue - 0.5 - offset, end: -offset),
+          child: button,
+        );
+      }
+
+
+
       button = ConstrainedBox(
         constraints: BoxConstraints(
           minWidth: context.dimensions.reasonableButtonWidth(context)
