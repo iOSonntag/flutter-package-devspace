@@ -172,4 +172,14 @@ extension ExtensionOnString on String {
 
     return false;
   }
+
+  String toFirstLetterUpperCase()
+  {
+    if (isNullOrEmpty)
+    {
+      return this;
+    }
+
+    return substring(0, 1).toUpperCase() + substring(1);
+  }
 }
