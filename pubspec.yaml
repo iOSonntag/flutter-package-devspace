@@ -13,8 +13,8 @@ dependencies:
   cached_query_flutter: ^2.4.4
   # cached_query_flutter:
   #   path: ../cached_query/packages/cached_query_flutter
-  amplify_auth_cognito: ^2.3.0
-  amplify_flutter: ^2.3.0
+  amplify_auth_cognito: ^2.6.0
+  amplify_flutter: ^2.6.0
   easy_localization: ^3.0.3
   flutter:
     sdk: flutter
@@ -36,8 +36,8 @@ dependencies:
   image: ^4.2.0
   flutter_image_compress: ^2.3.0
   app_settings: ^5.1.1
-  package_info_plus: ^6.0.0
-  flutter_secure_storage: ^4.2.1
+  package_info_plus: ^8.3.0
+  flutter_secure_storage: ^9.2.4
   path: ^1.9.0
   crop_your_image: ^1.1.0
   cached_network_image: ^3.4.0
