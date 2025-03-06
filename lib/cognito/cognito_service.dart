@@ -46,10 +46,6 @@ class CognitoAuthenticationService extends AuthService {
     if (!kIsWeb)
     {
       _secureStorage = const FlutterSecureStorage();
-
-      String? email = await _secureStorage.read(key: 'COGNITO_EMAIL');
-
-      Dev.logOnlyLocalEnv(this, 'Stored email: $email');
     }
 
 
@@ -113,8 +109,8 @@ class CognitoAuthenticationService extends AuthService {
       return CognitoSignInResult(exception: Exception('Not supported on web'));
     }
 
-    String? email = await _secureStorage.read(key: 'COGNITO_EMAIL');
-    String? password = await _secureStorage.read(key: 'COGNITO_PASSWORD');
+    String? email = await safeRead('COGNITO_EMAIL');
+    String? password = await safeRead('COGNITO_PASSWORD');
 
     if (email == null || password == null)
     {
@@ -122,6 +118,20 @@ class CognitoAuthenticationService extends AuthService {
     }
 
     return signIn(email, password);
+  }
+
+  Future<String?> safeRead(String key) async
+  {
+    try
+    {
+      return await _secureStorage.read(key: key);
+    }
+    catch (e)
+    {
+      Dev.logException(this, e, 'Error reading stored value');
+
+      return null;
+    }
   }
 
   @override
