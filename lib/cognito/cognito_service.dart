@@ -46,11 +46,12 @@ class CognitoAuthenticationService extends AuthService {
     if (!kIsWeb)
     {
       _secureStorage = const FlutterSecureStorage();
+
+      String? email = await _secureStorage.read(key: 'COGNITO_EMAIL');
+
+      Dev.logOnlyLocalEnv(this, 'Stored email: $email');
     }
 
-    String? email = await _secureStorage.read(key: 'COGNITO_EMAIL');
-
-    Dev.logOnlyLocalEnv(this, 'Stored email: $email');
 
   }
 
