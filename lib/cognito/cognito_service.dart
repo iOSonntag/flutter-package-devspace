@@ -28,6 +28,8 @@ abstract class AuthService extends CustomService {
 
 }
 
+// TODO: flutter secure storage is poorly setup read: https://pub.dev/packages/flutter_secure_storage#configure-android-version
+
 
 class CognitoAuthenticationService extends AuthService {
 
