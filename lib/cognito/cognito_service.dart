@@ -10,7 +10,7 @@ enum kSignInResult
   unknownError,
 }
 
-abstract class AuthService extends CustomService {
+abstract class AuthService implements MyServiceInitializer {
 
   Future<void> updateStoredPassword(String password);
   Future<void> updateStoredEmail(String email);

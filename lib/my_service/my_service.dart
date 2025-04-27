@@ -28,31 +28,48 @@ class MyService {
 
   MyService._();
 
-  static void register<T extends CustomService>(T Function() createInstance, {List<Type>? dependsOn})
+  static void register<T extends Object>(T Function() createInstance, {List<Type>? dependsOn})
   {
     GetIt.instance.registerSingletonAsync<T>(() async
     {
       T instance = createInstance();
 
-      await instance.initialize();
+      if (T is MyServiceInitializer)
+      {
+        await (instance as MyServiceInitializer).initialize();
+      }
 
       return instance;
     },
       dispose: (instance) async
       {
+        if (instance is MyServiceInitializer)
+        {
           await instance.dispose();
+        }
       },
       dependsOn: dependsOn,
     );
   }
 
-  static Future<void> registerAndWaitUntilReady<T extends CustomService>(T Function() createInstance) async
+  static Future<void> registerAndWaitUntilReady<T extends Object>(T Function() createInstance) async
   {
     T instance = createInstance();
 
-    await instance.initialize();
+    if (T is MyServiceInitializer)
+    {
+      await (instance as MyServiceInitializer).initialize();
+    }
 
-    GetIt.instance.registerSingleton<T>(instance);
+    GetIt.instance.registerSingleton<T>(instance,
+      dispose: (instance) async
+      {
+        if (instance is MyServiceInitializer)
+        {
+          await instance.dispose();
+        }
+      },
+    );
   }
 
 
@@ -127,7 +144,7 @@ class MyService {
 }
 
 
-abstract class CustomService {
+abstract class MyServiceInitializer {
 
   Future<void> initialize();
   Future<void> dispose();
